@@ -16,7 +16,7 @@ namespace IngegneriaDelSoftware
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Graphics.FattureForm());
+            Application.Run(new Graphics.FattureForm(true));
         }
     }
 }
