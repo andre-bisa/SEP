@@ -1,5 +1,5 @@
 ﻿namespace IngegneriaDelSoftware.Graphics {
-    partial class FattureForm {
+    partial class GenericForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -25,7 +25,11 @@
         private void InitializeComponent() {
             this.panel1 = new System.Windows.Forms.Panel();
             this.GrigliaSfondoPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.FatturaSingolaPanel = new System.Windows.Forms.Panel();
+            this.SingolaPanel = new System.Windows.Forms.Panel();
+            this.AccettaBtn = new MaterialSkin.Controls.MaterialFlatButton();
+            this.RifiutaBtn = new MaterialSkin.Controls.MaterialFlatButton();
+            this.DataField = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.DataLbl = new MaterialSkin.Controls.MaterialLabel();
             this.IndirizzoField = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.IndirizzoLbl = new MaterialSkin.Controls.MaterialLabel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -48,32 +52,28 @@
             this.CognomeLbl = new MaterialSkin.Controls.MaterialLabel();
             this.NomeField = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.NomeLbl = new MaterialSkin.Controls.MaterialLabel();
-            this.CreaFatturaBtn = new MaterialSkin.Controls.MaterialRaisedButton();
-            this.FattureValoriPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            this.CreaBtn = new MaterialSkin.Controls.MaterialRaisedButton();
             this.panel2 = new System.Windows.Forms.Panel();
             this.AggiungiVoceBtn = new MaterialSkin.Controls.MaterialFlatButton();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.EliminaVociBtn = new MaterialSkin.Controls.MaterialFlatButton();
+            this.AggiungiVociBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.NuovaBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialDivider1 = new MaterialSkin.Controls.MaterialDivider();
-            this.FattureInserite = new MaterialSkin.Controls.MaterialListView();
+            this.Inserite = new MaterialSkin.Controls.MaterialListView();
             this.columnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.materialLabel11 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
-            this.DataLbl = new MaterialSkin.Controls.MaterialLabel();
-            this.DataField = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.AggiungiVociBtn = new MaterialSkin.Controls.MaterialFlatButton();
-            this.NuovaFatturaBtn = new MaterialSkin.Controls.MaterialFlatButton();
-            this.EliminaVociBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.panel1.SuspendLayout();
             this.GrigliaSfondoPanel.SuspendLayout();
-            this.FatturaSingolaPanel.SuspendLayout();
+            this.SingolaPanel.SuspendLayout();
             this.panel4.SuspendLayout();
-            this.FattureValoriPanel.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -86,7 +86,7 @@
             this.panel1.Controls.Add(this.panel3);
             this.panel1.Location = new System.Drawing.Point(3, 67);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1385, 670);
+            this.panel1.Size = new System.Drawing.Size(1388, 670);
             this.panel1.TabIndex = 0;
             // 
             // GrigliaSfondoPanel
@@ -98,8 +98,7 @@
             this.GrigliaSfondoPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 350F));
             this.GrigliaSfondoPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.GrigliaSfondoPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.GrigliaSfondoPanel.Controls.Add(this.FatturaSingolaPanel, 1, 1);
-            this.GrigliaSfondoPanel.Controls.Add(this.FattureValoriPanel, 2, 1);
+            this.GrigliaSfondoPanel.Controls.Add(this.SingolaPanel, 1, 1);
             this.GrigliaSfondoPanel.Controls.Add(this.panel2, 2, 0);
             this.GrigliaSfondoPanel.Controls.Add(this.panel5, 1, 0);
             this.GrigliaSfondoPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -108,41 +107,107 @@
             this.GrigliaSfondoPanel.RowCount = 2;
             this.GrigliaSfondoPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.92537F));
             this.GrigliaSfondoPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 85.07462F));
-            this.GrigliaSfondoPanel.Size = new System.Drawing.Size(1185, 670);
+            this.GrigliaSfondoPanel.Size = new System.Drawing.Size(1188, 670);
             this.GrigliaSfondoPanel.TabIndex = 0;
             // 
-            // FatturaSingolaPanel
+            // SingolaPanel
             // 
-            this.FatturaSingolaPanel.BackColor = System.Drawing.Color.White;
-            this.FatturaSingolaPanel.Controls.Add(this.DataField);
-            this.FatturaSingolaPanel.Controls.Add(this.DataLbl);
-            this.FatturaSingolaPanel.Controls.Add(this.IndirizzoField);
-            this.FatturaSingolaPanel.Controls.Add(this.IndirizzoLbl);
-            this.FatturaSingolaPanel.Controls.Add(this.panel4);
-            this.FatturaSingolaPanel.Controls.Add(this.materialDivider2);
-            this.FatturaSingolaPanel.Controls.Add(this.IVACheckBox);
-            this.FatturaSingolaPanel.Controls.Add(this.materialLabel10);
-            this.FatturaSingolaPanel.Controls.Add(this.NumeroField);
-            this.FatturaSingolaPanel.Controls.Add(this.materialLabel9);
-            this.FatturaSingolaPanel.Controls.Add(this.AnnoField);
-            this.FatturaSingolaPanel.Controls.Add(this.materialLabel8);
-            this.FatturaSingolaPanel.Controls.Add(this.TelefonoField);
-            this.FatturaSingolaPanel.Controls.Add(this.TelefonoLbl);
-            this.FatturaSingolaPanel.Controls.Add(this.PIVAField);
-            this.FatturaSingolaPanel.Controls.Add(this.PIVALbl);
-            this.FatturaSingolaPanel.Controls.Add(this.CFField);
-            this.FatturaSingolaPanel.Controls.Add(this.CFLbl);
-            this.FatturaSingolaPanel.Controls.Add(this.CognomeField);
-            this.FatturaSingolaPanel.Controls.Add(this.CognomeLbl);
-            this.FatturaSingolaPanel.Controls.Add(this.NomeField);
-            this.FatturaSingolaPanel.Controls.Add(this.NomeLbl);
-            this.FatturaSingolaPanel.Controls.Add(this.CreaFatturaBtn);
-            this.FatturaSingolaPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FatturaSingolaPanel.Location = new System.Drawing.Point(23, 102);
-            this.FatturaSingolaPanel.Name = "FatturaSingolaPanel";
-            this.FatturaSingolaPanel.Size = new System.Drawing.Size(344, 565);
-            this.FatturaSingolaPanel.TabIndex = 1;
-            this.FatturaSingolaPanel.Visible = false;
+            this.SingolaPanel.BackColor = System.Drawing.Color.White;
+            this.SingolaPanel.Controls.Add(this.AccettaBtn);
+            this.SingolaPanel.Controls.Add(this.RifiutaBtn);
+            this.SingolaPanel.Controls.Add(this.DataField);
+            this.SingolaPanel.Controls.Add(this.DataLbl);
+            this.SingolaPanel.Controls.Add(this.IndirizzoField);
+            this.SingolaPanel.Controls.Add(this.IndirizzoLbl);
+            this.SingolaPanel.Controls.Add(this.panel4);
+            this.SingolaPanel.Controls.Add(this.materialDivider2);
+            this.SingolaPanel.Controls.Add(this.IVACheckBox);
+            this.SingolaPanel.Controls.Add(this.materialLabel10);
+            this.SingolaPanel.Controls.Add(this.NumeroField);
+            this.SingolaPanel.Controls.Add(this.materialLabel9);
+            this.SingolaPanel.Controls.Add(this.AnnoField);
+            this.SingolaPanel.Controls.Add(this.materialLabel8);
+            this.SingolaPanel.Controls.Add(this.TelefonoField);
+            this.SingolaPanel.Controls.Add(this.TelefonoLbl);
+            this.SingolaPanel.Controls.Add(this.PIVAField);
+            this.SingolaPanel.Controls.Add(this.PIVALbl);
+            this.SingolaPanel.Controls.Add(this.CFField);
+            this.SingolaPanel.Controls.Add(this.CFLbl);
+            this.SingolaPanel.Controls.Add(this.CognomeField);
+            this.SingolaPanel.Controls.Add(this.CognomeLbl);
+            this.SingolaPanel.Controls.Add(this.NomeField);
+            this.SingolaPanel.Controls.Add(this.NomeLbl);
+            this.SingolaPanel.Controls.Add(this.CreaBtn);
+            this.SingolaPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.SingolaPanel.Location = new System.Drawing.Point(23, 102);
+            this.SingolaPanel.Name = "SingolaPanel";
+            this.SingolaPanel.Size = new System.Drawing.Size(344, 565);
+            this.SingolaPanel.TabIndex = 1;
+            this.SingolaPanel.Visible = false;
+            // 
+            // AccettaBtn
+            // 
+            this.AccettaBtn.AutoSize = true;
+            this.AccettaBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AccettaBtn.Depth = 0;
+            this.AccettaBtn.Icon = null;
+            this.AccettaBtn.Location = new System.Drawing.Point(86, 460);
+            this.AccettaBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.AccettaBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.AccettaBtn.Name = "AccettaBtn";
+            this.AccettaBtn.Primary = false;
+            this.AccettaBtn.Size = new System.Drawing.Size(82, 36);
+            this.AccettaBtn.TabIndex = 28;
+            this.AccettaBtn.Text = "Accetta";
+            this.AccettaBtn.UseVisualStyleBackColor = true;
+            this.AccettaBtn.Click += new System.EventHandler(this.AccettaBtn_Click);
+            // 
+            // RifiutaBtn
+            // 
+            this.RifiutaBtn.AutoSize = true;
+            this.RifiutaBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.RifiutaBtn.Depth = 0;
+            this.RifiutaBtn.Icon = null;
+            this.RifiutaBtn.Location = new System.Drawing.Point(8, 460);
+            this.RifiutaBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.RifiutaBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.RifiutaBtn.Name = "RifiutaBtn";
+            this.RifiutaBtn.Primary = false;
+            this.RifiutaBtn.Size = new System.Drawing.Size(71, 36);
+            this.RifiutaBtn.TabIndex = 27;
+            this.RifiutaBtn.Text = "Rifiuta";
+            this.RifiutaBtn.UseVisualStyleBackColor = true;
+            this.RifiutaBtn.Click += new System.EventHandler(this.RifiutaBtn_Click);
+            // 
+            // DataField
+            // 
+            this.DataField.Depth = 0;
+            this.DataField.Hint = "";
+            this.DataField.Location = new System.Drawing.Point(154, 36);
+            this.DataField.MaxLength = 32767;
+            this.DataField.MouseState = MaterialSkin.MouseState.HOVER;
+            this.DataField.Name = "DataField";
+            this.DataField.PasswordChar = '\0';
+            this.DataField.SelectedText = "";
+            this.DataField.SelectionLength = 0;
+            this.DataField.SelectionStart = 0;
+            this.DataField.Size = new System.Drawing.Size(174, 23);
+            this.DataField.TabIndex = 26;
+            this.DataField.TabStop = false;
+            this.DataField.UseSystemPasswordChar = false;
+            // 
+            // DataLbl
+            // 
+            this.DataLbl.AutoSize = true;
+            this.DataLbl.Depth = 0;
+            this.DataLbl.Font = new System.Drawing.Font("Roboto", 11F);
+            this.DataLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.DataLbl.Location = new System.Drawing.Point(141, 15);
+            this.DataLbl.MouseState = MaterialSkin.MouseState.HOVER;
+            this.DataLbl.Name = "DataLbl";
+            this.DataLbl.Size = new System.Drawing.Size(40, 19);
+            this.DataLbl.TabIndex = 25;
+            this.DataLbl.Text = "Data";
             // 
             // IndirizzoField
             // 
@@ -240,9 +305,9 @@
             this.IVACheckBox.MouseState = MaterialSkin.MouseState.HOVER;
             this.IVACheckBox.Name = "IVACheckBox";
             this.IVACheckBox.Ripple = true;
-            this.IVACheckBox.Size = new System.Drawing.Size(169, 30);
+            this.IVACheckBox.Size = new System.Drawing.Size(125, 30);
             this.IVACheckBox.TabIndex = 18;
-            this.IVACheckBox.Text = "Fattura con partita IVA";
+            this.IVACheckBox.Text = " con partita IVA";
             this.IVACheckBox.UseVisualStyleBackColor = true;
             // 
             // materialLabel10
@@ -470,68 +535,22 @@
             this.NomeLbl.TabIndex = 3;
             this.NomeLbl.Text = "Nome";
             // 
-            // CreaFatturaBtn
+            // CreaBtn
             // 
-            this.CreaFatturaBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CreaFatturaBtn.AutoSize = true;
-            this.CreaFatturaBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.CreaFatturaBtn.Depth = 0;
-            this.CreaFatturaBtn.Icon = null;
-            this.CreaFatturaBtn.Location = new System.Drawing.Point(234, 475);
-            this.CreaFatturaBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.CreaFatturaBtn.Name = "CreaFatturaBtn";
-            this.CreaFatturaBtn.Primary = true;
-            this.CreaFatturaBtn.Size = new System.Drawing.Size(94, 36);
-            this.CreaFatturaBtn.TabIndex = 0;
-            this.CreaFatturaBtn.Text = "Conferma";
-            this.CreaFatturaBtn.UseVisualStyleBackColor = true;
-            this.CreaFatturaBtn.Click += new System.EventHandler(this.materialRaisedButton1_Click);
-            // 
-            // FattureValoriPanel
-            // 
-            this.FattureValoriPanel.AutoScroll = true;
-            this.FattureValoriPanel.ColumnCount = 4;
-            this.FattureValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.FattureValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.FattureValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.FattureValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.FattureValoriPanel.Controls.Add(this.materialLabel1, 2, 0);
-            this.FattureValoriPanel.Controls.Add(this.materialLabel2, 3, 0);
-            this.FattureValoriPanel.Controls.Add(this.materialLabel3, 1, 0);
-            this.FattureValoriPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FattureValoriPanel.Location = new System.Drawing.Point(373, 102);
-            this.FattureValoriPanel.Name = "FattureValoriPanel";
-            this.FattureValoriPanel.RowCount = 1;
-            this.FattureValoriPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.FattureValoriPanel.Size = new System.Drawing.Size(789, 565);
-            this.FattureValoriPanel.TabIndex = 0;
-            this.FattureValoriPanel.Visible = false;
-            // 
-            // materialLabel1
-            // 
-            this.materialLabel1.AutoSize = true;
-            this.materialLabel1.Depth = 0;
-            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel1.Location = new System.Drawing.Point(183, 0);
-            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(63, 19);
-            this.materialLabel1.TabIndex = 0;
-            this.materialLabel1.Text = "Causale";
-            // 
-            // materialLabel2
-            // 
-            this.materialLabel2.AutoSize = true;
-            this.materialLabel2.Depth = 0;
-            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel2.Location = new System.Drawing.Point(252, 0);
-            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel2.Name = "materialLabel2";
-            this.materialLabel2.Size = new System.Drawing.Size(84, 19);
-            this.materialLabel2.TabIndex = 1;
-            this.materialLabel2.Text = "Importo (€)";
+            this.CreaBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.CreaBtn.AutoSize = true;
+            this.CreaBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.CreaBtn.Depth = 0;
+            this.CreaBtn.Icon = null;
+            this.CreaBtn.Location = new System.Drawing.Point(167, 512);
+            this.CreaBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.CreaBtn.Name = "CreaBtn";
+            this.CreaBtn.Primary = true;
+            this.CreaBtn.Size = new System.Drawing.Size(161, 36);
+            this.CreaBtn.TabIndex = 0;
+            this.CreaBtn.Text = "Conferma Modifica";
+            this.CreaBtn.UseVisualStyleBackColor = true;
+            this.CreaBtn.Click += new System.EventHandler(this.materialRaisedButton1_Click);
             // 
             // panel2
             // 
@@ -539,17 +558,17 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(373, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(789, 93);
+            this.panel2.Size = new System.Drawing.Size(792, 93);
             this.panel2.TabIndex = 3;
             // 
             // AggiungiVoceBtn
             // 
-            this.AggiungiVoceBtn.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.AggiungiVoceBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.AggiungiVoceBtn.AutoSize = true;
             this.AggiungiVoceBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AggiungiVoceBtn.Depth = 0;
             this.AggiungiVoceBtn.Icon = null;
-            this.AggiungiVoceBtn.Location = new System.Drawing.Point(662, 51);
+            this.AggiungiVoceBtn.Location = new System.Drawing.Point(664, 51);
             this.AggiungiVoceBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.AggiungiVoceBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.AggiungiVoceBtn.Name = "AggiungiVoceBtn";
@@ -561,114 +580,6 @@
             this.AggiungiVoceBtn.Visible = false;
             this.AggiungiVoceBtn.Click += new System.EventHandler(this.materialFlatButton1_Click);
             // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.NuovaFatturaBtn);
-            this.panel3.Controls.Add(this.materialDivider1);
-            this.panel3.Controls.Add(this.FattureInserite);
-            this.panel3.Controls.Add(this.materialLabel11);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(200, 670);
-            this.panel3.TabIndex = 4;
-            // 
-            // materialDivider1
-            // 
-            this.materialDivider1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialDivider1.Depth = 0;
-            this.materialDivider1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.materialDivider1.Location = new System.Drawing.Point(198, 0);
-            this.materialDivider1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialDivider1.Name = "materialDivider1";
-            this.materialDivider1.Size = new System.Drawing.Size(2, 670);
-            this.materialDivider1.TabIndex = 3;
-            this.materialDivider1.Text = "materialDivider1";
-            // 
-            // FattureInserite
-            // 
-            this.FattureInserite.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.FattureInserite.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader});
-            this.FattureInserite.Depth = 0;
-            this.FattureInserite.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.FattureInserite.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
-            this.FattureInserite.FullRowSelect = true;
-            this.FattureInserite.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.FattureInserite.Location = new System.Drawing.Point(0, 0);
-            this.FattureInserite.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.FattureInserite.MouseState = MaterialSkin.MouseState.OUT;
-            this.FattureInserite.Name = "FattureInserite";
-            this.FattureInserite.OwnerDraw = true;
-            this.FattureInserite.Size = new System.Drawing.Size(200, 670);
-            this.FattureInserite.TabIndex = 2;
-            this.FattureInserite.UseCompatibleStateImageBehavior = false;
-            this.FattureInserite.View = System.Windows.Forms.View.Details;
-            this.FattureInserite.SelectedIndexChanged += new System.EventHandler(this.FattureInserite_SelectedIndexChanged);
-            // 
-            // columnHeader
-            // 
-            this.columnHeader.Text = "Fatture Inserite";
-            this.columnHeader.Width = 200;
-            // 
-            // materialLabel11
-            // 
-            this.materialLabel11.AutoSize = true;
-            this.materialLabel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.materialLabel11.Cursor = System.Windows.Forms.Cursors.Default;
-            this.materialLabel11.Depth = 0;
-            this.materialLabel11.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel11.Location = new System.Drawing.Point(9, 17);
-            this.materialLabel11.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel11.Name = "materialLabel11";
-            this.materialLabel11.Size = new System.Drawing.Size(56, 19);
-            this.materialLabel11.TabIndex = 1;
-            this.materialLabel11.Text = "Fatture";
-            // 
-            // materialLabel3
-            // 
-            this.materialLabel3.AutoSize = true;
-            this.materialLabel3.Depth = 0;
-            this.materialLabel3.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel3.Location = new System.Drawing.Point(83, 0);
-            this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel3.Name = "materialLabel3";
-            this.materialLabel3.Size = new System.Drawing.Size(72, 19);
-            this.materialLabel3.TabIndex = 2;
-            this.materialLabel3.Text = "Tipologia";
-            // 
-            // DataLbl
-            // 
-            this.DataLbl.AutoSize = true;
-            this.DataLbl.Depth = 0;
-            this.DataLbl.Font = new System.Drawing.Font("Roboto", 11F);
-            this.DataLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.DataLbl.Location = new System.Drawing.Point(141, 15);
-            this.DataLbl.MouseState = MaterialSkin.MouseState.HOVER;
-            this.DataLbl.Name = "DataLbl";
-            this.DataLbl.Size = new System.Drawing.Size(40, 19);
-            this.DataLbl.TabIndex = 25;
-            this.DataLbl.Text = "Data";
-            // 
-            // DataField
-            // 
-            this.DataField.Depth = 0;
-            this.DataField.Hint = "";
-            this.DataField.Location = new System.Drawing.Point(154, 36);
-            this.DataField.MaxLength = 32767;
-            this.DataField.MouseState = MaterialSkin.MouseState.HOVER;
-            this.DataField.Name = "DataField";
-            this.DataField.PasswordChar = '\0';
-            this.DataField.SelectedText = "";
-            this.DataField.SelectionLength = 0;
-            this.DataField.SelectionStart = 0;
-            this.DataField.Size = new System.Drawing.Size(174, 23);
-            this.DataField.TabIndex = 26;
-            this.DataField.TabStop = false;
-            this.DataField.UseSystemPasswordChar = false;
-            // 
             // panel5
             // 
             this.panel5.Controls.Add(this.EliminaVociBtn);
@@ -678,43 +589,6 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(344, 93);
             this.panel5.TabIndex = 4;
-            // 
-            // AggiungiVociBtn
-            // 
-            this.AggiungiVociBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.AggiungiVociBtn.AutoSize = true;
-            this.AggiungiVociBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.AggiungiVociBtn.Depth = 0;
-            this.AggiungiVociBtn.Icon = null;
-            this.AggiungiVociBtn.Location = new System.Drawing.Point(221, 51);
-            this.AggiungiVociBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.AggiungiVociBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.AggiungiVociBtn.Name = "AggiungiVociBtn";
-            this.AggiungiVociBtn.Primary = false;
-            this.AggiungiVociBtn.Size = new System.Drawing.Size(119, 36);
-            this.AggiungiVociBtn.TabIndex = 0;
-            this.AggiungiVociBtn.Text = "Aggiungi Voci";
-            this.AggiungiVociBtn.UseVisualStyleBackColor = true;
-            this.AggiungiVociBtn.Visible = false;
-            this.AggiungiVociBtn.Click += new System.EventHandler(this.AggiungiVociBtn_Click);
-            // 
-            // NuovaFatturaBtn
-            // 
-            this.NuovaFatturaBtn.AutoSize = true;
-            this.NuovaFatturaBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.NuovaFatturaBtn.Depth = 0;
-            this.NuovaFatturaBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.NuovaFatturaBtn.Icon = null;
-            this.NuovaFatturaBtn.Location = new System.Drawing.Point(0, 634);
-            this.NuovaFatturaBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
-            this.NuovaFatturaBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.NuovaFatturaBtn.Name = "NuovaFatturaBtn";
-            this.NuovaFatturaBtn.Primary = false;
-            this.NuovaFatturaBtn.Size = new System.Drawing.Size(198, 36);
-            this.NuovaFatturaBtn.TabIndex = 4;
-            this.NuovaFatturaBtn.Text = "Nuova fattura";
-            this.NuovaFatturaBtn.UseVisualStyleBackColor = true;
-            this.NuovaFatturaBtn.Click += new System.EventHandler(this.NuovaFatturaBtn_Click);
             // 
             // EliminaVociBtn
             // 
@@ -735,28 +609,166 @@
             this.EliminaVociBtn.Visible = false;
             this.EliminaVociBtn.Click += new System.EventHandler(this.EliminaVociBtn_Click);
             // 
-            // FattureForm
+            // AggiungiVociBtn
+            // 
+            this.AggiungiVociBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.AggiungiVociBtn.AutoSize = true;
+            this.AggiungiVociBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AggiungiVociBtn.Depth = 0;
+            this.AggiungiVociBtn.Icon = null;
+            this.AggiungiVociBtn.Location = new System.Drawing.Point(221, 51);
+            this.AggiungiVociBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.AggiungiVociBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.AggiungiVociBtn.Name = "AggiungiVociBtn";
+            this.AggiungiVociBtn.Primary = false;
+            this.AggiungiVociBtn.Size = new System.Drawing.Size(119, 36);
+            this.AggiungiVociBtn.TabIndex = 0;
+            this.AggiungiVociBtn.Text = "Aggiungi Voci";
+            this.AggiungiVociBtn.UseVisualStyleBackColor = true;
+            this.AggiungiVociBtn.Visible = false;
+            this.AggiungiVociBtn.Click += new System.EventHandler(this.AggiungiVociBtn_Click);
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.NuovaBtn);
+            this.panel3.Controls.Add(this.materialDivider1);
+            this.panel3.Controls.Add(this.Inserite);
+            this.panel3.Controls.Add(this.materialLabel11);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(200, 670);
+            this.panel3.TabIndex = 4;
+            // 
+            // NuovaBtn
+            // 
+            this.NuovaBtn.AutoSize = true;
+            this.NuovaBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.NuovaBtn.Depth = 0;
+            this.NuovaBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.NuovaBtn.Icon = null;
+            this.NuovaBtn.Location = new System.Drawing.Point(0, 634);
+            this.NuovaBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.NuovaBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.NuovaBtn.Name = "NuovaBtn";
+            this.NuovaBtn.Primary = false;
+            this.NuovaBtn.Size = new System.Drawing.Size(198, 36);
+            this.NuovaBtn.TabIndex = 4;
+            this.NuovaBtn.Text = "Nuova ";
+            this.NuovaBtn.UseVisualStyleBackColor = true;
+            this.NuovaBtn.Click += new System.EventHandler(this.NuovaBtn_Click);
+            // 
+            // materialDivider1
+            // 
+            this.materialDivider1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialDivider1.Depth = 0;
+            this.materialDivider1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.materialDivider1.Location = new System.Drawing.Point(198, 0);
+            this.materialDivider1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialDivider1.Name = "materialDivider1";
+            this.materialDivider1.Size = new System.Drawing.Size(2, 670);
+            this.materialDivider1.TabIndex = 3;
+            this.materialDivider1.Text = "materialDivider1";
+            // 
+            // Inserite
+            // 
+            this.Inserite.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.Inserite.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader});
+            this.Inserite.Depth = 0;
+            this.Inserite.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Inserite.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
+            this.Inserite.FullRowSelect = true;
+            this.Inserite.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.Inserite.Location = new System.Drawing.Point(0, 0);
+            this.Inserite.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.Inserite.MouseState = MaterialSkin.MouseState.OUT;
+            this.Inserite.Name = "Inserite";
+            this.Inserite.OwnerDraw = true;
+            this.Inserite.Size = new System.Drawing.Size(200, 670);
+            this.Inserite.TabIndex = 2;
+            this.Inserite.UseCompatibleStateImageBehavior = false;
+            this.Inserite.View = System.Windows.Forms.View.Details;
+            this.Inserite.SelectedIndexChanged += new System.EventHandler(this.Inserite_SelectedIndexChanged);
+            // 
+            // columnHeader
+            // 
+            this.columnHeader.Text = " Inserite";
+            this.columnHeader.Width = 200;
+            // 
+            // materialLabel11
+            // 
+            this.materialLabel11.AutoSize = true;
+            this.materialLabel11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.materialLabel11.Cursor = System.Windows.Forms.Cursors.Default;
+            this.materialLabel11.Depth = 0;
+            this.materialLabel11.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel11.Location = new System.Drawing.Point(9, 17);
+            this.materialLabel11.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel11.Name = "materialLabel11";
+            this.materialLabel11.Size = new System.Drawing.Size(0, 19);
+            this.materialLabel11.TabIndex = 1;
+            // 
+            // materialLabel1
+            // 
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel1.Location = new System.Drawing.Point(183, 0);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(63, 19);
+            this.materialLabel1.TabIndex = 0;
+            this.materialLabel1.Text = "Causale";
+            // 
+            // materialLabel2
+            // 
+            this.materialLabel2.AutoSize = true;
+            this.materialLabel2.Depth = 0;
+            this.materialLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel2.Location = new System.Drawing.Point(252, 0);
+            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel2.Name = "materialLabel2";
+            this.materialLabel2.Size = new System.Drawing.Size(84, 19);
+            this.materialLabel2.TabIndex = 1;
+            this.materialLabel2.Text = "Importo (€)";
+            // 
+            // materialLabel3
+            // 
+            this.materialLabel3.AutoSize = true;
+            this.materialLabel3.Depth = 0;
+            this.materialLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.materialLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel3.Location = new System.Drawing.Point(83, 0);
+            this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel3.Name = "materialLabel3";
+            this.materialLabel3.Size = new System.Drawing.Size(72, 19);
+            this.materialLabel3.TabIndex = 2;
+            this.materialLabel3.Text = "Tipologia";
+            // 
+            // GenericForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1392, 739);
+            this.ClientSize = new System.Drawing.Size(1395, 739);
             this.Controls.Add(this.panel1);
-            this.Name = "FattureForm";
-            this.Text = "FatturaForm";
+            this.Name = "GenericForm";
+            this.Text = "Form";
             this.panel1.ResumeLayout(false);
             this.GrigliaSfondoPanel.ResumeLayout(false);
-            this.FatturaSingolaPanel.ResumeLayout(false);
-            this.FatturaSingolaPanel.PerformLayout();
+            this.SingolaPanel.ResumeLayout(false);
+            this.SingolaPanel.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            this.FattureValoriPanel.ResumeLayout(false);
-            this.FattureValoriPanel.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -765,11 +777,11 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel GrigliaSfondoPanel;
-        private System.Windows.Forms.TableLayoutPanel FattureValoriPanel;
+        
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
-        private System.Windows.Forms.Panel FatturaSingolaPanel;
-        private MaterialSkin.Controls.MaterialRaisedButton CreaFatturaBtn;
+        private System.Windows.Forms.Panel SingolaPanel;
+        private MaterialSkin.Controls.MaterialRaisedButton CreaBtn;
         private MaterialSkin.Controls.MaterialLabel NomeLbl;
         private MaterialSkin.Controls.MaterialSingleLineTextField NomeField;
         private MaterialSkin.Controls.MaterialSingleLineTextField CognomeField;
@@ -790,7 +802,7 @@
         private MaterialSkin.Controls.MaterialFlatButton AggiungiVoceBtn;
         private System.Windows.Forms.Panel panel3;
         private MaterialSkin.Controls.MaterialLabel materialLabel11;
-        private MaterialSkin.Controls.MaterialListView FattureInserite;
+        private MaterialSkin.Controls.MaterialListView Inserite;
         private System.Windows.Forms.ColumnHeader columnHeader;
         private MaterialSkin.Controls.MaterialDivider materialDivider1;
         private MaterialSkin.Controls.MaterialDivider materialDivider2;
@@ -804,7 +816,9 @@
         private MaterialSkin.Controls.MaterialLabel DataLbl;
         private System.Windows.Forms.Panel panel5;
         private MaterialSkin.Controls.MaterialFlatButton AggiungiVociBtn;
-        private MaterialSkin.Controls.MaterialFlatButton NuovaFatturaBtn;
+        private MaterialSkin.Controls.MaterialFlatButton NuovaBtn;
         private MaterialSkin.Controls.MaterialFlatButton EliminaVociBtn;
+        private MaterialSkin.Controls.MaterialFlatButton AccettaBtn;
+        private MaterialSkin.Controls.MaterialFlatButton RifiutaBtn;
     }
 }

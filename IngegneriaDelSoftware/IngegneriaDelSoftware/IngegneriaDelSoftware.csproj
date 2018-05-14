@@ -45,11 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FattureForm.cs">
+    <Compile Include="GenericForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FattureForm.Designer.cs">
-      <DependentUpon>FattureForm.cs</DependentUpon>
+    <Compile Include="GenericForm.Designer.cs">
+      <DependentUpon>GenericForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -59,8 +59,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FattureForm.resx">
-      <DependentUpon>FattureForm.cs</DependentUpon>
+    <EmbeddedResource Include="GenericForm.resx">
+      <DependentUpon>GenericForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

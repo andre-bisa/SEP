@@ -9,37 +9,96 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace IngegneriaDelSoftware.Graphics {
-    public partial class FattureForm: MaterialSkin.Controls.MaterialForm {
-        //Enum per la creazione;
+    public partial class GenericForm: MaterialSkin.Controls.MaterialForm {
+        //Enum per la creazione DA SOSTITUIRE;
         public enum TipoPersona {
             FISICA, GIURIDICA
         };
 
-       
+        #region Delegati ed eventi
+        //delegati per gli eventi;
+        /// <param name="o"></param>
+        /// <param name="e"></param>
+        public delegate void PannelloLateraleClick(object o, EventArgs e);
+        /// <summary>
+        /// Rappresenta il click sul pannello delle collezioni a sinistra.
+        /// Significa il cambio dell'oggetto col focus
+        /// </summary>
+        public event PannelloLateraleClick OnPannelloLateraleClick;
+
+        /// <param name="l">Lista delle voci presenti nel pannello</param>
+        /// <param name="e"></param>
+        public delegate void CreaClick(List<Voce> l, EventArgs e);
+        /// <summary>
+        /// Rappresenta il click sul bottone di conferma/creazione
+        /// </summary>
+        public event CreaClick OnCreaClick;
+
+        /// <param name="o">La form corrente</param>
+        /// <param name="e"></param>
+        public delegate void RifiutaClick(object o, EventArgs e);
+        /// <summary>
+        /// Rappresenta il click sul bottone di rifiuto
+        /// </summary>
+        public event RifiutaClick OnRifiutaClick;
+
+        /// <param name="o">La form corrente</param>
+        /// <param name="e"></param>
+        public delegate void AccettaClick(object o, EventArgs e);
+        /// <summary>
+        /// Rappresenta il click sul bottone di accettazione
+        /// </summary>
+        public event AccettaClick OnAccettaClick;
+
+        #endregion
+
         #region Campi privati
 
-        private int _numeroInserimentoRigheVociFattura;
+        private int _numeroInserimentoRigheVoci;
         private bool _provvigione;
         private MaterialSkin.Controls.MaterialLabel _provvigioneLabel;
+        private System.Windows.Forms.TableLayoutPanel ValoriPanel;
 
         #endregion
 
         #region Costruttore
 
         /// <param name="provvigione">Se la FatturaForm contiene la provvigione o meno</param>
-        public FattureForm(bool provvigione) {
+        public GenericForm(bool provvigione) {
             // Settato a 1 perchè 0 è l'intestazione;
-            this._numeroInserimentoRigheVociFattura = 1;
-            //Se la fattura deve essere dotata di provvigione;
+            this._numeroInserimentoRigheVoci = 1;
+            //Se la  deve essere dotata di provvigione;
             this._provvigione = provvigione;
 
             InitializeComponent();
-            //Se la fattura è di tipo con provvigione;
+
+            //Crea il pannello delle voci;
+            this.ValoriPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.ValoriPanel.AutoScroll = true;
+            this.ValoriPanel.ColumnCount = 4;
+            this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
+            this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.ValoriPanel.Controls.Add(this.materialLabel1, 2, 0);
+            this.ValoriPanel.Controls.Add(this.materialLabel2, 3, 0);
+            this.ValoriPanel.Controls.Add(this.materialLabel3, 1, 0);
+            this.ValoriPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ValoriPanel.Location = new System.Drawing.Point(373, 102);
+            this.ValoriPanel.Name = "ValoriPanel";
+            this.ValoriPanel.RowCount = 1;
+            this.ValoriPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.ValoriPanel.TabIndex = 0;
+            this.ValoriPanel.Visible = false;
+
+            this.GrigliaSfondoPanel.Controls.Add(this.ValoriPanel, 2, 1);
+
+            //Se è di tipo con provvigione;
             if(this._provvigione) {
                 //Crea un nuova colonna;
-                this.FattureValoriPanel.ColumnCount += 1;
+                this.ValoriPanel.ColumnCount += 1;
                 //Aggiungi uno stile per la colonna;
-                this.FattureValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+                this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
                 //Aggiungi una label per la colonna;
                 _provvigioneLabel = new MaterialSkin.Controls.MaterialLabel();
                 //Testo della label;
@@ -47,7 +106,7 @@ namespace IngegneriaDelSoftware.Graphics {
                 //Larghezza della label;
                 _provvigioneLabel.Width = 120;
                 //Aggiunge la label al panel;
-                this.FattureValoriPanel.Controls.Add(_provvigioneLabel, 4, 0);
+                this.ValoriPanel.Controls.Add(_provvigioneLabel, 4, 0);
             }
             //Aggiunge ai due radioButton della persona fiscia/giuridica un handler;
             this.PersonaFisicaRadio.CheckedChanged += this.ChangedPersona;
@@ -60,18 +119,18 @@ namespace IngegneriaDelSoftware.Graphics {
 
         //Genera dei campi di prova;
         private void mock() {
-            this.AggiungiFatturaBarraLaterale("1/2018");
-            this.AggiungiFatturaBarraLaterale("2/2018");
-            this.AggiungiFatturaBarraLaterale("3/2018");
-            this.AggiungiFatturaBarraLaterale("4/2018");
-            this.AggiungiFatturaBarraLaterale("5/2018");
+            this.AggiungiBarraLaterale("1/2018");
+            this.AggiungiBarraLaterale("2/2018");
+            this.AggiungiBarraLaterale("3/2018");
+            this.AggiungiBarraLaterale("4/2018");
+            this.AggiungiBarraLaterale("5/2018");
         }
 
         #endregion
 
         #region Setters GUI
 
-        #region Inserimento nuove voci fattura
+        #region Inserimento nuove voci 
 
         /// <summary>
         /// Crea una nuova MaterialDesign TextBox Per la valuta
@@ -142,33 +201,33 @@ namespace IngegneriaDelSoftware.Graphics {
             //Evento onClick del bottone;
             Result.Click += (o, s) => {
                 //Il numero corrente della riga (si suppone che tutti i controlli siano sulla stessa riga);
-                int row = this.FattureValoriPanel.GetRow(ControlliDaRimuovere[0]);
+                int row = this.ValoriPanel.GetRow(ControlliDaRimuovere[0]);
                 //Rimuove i controlli;
                 //1)Per ogni controllo lo rimuove dalla lista dei controlli nel panel e lo segna come da eliminare;
                 ControlliDaRimuovere.ForEach((e) => {
                     //Elimina dal panel;
-                    this.FattureValoriPanel.Controls.Remove(e);
+                    this.ValoriPanel.Controls.Remove(e);
                     //Rilascia le risorse;
                     e.Dispose();
                 });
                 //Rimuove l'ultima riga dalla tabella degli stili (siccome sono tutte uguali tranne la prima non importa quale sia);
-                this.FattureValoriPanel.RowStyles.RemoveAt(this.FattureValoriPanel.RowStyles.Count - 1);
+                this.ValoriPanel.RowStyles.RemoveAt(this.ValoriPanel.RowStyles.Count - 1);
                 //Riga corrente del controll;
                 int controlRow = 0;
                 //Per ogni controllo della tabella;
-                foreach(Control c in this.FattureValoriPanel.Controls) {
+                foreach(Control c in this.ValoriPanel.Controls) {
                     //Se la riga corrente è maggiore di quella del controllo rimosso;
-                    if((controlRow = this.FattureValoriPanel.GetRow(c)) > row) {
+                    if((controlRow = this.ValoriPanel.GetRow(c)) > row) {
                         //Sposta in alto di uno il controllo corrente;
-                        this.FattureValoriPanel.SetRow(c, controlRow - 1);
+                        this.ValoriPanel.SetRow(c, controlRow - 1);
                     }
                 }
                 //Diminuisce il numero della riga corrente di inserimento;
-                this._numeroInserimentoRigheVociFattura--;
+                this._numeroInserimentoRigheVoci--;
                 //Diminuisce il numero di righe della tabella;
-                this.FattureValoriPanel.RowCount -= 1;
+                this.ValoriPanel.RowCount -= 1;
                 //Ordina il refresh del panel;
-                this.FattureValoriPanel.Refresh();
+                this.ValoriPanel.Refresh();
                 
             };
             //Ritorna il bottone appena creato;
@@ -176,78 +235,78 @@ namespace IngegneriaDelSoftware.Graphics {
         }
 
         /// <summary>
-        /// Aggiunge una riga ai campi della fattura
+        /// Aggiunge una riga ai campi della 
         /// </summary>
         /// <param name="Tipologia">La tipologia della voce, ovvero il tag di raggruppamento</param>
         /// <param name="Causale">La causale della voce</param>
         /// <param name="Importo">L'importo della voce</param>
         /// <param name="Provvigione">L'importo della provvigione espresso come double. e.g. 10% => 10F</param>
-        private void AggiungiRigaCampiFattura(string Tipologia, string Causale, double Importo, double Provvigione) {
+        private void AggiungiRigaCampi(string Tipologia, string Causale, double Importo, double Provvigione) {
 
             //Aumenta il numero delle righe;
-            this.FattureValoriPanel.RowCount += 1;
+            this.ValoriPanel.RowCount += 1;
             //Crea il nuovo stile;
-            this.FattureValoriPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.ValoriPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             //Lista con i controlli che verranno cancellati dal bottone elimina riga;
             List<Control> Controlli = new List<Control>();
             //Inserisce i controlli appena creati nella tabella;
             //Tipologia;
             var Controllo = this.CreateTextBox(Tipologia, 100);
             Controlli.Add(Controllo);
-            this.FattureValoriPanel.Controls.Add(Controllo, 1, this._numeroInserimentoRigheVociFattura);
+            this.ValoriPanel.Controls.Add(Controllo, 1, this._numeroInserimentoRigheVoci);
             //Descrizione;
             Controllo = this.CreateTextBox(Causale, 500);
             Controlli.Add(Controllo);
-            this.FattureValoriPanel.Controls.Add(Controllo, 2, this._numeroInserimentoRigheVociFattura);
+            this.ValoriPanel.Controls.Add(Controllo, 2, this._numeroInserimentoRigheVoci);
             //Importo;
-            Controllo = this.CreateValueBox(Importo.ToString("C", System.Globalization.CultureInfo.CurrentCulture), 300, "C");
+            Controllo = this.CreateValueBox(Importo.ToString("C", System.Globalization.CultureInfo.CurrentCulture), 100, "C");
             Controlli.Add(Controllo);
-            this.FattureValoriPanel.Controls.Add(Controllo, 3, this._numeroInserimentoRigheVociFattura);
+            this.ValoriPanel.Controls.Add(Controllo, 3, this._numeroInserimentoRigheVoci);
             //Se è di tipo provvigione;
             if(this._provvigione) {
                 //Provvigione;
                 Controllo = this.CreateValueBox(Provvigione.ToString("F2", System.Globalization.CultureInfo.CurrentCulture), 100, "F2");
                 Controlli.Add(Controllo);
-                this.FattureValoriPanel.Controls.Add(Controllo, 4, this._numeroInserimentoRigheVociFattura);
+                this.ValoriPanel.Controls.Add(Controllo, 4, this._numeroInserimentoRigheVoci);
             }
             //Bottone di cancellazione;
-            this.FattureValoriPanel.Controls.Add(this.CreateDeleteButton(Controlli), 0, this._numeroInserimentoRigheVociFattura);
+            this.ValoriPanel.Controls.Add(this.CreateDeleteButton(Controlli), 0, this._numeroInserimentoRigheVoci);
             //Aumenta conseguente il numero della prossima riga d'inserimento;
-            this._numeroInserimentoRigheVociFattura++;
+            this._numeroInserimentoRigheVoci++;
         }
         #endregion
 
-        #region Cancellazione voci fattura
+        #region Cancellazione voci 
 
         private void CancellaTutteLeVoci() {
             //Elimina tutti i componenenti;
-            this.FattureValoriPanel.Controls.Clear();
+            this.ValoriPanel.Controls.Clear();
             //Elimina tutti gli stili tranne i primi quattro (le intestazioni); 
-            for(int i = 4; i < this.FattureValoriPanel.RowCount; i++) {
+            for(int i = 4; i < this.ValoriPanel.RowCount; i++) {
                 try {
                     //Rimuove l'elemento;
-                    this.FattureValoriPanel.RowStyles.RemoveAt(i);
+                    this.ValoriPanel.RowStyles.RemoveAt(i);
                 }catch(Exception) {
                     //Non ci interessa si cerca di rimuovere linee inesistenti perchè dovrebbero esserci;
                     continue;
                 }
             }
             //Setta il nuovo numero di linee;
-            this.FattureValoriPanel.RowCount = 1;
+            this.ValoriPanel.RowCount = 1;
             //Reimposta le intestazioni;
-            this.FattureValoriPanel.Controls.Add(this.materialLabel1, 2, 0);
-            this.FattureValoriPanel.Controls.Add(this.materialLabel2, 3, 0);
-            this.FattureValoriPanel.Controls.Add(this.materialLabel3, 1, 0);
+            this.ValoriPanel.Controls.Add(this.materialLabel1, 2, 0);
+            this.ValoriPanel.Controls.Add(this.materialLabel2, 3, 0);
+            this.ValoriPanel.Controls.Add(this.materialLabel3, 1, 0);
             if(this._provvigione) {
-                this.FattureValoriPanel.Controls.Add(this._provvigioneLabel, 4, 0);
+                this.ValoriPanel.Controls.Add(this._provvigioneLabel, 4, 0);
             }
             //Reimposta la riga corrente;
-            this._numeroInserimentoRigheVociFattura = 1;
+            this._numeroInserimentoRigheVoci = 1;
         }
 
         #endregion
 
-        #region Inserimento dati fattura
+        #region Inserimento dati 
         //Prepara le label per la modalità persona fisica;
         private void SetPersonaFisica() {
             this.CognomeField.Enabled = true;
@@ -263,34 +322,34 @@ namespace IngegneriaDelSoftware.Graphics {
         }
 
         /// <summary>
-        /// Inserisce i valori del destinatario della fattura nell'apposito riquadro laterale
+        /// Inserisce i valori del destinatario della  nell'apposito riquadro laterale
         /// </summary>
-        /// <param name="Anno">L'anno a cui la fattura fa riferimento</param>
-        /// <param name="Numero">Il numero della fattura</param>
-        /// <param name="Nome">Il nome del destinatario della fattura</param>
-        /// <param name="Cognome">Il congnome del destinatario della fattura</param>
-        /// <param name="CF">Il codice fiscale del destinatario della fattura</param>
-        /// <param name="PIVA">La pratita IVA del destinatario della fattura</param>
-        /// <param name="Telefono">Il numero di telefono del destinatario della fattura</param>
-        /// <param name="ConPartitaIva">Se la fattura deve essere calcolata con la partita IVA o meno</param>
-        /// <param name="Data">La data a cui la fattura fa riferimento</param>
+        /// <param name="Anno">L'anno a cui la  fa riferimento</param>
+        /// <param name="Numero">Il numero della </param>
+        /// <param name="Nome">Il nome del destinatario della </param>
+        /// <param name="Cognome">Il congnome del destinatario della </param>
+        /// <param name="CF">Il codice fiscale del destinatario della </param>
+        /// <param name="PIVA">La pratita IVA del destinatario della </param>
+        /// <param name="Telefono">Il numero di telefono del destinatario della </param>
+        /// <param name="ConPartitaIva">Se la  deve essere calcolata con la partita IVA o meno</param>
+        /// <param name="Data">La data a cui la  fa riferimento</param>
         /// <param name="Indirizzo">L'indirizzo del destinatario</param>
         /// <param name="tipo">Il tipo di persona a cui fa riferimento</param>
-        private void InserisciDatiDestinatarioFattura(string Anno, string Numero, string Data, string Nome, string Cognome, string Indirizzo,
+        public void InserisciDatiDestinatario(string Anno, string Numero, string Data, string Nome, string Cognome, string Indirizzo,
             string CF, string PIVA, string Telefono, bool ConPartitaIva, TipoPersona tipo) {
-            this.AnnoField.Text = Anno;
-            this.NumeroField.Text = Numero;
-            this.NomeField.Text = Nome;
-            this.IndirizzoField.Text = Indirizzo;
-            this.CFField.Text = CF;
-            this.PIVAField.Text = PIVA;
-            this.TelefonoField.Text = Telefono;
+            this.AnnoField.Text = Anno ?? "N/D";
+            this.NumeroField.Text = Numero ?? "N/D";
+            this.NomeField.Text = Nome ?? "N/D";
+            this.IndirizzoField.Text = Indirizzo ?? "N/D";
+            this.CFField.Text = CF ?? "N/D";
+            this.PIVAField.Text = PIVA ?? "N/D";
+            this.TelefonoField.Text = Telefono ?? "N/D";
             this.IVACheckBox.Checked = ConPartitaIva;
-            this.DataField.Text = Data;
+            this.DataField.Text = Data ?? "N/D";
             switch(tipo) {
                 case TipoPersona.FISICA:
                     this.PersonaFisicaRadio.Checked = true;
-                    this.CognomeField.Text = Cognome;
+                    this.CognomeField.Text = Cognome ?? "N/D";
                     this.SetPersonaFisica();
                     break;
                 case TipoPersona.GIURIDICA:
@@ -302,10 +361,10 @@ namespace IngegneriaDelSoftware.Graphics {
 
         #endregion
 
-        #region Gestione barra laterale fatture
+        #region Gestione barra laterale 
 
-        private void AggiungiFatturaBarraLaterale(string identificativo) {
-            this.FattureInserite.Items.Add(identificativo);
+        public void AggiungiBarraLaterale(string identificativo) {
+            this.Inserite.Items.Add(identificativo);
         }
 
         #endregion
@@ -317,8 +376,8 @@ namespace IngegneriaDelSoftware.Graphics {
         /// </summary>
         private void HideVoci() {
             this.CancellaTutteLeVoci();
-            if(this.FattureValoriPanel.Visible) {
-                this.FattureValoriPanel.Visible = false;
+            if(this.ValoriPanel.Visible) {
+                this.ValoriPanel.Visible = false;
                 this.AggiungiVoceBtn.Visible = false;
             }
         }
@@ -328,30 +387,30 @@ namespace IngegneriaDelSoftware.Graphics {
         /// </summary>
         private void ShowVoci() {
             this.CancellaTutteLeVoci();
-            if(!this.FattureValoriPanel.Visible) {
-                this.FattureValoriPanel.Visible = true;
+            if(!this.ValoriPanel.Visible) {
+                this.ValoriPanel.Visible = true;
                 this.AggiungiVoceBtn.Visible = true;
             }
         }
 
         /// <summary>
-        /// Mostra il panel con le info sulla fattura
+        /// Mostra il panel con le info sulla 
         /// </summary>
         private void ShowInfo() {
-            if(!this.FatturaSingolaPanel.Visible) {
-                this.FatturaSingolaPanel.Visible = true;
+            if(!this.SingolaPanel.Visible) {
+                this.SingolaPanel.Visible = true;
                 this.AggiungiVociBtn.Visible = true;
                 this.EliminaVociBtn.Visible = true;
             }
-            this.InserisciDatiDestinatarioFattura("", "", "", "", "", "", "", "", "", false, TipoPersona.FISICA);
+            this.InserisciDatiDestinatario("", "", "", "", "", "", "", "", "", false, TipoPersona.FISICA);
         }
 
         /// <summary>
         /// Svuota e nasconde il panel con le info
         /// </summary>
         private void HideInfo() {
-            if(this.FatturaSingolaPanel.Visible) {
-                this.FatturaSingolaPanel.Visible = false;
+            if(this.SingolaPanel.Visible) {
+                this.SingolaPanel.Visible = false;
                 this.AggiungiVociBtn.Visible = false;
                 this.EliminaVociBtn.Visible = false;
             }
@@ -383,7 +442,7 @@ namespace IngegneriaDelSoftware.Graphics {
         /// <summary>
         /// Recupera i dati dall'elenco voci per trasmetterli al controller
         /// </summary>
-        private List<Voce> GetVociFatture() {
+        private List<Voce> GetVoci() {
             //Numero della colonna che si sta parsando;
             int column = 0;
             //Il controllo corrente;
@@ -392,7 +451,7 @@ namespace IngegneriaDelSoftware.Graphics {
             Voce voce = new Voce("", "", 0, 0);
             List<Voce> result = new List<Voce>();
             //Per ogni campo del panel;
-            foreach (Control c in this.FattureValoriPanel.Controls) {
+            foreach (Control c in this.ValoriPanel.Controls) {
                 //Se è una TextForm;
                 if(c is MaterialSkin.Controls.MaterialSingleLineTextField) {
                     //Cast a TextForm;
@@ -437,10 +496,11 @@ namespace IngegneriaDelSoftware.Graphics {
         /// Recupera i dati dall'elenco voci per trasmetterli al controller
         /// </summary>
         /// <param name="Tipologia">La tipologia che si desidera</param>
+        /// <param name="Voci">La lista con le voci da coi si desidera selezionare la tipologia</param>
         /// <returns></returns>
-        private List<Voce> GetVociFatturaPerTipologia(string Tipologia) {
+        public static List<Voce> GetVociPerTipologia(string Tipologia, List<Voce> Voci) {
             //Ritorna tuttle le voci che fanno match con quelle della tipologia desiderata;
-            return (from voce in this.GetVociFatture()
+            return (from voce in Voci
                     where voce.Tipologia.Equals(Tipologia)
                     select voce).ToList();
         }
@@ -453,39 +513,26 @@ namespace IngegneriaDelSoftware.Graphics {
 
         //Inserimento nuova voce dal bottone;
         private void materialFlatButton1_Click(object sender, EventArgs e) {
-            this.AggiungiRigaCampiFattura("", "", 0, 0);
+            this.AggiungiRigaCampi("", "", 0, 0);
         }
 
-        //Crea la fattura;
+        //Crea la;
         private void materialRaisedButton1_Click(object sender, EventArgs e) {
-            List<Voce> result = this.GetVociFatture();
             // Deve seguire elaborazione;
+            this.OnCreaClick?.Invoke(this.GetVoci(), e);
 
-            result.ForEach((el) => {
-                System.Diagnostics.Debug.WriteLine(el.Tipologia);
-                System.Diagnostics.Debug.WriteLine(el.Descrizione);
-                System.Diagnostics.Debug.WriteLine(el.Importo);
-                System.Diagnostics.Debug.WriteLine(el.Provvigione);
-            });
-
-            this.GetVociFatturaPerTipologia("VENDITA").ForEach((el) => {
-                System.Diagnostics.Debug.WriteLine(el.Tipologia);
-                System.Diagnostics.Debug.WriteLine(el.Descrizione);
-                System.Diagnostics.Debug.WriteLine(el.Importo);
-                System.Diagnostics.Debug.WriteLine(el.Provvigione);
-            });
         }
         
-        //Evento generato dal cambio di fattura da visualizzare;
-        private void FattureInserite_SelectedIndexChanged(object sender, EventArgs e) {
-            if(!this.FatturaSingolaPanel.Visible) {
-                this.FatturaSingolaPanel.Visible = true;
+        //Evento generato dal cambio di  da visualizzare;
+        private void Inserite_SelectedIndexChanged(object sender, EventArgs e) {
+            if(!this.SingolaPanel.Visible) {
+                this.SingolaPanel.Visible = true;
                 this.AggiungiVociBtn.Visible = true;
                 this.EliminaVociBtn.Visible = true;
             }
 
             //TODO implement the actual method
-            this.InserisciDatiDestinatarioFattura(
+            this.InserisciDatiDestinatario(
                 "PLACEHOLDER", 
                 "PLACEHOLDER",
                 "PLACEHOLDER", 
@@ -499,13 +546,14 @@ namespace IngegneriaDelSoftware.Graphics {
                 TipoPersona.FISICA
             );
             this.ShowVoci();
-            this.AggiungiRigaCampiFattura(
+            this.AggiungiRigaCampi(
                 "VENDITA",
                 "2Mt di corda robusta",
                 150,
                 3
             );
-
+            //Se non è null invoca il delegato;
+            this.OnPannelloLateraleClick?.Invoke(sender, e);
             System.Diagnostics.Debug.WriteLine((sender as MaterialSkin.Controls.MaterialListView).SelectedItems[0]);
         }
         
@@ -522,11 +570,13 @@ namespace IngegneriaDelSoftware.Graphics {
 
         //Evento generato dal bottone per l'aggiunta del pannello delle voci;
         private void AggiungiVociBtn_Click(object sender, EventArgs e) {
-            this.ShowVoci();
+            if(!this.ValoriPanel.Visible) {
+                this.ShowVoci();
+            }
         }
 
-        //Evento generato dal bottone per la creazione di una nuova fattura;
-        private void NuovaFatturaBtn_Click(object sender, EventArgs e) {
+        //Evento generato dal bottone per la creazione di una nuova;
+        private void NuovaBtn_Click(object sender, EventArgs e) {
             //Svuota la info form;
             this.ShowInfo();
             this.HideVoci();
@@ -536,6 +586,16 @@ namespace IngegneriaDelSoftware.Graphics {
         private void EliminaVociBtn_Click(object sender, EventArgs e) {
             //TODO: farsi dare conferma;
             this.HideVoci();
+        }
+
+        //Evento generato dal bottone per accettare l'elemento corrente;
+        private void AccettaBtn_Click(object sender, EventArgs e) {
+            this.OnAccettaClick?.Invoke(this, e);
+        }
+
+        //Evento generato dal bottone per rifutare l'elemento corrente;
+        private void RifiutaBtn_Click(object sender, EventArgs e) {
+            this.OnRifiutaClick?.Invoke(this, e);
         }
         #endregion
 
