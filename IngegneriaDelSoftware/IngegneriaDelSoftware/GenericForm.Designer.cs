@@ -59,14 +59,15 @@
             this.EliminaVociBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.AggiungiVociBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.SearchLabel = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.NuovaBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.materialDivider1 = new MaterialSkin.Controls.MaterialDivider();
             this.Inserite = new MaterialSkin.Controls.MaterialListView();
             this.columnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.materialLabel11 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
+            this.CausaleLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.ImportoLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.TipologiaLabel = new MaterialSkin.Controls.MaterialLabel();
             this.panel1.SuspendLayout();
             this.GrigliaSfondoPanel.SuspendLayout();
             this.SingolaPanel.SuspendLayout();
@@ -630,6 +631,7 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.SearchLabel);
             this.panel3.Controls.Add(this.NuovaBtn);
             this.panel3.Controls.Add(this.materialDivider1);
             this.panel3.Controls.Add(this.Inserite);
@@ -639,6 +641,24 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(200, 670);
             this.panel3.TabIndex = 4;
+            // 
+            // SearchLabel
+            // 
+            this.SearchLabel.Depth = 0;
+            this.SearchLabel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.SearchLabel.Hint = "Cerca";
+            this.SearchLabel.Location = new System.Drawing.Point(0, 0);
+            this.SearchLabel.MaxLength = 32767;
+            this.SearchLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.SearchLabel.Name = "SearchLabel";
+            this.SearchLabel.PasswordChar = '\0';
+            this.SearchLabel.SelectedText = "";
+            this.SearchLabel.SelectionLength = 0;
+            this.SearchLabel.SelectionStart = 0;
+            this.SearchLabel.Size = new System.Drawing.Size(198, 23);
+            this.SearchLabel.TabIndex = 5;
+            this.SearchLabel.TabStop = false;
+            this.SearchLabel.UseSystemPasswordChar = false;
             // 
             // NuovaBtn
             // 
@@ -672,20 +692,22 @@
             // 
             // Inserite
             // 
+            this.Inserite.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Inserite.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.Inserite.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader});
             this.Inserite.Depth = 0;
-            this.Inserite.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Inserite.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
             this.Inserite.FullRowSelect = true;
             this.Inserite.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.Inserite.Location = new System.Drawing.Point(0, 0);
+            this.Inserite.Location = new System.Drawing.Point(0, 21);
             this.Inserite.MouseLocation = new System.Drawing.Point(-1, -1);
             this.Inserite.MouseState = MaterialSkin.MouseState.OUT;
             this.Inserite.Name = "Inserite";
             this.Inserite.OwnerDraw = true;
-            this.Inserite.Size = new System.Drawing.Size(200, 670);
+            this.Inserite.Size = new System.Drawing.Size(200, 604);
             this.Inserite.TabIndex = 2;
             this.Inserite.UseCompatibleStateImageBehavior = false;
             this.Inserite.View = System.Windows.Forms.View.Details;
@@ -710,44 +732,44 @@
             this.materialLabel11.Size = new System.Drawing.Size(0, 19);
             this.materialLabel11.TabIndex = 1;
             // 
-            // materialLabel1
+            // CausaleLabel
             // 
-            this.materialLabel1.AutoSize = true;
-            this.materialLabel1.Depth = 0;
-            this.materialLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel1.Location = new System.Drawing.Point(183, 0);
-            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(63, 19);
-            this.materialLabel1.TabIndex = 0;
-            this.materialLabel1.Text = "Causale";
+            this.CausaleLabel.AutoSize = true;
+            this.CausaleLabel.Depth = 0;
+            this.CausaleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.CausaleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.CausaleLabel.Location = new System.Drawing.Point(183, 0);
+            this.CausaleLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.CausaleLabel.Name = "CausaleLabel";
+            this.CausaleLabel.Size = new System.Drawing.Size(63, 19);
+            this.CausaleLabel.TabIndex = 0;
+            this.CausaleLabel.Text = "Causale";
             // 
-            // materialLabel2
+            // ImportoLabel
             // 
-            this.materialLabel2.AutoSize = true;
-            this.materialLabel2.Depth = 0;
-            this.materialLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel2.Location = new System.Drawing.Point(252, 0);
-            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel2.Name = "materialLabel2";
-            this.materialLabel2.Size = new System.Drawing.Size(84, 19);
-            this.materialLabel2.TabIndex = 1;
-            this.materialLabel2.Text = "Importo (€)";
+            this.ImportoLabel.AutoSize = true;
+            this.ImportoLabel.Depth = 0;
+            this.ImportoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.ImportoLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ImportoLabel.Location = new System.Drawing.Point(252, 0);
+            this.ImportoLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.ImportoLabel.Name = "ImportoLabel";
+            this.ImportoLabel.Size = new System.Drawing.Size(84, 19);
+            this.ImportoLabel.TabIndex = 1;
+            this.ImportoLabel.Text = "Importo (€)";
             // 
-            // materialLabel3
+            // TipologiaLabel
             // 
-            this.materialLabel3.AutoSize = true;
-            this.materialLabel3.Depth = 0;
-            this.materialLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.materialLabel3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel3.Location = new System.Drawing.Point(83, 0);
-            this.materialLabel3.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel3.Name = "materialLabel3";
-            this.materialLabel3.Size = new System.Drawing.Size(72, 19);
-            this.materialLabel3.TabIndex = 2;
-            this.materialLabel3.Text = "Tipologia";
+            this.TipologiaLabel.AutoSize = true;
+            this.TipologiaLabel.Depth = 0;
+            this.TipologiaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.TipologiaLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.TipologiaLabel.Location = new System.Drawing.Point(83, 0);
+            this.TipologiaLabel.MouseState = MaterialSkin.MouseState.HOVER;
+            this.TipologiaLabel.Name = "TipologiaLabel";
+            this.TipologiaLabel.Size = new System.Drawing.Size(72, 19);
+            this.TipologiaLabel.TabIndex = 2;
+            this.TipologiaLabel.Text = "Tipologia";
             // 
             // GenericForm
             // 
@@ -778,8 +800,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel GrigliaSfondoPanel;
         
-        private MaterialSkin.Controls.MaterialLabel materialLabel1;
-        private MaterialSkin.Controls.MaterialLabel materialLabel2;
+        private MaterialSkin.Controls.MaterialLabel CausaleLabel;
+        private MaterialSkin.Controls.MaterialLabel ImportoLabel;
         private System.Windows.Forms.Panel SingolaPanel;
         private MaterialSkin.Controls.MaterialRaisedButton CreaBtn;
         private MaterialSkin.Controls.MaterialLabel NomeLbl;
@@ -811,7 +833,7 @@
         private MaterialSkin.Controls.MaterialRadioButton PersonaFisicaRadio;
         private MaterialSkin.Controls.MaterialSingleLineTextField IndirizzoField;
         private MaterialSkin.Controls.MaterialLabel IndirizzoLbl;
-        private MaterialSkin.Controls.MaterialLabel materialLabel3;
+        private MaterialSkin.Controls.MaterialLabel TipologiaLabel;
         private MaterialSkin.Controls.MaterialSingleLineTextField DataField;
         private MaterialSkin.Controls.MaterialLabel DataLbl;
         private System.Windows.Forms.Panel panel5;
@@ -820,5 +842,6 @@
         private MaterialSkin.Controls.MaterialFlatButton EliminaVociBtn;
         private MaterialSkin.Controls.MaterialFlatButton AccettaBtn;
         private MaterialSkin.Controls.MaterialFlatButton RifiutaBtn;
+        private MaterialSkin.Controls.MaterialSingleLineTextField SearchLabel;
     }
 }

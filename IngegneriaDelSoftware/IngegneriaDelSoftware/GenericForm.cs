@@ -9,6 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace IngegneriaDelSoftware.Graphics {
+
+    /// <summary>
+    /// Rappresenta una form generica per visualizzare il caso di FattureForm, VenditeForm e PreventiviForm.
+    /// <para/>
+    /// Utilizza <see cref="TipoForm"/> per distinguere i tipi.
+    /// La classe contiene anche alcuni metodi statici per la generazione rapida senza costruttore: <see cref="CreaFormFattura"/>
+    ///  <see cref="CreaFormVendita(bool)"/> e <see cref="CreaFormPreventivo"/>
+    /// </summary>
     public partial class GenericForm: MaterialSkin.Controls.MaterialForm {
         //Enum per la creazione DA SOSTITUIRE;
         public enum TipoPersona {
@@ -21,7 +29,7 @@ namespace IngegneriaDelSoftware.Graphics {
         /// <param name="e"></param>
         public delegate void PannelloLateraleClick(object o, EventArgs e);
         /// <summary>
-        /// Rappresenta il click sul pannello delle collezioni a sinistra.
+        /// Rappresenta il click sul pannello delle collezioni a sinistra.<para/>
         /// Significa il cambio dell'oggetto col focus
         /// </summary>
         public event PannelloLateraleClick OnPannelloLateraleClick;
@@ -50,6 +58,22 @@ namespace IngegneriaDelSoftware.Graphics {
         /// </summary>
         public event AccettaClick OnAccettaClick;
 
+        /// <param name="o">La form corrente</param>
+        /// <param name="e"></param>
+        public delegate void NuovaClick(object o, EventArgs e);
+        /// <summary>
+        /// Rappresenta il click sul bottone di creazione di una nuova
+        /// </summary>
+        public event NuovaClick OnNuovaClick;
+
+        /// <param name="s">Il valore della string nella casella di testo della ricerca/param>
+        /// <param name="e"></param>
+        public delegate void CercaClick(string s, EventArgs e);
+        /// <summary>
+        /// Rappresenta il click sul bottone di creazione di una nuova
+        /// </summary>
+        public event CercaClick OnCercaClick;
+
         #endregion
 
         #region Campi privati
@@ -57,32 +81,52 @@ namespace IngegneriaDelSoftware.Graphics {
         private int _numeroInserimentoRigheVoci;
         private bool _provvigione;
         private MaterialSkin.Controls.MaterialLabel _provvigioneLabel;
+        private MaterialSkin.Controls.MaterialLabel _quantitaLabel;
         private System.Windows.Forms.TableLayoutPanel ValoriPanel;
+        private TipoForm tipo;
+        private TipoPersona tipoPersona;
 
         #endregion
 
         #region Costruttore
 
-        /// <param name="provvigione">Se la FatturaForm contiene la provvigione o meno</param>
-        public GenericForm(bool provvigione) {
+        /// <param name="tipo">Il tipo della Form</param>
+        /// <param name="provvigione">Se la FatturaForm contiene la provvigione o meno, false di default</param>
+        ///  <see cref="TipoForm"/>
+        ///  <exception cref="ArgumentException"></exception>
+        public GenericForm(TipoForm tipo, bool provvigione = false) {
+            if(tipo != TipoForm.VENDITE && provvigione) {
+                throw new ArgumentException("Sono una form di tipo VENDITE può avere il campo provvigione settato a true");
+            }
             // Settato a 1 perchè 0 è l'intestazione;
             this._numeroInserimentoRigheVoci = 1;
             //Se la  deve essere dotata di provvigione;
-            this._provvigione = provvigione;
-
+            this._provvigione = provvigione && tipo == TipoForm.VENDITE;
+            this.tipo = tipo;
             InitializeComponent();
+
+            //Label della quantità;
+            _quantitaLabel = new MaterialSkin.Controls.MaterialLabel();
+            //Testo della label;
+            _quantitaLabel.Text = GenericForm.LABELTEXT[tipo].quantitaLabel;
+            //Larghezza della label;
+            _quantitaLabel.Width = 50;
 
             //Crea il pannello delle voci;
             this.ValoriPanel = new System.Windows.Forms.TableLayoutPanel();
             this.ValoriPanel.AutoScroll = true;
-            this.ValoriPanel.ColumnCount = 4;
+            this.ValoriPanel.ColumnCount = 5;
+            //Stili delle colonne;
             this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
             this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
             this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.ValoriPanel.Controls.Add(this.materialLabel1, 2, 0);
-            this.ValoriPanel.Controls.Add(this.materialLabel2, 3, 0);
-            this.ValoriPanel.Controls.Add(this.materialLabel3, 1, 0);
+            this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            //Aggiunge le label;
+            this.ValoriPanel.Controls.Add(this.CausaleLabel, 2, 0);
+            this.ValoriPanel.Controls.Add(this.ImportoLabel, 3, 0);
+            this.ValoriPanel.Controls.Add(this._quantitaLabel, 4, 0);
+            this.ValoriPanel.Controls.Add(this.TipologiaLabel, 1, 0);
             this.ValoriPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ValoriPanel.Location = new System.Drawing.Point(373, 102);
             this.ValoriPanel.Name = "ValoriPanel";
@@ -90,8 +134,16 @@ namespace IngegneriaDelSoftware.Graphics {
             this.ValoriPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.ValoriPanel.TabIndex = 0;
             this.ValoriPanel.Visible = false;
-
+            //Aggiunge il controllo;
             this.GrigliaSfondoPanel.Controls.Add(this.ValoriPanel, 2, 1);
+
+
+            //Inizializza le label;
+            this.ImportoLabel.Text = GenericForm.LABELTEXT[tipo].importoLabel;
+            this.CausaleLabel.Text = GenericForm.LABELTEXT[tipo].causaleLabel;
+            this.TipologiaLabel.Text = GenericForm.LABELTEXT[tipo].tipologiaLabel;
+            this.columnHeader.Text = GenericForm.LABELTEXT[tipo].columnHeader;
+            this.Text = GenericForm.LABELTEXT[tipo].titolo;
 
             //Se è di tipo con provvigione;
             if(this._provvigione) {
@@ -102,15 +154,20 @@ namespace IngegneriaDelSoftware.Graphics {
                 //Aggiungi una label per la colonna;
                 _provvigioneLabel = new MaterialSkin.Controls.MaterialLabel();
                 //Testo della label;
-                _provvigioneLabel.Text = "Provvigione (%)";
+                _provvigioneLabel.Text = GenericForm.LABELTEXT[tipo].provvigioneLabel;
                 //Larghezza della label;
                 _provvigioneLabel.Width = 120;
                 //Aggiunge la label al panel;
-                this.ValoriPanel.Controls.Add(_provvigioneLabel, 4, 0);
+                this.ValoriPanel.Controls.Add(this._provvigioneLabel, 5, 0);
             }
             //Aggiunge ai due radioButton della persona fiscia/giuridica un handler;
             this.PersonaFisicaRadio.CheckedChanged += this.ChangedPersona;
             this.PersonaGiuridicaRadio.CheckedChanged += this.ChangedPersona;
+
+            this.SearchLabel.KeyDown += this.CercaText_Enter;
+
+            //I bottoni di accettazione ci vogliono solo se si tratta di un preventivo
+            this.RifiutaBtn.Visible = this.AccettaBtn.Visible = this.tipo == TipoForm.PREVENTIVI;
 
             //Mock dei campi di prova;
             this.mock();
@@ -139,6 +196,7 @@ namespace IngegneriaDelSoftware.Graphics {
         /// <param name="Width">La larghezza del controllo</param>
         /// <param name="FormatStyle">Il tipo di formattazione che le nuove righe inserite devono assumere al LostFOcus event</param>
         /// <returns>Il nuovo controllo</returns>
+        /// <exception cref="ArgumentException"/>
         private MaterialSkin.Controls.MaterialSingleLineTextField CreateValueBox(string Input, int Width, string FormatStyle) {
             //Crea l'oggetto TextField;
             MaterialSkin.Controls.MaterialSingleLineTextField Result = new MaterialSkin.Controls.MaterialSingleLineTextField();
@@ -241,7 +299,7 @@ namespace IngegneriaDelSoftware.Graphics {
         /// <param name="Causale">La causale della voce</param>
         /// <param name="Importo">L'importo della voce</param>
         /// <param name="Provvigione">L'importo della provvigione espresso come double. e.g. 10% => 10F</param>
-        private void AggiungiRigaCampi(string Tipologia, string Causale, double Importo, double Provvigione) {
+        public void AggiungiRigaCampi(string Tipologia, string Causale, double Importo, double Provvigione, int Quantita) {
 
             //Aumenta il numero delle righe;
             this.ValoriPanel.RowCount += 1;
@@ -262,12 +320,16 @@ namespace IngegneriaDelSoftware.Graphics {
             Controllo = this.CreateValueBox(Importo.ToString("C", System.Globalization.CultureInfo.CurrentCulture), 100, "C");
             Controlli.Add(Controllo);
             this.ValoriPanel.Controls.Add(Controllo, 3, this._numeroInserimentoRigheVoci);
+            //Numero;
+            Controllo = this.CreateValueBox(Quantita.ToString("D", System.Globalization.CultureInfo.CurrentCulture), 50, "D");
+            this.ValoriPanel.Controls.Add(Controllo, 4, this._numeroInserimentoRigheVoci);
+            Controlli.Add(Controllo);
             //Se è di tipo provvigione;
             if(this._provvigione) {
                 //Provvigione;
                 Controllo = this.CreateValueBox(Provvigione.ToString("F2", System.Globalization.CultureInfo.CurrentCulture), 100, "F2");
                 Controlli.Add(Controllo);
-                this.ValoriPanel.Controls.Add(Controllo, 4, this._numeroInserimentoRigheVoci);
+                this.ValoriPanel.Controls.Add(Controllo, 5, this._numeroInserimentoRigheVoci);
             }
             //Bottone di cancellazione;
             this.ValoriPanel.Controls.Add(this.CreateDeleteButton(Controlli), 0, this._numeroInserimentoRigheVoci);
@@ -281,8 +343,8 @@ namespace IngegneriaDelSoftware.Graphics {
         private void CancellaTutteLeVoci() {
             //Elimina tutti i componenenti;
             this.ValoriPanel.Controls.Clear();
-            //Elimina tutti gli stili tranne i primi quattro (le intestazioni); 
-            for(int i = 4; i < this.ValoriPanel.RowCount; i++) {
+            //Elimina tutti gli stili tranne i primi sei (le intestazioni); 
+            for(int i = 6; i < this.ValoriPanel.RowCount; i++) {
                 try {
                     //Rimuove l'elemento;
                     this.ValoriPanel.RowStyles.RemoveAt(i);
@@ -294,11 +356,12 @@ namespace IngegneriaDelSoftware.Graphics {
             //Setta il nuovo numero di linee;
             this.ValoriPanel.RowCount = 1;
             //Reimposta le intestazioni;
-            this.ValoriPanel.Controls.Add(this.materialLabel1, 2, 0);
-            this.ValoriPanel.Controls.Add(this.materialLabel2, 3, 0);
-            this.ValoriPanel.Controls.Add(this.materialLabel3, 1, 0);
+            this.ValoriPanel.Controls.Add(this.CausaleLabel, 2, 0);
+            this.ValoriPanel.Controls.Add(this.ImportoLabel, 3, 0);
+            this.ValoriPanel.Controls.Add(this.TipologiaLabel, 1, 0);
+            this.ValoriPanel.Controls.Add(this._quantitaLabel, 4, 0);
             if(this._provvigione) {
-                this.ValoriPanel.Controls.Add(this._provvigioneLabel, 4, 0);
+                this.ValoriPanel.Controls.Add(this._provvigioneLabel, 5, 0);
             }
             //Reimposta la riga corrente;
             this._numeroInserimentoRigheVoci = 1;
@@ -309,9 +372,10 @@ namespace IngegneriaDelSoftware.Graphics {
         #region Inserimento dati 
         //Prepara le label per la modalità persona fisica;
         private void SetPersonaFisica() {
-            this.CognomeField.Enabled = true;
+            this.CognomeField.Enabled = true && this.InfoPanelEditable;
             this.CognomeLbl.Enabled = true;
             this.NomeLbl.Text = "Nome";
+            this.tipoPersona = TipoPersona.FISICA;
         }
         //Prepara le label per la modalità persona giuridica;
         private void SetPersonaGiuridica() {
@@ -319,6 +383,7 @@ namespace IngegneriaDelSoftware.Graphics {
             this.CognomeLbl.Enabled = false;
             this.CognomeField.Text = "";
             this.NomeLbl.Text = "Denominazione";
+            this.tipoPersona = TipoPersona.GIURIDICA;
         }
 
         /// <summary>
@@ -346,6 +411,7 @@ namespace IngegneriaDelSoftware.Graphics {
             this.TelefonoField.Text = Telefono ?? "N/D";
             this.IVACheckBox.Checked = ConPartitaIva;
             this.DataField.Text = Data ?? "N/D";
+            this.tipoPersona = tipo;
             switch(tipo) {
                 case TipoPersona.FISICA:
                     this.PersonaFisicaRadio.Checked = true;
@@ -430,12 +496,15 @@ namespace IngegneriaDelSoftware.Graphics {
             public string Descrizione;
             public double Importo;
             public double Provvigione;
+            public int Numero;
+
             //Costruttore;
-            public Voce(string Tipologia, string Descrizione, double Importo, double Provvigione) {
+            public Voce(string Tipologia, string Descrizione, double Importo, double Provvigione, int Numero) {
                 this.Tipologia = Tipologia;
                 this.Descrizione = Descrizione;
                 this.Importo = Importo;
                 this.Provvigione = Provvigione;
+                this.Numero = Numero;
             }
         }
 
@@ -448,7 +517,7 @@ namespace IngegneriaDelSoftware.Graphics {
             //Il controllo corrente;
             MaterialSkin.Controls.MaterialSingleLineTextField current = null;
             //Una voce di comodo generata;
-            Voce voce = new Voce("", "", 0, 0);
+            Voce voce = new Voce("", "", 0, 0, 0);
             List<Voce> result = new List<Voce>();
             //Per ogni campo del panel;
             foreach (Control c in this.ValoriPanel.Controls) {
@@ -458,7 +527,7 @@ namespace IngegneriaDelSoftware.Graphics {
                     current = c as MaterialSkin.Controls.MaterialSingleLineTextField;
                     switch(column) {
                         case 0: //Tipologia
-                            voce = new Voce("", "", 0, 0);
+                            voce = new Voce("", "", 0, 0, 0);
                             voce.Tipologia = current.Text;
                             break;
                         case 1: //Descrizione
@@ -466,12 +535,14 @@ namespace IngegneriaDelSoftware.Graphics {
                             break;
                         case 2: //Importo
                             voce.Importo = Double.Parse(current.Text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.CurrentCulture);
-                            //
+                            break;
+                        case 3: //Numero
+                            voce.Numero = int.Parse(current.Text);
                             if(!this._provvigione) {
                                 result.Add(voce);
                             }
                             break;
-                        case 3: //Provvigione
+                        case 4: //Provvigione
                             voce.Importo = Double.Parse(current.Text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.CurrentCulture);
                             if(this._provvigione) {
                                 result.Add(voce);
@@ -484,7 +555,7 @@ namespace IngegneriaDelSoftware.Graphics {
                     //resetta a zero per ricominciare dalla colonna zero della riga successiva;
                     //N.B. il numero massimo è quello delle colonne con campi utili ie 3 se ci sono tre campi
                     //2 se i campi sono solo due senza contare bottoni e altre cose;
-                    column = (column + 1) % (this._provvigione ? 4 : 3);
+                    column = (column + 1) % (this._provvigione ? 5 : 4);
 
                 }
             }
@@ -492,28 +563,63 @@ namespace IngegneriaDelSoftware.Graphics {
             return result;
         }
 
+        #endregion
+
+        #region Getters dei valori della infoBox
+
+        public string Nome { get { return this.NomeField.Text; } }
+        public string Cognome { get { return this.CognomeField.Text; } }
+        public string Anno { get { return this.AnnoField.Text; } }
+        public string Numero { get { return this.NumeroField.Text; } }
+        public string Data { get { return this.DataField.Text; } }
+        public string Indirizzo { get { return this.IndirizzoField.Text; } }
+        public string CF { get { return this.CFField.Text; } }
+        public string PIVA { get { return this.PIVAField.Text; } }
+        public bool ConPIVA { get { return this.IVACheckBox.Checked; } }
+        public TipoPersona? Persona { get { return this.tipoPersona; } }
+        public bool InfoPanelVisible { get { return this.SingolaPanel.Visible; } }
+
+        #endregion
+
+        #endregion
+
+        #region Setter Form
+
         /// <summary>
-        /// Recupera i dati dall'elenco voci per trasmetterli al controller
+        /// Se l'infopanel contenente i dati del cliente può essere modificato.<para/>
+        /// <see cref="false"/> di default.
         /// </summary>
-        /// <param name="Tipologia">La tipologia che si desidera</param>
-        /// <param name="Voci">La lista con le voci da coi si desidera selezionare la tipologia</param>
-        /// <returns></returns>
-        public static List<Voce> GetVociPerTipologia(string Tipologia, List<Voce> Voci) {
-            //Ritorna tuttle le voci che fanno match con quelle della tipologia desiderata;
-            return (from voce in Voci
-                    where voce.Tipologia.Equals(Tipologia)
-                    select voce).ToList();
+        public bool InfoPanelEditable {
+            set {
+                this.AnnoField.Enabled =
+                    this.CFField.Enabled =
+                    this.DataField.Enabled =
+                    this.IndirizzoField.Enabled =
+                    this.NomeField.Enabled =
+                    this.NumeroField.Enabled =
+                    this.PIVAField.Enabled =
+                    this.TelefonoField.Enabled = value;
+                this.CognomeField.Enabled = value && this.PersonaFisicaRadio.Checked;
+            }
+            ///Questo metodo non è affidabile
+            get {
+                return this.AnnoField.Enabled;
+            }
         }
 
         #endregion
-        
+
+        #region Getter Form
+        public TipoForm getType() {
+            return this.tipo;
+        }
         #endregion
 
         #region Handlers bottoni ed eventi
 
         //Inserimento nuova voce dal bottone;
         private void materialFlatButton1_Click(object sender, EventArgs e) {
-            this.AggiungiRigaCampi("", "", 0, 0);
+            this.AggiungiRigaCampi("", "", 0, 0, 1);
         }
 
         //Crea la;
@@ -550,7 +656,8 @@ namespace IngegneriaDelSoftware.Graphics {
                 "VENDITA",
                 "2Mt di corda robusta",
                 150,
-                3
+                3,
+                1
             );
             //Se non è null invoca il delegato;
             this.OnPannelloLateraleClick?.Invoke(sender, e);
@@ -580,6 +687,8 @@ namespace IngegneriaDelSoftware.Graphics {
             //Svuota la info form;
             this.ShowInfo();
             this.HideVoci();
+
+            this.OnNuovaClick?.Invoke(this, e);
         }
 
         //Evento generato dal bottone per svuotare le voci;
@@ -597,10 +706,121 @@ namespace IngegneriaDelSoftware.Graphics {
         private void RifiutaBtn_Click(object sender, EventArgs e) {
             this.OnRifiutaClick?.Invoke(this, e);
         }
+
+        //Evento generato dalla barra di ricerca quando si preme enter;
+        private void CercaText_Enter(object sender, KeyEventArgs e) {
+            if(e.KeyCode == Keys.Enter) {
+
+                this.OnCercaClick?.Invoke(this.SearchLabel.Text, e);
+
+                this.SearchLabel.Text = "";
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+            
+        }
+
         #endregion
 
+        #region Statics
+
+        /// <summary>
+        /// Rappresenta il tipo della form che sarà generato.<para/>
+        /// <list type="table">
+        /// <item>
+        /// <term><see cref="PREVENTIVI"/></term>  
+        /// <description>Rappresenta un preventivo, abilita i bottoni di accettazione e rifiuto nella infoBox.</description>
+        /// </item><para/>
+        /// <item>
+        /// <term><see cref="VENDITE"/></term>  
+        /// <description>Rappresenta una vendita, abilita il campo provvigione se esso è messo a true.</description>
+        /// </item><para/>
+        /// <item>
+        /// <term><see cref="FATTURE"/></term>  
+        /// <description>Rappresenta una fattura.</description>
+        /// </item>
+        /// </list>
+        /// </summary>
+        public enum TipoForm {
+            PREVENTIVI,
+            VENDITE,
+            FATTURE
+        };
+
+        /// <summary>
+        /// Crea una nuova form di tipo vendita.<para/>Equivale a <c>new GenericForm(TipoForm.VENDITE, provvigione);</c>
+        /// </summary>
+        /// <param name="provvigione">Se la form di tipo vendita ha il campo provvigione o meno</param>
+        /// <returns>La nuova form. N.B. non c'è alcun controllo su quale tipo di form si sta lavorando <seealso cref="getType()"/></returns>
+        public static GenericForm CreaFormVendita(bool provvigione = false) {
+            return new GenericForm(TipoForm.VENDITE, provvigione);
+        }
+
+        /// <summary>
+        /// Crea una nuova form di tipo fattura.<para/>Equivale a <c>new GenericForm(TipoForm.FATTURE);</c>
+        /// </summary>
+        /// <returns>La nuova form. N.B. non c'è alcun controllo su quale tipo di form si sta lavorando <seealso cref="getType()"/></returns>
+        public static GenericForm CreaFormFattura() {
+            return new GenericForm(TipoForm.FATTURE);
+        }
+
+        /// <summary>
+        /// Crea una nuova form di tipo preventivo.<para/>Equivale a <c>new GenericForm(TipoForm.PREVENTIVI);</c>
+        /// </summary>
+        /// <returns>La nuova form. N.B. non c'è alcun controllo su quale tipo di form si sta lavorando <seealso cref="getType()"/></returns>
+        public static GenericForm CreaFormPreventivo() {
+            return new GenericForm(TipoForm.PREVENTIVI);
+        }
+
+        /// <summary>
+        /// Recupera i dati dall'elenco voci per trasmetterli al controller
+        /// </summary>
+        /// <param name="Tipologia">La tipologia che si desidera</param>
+        /// <param name="Voci">La lista con le voci da coi si desidera selezionare la tipologia</param>
+        /// <returns></returns>
+        public static List<Voce> GetVociPerTipologia(string Tipologia, List<Voce> Voci) {
+            //Ritorna tuttle le voci che fanno match con quelle della tipologia desiderata;
+            return (from voce in Voci
+                    where voce.Tipologia.Equals(Tipologia)
+                    select voce).ToList();
+        }
+
+        #region Private Statics
+
+        //Struttura di comodo per lo storage delle label;
+        private struct LabelText {
+            public string importoLabel;
+            public string causaleLabel;
+            public string tipologiaLabel;
+            public string titolo;
+            public string provvigioneLabel;
+            internal string columnHeader;
+            internal string quantitaLabel;
+
+            public LabelText(string importoLabel, string causaleLabel, string tipologiaLabel,
+                string provvigioneLabel, string columnHeaderLabel, string titolo, string quantitaLabel) {
+                this.importoLabel = importoLabel;
+                this.causaleLabel = causaleLabel;
+                this.tipologiaLabel = tipologiaLabel;
+                this.titolo = titolo;
+                this.provvigioneLabel = provvigioneLabel;
+                this.columnHeader = columnHeaderLabel;
+                this.quantitaLabel = quantitaLabel;
+            }
+        }
+
+        //Le label internet;
+        private static readonly Dictionary<TipoForm, LabelText> LABELTEXT = new Dictionary<TipoForm, LabelText>
+        {
+            { TipoForm.FATTURE, new LabelText("Importo (€)", "Causale", "Tipologia", "", "Fatture inserite", "Fatture", "Quantità") },
+            { TipoForm.PREVENTIVI, new LabelText("Importo (€)", "Causale", "Tipologia", "", "Preventivi inseriti", "Preventivi", "Quantità") },
+            { TipoForm.VENDITE, new LabelText("Importo (€)", "Causale", "Tipologia", "Provvigione (%)", "Vendite inserite", "Vendite", "Quantità") }
+        };
+
+        #endregion
+
+        #endregion
 
     }
-
 
 }
