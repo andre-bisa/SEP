@@ -45,10 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GenericForm.cs">
+    <Compile Include="View\GenericForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GenericForm.Designer.cs">
+    <Compile Include="View\GenericForm.Designer.cs">
       <DependentUpon>GenericForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
@@ -102,7 +102,7 @@
     <Compile Include="View\Overlay\OverlayCliente.Designer.cs">
       <DependentUpon>OverlayCliente.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="GenericForm.resx">
+    <EmbeddedResource Include="View\GenericForm.resx">
       <DependentUpon>GenericForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
