@@ -19,8 +19,8 @@ namespace IngegneriaDelSoftware.View.Overlay
         /// </summary>
         public int Cliente
         {
-            get => _cliente;
-            private set => _cliente = value;
+            get { return _cliente; }
+            private set { _cliente = value; }
         }
 
         /// <summary>

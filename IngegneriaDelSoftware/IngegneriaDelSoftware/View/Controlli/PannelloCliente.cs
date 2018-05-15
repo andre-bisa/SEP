@@ -20,7 +20,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         private bool _selected = false;
         public bool Selected
         {
-            get => _selected;
+            get { return _selected; }
             set
             {
                 _selected = value;
