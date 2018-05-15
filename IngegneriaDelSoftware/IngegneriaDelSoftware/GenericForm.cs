@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace IngegneriaDelSoftware.Graphics {
+namespace IngegneriaDelSoftware.View {
 
     /// <summary>
     /// Rappresenta una form generica per visualizzare il caso di FattureForm, VenditeForm e PreventiviForm.
