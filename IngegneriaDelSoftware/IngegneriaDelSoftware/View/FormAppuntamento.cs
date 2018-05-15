@@ -10,9 +10,9 @@ using MaterialSkin.Controls;
 
 namespace IngegneriaDelSoftware.Graphics
 {
-    public partial class formAppuntamenti : MaterialForm
+    public partial class FormAppuntamenti : MaterialForm
     {
-        public formAppuntamenti()
+        public FormAppuntamenti()
         {
             InitializeComponent();
         }

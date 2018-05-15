@@ -1,6 +1,6 @@
 ﻿namespace IngegneriaDelSoftware.Graphics
 {
-    partial class formAppuntamenti
+    partial class FormAppuntamenti
     {
         /// <summary>
         /// Required designer variable.
@@ -104,7 +104,7 @@
             // txtLuogoAppuntamento
             // 
             this.txtLuogoAppuntamento.Depth = 0;
-            this.txtLuogoAppuntamento.Hint = "";
+            this.txtLuogoAppuntamento.Hint = "Luogo";
             this.txtLuogoAppuntamento.Location = new System.Drawing.Point(160, 219);
             this.txtLuogoAppuntamento.MaxLength = 32767;
             this.txtLuogoAppuntamento.MouseState = MaterialSkin.MouseState.HOVER;
@@ -130,7 +130,7 @@
             // txtNoteAppuntamento
             // 
             this.txtNoteAppuntamento.Depth = 0;
-            this.txtNoteAppuntamento.Hint = "";
+            this.txtNoteAppuntamento.Hint = "Note";
             this.txtNoteAppuntamento.Location = new System.Drawing.Point(160, 284);
             this.txtNoteAppuntamento.MaxLength = 32767;
             this.txtNoteAppuntamento.MouseState = MaterialSkin.MouseState.HOVER;
@@ -147,10 +147,10 @@
             // btnAggiungi
             // 
             this.btnAggiungi.AnimateIcon = true;
-            this.btnAggiungi.AnimateShowHideButton = false;
+            this.btnAggiungi.AnimateShowHideButton = true;
             this.btnAggiungi.Depth = 0;
-            this.btnAggiungi.Icon = global::IngegneriaDelSoftware.Properties.Resources.save_icon;
-            this.btnAggiungi.Location = new System.Drawing.Point(473, 404);
+            this.btnAggiungi.Icon = global::IngegneriaDelSoftware.Properties.Resources.ic_save_black_48dp;
+            this.btnAggiungi.Location = new System.Drawing.Point(472, 408);
             this.btnAggiungi.Mini = false;
             this.btnAggiungi.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAggiungi.Name = "btnAggiungi";
