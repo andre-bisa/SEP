@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace IngegneriaDelSoftware.Graphics.Controlli
+namespace IngegneriaDelSoftware.View.Controlli
 {
     public partial class PannelloCliente : UserControl
     {

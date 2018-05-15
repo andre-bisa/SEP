@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace IngegneriaDelSoftware.Graphics.Overlay
+namespace IngegneriaDelSoftware.View.Overlay
 {
     public partial class Overlay : UserControl
     {

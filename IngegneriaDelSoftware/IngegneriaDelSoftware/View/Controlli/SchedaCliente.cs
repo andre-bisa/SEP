@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using IngegneriaDelSoftware.Graphics.Overlay;
+using IngegneriaDelSoftware.View.Overlay;
 
-namespace IngegneriaDelSoftware.Graphics.Controlli
+namespace IngegneriaDelSoftware.View.Controlli
 {
     public partial class SchedaCliente : UserControl
     {

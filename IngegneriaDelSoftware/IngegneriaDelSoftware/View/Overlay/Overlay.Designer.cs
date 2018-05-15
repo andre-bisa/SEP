@@ -1,4 +1,4 @@
-﻿namespace IngegneriaDelSoftware.Graphics.Overlay
+﻿namespace IngegneriaDelSoftware.View.Overlay
 {
     partial class Overlay
     {

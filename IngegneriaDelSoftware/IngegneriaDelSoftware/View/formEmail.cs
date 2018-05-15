@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MaterialSkin.Controls;
-using IngegneriaDelSoftware.Graphics.Overlay;
-using IngegneriaDelSoftware.Graphics.Controlli;
+using IngegneriaDelSoftware.View.Overlay;
+using IngegneriaDelSoftware.View.Controlli;
 using System.Windows.Forms;
 
-namespace IngegneriaDelSoftware.Graphics
+namespace IngegneriaDelSoftware.View
 {
     public partial class FormEmail : MaterialForm
     {

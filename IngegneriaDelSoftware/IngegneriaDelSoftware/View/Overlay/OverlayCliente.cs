@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using IngegneriaDelSoftware.Graphics.Overlay;
+using IngegneriaDelSoftware.View.Overlay;
 
-namespace IngegneriaDelSoftware.Graphics.Overlay
+namespace IngegneriaDelSoftware.View.Overlay
 {
     public partial class OverlayCliente : Overlay
     {

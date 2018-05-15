@@ -1,4 +1,4 @@
-﻿namespace IngegneriaDelSoftware.Graphics.Controlli
+﻿namespace IngegneriaDelSoftware.View.Controlli
 {
     partial class SchedaCliente
     {

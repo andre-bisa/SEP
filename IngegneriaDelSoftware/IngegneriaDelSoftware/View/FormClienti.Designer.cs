@@ -1,4 +1,4 @@
-﻿namespace IngegneriaDelSoftware.Graphics
+﻿namespace IngegneriaDelSoftware.View
 {
     partial class FormClienti
     {

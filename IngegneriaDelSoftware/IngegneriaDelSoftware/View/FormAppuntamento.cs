@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MaterialSkin.Controls;
 
-namespace IngegneriaDelSoftware.Graphics
+namespace IngegneriaDelSoftware.View
 {
     public partial class FormAppuntamenti : MaterialForm
     {
