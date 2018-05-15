@@ -22,8 +22,8 @@ namespace IngegneriaDelSoftware.View.Overlay
         /// </summary>
         public string Titolo
         {
-            get => lblTitolo.Text;
-            set => lblTitolo.Text = value;
+            get { return lblTitolo.Text; }
+            set { lblTitolo.Text = value; }
         }
 
         private Panel _panelContainer;

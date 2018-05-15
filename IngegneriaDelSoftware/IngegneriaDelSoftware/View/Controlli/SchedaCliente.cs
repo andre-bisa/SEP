@@ -33,7 +33,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         /// </summary>
         public bool Selected
         {
-            get => _selected;
+            get { return _selected; }
             private set
             {
                 _selected = value;
