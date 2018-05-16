@@ -17,6 +17,9 @@ namespace IngegneriaDelSoftware.View
         {
             InitializeComponent();
 
+            this.dateTimePickerDa.ValueChanged += new System.EventHandler(this.DataCambiata);
+            this.dateTimePickerA.ValueChanged += new System.EventHandler(this.DataCambiata);
+
             //Riga di prova
             string[] row = { "20/05/2018, 17:30", "Bologna", "Riunione", "Mario Rossi" };
             ListViewItem item = new ListViewItem(row);
@@ -24,33 +27,20 @@ namespace IngegneriaDelSoftware.View
             listCalendario.Items.Add(item);
         }
 
-        private void materialSingleLineTextField1_Click(object sender, EventArgs e)
+        private void DataCambiata(object sender, EventArgs e)
         {
-
+            listCalendario.Enabled = dataValida();
         }
 
-        private void dateTimePickerDa_ValueChanged(object sender, EventArgs e)
+        private bool dataValida()
         {
-            if (dateTimePickerA.Value != null && dateTimePickerDa != null)
-            {
-                listCalendario.Enabled = true;
-            }
-            else
-            {
-                listCalendario.Enabled = false;
-            }
-        }
+            if (dateTimePickerA.Value == null || dateTimePickerDa == null)
+                return false;
 
-        private void dateTimePickerA_ValueChanged(object sender, EventArgs e)
-        {
-            if (dateTimePickerA.Value != null && dateTimePickerDa != null)
-            {
-                listCalendario.Enabled = true;
-            }
-            else
-            {
-                listCalendario.Enabled = false;
-            }
+            if (dateTimePickerDa.Value > dateTimePickerA.Value)
+                return false;
+
+            return true;
         }
 
         private void listCalendario_SelectedIndexChanged(object sender, EventArgs e)

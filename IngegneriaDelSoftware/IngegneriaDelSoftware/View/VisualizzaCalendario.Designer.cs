@@ -92,7 +92,6 @@
             this.dateTimePickerDa.Name = "dateTimePickerDa";
             this.dateTimePickerDa.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerDa.TabIndex = 1;
-            this.dateTimePickerDa.ValueChanged += new System.EventHandler(this.dateTimePickerDa_ValueChanged);
             // 
             // dateTimePickerA
             // 
@@ -100,7 +99,6 @@
             this.dateTimePickerA.Name = "dateTimePickerA";
             this.dateTimePickerA.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerA.TabIndex = 2;
-            this.dateTimePickerA.ValueChanged += new System.EventHandler(this.dateTimePickerA_ValueChanged);
             // 
             // materialLabel1
             // 
