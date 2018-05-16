@@ -8,17 +8,40 @@ namespace IngegneriaDelSoftware.Model
 {
     public class Referente
     {
+        /// <summary>
+        /// Il nome del referente
+        /// </summary>
         public string Nome { get; private set; }
+        /// <summary>
+        /// Una nota sul referente
+        /// </summary>
         public string Nota { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nome">Il nome del referente</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public Referente(string nome)
         {
-            Nome = nome ?? throw new ArgumentNullException(nameof(nome));
+            if(nome == null) {
+                throw new ArgumentNullException(nameof(nome)); ;
+            }
+            Nome = nome;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nome">Il nome del referente</param>
+        /// <param name="nota">Una nota sul referente</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public Referente(string nome, string nota) : this(nome)
         {
-            Nota = nota ?? throw new ArgumentNullException(nameof(nota));
+            if(nota == null) {
+                throw new ArgumentNullException(nameof(nota));
+            }
+            Nota = nota;
         }
 
         public override bool Equals(object obj)
