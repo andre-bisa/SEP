@@ -74,6 +74,12 @@
     <Compile Include="Model\Vendita.cs" />
     <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />
     <Compile Include="View\Controlli\ArgsSchedaCliente.cs" />
+    <Compile Include="View\FormConfim.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FormConfim.Designer.cs">
+      <DependentUpon>FormConfim.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\GenericForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     <Compile Include="View\VisualizzaCalendario.Designer.cs">
       <DependentUpon>VisualizzaCalendario.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\FormConfim.resx">
+      <DependentUpon>FormConfim.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\GenericForm.resx">
       <DependentUpon>GenericForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -3933,6 +3942,8 @@
     <Content Include="Resources\save-icon.png" />
     <Content Include="Resources\search_icon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="View\ArgsEvent\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
