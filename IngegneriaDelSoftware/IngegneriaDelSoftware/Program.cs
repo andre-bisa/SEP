@@ -16,7 +16,18 @@ namespace IngegneriaDelSoftware
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            var g = new View.GenericForm(View.GenericForm.TipoForm.FATTURE);
+            g.OnCreaClick += (result, e) => {
+                result.ForEach((el) => {
+                    System.Diagnostics.Debug.WriteLine(el.Tipologia);
+                    System.Diagnostics.Debug.WriteLine(el.Descrizione);
+                    System.Diagnostics.Debug.WriteLine(el.Importo);
+                    System.Diagnostics.Debug.WriteLine(el.Provvigione);
+                    System.Diagnostics.Debug.WriteLine(el.Numero);
+                });
+            };
+            g.InfoPanelEditable = false;
+            Application.Run(g);
         }
     }
 }
