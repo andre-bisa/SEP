@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using IngegneriaDelSoftware.View.Overlay;
+using IngegneriaDelSoftware.Model;
+using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.View.Controlli
 {
@@ -16,16 +18,28 @@ namespace IngegneriaDelSoftware.View.Controlli
         /// <summary>
         /// Evento lanciato quando si fa click sulla freccia di apertura.
         /// </summary>
-        public event EventHandler<ArgsCliente> AperturaCliente;
+        public event EventHandler<ArgsSchedaCliente> AperturaCliente;
         /// <summary>
         /// Evento lanciato quando cambia la selezione della casella di controllo.
         /// </summary>
-        public event EventHandler<ArgsCliente> ModificataSelezione;
+        public event EventHandler<ArgsSchedaCliente> ModificataSelezione;
 
+        private Cliente _cliente;
         /// <summary>
         /// Il cliente cui la scheda fa riferimento.
         /// </summary>
-        public int Cliente { get; private set; }
+        public Cliente Cliente
+        {
+            get
+            {
+                return this._cliente;
+            }
+            set
+            {
+                this._cliente = value;
+                CaricaClienteSuForm();
+            }
+        }
 
         private bool _selected = false;
         /// <summary>
@@ -49,29 +63,34 @@ namespace IngegneriaDelSoftware.View.Controlli
             }
         }
 
-        private OverlayCliente _overlayCliente = null;
+        private Panel _panelContainer = null;
 
+        #region "Costruttori"
         /// <summary>
         /// Costruttore base
         /// </summary>
         /// <param name="cliente">Cliente</param>
-        public SchedaCliente(int cliente)
+        public SchedaCliente(Cliente cliente)
         {
             InitializeComponent();
+            this.Size = new System.Drawing.Size(200, SchedaCliente.AltezzaSchedaClienti());
 
             Cliente = cliente;
+            Cliente.ModificaCliente += this.ClienteModificato;
         }
 
         /// <summary>
         /// Costruttore
         /// </summary>
         /// <param name="panelContainer">Pannello che conterrà l'overlay a seguito della pressione del pulsante di espansione</param>
-        public SchedaCliente(int cliente, Panel panelContainer) : this(cliente)
+        public SchedaCliente(Cliente cliente, Panel panelContainer) : this(cliente)
         {
-            _overlayCliente = new OverlayCliente(Cliente, panelContainer);
-            AperturaCliente += new EventHandler<ArgsCliente>(this.ApriOverlayCliente);
+            _panelContainer = panelContainer;
+            AperturaCliente += new EventHandler<ArgsSchedaCliente>(this.ApriOverlayCliente);
         }
+        #endregion
 
+        #region "Gestione eventi controlli"
         private void CheckScheda_CheckedChanged(object sender, EventArgs e)
         {
             Selected = !Selected;
@@ -81,29 +100,57 @@ namespace IngegneriaDelSoftware.View.Controlli
         {
             LanciaEvento(AperturaCliente);
         }
+        #endregion
 
+        #region "Funzioni private"
         /// <summary>
-        /// 
+        /// Funzione che permette di lanciare un evento
         /// </summary>
-        /// <param name="evento"></param>
-        private void LanciaEvento(EventHandler<ArgsCliente> evento)
+        /// <param name="evento">Evento che si vuole lanciare</param>
+        private void LanciaEvento(EventHandler<ArgsSchedaCliente> evento)
         {
             if (evento != null)
             {
-                ArgsCliente args = new ArgsCliente(Cliente, this);
+                ArgsSchedaCliente args = new ArgsSchedaCliente(Cliente, this);
                 evento(this, args);
             }
         }
 
+        private void ClienteModificato(object sender, ArgsModificaCliente e)
+        {
+            Cliente = e.Cliente;
+        }
+        #endregion
+
+        #region "Gestione eventi propri"
         private void ApriOverlayCliente(object sender, ArgsCliente e)
         {
-            _overlayCliente?.Open();
+            if (_panelContainer != null)
+                new OverlayCliente(Cliente, _panelContainer).Open();
         }
 
+        private void CaricaClienteSuForm()
+        {
+            lblIndirizzo.Text = Cliente.Persona.Indirizzo;
+            if (Cliente.Persona.TipoPersona == EnumTipoPersona.Fisica)
+            {
+                PersonaFisica personaFisica = (PersonaFisica)Cliente.Persona;
+                lblDenominazione.Text = personaFisica.Nome + " " + personaFisica.Cognome;
+            }
+            else
+            {
+                PersonaGiuridica personaGiuridica = (PersonaGiuridica)Cliente.Persona;
+                lblDenominazione.Text = personaGiuridica.RagioneSociale;
+            }
+        }
+        #endregion
+
+        #region "Funzione statiche"
         public static int AltezzaSchedaClienti()
         {
             return 150;
         }
+        #endregion
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IngegneriaDelSoftware.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,13 +10,11 @@ namespace IngegneriaDelSoftware.View.Controlli
 {
     public class ArgsCliente : EventArgs
     {
-        public int Cliente { get; private set; }
-        public UserControl UserControl { get; private set; }
+        public Cliente Cliente { get; private set; }
 
-        public ArgsCliente(int cliente, UserControl userControl)
+        public ArgsCliente(Cliente cliente)
         {
             Cliente = cliente;
-            UserControl = userControl;
         }
     }
 }

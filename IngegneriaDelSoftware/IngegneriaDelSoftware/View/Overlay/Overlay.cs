@@ -12,6 +12,7 @@ namespace IngegneriaDelSoftware.View.Overlay
 {
     public partial class Overlay : UserControl
     {
+        public event EventHandler OverlayChiuso;
 
         /// <summary>
         /// Pannello contenuto all'interno all'overlay
@@ -26,32 +27,42 @@ namespace IngegneriaDelSoftware.View.Overlay
             set { lblTitolo.Text = value; }
         }
 
-        private Panel _panelContainer;
+        private Panel _panelContainer;  // Pannello dove mostrare l'overlay
+
+        #region "Costruttori"
+
+        protected Overlay()
+        {
+            InitializeComponent();
+            this.Dock = DockStyle.Fill;
+            this.Visible = false;
+        }
 
         /// <summary>
         /// Costruttore di default
         /// </summary>
         /// <param name="panel">Pannello nel quale apparirà l'overlay</param>
-        public Overlay(Panel panelContainer)
+        public Overlay(Panel panelContainer) : this()
         {
-            InitializeComponent();
-            this.Dock = DockStyle.Fill;
-            this.Visible = false;
             _panelContainer = panelContainer;
-
-            //_panelContainer.Controls.Add(this);   // Aggiungi questo overlay al pannello passato
         }
+        #endregion
 
+        #region "Distruttore"
         ~Overlay()
         {
             _panelContainer.Controls.Remove(this);  // Rimuovi l'overlay tra i componenti
         }
+        #endregion
 
+        #region "Gestione eventi controlli"
         private void LblClose_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+        #endregion
 
+        #region "Metodi pubblici"
         public virtual void Open()
         {
             this.SuspendLayout();
@@ -66,8 +77,12 @@ namespace IngegneriaDelSoftware.View.Overlay
         {
             this.Visible = false;
             this.SendToBack();
+            if (OverlayChiuso != null)
+                OverlayChiuso(this, null);
         }
+        #endregion
 
+        #region "Metodi protected"
         protected virtual void AddPanel(Panel panel)
         {
             if (this.Panel == panel)
@@ -82,5 +97,6 @@ namespace IngegneriaDelSoftware.View.Overlay
             this.mainPanel.Controls.Add(this.Panel);
             this.Panel.BringToFront();
         }
+        #endregion
     }
 }

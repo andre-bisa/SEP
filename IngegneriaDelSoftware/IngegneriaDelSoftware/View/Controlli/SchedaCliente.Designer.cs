@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.checkScheda = new MaterialSkin.Controls.MaterialCheckBox();
-            this.lblNome = new MaterialSkin.Controls.MaterialLabel();
+            this.lblDenominazione = new MaterialSkin.Controls.MaterialLabel();
             this.lblIndirizzo = new MaterialSkin.Controls.MaterialLabel();
             this.lblEmail = new MaterialSkin.Controls.MaterialLabel();
             this.lblEspandi = new System.Windows.Forms.PictureBox();
@@ -52,19 +52,19 @@
             this.checkScheda.UseVisualStyleBackColor = true;
             this.checkScheda.CheckedChanged += new System.EventHandler(this.CheckScheda_CheckedChanged);
             // 
-            // lblNome
+            // lblDenominazione
             // 
-            this.lblNome.AutoEllipsis = true;
-            this.lblNome.Depth = 0;
-            this.lblNome.Font = new System.Drawing.Font("Roboto", 11F);
-            this.lblNome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblNome.Location = new System.Drawing.Point(3, 6);
-            this.lblNome.MouseState = MaterialSkin.MouseState.HOVER;
-            this.lblNome.Name = "lblNome";
-            this.lblNome.Size = new System.Drawing.Size(194, 25);
-            this.lblNome.TabIndex = 1;
-            this.lblNome.Text = "Denominazione";
-            this.lblNome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDenominazione.AutoEllipsis = true;
+            this.lblDenominazione.Depth = 0;
+            this.lblDenominazione.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lblDenominazione.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblDenominazione.Location = new System.Drawing.Point(3, 6);
+            this.lblDenominazione.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lblDenominazione.Name = "lblDenominazione";
+            this.lblDenominazione.Size = new System.Drawing.Size(194, 25);
+            this.lblDenominazione.TabIndex = 1;
+            this.lblDenominazione.Text = "Denominazione";
+            this.lblDenominazione.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblIndirizzo
             // 
@@ -114,10 +114,10 @@
             this.Controls.Add(this.lblEspandi);
             this.Controls.Add(this.lblEmail);
             this.Controls.Add(this.lblIndirizzo);
-            this.Controls.Add(this.lblNome);
+            this.Controls.Add(this.lblDenominazione);
             this.Controls.Add(this.checkScheda);
             this.Name = "SchedaCliente";
-            this.Size = new System.Drawing.Size(200, SchedaCliente.AltezzaSchedaClienti());
+            this.Size = new System.Drawing.Size(200, 150);
             ((System.ComponentModel.ISupportInitialize)(this.lblEspandi)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -127,7 +127,7 @@
         #endregion
 
         private MaterialSkin.Controls.MaterialCheckBox checkScheda;
-        private MaterialSkin.Controls.MaterialLabel lblNome;
+        private MaterialSkin.Controls.MaterialLabel lblDenominazione;
         private MaterialSkin.Controls.MaterialLabel lblIndirizzo;
         private MaterialSkin.Controls.MaterialLabel lblEmail;
         private System.Windows.Forms.PictureBox lblEspandi;

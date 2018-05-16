@@ -7,15 +7,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using IngegneriaDelSoftware.Model;
+using IngegneriaDelSoftware.View.Overlay;
+using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.View.Controlli
 {
     public partial class PannelloCliente : UserControl
     {
-        public event EventHandler<ArgsCliente> DoppioClickCliente;
-        public event EventHandler<ArgsCliente> ModificataSelezione;
+        public event EventHandler<ArgsPannelloCliente> DoppioClickCliente;
+        public event EventHandler<ArgsPannelloCliente> ModificataSelezione;
 
-        public int Cliente { get; private set; }
+        private Cliente _cliente;
+        public Cliente Cliente {
+            get
+            {
+                return this._cliente;
+            }
+            set
+            {
+                this._cliente = value;
+                CaricaClienteSuForm();
+            }
+            }
 
         private bool _selected = false;
         public bool Selected
@@ -34,16 +48,44 @@ namespace IngegneriaDelSoftware.View.Controlli
             }
         }
 
+        private Panel _panelContainer = null;
+
+        #region "Costruttori"
         protected PannelloCliente()
         {
             InitializeComponent();
+
+            lblDenominazione.MouseClick += this.MouseClickOnPanel;
+            lblEmail.MouseClick += this.MouseClickOnPanel;
+            lblIndirizzo.MouseClick += this.MouseClickOnPanel;
+            lblReferenti.MouseClick += this.MouseClickOnPanel;
+            lblTelefoni.MouseClick += this.MouseClickOnPanel;
+
+            lblDenominazione.MouseDoubleClick += this.MouseClickOnPanel;
+            lblEmail.MouseDoubleClick += this.MouseClickOnPanel;
+            lblIndirizzo.MouseDoubleClick += this.MouseClickOnPanel;
+            lblReferenti.MouseDoubleClick += this.MouseClickOnPanel;
+            lblTelefoni.MouseDoubleClick += this.MouseClickOnPanel;
         }
 
-        public PannelloCliente(int cliente) : this()
+        /// <summary>
+        /// Costruttore di default
+        /// </summary>
+        /// <param name="cliente">Cliente che si intende visualizzare</param>
+        public PannelloCliente(Cliente cliente) : this()
         {
             Cliente = cliente;
+            Cliente.ModificaCliente += this.ClienteModificato;
         }
 
+        public PannelloCliente(Cliente cliente, Panel panelContainer) : this(cliente)
+        {
+            _panelContainer = panelContainer;
+            DoppioClickCliente += new EventHandler<ArgsPannelloCliente>(this.ApriOverlayCliente);
+        }
+        #endregion
+
+        #region "Gestione eventi controlli"
         private void MouseClickOnPanel(object sender, MouseEventArgs e)
         {
             if (e.Clicks == 2)
@@ -56,39 +98,70 @@ namespace IngegneriaDelSoftware.View.Controlli
                 Click_Panel();
             }
         }
+        #endregion
+
+        #region "Funzioni private"
+        private void ClienteModificato(object sender, ArgsModificaCliente e)
+        {
+            Cliente = e.Cliente;
+        }
+
+        private void CaricaClienteSuForm()
+        {
+            lblIndirizzo.Text = Cliente.Persona.Indirizzo;
+            if (Cliente.Persona.TipoPersona == EnumTipoPersona.Fisica)
+            {
+                PersonaFisica personaFisica = (PersonaFisica)Cliente.Persona;
+                lblDenominazione.Text = personaFisica.Nome + " " + personaFisica.Cognome;
+            }
+            else
+            {
+                PersonaGiuridica personaGiuridica = (PersonaGiuridica)Cliente.Persona;
+                lblDenominazione.Text = personaGiuridica.RagioneSociale;
+            }
+
+            lblReferenti.Text = "";
+            foreach (Referente referente in Cliente.Referenti)
+            {
+                lblReferenti.Text += referente.Nome;
+            }
+        }
 
         /// <summary>
-        /// 
+        /// Funzione di gestione quando si effettua il click sul panel
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void Click_Panel()
         {
             Selected = !Selected;   // Nego la selezione
         }
 
         /// <summary>
-        /// 
+        /// Funzione che lancia l'evento DoppioClickCliente
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void DoubleClick_Panel()
         {
             LanciaEvento(DoppioClickCliente);
         }
 
         /// <summary>
-        /// 
+        /// Funzione che permette di lanciare un evento
         /// </summary>
-        /// <param name="evento"></param>
-        private void LanciaEvento(EventHandler<ArgsCliente> evento)
+        /// <param name="evento">Evento da lanciare</param>
+        private void LanciaEvento(EventHandler<ArgsPannelloCliente> evento)
         {
             if (evento != null)
             {
-                ArgsCliente args = new ArgsCliente(Cliente, this);
+                ArgsPannelloCliente args = new ArgsPannelloCliente(Cliente, this);
                 evento(this, args);
             }
         }
+
+        private void ApriOverlayCliente(object sender, ArgsCliente e)
+        {
+            if (_panelContainer != null)
+                new OverlayCliente(Cliente, _panelContainer).Open();
+        }
+        #endregion
     }
 
 }

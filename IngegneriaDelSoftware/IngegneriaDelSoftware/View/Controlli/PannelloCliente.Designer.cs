@@ -28,30 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lblNome = new MaterialSkin.Controls.MaterialLabel();
+            this.lblDenominazione = new MaterialSkin.Controls.MaterialLabel();
             this.lblIndirizzo = new MaterialSkin.Controls.MaterialLabel();
             this.lblReferenti = new MaterialSkin.Controls.MaterialLabel();
             this.lblTelefoni = new MaterialSkin.Controls.MaterialLabel();
             this.lblEmail = new MaterialSkin.Controls.MaterialLabel();
             this.SuspendLayout();
             // 
-            // lblNome
+            // lblDenominazione
             // 
-            this.lblNome.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblDenominazione.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblNome.AutoEllipsis = true;
-            this.lblNome.Depth = 0;
-            this.lblNome.Font = new System.Drawing.Font("Roboto", 11F);
-            this.lblNome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblNome.Location = new System.Drawing.Point(3, 6);
-            this.lblNome.MouseState = MaterialSkin.MouseState.HOVER;
-            this.lblNome.Name = "lblNome";
-            this.lblNome.Size = new System.Drawing.Size(242, 25);
-            this.lblNome.TabIndex = 0;
-            this.lblNome.Text = "Denominazione";
-            this.lblNome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblNome.MouseClick += this.MouseClickOnPanel;
-            this.lblNome.MouseDoubleClick += this.MouseClickOnPanel;
+            this.lblDenominazione.AutoEllipsis = true;
+            this.lblDenominazione.Depth = 0;
+            this.lblDenominazione.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lblDenominazione.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblDenominazione.Location = new System.Drawing.Point(3, 6);
+            this.lblDenominazione.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lblDenominazione.Name = "lblDenominazione";
+            this.lblDenominazione.Size = new System.Drawing.Size(242, 25);
+            this.lblDenominazione.TabIndex = 0;
+            this.lblDenominazione.Text = "Denominazione";
+            this.lblDenominazione.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblIndirizzo
             // 
@@ -68,8 +66,6 @@
             this.lblIndirizzo.TabIndex = 1;
             this.lblIndirizzo.Text = "Indirizzo";
             this.lblIndirizzo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblIndirizzo.MouseClick += this.MouseClickOnPanel;
-            this.lblIndirizzo.MouseDoubleClick += this.MouseClickOnPanel;
             // 
             // lblReferenti
             // 
@@ -86,8 +82,6 @@
             this.lblReferenti.TabIndex = 2;
             this.lblReferenti.Text = "Referenti";
             this.lblReferenti.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblReferenti.MouseClick += this.MouseClickOnPanel;
-            this.lblReferenti.MouseDoubleClick += this.MouseClickOnPanel;
             // 
             // lblTelefoni
             // 
@@ -104,8 +98,6 @@
             this.lblTelefoni.TabIndex = 3;
             this.lblTelefoni.Text = "Telefoni";
             this.lblTelefoni.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblTelefoni.MouseClick += this.MouseClickOnPanel;
-            this.lblTelefoni.MouseDoubleClick += this.MouseClickOnPanel;
             // 
             // lblEmail
             // 
@@ -122,8 +114,6 @@
             this.lblEmail.TabIndex = 4;
             this.lblEmail.Text = "Email";
             this.lblEmail.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblEmail.MouseClick += this.MouseClickOnPanel;
-            this.lblEmail.MouseDoubleClick += this.MouseClickOnPanel;
             // 
             // PannelloCliente
             // 
@@ -135,19 +125,17 @@
             this.Controls.Add(this.lblTelefoni);
             this.Controls.Add(this.lblReferenti);
             this.Controls.Add(this.lblIndirizzo);
-            this.Controls.Add(this.lblNome);
+            this.Controls.Add(this.lblDenominazione);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "PannelloCliente";
             this.Size = new System.Drawing.Size(248, 148);
-            this.MouseClick += this.MouseClickOnPanel;
-            this.MouseDoubleClick += this.MouseClickOnPanel;
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private MaterialSkin.Controls.MaterialLabel lblNome;
+        private MaterialSkin.Controls.MaterialLabel lblDenominazione;
         private MaterialSkin.Controls.MaterialLabel lblIndirizzo;
         private MaterialSkin.Controls.MaterialLabel lblReferenti;
         private MaterialSkin.Controls.MaterialLabel lblTelefoni;

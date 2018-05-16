@@ -34,9 +34,9 @@
             System.Windows.Forms.Panel panelContainer;
             System.Windows.Forms.Panel panelTitle;
             this.lblClose = new MaterialSkin.Controls.MaterialLabel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.mainPanel = new System.Windows.Forms.Panel();
             this.lblTitolo = new MaterialSkin.Controls.MaterialLabel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             panelLabelX = new System.Windows.Forms.Panel();
             panelFillDocked = new System.Windows.Forms.Panel();
             panelContent = new System.Windows.Forms.Panel();
@@ -45,9 +45,9 @@
             panelLabelX.SuspendLayout();
             panelFillDocked.SuspendLayout();
             panelContent.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             panelContainer.SuspendLayout();
             panelTitle.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelLabelX
@@ -97,10 +97,28 @@
             panelContent.Size = new System.Drawing.Size(500, 500);
             panelContent.TabIndex = 1;
             // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.AliceBlue;
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
+            this.tableLayoutPanel1.Controls.Add(panelContainer, 1, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(500, 500);
+            this.tableLayoutPanel1.TabIndex = 1;
+            // 
             // panelContainer
             // 
             panelContainer.AutoScroll = true;
-            panelContainer.BackColor = System.Drawing.Color.LightYellow;
+            panelContainer.BackColor = System.Drawing.Color.Transparent;
             panelContainer.Controls.Add(this.mainPanel);
             panelContainer.Controls.Add(panelTitle);
             panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -112,7 +130,7 @@
             // 
             // mainPanel
             // 
-            this.mainPanel.BackColor = System.Drawing.Color.Transparent;
+            this.mainPanel.BackColor = System.Drawing.Color.LightYellow;
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 30);
             this.mainPanel.Name = "mainPanel";
@@ -144,23 +162,6 @@
             this.lblTitolo.Text = "Titolo";
             this.lblTitolo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel1.Controls.Add(panelContainer, 1, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 5F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(500, 500);
-            this.tableLayoutPanel1.TabIndex = 1;
-            // 
             // Overlay
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -172,9 +173,9 @@
             panelLabelX.ResumeLayout(false);
             panelFillDocked.ResumeLayout(false);
             panelContent.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
             panelContainer.ResumeLayout(false);
             panelTitle.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

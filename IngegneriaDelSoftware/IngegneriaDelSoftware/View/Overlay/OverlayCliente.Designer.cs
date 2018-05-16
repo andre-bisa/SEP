@@ -290,6 +290,7 @@
             this.btnAnnulla.TabIndex = 19;
             this.btnAnnulla.Text = "Annulla";
             this.btnAnnulla.UseVisualStyleBackColor = true;
+            this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
             // 
             // listReferenti
             // 
@@ -550,7 +551,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Name = "OverlayCliente";
-            this.Size = new System.Drawing.Size(810, 650);
+            this.Size = new System.Drawing.Size(1011, 654);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

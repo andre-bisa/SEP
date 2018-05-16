@@ -45,6 +45,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\ArgsEvent\ArgsModificaCliente.cs" />
+    <Compile Include="Model\ArgsEvent\ArgsModificaPersona.cs" />
+    <Compile Include="Model\Cliente.cs" />
+    <Compile Include="Model\Email.cs" />
+    <Compile Include="Model\EnumTipoPersona.cs" />
+    <Compile Include="Model\EnumTipoCliente.cs" />
+    <Compile Include="Model\Persona.cs" />
+    <Compile Include="Model\Referente.cs" />
+    <Compile Include="Model\Telefono.cs" />
+    <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />
+    <Compile Include="View\Controlli\ArgsSchedaCliente.cs" />
     <Compile Include="View\GenericForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,11 +95,11 @@
     <Compile Include="View\FormClienti.Designer.cs">
       <DependentUpon>FormClienti.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\formEmail.cs">
+    <Compile Include="View\FormEmail.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="View\FormEmail.Designer.cs">
-      <DependentUpon>formEmail.cs</DependentUpon>
+      <DependentUpon>FormEmail.cs</DependentUpon>
     </Compile>
     <Compile Include="View\Overlay\Overlay.cs">
       <SubType>UserControl</SubType>
@@ -130,7 +141,7 @@
       <DependentUpon>FormClienti.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\FormEmail.resx">
-      <DependentUpon>formEmail.cs</DependentUpon>
+      <DependentUpon>FormEmail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Overlay\Overlay.resx">
       <DependentUpon>Overlay.cs</DependentUpon>
@@ -3886,5 +3897,6 @@
     <Content Include="Resources\save-icon.png" />
     <Content Include="Resources\search_icon.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
