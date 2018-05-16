@@ -18,7 +18,7 @@ namespace IngegneriaDelSoftware.View
             InitializeComponent();
 
             //Riga di prova
-            string[] row = { "20/05/2018", "Bologna", "Riunione", "Mario Rossi" };
+            string[] row = { "20/05/2018, 17:30", "Bologna", "Riunione", "Mario Rossi" };
             ListViewItem item = new ListViewItem(row);
 
             listCalendario.Items.Add(item);
@@ -51,6 +51,12 @@ namespace IngegneriaDelSoftware.View
             {
                 listCalendario.Enabled = false;
             }
+        }
+
+        private void listCalendario_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //Lancio form di visualizzazione dettagliata dell'appuntamento selezionato
+            //Application.Run(new FormAppuntamenti);
         }
     }
 }
