@@ -51,40 +51,94 @@ namespace IngegneriaDelSoftware.Model
         public List<Referente> Referenti { get; } = new List<Referente>();
 
         #region "Costruttori"
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="persona">La persona</param>
+        /// <param name="IDCliente">L'ID del cliente</param>
+        /// <param name="tipoCliente">La tipologia del cliente</param>
+        
         public Cliente(Persona persona, string IDCliente, EnumTipoCliente tipoCliente)
         {
-            this.IDCliente = IDCliente ?? throw new ArgumentNullException(nameof(IDCliente));
-            Persona = persona ?? throw new ArgumentNullException(nameof(persona));
+            if(IDCliente == null) {
+                 throw new ArgumentNullException(nameof(IDCliente));
+            }
+            this.IDCliente = IDCliente;
+            
+            if(persona == null) {
+                 throw new ArgumentNullException(nameof(persona));
+            }
+            //TODO check this one;
+            Persona = persona;
             Persona.ModificaPersona += this.PersonaModificata; // Se ci sono modifiche dico che il cliente è stato modificato
             TipoCliente = tipoCliente;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="persona"></param>
+        /// <param name="IDCliente"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public Cliente (Persona persona, string IDCliente) : this(persona, IDCliente, EnumTipoCliente.Attivo)
         {
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="persona"></param>
+        /// <param name="iDCliente"></param>
+        /// <param name="nota"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public Cliente (Persona persona, string iDCliente, string nota) : this(persona, iDCliente)
         {
-            Nota = nota ?? throw new ArgumentNullException(nameof(nota));
+            
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="persona"></param>
+        /// <param name="IDCliente"></param>
+        /// <param name="tipoCliente"></param>
+        /// <param name="nota"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public Cliente (Persona persona, string IDCliente, EnumTipoCliente tipoCliente, string nota) : this(persona, IDCliente, tipoCliente)
         {
-            Nota = nota ?? throw new ArgumentNullException(nameof(nota));
+            if(nota == null) {
+                throw new ArgumentNullException(nameof(nota));
+            }
+            Nota = nota;
         }
         #endregion
 
         #region "Funzioni Referenti"
+        /// <summary>
+        /// Aggiunge un referente alla lista interna dei referenti
+        /// </summary>
+        /// <param name="referente">Il referente da aggiungere</param>
+        /// <exception cref="ArgumentNullException">Se referente è nullo</exception>
         public void AggiungiReferente(Referente referente)
         {
-            if (referente != null)
+            if(referente != null) {
                 this.Referenti.Add(referente);
+            } else {
+                throw new ArgumentNullException(nameof(referente));
+            }
         }
-
+        /// <summary>
+        /// Rimuove il referente dalla lista interna dei referenti
+        /// </summary>
+        /// <param name="referente">Il referente da rimuovere</param>
+        /// <exception cref="ArgumentNullException">Se referente è nullo</exception>
         public void RimuoviReferente(Referente referente)
         {
-            if (referente != null)
+            if(referente != null) {
                 this.Referenti.Remove(referente);
+            } else {
+                throw new ArgumentNullException(nameof(referente));
+            }
         }
         #endregion
 
@@ -95,6 +149,7 @@ namespace IngegneriaDelSoftware.Model
         /// Un cliente Potenziale non può diventare Ex e viceversa
         /// </summary>
         /// <param name="nuovoTipoCliente">Nuovo tipo che si intende impostare</param>
+        /// <exception cref="ArgumentException">In caso di errori dello stato</exception>
         public void CambiaTipoCliente(EnumTipoCliente nuovoTipoCliente)
         {
             if (TipoCliente == EnumTipoCliente.Attivo && nuovoTipoCliente == EnumTipoCliente.Potenziale)
@@ -132,11 +187,13 @@ namespace IngegneriaDelSoftware.Model
         #region "Funzioni private"
         protected void LanciaEvento()
         {
-            if (ModificaCliente != null)
+            //ModificaCliente?.Invoke(this, new ArgsModificaCliente(this));
+            if(ModificaCliente != null)
             {
                 ArgsModificaCliente args = new ArgsModificaCliente(this);
                 ModificaCliente(this, args);
             }
+            
         }
 
         private void PersonaModificata(object sender, ArgsModificaPersona p)

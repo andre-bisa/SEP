@@ -8,17 +8,40 @@ namespace IngegneriaDelSoftware.Model
 {
     public class Email
     {
+        /// <summary>
+        /// L'indirizzo email
+        /// </summary>
         public string Indirizzo { get; private set; }
+        /// <summary>
+        /// Una nota sull'indirizzo email. Can be <c>null</c>
+        /// </summary>
         public string Nota { get; private set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="indirizzo">L'indirizzo email</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public Email(string indirizzo)
         {
-            Indirizzo = indirizzo ?? throw new ArgumentNullException(nameof(indirizzo));
+            if(indirizzo == null) {
+                throw new ArgumentNullException(nameof(indirizzo));
+            }
+            Indirizzo = indirizzo;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="indirizzo">L'indirizzo email</param>
+        /// <param name="nota">Una nota sull'indirizzo</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public Email(string indirizzo, string nota) : this(indirizzo)
         {
-            Nota = nota ?? throw new ArgumentNullException(nameof(nota));
+            if(nota == null) {
+                throw new ArgumentNullException(nameof(nota));
+            }
+            Nota = nota;
         }
 
         public override bool Equals(object obj)
