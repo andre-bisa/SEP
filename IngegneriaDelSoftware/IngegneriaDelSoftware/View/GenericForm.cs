@@ -661,7 +661,7 @@ namespace IngegneriaDelSoftware.View {
             );
             //Se non è null invoca il delegato;
             this.OnPannelloLateraleClick?.Invoke(sender, e);
-            System.Diagnostics.Debug.WriteLine((sender as MaterialSkin.Controls.MaterialListView).SelectedItems[0]);
+            System.Diagnostics.Debug.WriteLine((sender as MaterialSkin.Controls.MaterialListView).SelectedItems.Count);
         }
         
         //Evento generato del cambio di tipo di persona;
