@@ -52,12 +52,12 @@ namespace IngegneriaDelSoftware.Model
 
         #region "Costruttori"
         /// <summary>
-        /// 
+        /// Costruttore
         /// </summary>
-        /// <param name="persona">La persona</param>
-        /// <param name="IDCliente">L'ID del cliente</param>
-        /// <param name="tipoCliente">La tipologia del cliente</param>
-        
+        /// <param name="persona">La persona dalla quale verrà creato il cliente</param>
+        /// <param name="IDCliente">Codice del cliente</param>
+        /// <param name="tipoCliente">Tipo del cliente</param>
+        /// /// <exception cref="ArgumentNullException"></exception>
         public Cliente(Persona persona, string IDCliente, EnumTipoCliente tipoCliente)
         {
             if(IDCliente == null) {
@@ -75,34 +75,34 @@ namespace IngegneriaDelSoftware.Model
         }
 
         /// <summary>
-        /// 
+        /// Costruttore
         /// </summary>
-        /// <param name="persona"></param>
-        /// <param name="IDCliente"></param>
+        /// <param name="persona">La persona dalla quale verrà creato il cliente</param>
+        /// <param name="IDCliente">Codice del cliente</param>
         /// <exception cref="ArgumentNullException"></exception>
         public Cliente (Persona persona, string IDCliente) : this(persona, IDCliente, EnumTipoCliente.Attivo)
         {
         }
 
         /// <summary>
-        /// 
+        /// Costruttore
         /// </summary>
-        /// <param name="persona"></param>
-        /// <param name="iDCliente"></param>
-        /// <param name="nota"></param>
+        /// <param name="persona">La persona dalla quale verrà creato il cliente</param>
+        /// <param name="IDCliente">Codice del cliente</param>
+        /// <param name="nota">Eventuali note</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public Cliente (Persona persona, string iDCliente, string nota) : this(persona, iDCliente)
+        public Cliente (Persona persona, string IDCliente, string nota) : this(persona, IDCliente)
         {
             
         }
 
         /// <summary>
-        /// 
+        /// Costruttore
         /// </summary>
-        /// <param name="persona"></param>
-        /// <param name="IDCliente"></param>
-        /// <param name="tipoCliente"></param>
-        /// <param name="nota"></param>
+        /// <param name="persona">La persona dalla quale verrà creato il cliente</param>
+        /// <param name="IDCliente">Codice del cliente</param>
+        /// <param name="tipoCliente">Tipo del cliente</param>
+        /// <param name="nota">Eventuali note</param>
         /// <exception cref="ArgumentNullException"></exception>
         public Cliente (Persona persona, string IDCliente, EnumTipoCliente tipoCliente, string nota) : this(persona, IDCliente, tipoCliente)
         {
