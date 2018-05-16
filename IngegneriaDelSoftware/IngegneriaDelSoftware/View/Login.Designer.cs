@@ -30,19 +30,11 @@
         {
             MaterialSkin.Controls.MaterialLabel materialLabel1;
             MaterialSkin.Controls.MaterialLabel materialLabel2;
-            this.materialContextMenuStrip1 = new MaterialSkin.Controls.MaterialContextMenuStrip();
-            this.toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
-            this.materialContextMenuStrip2 = new MaterialSkin.Controls.MaterialContextMenuStrip();
-            this.materialContextMenuStrip3 = new MaterialSkin.Controls.MaterialContextMenuStrip();
-            this.toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
-            this.òToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.materialRaisedButton1 = new MaterialSkin.Controls.MaterialRaisedButton();
             this.txtUsername = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.txtPassword = new MaterialSkin.Controls.MaterialSingleLineTextField();
             materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialContextMenuStrip1.SuspendLayout();
-            this.materialContextMenuStrip3.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialLabel1
@@ -70,51 +62,6 @@
             materialLabel2.Size = new System.Drawing.Size(75, 19);
             materialLabel2.TabIndex = 1;
             materialLabel2.Text = "Password";
-            // 
-            // materialContextMenuStrip1
-            // 
-            this.materialContextMenuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialContextMenuStrip1.Depth = 0;
-            this.materialContextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripTextBox1});
-            this.materialContextMenuStrip1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialContextMenuStrip1.Name = "materialContextMenuStrip1";
-            this.materialContextMenuStrip1.Size = new System.Drawing.Size(161, 29);
-            // 
-            // toolStripTextBox1
-            // 
-            this.toolStripTextBox1.Name = "toolStripTextBox1";
-            this.toolStripTextBox1.Size = new System.Drawing.Size(100, 23);
-            // 
-            // materialContextMenuStrip2
-            // 
-            this.materialContextMenuStrip2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialContextMenuStrip2.Depth = 0;
-            this.materialContextMenuStrip2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialContextMenuStrip2.Name = "materialContextMenuStrip2";
-            this.materialContextMenuStrip2.Size = new System.Drawing.Size(61, 4);
-            // 
-            // materialContextMenuStrip3
-            // 
-            this.materialContextMenuStrip3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.materialContextMenuStrip3.Depth = 0;
-            this.materialContextMenuStrip3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripTextBox2,
-            this.òToolStripMenuItem});
-            this.materialContextMenuStrip3.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialContextMenuStrip3.Name = "materialContextMenuStrip3";
-            this.materialContextMenuStrip3.Size = new System.Drawing.Size(161, 51);
-            // 
-            // toolStripTextBox2
-            // 
-            this.toolStripTextBox2.Name = "toolStripTextBox2";
-            this.toolStripTextBox2.Size = new System.Drawing.Size(100, 23);
-            // 
-            // òToolStripMenuItem
-            // 
-            this.òToolStripMenuItem.Name = "òToolStripMenuItem";
-            this.òToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.òToolStripMenuItem.Text = "ò";
             // 
             // materialRaisedButton1
             // 
@@ -182,22 +129,12 @@
             this.Controls.Add(materialLabel1);
             this.Name = "Login";
             this.Text = "Login";
-            this.materialContextMenuStrip1.ResumeLayout(false);
-            this.materialContextMenuStrip1.PerformLayout();
-            this.materialContextMenuStrip3.ResumeLayout(false);
-            this.materialContextMenuStrip3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private MaterialSkin.Controls.MaterialContextMenuStrip materialContextMenuStrip1;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
-        private MaterialSkin.Controls.MaterialContextMenuStrip materialContextMenuStrip2;
-        private MaterialSkin.Controls.MaterialContextMenuStrip materialContextMenuStrip3;
-        private System.Windows.Forms.ToolStripTextBox toolStripTextBox2;
-        private System.Windows.Forms.ToolStripMenuItem òToolStripMenuItem;
         private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton1;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtUsername;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtPassword;
