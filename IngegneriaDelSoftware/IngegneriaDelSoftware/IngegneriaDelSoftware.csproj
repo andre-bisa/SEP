@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\MockControllerClienti.cs" />
     <Compile Include="Model\Appuntamento.cs" />
     <Compile Include="Model\ArgsEvent\ArgsModificaCliente.cs" />
     <Compile Include="Model\ArgsEvent\ArgsModificaPersona.cs" />

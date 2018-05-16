@@ -12,12 +12,15 @@ using IngegneriaDelSoftware.View.Overlay;
 using IngegneriaDelSoftware.View.Controlli;
 using System.Windows.Forms;
 using IngegneriaDelSoftware.Model;
+using IngegneriaDelSoftware.Controller;
 
 namespace IngegneriaDelSoftware.View
 {
     public partial class FormEmail : MaterialForm
     {
-        private List<Cliente> _clienti = new List<Cliente>();
+        private MockControllerClienti _controller = new MockControllerClienti();
+
+        private List<Cliente> _clienti;
         private int clienteDaCaricare = 0;
 
         #region "Costruttore"
@@ -25,24 +28,14 @@ namespace IngegneriaDelSoftware.View
         {
             InitializeComponent();
 
+            _clienti = _controller.ListaClienti;
+
             flowClienti.Scroll += (s, e) => HandleScroll();
             flowClienti.MouseWheel += (s, e) => HandleScroll();
         }
         #endregion
 
         #region "Carica schede cliente"
-        /// <summary>
-        /// Funzione che riempie la lista di clienti presente nella form
-        /// </summary>
-        private void CaricaListaClienti()
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                Cliente cliente = new Cliente(new PersonaFisica("Codice fiscale", "indirizzo" + i, "nome" + i, "cognome"), "ID" + i);
-                _clienti.Add(cliente);
-            }
-        }
-
         /// <summary>
         /// Funzione che mostra le schede dei clienti nella form
         /// </summary>
@@ -72,7 +65,6 @@ namespace IngegneriaDelSoftware.View
 
         private void FormEmail_Load(object sender, EventArgs e)
         {
-            CaricaListaClienti();
             // Carico il numero di clienti che possono essere visti in base alle dimensioni dello schermo
             RiempiSchedeClienti(Screen.FromControl(this).Bounds.Height / SchedaCliente.AltezzaSchedaClienti() + 1);
         }

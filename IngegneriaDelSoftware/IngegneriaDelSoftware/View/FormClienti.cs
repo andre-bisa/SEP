@@ -13,6 +13,7 @@ using IngegneriaDelSoftware.View.Controlli;
 using System.Windows.Forms;
 using IngegneriaDelSoftware.Model;
 using IngegneriaDelSoftware.Model.ArgsEvent;
+using IngegneriaDelSoftware.Controller;
 
 namespace IngegneriaDelSoftware.View
 {
@@ -21,7 +22,9 @@ namespace IngegneriaDelSoftware.View
         private const int NUMERO_CLIENTI_PER_PAGINA = 12;
         private const int NUMERO_PAGINE_CARICATE_INIZIALMENTE = 2;
 
-        private List<Cliente> _clienti = new List<Cliente>();
+        private MockControllerClienti _controller = new MockControllerClienti();
+
+        private List<Cliente> _clienti;
         private int clienteDaCaricare = 0;
 
         private List<object> _clientiSelezionati = new List<object>();
@@ -31,23 +34,13 @@ namespace IngegneriaDelSoftware.View
         {
             InitializeComponent();
             this.txtSearchBar.KeyDown += (sender, e) => { if (e.KeyCode == System.Windows.Forms.Keys.Enter) RicercaTraClienti(); };
+
+            _clienti = _controller.ListaClienti;
         }
         #endregion
 
 
         #region "Carica clienti"
-        /// <summary>
-        /// Funzione che riempe la lista di clienti presente nella form
-        /// </summary>
-        private void CaricaListaClienti()
-        {
-            for (int i = 0; i < 100; i++)
-            {
-                Cliente cliente = new Cliente(new PersonaFisica("Codice fiscale", "indirizzo"+i, "nome" + i, "cognome"), "ID" + i);
-                _clienti.Add(cliente);
-            }
-        }
-
         /// <summary>
         /// Funzione che visualizza nella form una pagina di clienti
         /// </summary>
@@ -109,7 +102,6 @@ namespace IngegneriaDelSoftware.View
         private void FormClienti_Shown(object sender, EventArgs e)
         {
             this.SuspendLayout();
-            CaricaListaClienti();
             // Mostro solo il numero di clienti impostato
             for (int i = 0; i < NUMERO_PAGINE_CARICATE_INIZIALMENTE; i++)
             {
@@ -150,7 +142,7 @@ namespace IngegneriaDelSoftware.View
             if (! (sender is OverlayCliente))
                 return;
             OverlayCliente overlay = (OverlayCliente)sender;
-            this._clienti.Add(overlay.Cliente);
+            this._controller.AggiungiCliente(overlay.Cliente);
         }
         #endregion
     }
