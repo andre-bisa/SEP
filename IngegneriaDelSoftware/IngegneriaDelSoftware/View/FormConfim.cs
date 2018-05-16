@@ -36,6 +36,7 @@ namespace IngegneriaDelSoftware.View
             }
         }
 
+        #region "Costruttori"
         protected FormConfim()
         {
             InitializeComponent();
@@ -46,7 +47,9 @@ namespace IngegneriaDelSoftware.View
             Titolo = titolo;
             Messaggio = messaggio;
         }
+        #endregion
 
+        #region "Metodi privati"
         private void btnAnnulla_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -58,7 +61,14 @@ namespace IngegneriaDelSoftware.View
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+        #endregion
 
+        /// <summary>
+        /// Funzione che mostra una richiesta all'utente. Prende spunto dal MessageBox
+        /// </summary>
+        /// <param name="titolo">Titolo che verrà mostrato nella finestra</param>
+        /// <param name="messaggio">Messaggio che si vuole chiedere all'utente</param>
+        /// <returns></returns>
         public static DialogResult Show(string titolo, string messaggio)
         {
             FormConfim formConfim = new FormConfim(titolo, messaggio);
