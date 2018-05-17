@@ -569,7 +569,7 @@
             this.AggiungiVoceBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.AggiungiVoceBtn.Depth = 0;
             this.AggiungiVoceBtn.Icon = null;
-            this.AggiungiVoceBtn.Location = new System.Drawing.Point(664, 51);
+            this.AggiungiVoceBtn.Location = new System.Drawing.Point(4, 51);
             this.AggiungiVoceBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.AggiungiVoceBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.AggiungiVoceBtn.Name = "AggiungiVoceBtn";
