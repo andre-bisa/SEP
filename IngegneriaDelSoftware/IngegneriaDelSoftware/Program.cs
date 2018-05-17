@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using IngegneriaDelSoftware.View;
 
 namespace IngegneriaDelSoftware
 {
@@ -22,12 +23,13 @@ namespace IngegneriaDelSoftware
                     System.Diagnostics.Debug.WriteLine(el.Tipologia);
                     System.Diagnostics.Debug.WriteLine(el.Descrizione);
                     System.Diagnostics.Debug.WriteLine(el.Importo);
-                    System.Diagnostics.Debug.WriteLine(el.Provvigione);
+                    System.Diagnostics.Debug.WriteLine(el.Opzionale);
                     System.Diagnostics.Debug.WriteLine(el.Numero);
                 });
             };
             g.InfoPanelEditable = false;
             Application.Run(g);
+            //Application.Run(new VisualizzaCalendario());
         }
     }
 }
