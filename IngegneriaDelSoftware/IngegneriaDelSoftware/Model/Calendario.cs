@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model
 {
-    class Calendario
+    public class Calendario
     {
+        private List<Appuntamento> _appuntamenti;
+
+        public Calendario()
+        {
+            _appuntamenti = new List<Appuntamento>();
+        }
     }
 }

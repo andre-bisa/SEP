@@ -100,8 +100,8 @@ namespace IngegneriaDelSoftware.View {
             }
             // Settato a 1 perchè 0 è l'intestazione;
             this._numeroInserimentoRigheVoci = 1;
-            //Se la  deve essere dotata di provvigione;
-            this._provvigione = provvigione && tipo == TipoForm.VENDITE;
+            //Se la vendita deve essere dotata di provvigione o se si tratta di un tipo fattura il campo rappresenta l'iva;
+            this._provvigione = (provvigione && tipo == TipoForm.VENDITE) || tipo == TipoForm.FATTURE;
             this.tipo = tipo;
             InitializeComponent();
 
@@ -299,6 +299,7 @@ namespace IngegneriaDelSoftware.View {
         /// <param name="Causale">La causale della voce</param>
         /// <param name="Importo">L'importo della voce</param>
         /// <param name="Provvigione">L'importo della provvigione espresso come double. e.g. 10% => 10F</param>
+        /// <exception cref="Exception">Se il formato e` errato</exception>
         public void AggiungiRigaCampi(string Tipologia, string Causale, double Importo, double Provvigione, int Quantita) {
 
             //Aumenta il numero delle righe;
@@ -495,15 +496,15 @@ namespace IngegneriaDelSoftware.View {
             public string Tipologia;
             public string Descrizione;
             public double Importo;
-            public double Provvigione;
+            public double Opzionale;
             public int Numero;
 
             //Costruttore;
-            public Voce(string Tipologia, string Descrizione, double Importo, double Provvigione, int Numero) {
+            public Voce(string Tipologia, string Descrizione, double Importo, double Opzionale, int Numero) {
                 this.Tipologia = Tipologia;
                 this.Descrizione = Descrizione;
                 this.Importo = Importo;
-                this.Provvigione = Provvigione;
+                this.Opzionale = Opzionale;
                 this.Numero = Numero;
             }
         }
@@ -542,7 +543,7 @@ namespace IngegneriaDelSoftware.View {
                                 result.Add(voce);
                             }
                             break;
-                        case 4: //Provvigione
+                        case 4: //Provvigione o Iva %
                             voce.Importo = Double.Parse(current.Text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.CurrentCulture);
                             if(this._provvigione) {
                                 result.Add(voce);
@@ -812,7 +813,7 @@ namespace IngegneriaDelSoftware.View {
         //Le label internet;
         private static readonly Dictionary<TipoForm, LabelText> LABELTEXT = new Dictionary<TipoForm, LabelText>
         {
-            { TipoForm.FATTURE, new LabelText("Importo (€)", "Causale", "Tipologia", "", "Fatture inserite", "Fatture", "Quantità") },
+            { TipoForm.FATTURE, new LabelText("Importo (€)", "Causale", "Tipologia", "IVA (%)", "Fatture inserite", "Fatture", "Quantità") },
             { TipoForm.PREVENTIVI, new LabelText("Importo (€)", "Causale", "Tipologia", "", "Preventivi inseriti", "Preventivi", "Quantità") },
             { TipoForm.VENDITE, new LabelText("Importo (€)", "Causale", "Tipologia", "Provvigione (%)", "Vendite inserite", "Vendite", "Quantità") }
         };

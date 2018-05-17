@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model
 {
-    class DatoreLavoro
+    public class DatoreLavoro
     {
     }
 }

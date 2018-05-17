@@ -84,10 +84,11 @@
             // headerConChi
             // 
             this.headerConChi.Text = "Con chi";
-            this.headerConChi.Width = 152;
+            this.headerConChi.Width = 176;
             // 
             // dateTimePickerDa
             // 
+            this.dateTimePickerDa.CustomFormat = "dd/mm/YYYY";
             this.dateTimePickerDa.Location = new System.Drawing.Point(68, 68);
             this.dateTimePickerDa.Name = "dateTimePickerDa";
             this.dateTimePickerDa.Size = new System.Drawing.Size(200, 20);
