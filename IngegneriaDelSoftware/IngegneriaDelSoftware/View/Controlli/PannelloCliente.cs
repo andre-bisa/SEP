@@ -75,7 +75,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         public PannelloCliente(Cliente cliente) : this()
         {
             Cliente = cliente;
-            Cliente.ModificaCliente += this.ClienteModificato;
+            Cliente.OnModifica += this.ClienteModificato;
         }
 
         public PannelloCliente(Cliente cliente, Panel panelContainer) : this(cliente)
@@ -101,9 +101,9 @@ namespace IngegneriaDelSoftware.View.Controlli
         #endregion
 
         #region "Funzioni private"
-        private void ClienteModificato(object sender, ArgsModificaCliente e)
+        private void ClienteModificato(object sender, ArgsModifica<Cliente> e)
         {
-            Cliente = e.Cliente;
+            Cliente = e.Nuovo;
         }
 
         private void CaricaClienteSuForm()

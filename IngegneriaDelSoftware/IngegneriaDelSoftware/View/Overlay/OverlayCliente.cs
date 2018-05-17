@@ -28,6 +28,8 @@ namespace IngegneriaDelSoftware.View.Overlay
         public OverlayCliente (Panel panelContainer) : base(panelContainer)
         {
             InitializeComponent();
+            btnSalva.Click += this.BottoneSalva;
+
             base.AddPanel(this.panel1);
             this.Titolo = "Cliente";
         }

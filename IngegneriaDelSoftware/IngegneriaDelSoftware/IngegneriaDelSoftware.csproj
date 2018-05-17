@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Controller\MockControllerClienti.cs" />
     <Compile Include="Model\Appuntamento.cs" />
+    <Compile Include="Model\ArgsEvent\ArgsModifica.cs" />
     <Compile Include="Model\ArgsEvent\ArgsModificaCliente.cs" />
     <Compile Include="Model\ArgsEvent\ArgsModificaPersona.cs" />
     <Compile Include="Model\Calendario.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Model\FatturaAzienda.cs" />
     <Compile Include="Model\FatturaLiberoProfessionista.cs" />
     <Compile Include="Model\Intermediario.cs" />
+    <Compile Include="Model\IObservale.cs" />
     <Compile Include="Model\Persona.cs" />
     <Compile Include="Model\PersonaFisica.cs" />
     <Compile Include="Model\PersonaGiuridica.cs" />

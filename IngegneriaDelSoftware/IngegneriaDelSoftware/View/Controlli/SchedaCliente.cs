@@ -76,7 +76,7 @@ namespace IngegneriaDelSoftware.View.Controlli
             this.Size = new System.Drawing.Size(200, SchedaCliente.AltezzaSchedaClienti());
 
             Cliente = cliente;
-            Cliente.ModificaCliente += this.ClienteModificato;
+            Cliente.OnModifica += this.ClienteModificato;
         }
 
         /// <summary>
@@ -116,9 +116,9 @@ namespace IngegneriaDelSoftware.View.Controlli
             }
         }
 
-        private void ClienteModificato(object sender, ArgsModificaCliente e)
+        private void ClienteModificato(object sender, ArgsModifica<Cliente> e)
         {
-            Cliente = e.Cliente;
+            Cliente = e.Nuovo;
         }
         #endregion
 
@@ -146,6 +146,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         #endregion
 
         #region "Funzione statiche"
+
         public static int AltezzaSchedaClienti()
         {
             return 150;

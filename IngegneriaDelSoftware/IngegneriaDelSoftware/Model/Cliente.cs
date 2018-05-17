@@ -7,9 +7,9 @@ using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Model
 {
-    public class Cliente
+    public class Cliente : IObservable<Cliente>
     {
-        public EventHandler<ArgsModificaCliente> ModificaCliente;
+        public event EventHandler<ArgsModifica<Cliente>> OnModifica;
 
         private string _idCliente;
         public string IDCliente {
@@ -19,8 +19,12 @@ namespace IngegneriaDelSoftware.Model
             }
             set
             {
-                _idCliente = value;
-                LanciaEvento();
+                if (_idCliente != value)
+                {
+                    Cliente vecchioCliente = this.Clone();
+                    _idCliente = value;
+                    LanciaEvento(vecchioCliente);
+                }
             }
         }
         private Persona _persona;
@@ -31,11 +35,18 @@ namespace IngegneriaDelSoftware.Model
             }
             set
             {
-                _persona = value;
-                LanciaEvento();
+                if (_persona != value)
+                {
+                    Cliente vecchioCliente = this.Clone();
+                    _persona = value;
+                    LanciaEvento(vecchioCliente);
+                }
             }
         }
         private string _nota;
+
+        
+
         public string Nota {
             get
             {
@@ -43,12 +54,16 @@ namespace IngegneriaDelSoftware.Model
             }
             set
             {
-                _nota = value;
-                LanciaEvento();
+                if (_nota != value)
+                {
+                    Cliente vecchioCliente = this.Clone();
+                    _nota = value;
+                    LanciaEvento(vecchioCliente);
+                }
             }
         }
         public EnumTipoCliente TipoCliente { get; private set; }
-        public List<Referente> Referenti { get; } = new List<Referente>();
+        public List<Referente> Referenti { get; private set; } = new List<Referente>();
 
         #region "Costruttori"
         /// <summary>
@@ -63,14 +78,15 @@ namespace IngegneriaDelSoftware.Model
             if(IDCliente == null) {
                  throw new ArgumentNullException(nameof(IDCliente));
             }
-            this.IDCliente = IDCliente;
+            this._idCliente = IDCliente;
             
             if(persona == null) {
                  throw new ArgumentNullException(nameof(persona));
             }
             //TODO check this one;
-            Persona = persona;
-            Persona.ModificaPersona += this.PersonaModificata; // Se ci sono modifiche dico che il cliente è stato modificato
+            _persona = persona;
+            //Persona.ModificaPersona += this.PersonaModificata; // Se ci sono modifiche dico che il cliente è stato modificato
+            _persona.OnModifica += this.PersonaModificata;
             TipoCliente = tipoCliente;
         }
 
@@ -109,7 +125,13 @@ namespace IngegneriaDelSoftware.Model
             if(nota == null) {
                 throw new ArgumentNullException(nameof(nota));
             }
-            Nota = nota;
+            this._nota = nota;
+        }
+
+        protected Cliente(Cliente cliente) : this(cliente.Persona, cliente.IDCliente, cliente.TipoCliente)
+        {
+            this._nota = cliente.Nota;
+            this.Referenti = new List<Referente>(cliente.Referenti);
         }
         #endregion
 
@@ -152,17 +174,30 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentException">In caso di errori dello stato</exception>
         public void CambiaTipoCliente(EnumTipoCliente nuovoTipoCliente)
         {
+            if (TipoCliente == nuovoTipoCliente)
+            {
+                return;
+            }
+
+            Cliente vecchioCliente = this.Clone();
+
             if (TipoCliente == EnumTipoCliente.Attivo && nuovoTipoCliente == EnumTipoCliente.Potenziale)
+            { 
                 throw new ArgumentException();
+            }
 
             if (TipoCliente == EnumTipoCliente.Potenziale && nuovoTipoCliente == EnumTipoCliente.Ex)
+            {
                 throw new ArgumentException();
+            }
 
             if (TipoCliente == EnumTipoCliente.Ex && nuovoTipoCliente == EnumTipoCliente.Potenziale)
+            {
                 throw new ArgumentException();
+            }
 
             TipoCliente = nuovoTipoCliente;
-            LanciaEvento();
+            LanciaEvento(vecchioCliente);
         }
 
         public override bool Equals(object obj)
@@ -185,20 +220,28 @@ namespace IngegneriaDelSoftware.Model
         #endregion
 
         #region "Funzioni private"
-        protected void LanciaEvento()
+        protected void LanciaEvento(Cliente vecchioCliente)
         {
             //ModificaCliente?.Invoke(this, new ArgsModificaCliente(this));
-            if(ModificaCliente != null)
+            if(OnModifica != null)
             {
-                ArgsModificaCliente args = new ArgsModificaCliente(this);
-                ModificaCliente(this, args);
+                ArgsModifica<Cliente> args = new ArgsModifica<Cliente>(vecchioCliente, this);
+                OnModifica(this, args);
             }
             
         }
 
-        private void PersonaModificata(object sender, ArgsModificaPersona p)
+        private void PersonaModificata(object sender, ArgsModifica<Persona> p)
         {
-            LanciaEvento();
+            Cliente clienteVecchio = new Cliente(p.Vecchio, this.IDCliente, this.TipoCliente);
+            clienteVecchio.Nota = this.Nota;
+            clienteVecchio.Referenti = this.Referenti;
+            LanciaEvento(clienteVecchio);
+        }
+
+        protected Cliente Clone()
+        {
+            return new Cliente(this);
         }
 
         #endregion

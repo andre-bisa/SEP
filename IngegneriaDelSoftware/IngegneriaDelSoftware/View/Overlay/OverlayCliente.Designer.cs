@@ -551,7 +551,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Name = "OverlayCliente";
-            this.Size = new System.Drawing.Size(1011, 654);
+            this.Size = new System.Drawing.Size(722, 654);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

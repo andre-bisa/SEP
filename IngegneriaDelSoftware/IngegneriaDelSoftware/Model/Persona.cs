@@ -7,11 +7,14 @@ using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Model
 {
-    public abstract class Persona
+    public abstract class Persona : IObservable<Persona>
     {
-        public event EventHandler<ArgsModificaPersona> ModificaPersona;
+        //public event EventHandler<ArgsModificaPersona> ModificaPersona;
+        public event EventHandler<ArgsModifica<Persona>> OnModifica;
 
         public abstract EnumTipoPersona TipoPersona { get; }
+
+        protected abstract Persona Clone();
 
         private string _codiceFiscale;
         /// <summary>
@@ -25,8 +28,12 @@ namespace IngegneriaDelSoftware.Model
             }
             set
             {
-                _codiceFiscale = value;
-                LanciaEvento();
+                if (_codiceFiscale != value)
+                {
+                    Persona vecchiaPersona = this.Clone();
+                    _codiceFiscale = value;
+                    LanciaEvento(vecchiaPersona);
+                }
             }
         }
         private string _indirizzo;
@@ -41,8 +48,12 @@ namespace IngegneriaDelSoftware.Model
             }
             set
             {
-                _indirizzo = value;
-                LanciaEvento();
+                if (_indirizzo != value)
+                {
+                    Persona vecchiaPersona = this.Clone();
+                    _indirizzo = value;
+                    LanciaEvento(vecchiaPersona);
+                }
             }
         }
 
@@ -57,17 +68,17 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="codiceFiscale">Il codice fiscale della persona</param>
         /// <param name="indirizzo">L'indirizzo della persona</param>
-        /// <exception cref="ArgumentNullException">/exception>
+        /// <exception cref="ArgumentNullException"></exception>
         protected Persona(string codiceFiscale, string indirizzo)
         {
             if(codiceFiscale == null) {
                 throw new ArgumentNullException(nameof(codiceFiscale));
             }
-            CodiceFiscale = codiceFiscale;
+            _codiceFiscale = codiceFiscale;
             if(indirizzo == null) {
                 throw new ArgumentNullException(nameof(indirizzo));
             }
-            Indirizzo = indirizzo;
+            _indirizzo = indirizzo;
         }
         /// <summary>
         /// 
@@ -111,6 +122,10 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="email">Gli indirizzi email della persona</param>
         /// <exception cref="ArgumentNullException">/exception>
         protected Persona(string codiceFiscale, string indirizzo, List<Email> email) : this(codiceFiscale, indirizzo, null, email)
+        {
+        }
+
+        protected Persona(Persona persona) : this(persona.CodiceFiscale, persona.Indirizzo, persona.Telefoni, persona.Email)
         {
         }
 
@@ -184,12 +199,12 @@ namespace IngegneriaDelSoftware.Model
         #endregion
 
         #region "Funzioni private"
-        protected void LanciaEvento()
+        protected void LanciaEvento(Persona vecchiaPersona)
         {
-            if (ModificaPersona != null)
+            if (OnModifica != null)
             {
-                ArgsModificaPersona args = new ArgsModificaPersona(this);
-                ModificaPersona(this, args);
+                ArgsModifica<Persona> args = new ArgsModifica<Persona>(vecchiaPersona, this);
+                OnModifica(this, args);
             }
         }
         #endregion

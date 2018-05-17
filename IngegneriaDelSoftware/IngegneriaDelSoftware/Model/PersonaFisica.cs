@@ -21,8 +21,11 @@ namespace IngegneriaDelSoftware.Model
             }
             private set
             {
-                _nome = value;
-                base.LanciaEvento();
+                if (_nome != value)
+                {
+                    _nome = value;
+                    base.LanciaEvento(this);
+                }
             }
         }
         private string _cognome;
@@ -38,11 +41,15 @@ namespace IngegneriaDelSoftware.Model
             }
             private set
             {
-                _cognome = value;
-                base.LanciaEvento();
+                if (_cognome != value)
+                {
+                    _cognome = value;
+                    base.LanciaEvento(this);
+                }
             }
         }
         private string _partitaIVA;
+
         /// <summary>
         /// La partita IVA della persona. Can be <c>null</c>.
         /// <para>Il set causa il lancio dell'evento <see cref="Persona.ModificaPersona"/></para>
@@ -55,8 +62,11 @@ namespace IngegneriaDelSoftware.Model
             }
             private set
             {
-                _partitaIVA = value;
-                base.LanciaEvento();
+                if (_partitaIVA != value)
+                {
+                    _partitaIVA = value;
+                    base.LanciaEvento(this);
+                }
             }
         }
 
@@ -122,12 +132,19 @@ namespace IngegneriaDelSoftware.Model
             if (nome == null) {
                  throw new ArgumentNullException(nameof(nome));
             }
-            Nome = nome;
+            _nome = nome;
             if(cognome == null) {
                 throw new ArgumentNullException(nameof(cognome));
             }
-            Cognome = cognome; 
-            PartitaIVA = partitaIVA; // can be null
+            _cognome = cognome; 
+            _partitaIVA = partitaIVA; // can be null
+        }
+
+        protected PersonaFisica(PersonaFisica personaFisica) : base(personaFisica)
+        {
+            this._nome = personaFisica.Nome;
+            this._cognome = personaFisica.Cognome;
+            this._partitaIVA = personaFisica.PartitaIVA;
         }
         #endregion
 
@@ -139,5 +156,11 @@ namespace IngegneriaDelSoftware.Model
         {
             return this.Nome + " " + this.Cognome;
         }
+
+        protected override Persona Clone()
+        {
+            return new PersonaFisica(this);
+        }
+
     }
 }

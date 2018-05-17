@@ -16,8 +16,11 @@ namespace IngegneriaDelSoftware.Model {
                 return _ragioneSociale;
             }
             private set {
-                _ragioneSociale = value;
-                base.LanciaEvento();
+                if (_ragioneSociale != value)
+                {
+                    _ragioneSociale = value;
+                    base.LanciaEvento(this);
+                }
             }
         }
         private string _sedeLegale;
@@ -30,8 +33,11 @@ namespace IngegneriaDelSoftware.Model {
                 return _sedeLegale;
             }
             private set {
-                _sedeLegale = value;
-                base.LanciaEvento();
+                if (_sedeLegale != value)
+                {
+                    _sedeLegale = value;
+                    base.LanciaEvento(this);
+                }
             }
         }
         private string _partitaIVA;
@@ -44,8 +50,11 @@ namespace IngegneriaDelSoftware.Model {
                 return _partitaIVA;
             }
             private set {
-                _partitaIVA = value;
-                base.LanciaEvento();
+                if (_partitaIVA != value)
+                {
+                    _partitaIVA = value;
+                    base.LanciaEvento(this);
+                }
             }
         }
         /// <summary>
@@ -90,6 +99,13 @@ namespace IngegneriaDelSoftware.Model {
             }
             PartitaIVA = partitaIVA;
         }
+
+        protected PersonaGiuridica(PersonaGiuridica personaGiuridica) : base(personaGiuridica)
+        {
+            this._partitaIVA = personaGiuridica.PartitaIVA;
+            this._ragioneSociale = personaGiuridica.RagioneSociale;
+            this._sedeLegale = personaGiuridica.SedeLegale;
+        }
         #endregion
 
         /// <summary>
@@ -98,6 +114,11 @@ namespace IngegneriaDelSoftware.Model {
         /// <returns>La denominazione</returns>
         public override string getDenominazione() {
             return this.RagioneSociale;
+        }
+
+        protected override Persona Clone()
+        {
+            return new PersonaGiuridica(this);
         }
     }
 }
