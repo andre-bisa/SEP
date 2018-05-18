@@ -61,6 +61,7 @@
     <Compile Include="Model\FatturaAgente.cs" />
     <Compile Include="Model\FatturaAzienda.cs" />
     <Compile Include="Model\FatturaLiberoProfessionista.cs" />
+    <Compile Include="Model\Impostazioni.cs" />
     <Compile Include="Model\Intermediario.cs" />
     <Compile Include="Model\IObservale.cs" />
     <Compile Include="Model\Persona.cs" />
