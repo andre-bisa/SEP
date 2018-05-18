@@ -97,7 +97,7 @@ namespace IngegneriaDelSoftware.View.Overlay
             }
             else
             {
-                Cliente = new Cliente(persona, txtCodice.Text, tipoCliente);
+                Cliente = new Cliente(persona, txtCodice.Text, tipoCliente: tipoCliente);
             }
         }
 

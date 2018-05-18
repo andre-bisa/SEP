@@ -84,17 +84,24 @@ namespace IngegneriaDelSoftware.Model {
         #endregion
 
         #region Costruttore
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="datiPreventivo"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public Preventivo(DatiPreventivo datiPreventivo) {
             this._datiPreventivo = datiPreventivo;
         }
         /// <summary>
         /// Crea un nuovo preventivo.
         /// </summary>
-        /// <param name="cliente">Il cliente a cui è proposto il preventivo</param>
+        /// <param name="cliente">Il cliente a cui è proposto il preventivo. Non può essere <see cref="EnumTipoCliente.Ex"/></param>
         /// <param name="data">La data del preventivo<para>Se <c>null</c> è la data corrente</para></param>
         /// <param name="accettato">Se il preventivo è accettato o meno. <c>false</c> di default</param>
         /// <param name="voci">Le voci contenute nel preventivo<para>se <c>null</c> viene inizializzato a lista vuota</para></param>
         /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public Preventivo(ulong id, Cliente cliente, DateTime? data = null, bool accettato = false, List<VocePreventivo> voci = null)
             :this(new DatiPreventivo(id, cliente, data, accettato, voci)){
             
@@ -214,18 +221,22 @@ namespace IngegneriaDelSoftware.Model {
             /// <summary>
             /// Crea un nuovo preventivo.
             /// </summary>
-            /// <param name="cliente">Il cliente a cui è proposto il preventivo</param>
+            /// <param name="cliente">Il cliente a cui è proposto il preventivo. Non può essere <see cref="EnumTipoCliente.Ex"/></param>
             /// <param name="data">La data del preventivo<para>Se <c>null</c> è la data corrente</para></param>
             /// <param name="accettato">Se il preventivo è accettato o meno. <c>false</c> di default</param>
             /// <param name="voci">Le voci contenute nel preventivo<para>se <c>null</c> viene inizializzato a lista vuota</para></param>
             /// <param name="iD">L'id del preventivo</param>
             /// <exception cref="ArgumentNullException"></exception>
+            /// <exception cref="InvalidOperationException"></exception>
             public DatiPreventivo(ulong iD, Cliente cliente, DateTime? data = null, bool accettato = false, List<VocePreventivo> voci = null) {
                 if(cliente == null) {
                     throw new ArgumentNullException("Cliente non può essere nullo");
                 }
                 if(voci != null && voci.Count < 1) {
                     throw new ArgumentException("La lista voci deve contenere almeno un elemento");
+                }
+                if(cliente.TipoCliente == EnumTipoCliente.Ex) {
+                    throw new InvalidOperationException("Il cliente deve essere attivo per potere preformare questa operazione");
                 }
                 this.Cliente = cliente;
                 this.Voci = (voci == null) ? new List<VocePreventivo>() : new List<VocePreventivo>(voci);

@@ -110,6 +110,14 @@ namespace IngegneriaDelSoftware.Model {
         #endregion
 
         #region Costruttore
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="datiFattura"></param>
+        /// <param name="finalizzato">Se la fattura è in stato di lock o meno (finalizzato)</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public Fattura(DatiFattura datiFattura, bool finalizzato = false) {
             this._datiFattura = datiFattura;
             this._stato = finalizzato ? Stato.LOCKED : Stato.UNLOCKED;
@@ -119,7 +127,7 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         /// <param name="anno">L'anno di emissione della fattura</param>
         /// <param name="numero">Il numero della fattura</param>
-        /// <param name="cliente">Il cliente a cui la fattura è rivolta</param>
+        /// <param name="cliente">Il cliente a cui la fattura è rivolta. Deve essere <see cref="EnumTipoCliente.Attivo"/> </param>
         /// <param name="venditeDiProvenienza">Le vendite di provenienza</param>
         /// <param name="data">La data della fattura.<para>Se posta a <c>null</c> è <see cref="DateTime.Now"/></para></param>
         /// <param name="sconto">Lo sconto della fattura.<para>Di default è 0</para></param>
@@ -127,6 +135,7 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="finalizzato">Se la fattura è in stato di lock o meno (finalizzato)</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public Fattura(int anno, string numero, Cliente cliente, List<Vendita> venditeDiProvenienza,
              DateTime? data = null, float sconto = 0, List<VoceFattura> voci = null, bool finalizzato = false) 
             :this(new DatiFattura(anno, numero, cliente, venditeDiProvenienza, data, sconto, voci, finalizzato)){
@@ -145,6 +154,7 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="finalizzato">Se la fattura è in stato di lock o meno (finalizzato)</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public Fattura(int anno, string numero, Cliente cliente, Vendita venditaDiProvenienza,
              DateTime? data = null, float sconto = 0, List<VoceFattura> voci = null, bool finalizzato = false)
             :this(anno, numero, cliente, new List<Vendita>(new Vendita[] { venditaDiProvenienza }), data, sconto, voci, finalizzato) {
@@ -315,6 +325,7 @@ namespace IngegneriaDelSoftware.Model {
             /// <param name="finalizzato">Se la fattura è in stato di lock o meno (finalizzato)</param>
             /// <exception cref="ArgumentNullException"></exception>
             /// <exception cref="ArgumentException"></exception>
+            /// <exception cref="InvalidOperationException"></exception>
             public DatiFattura(int anno, string numero, Cliente cliente, List<Vendita> venditeDiProvenienza,
              DateTime? data = null, float sconto = 0, List<VoceFattura> voci = null, bool finalizzato = false) {
                 if(cliente == null) {
@@ -331,6 +342,9 @@ namespace IngegneriaDelSoftware.Model {
                 }
                 if(venditeDiProvenienza.Count < 1) {
                     throw new ArgumentException("La vendita di provenienza deve contenere almeno una vendita");
+                }
+                if(cliente.TipoCliente != EnumTipoCliente.Attivo) {
+                    throw new InvalidOperationException("Il cliente deve essere attivo per potere preformare questa operazione");
                 }
                 this.Voci = (voci == null) ? new List<VoceFattura>() : new List<VoceFattura>(voci);
                 this.Cliente = cliente;
@@ -351,6 +365,7 @@ namespace IngegneriaDelSoftware.Model {
             /// <param name="sconto">Lo sconto della fattura.<para>Di default è 0</para></param>
             /// <param name="voci">Le voci della fattura.<para>Se posto a <c>null</c> una lista vuota viene inserita</para></param>
             /// <param name="finalizzato">Se la fattura è in stato di lock o meno (finalizzato)</param>
+            /// <exception cref="InvalidOperationException"></exception>
             /// <exception cref="ArgumentNullException"></exception>
             /// <exception cref="ArgumentException"></exception>
             public DatiFattura(int anno, string numero, Cliente cliente, Vendita venditaDiProvenienza,

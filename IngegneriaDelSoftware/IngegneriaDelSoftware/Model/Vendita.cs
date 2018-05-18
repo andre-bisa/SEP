@@ -88,18 +88,20 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="datiVendita"></param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public Vendita(DatiVendita datiVendita) {
             this._datiVendita = datiVendita;
         }
         /// <summary>
         /// Una nuova vendita.
         /// </summary>
-        /// <param name="cliente">Il cliente a cui sono riferite le voci</param>
+        /// <param name="cliente">Il cliente a cui sono riferite le voci. Deve essere <see cref="EnumTipoCliente.Attivo"/>/param>
         /// <param name="data">La data della vendita.<para>Se <c>null</c> è la data corrente</para></param>
         /// <param name="voci">Le voci nella vendita. Deve contenere almeno un valore.<para>Se <c>null</c> è una lista vuota</para></param>
         /// <param name="preventivoDiProvenienza">Il preventivo da cui la fattura proviene.<para>Se <c>null</c> non viene inserito</para></param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public Vendita(ulong iD, Cliente cliente, DateTime? data = null, List<VoceVendita> voci = null, Preventivo preventivoDiProvenienza = null)
             : this(new DatiVendita(iD, cliente, data, voci, preventivoDiProvenienza)){
         }
@@ -211,18 +213,22 @@ namespace IngegneriaDelSoftware.Model {
             /// <summary>
             /// Una nuova vendita.
             /// </summary>
-            /// <param name="cliente">Il cliente a cui sono riferite le voci</param>
+            /// <param name="cliente">Il cliente a cui sono riferite le voci. Deve essere <see cref="EnumTipoCliente.Attivo"/></param>
             /// <param name="data">La data della vendita.<para>Se <c>null</c> è la data corrente</para></param>
             /// <param name="voci">Le voci nella vendita. Deve contenere almeno un valore.<para>Se <c>null</c> è una lista vuota</para></param>
             /// <param name="preventivoDiProvenienza">Il preventivo da cui la fattura proviene.<para>Se <c>null</c> non viene inserito</para></param>
             /// <exception cref="ArgumentException"></exception>
             /// <exception cref="ArgumentNullException"></exception>
+            /// <exception cref="InvalidOperationException"></exception>
             public DatiVendita(ulong iD, Cliente cliente, DateTime? data = null, List<VoceVendita> voci = null, Preventivo preventivoDiProvenienza = null) : this() {
                 if(cliente == null) {
                     throw new ArgumentNullException("Il cliente non può essere nullo");
                 }
                 if(voci != null && voci.Count < 1) {
                     throw new ArgumentException("Le voci devono essere almeno una");
+                }
+                if(cliente.TipoCliente != EnumTipoCliente.Attivo) {
+                    throw new InvalidOperationException("Il cliente deve essere attivo per potere preformare questa operazione");
                 }
                 this.Voci = (voci == null) ? new List<VoceVendita>() : new List<VoceVendita>(voci);
                 this.Cliente = cliente;
