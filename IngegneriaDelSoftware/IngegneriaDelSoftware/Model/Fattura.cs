@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Model {
-    public class Fattura: IEnumerable<VoceFattura>, ICollection<VoceFattura> {
+    public class Fattura : IEnumerable<VoceFattura>, ICollection<VoceFattura>, IObservable<Fattura> {
+        public event EventHandler<ArgsModifica<Fattura>> OnModifica;
         private enum Stato { UNLOCKED, LOCKED };
-
+ 
         #region Campi privati
         private List<VoceFattura> _voci;
         private Cliente _cliente;
@@ -18,6 +20,8 @@ namespace IngegneriaDelSoftware.Model {
         private int _anno;
         private Stato _stato;
         private float _sconto;
+
+       
         #endregion
 
         #region Property
@@ -46,7 +50,7 @@ namespace IngegneriaDelSoftware.Model {
         /// <exception cref="InvalidOperationException"></exception>
         public List<Vendita> VenditeDiProvenienza {
             get {
-                return _venditeDiProvenienza;
+                return new List<Vendita>(_venditeDiProvenienza);
             }
         }
         /// <summary>
@@ -177,9 +181,9 @@ namespace IngegneriaDelSoftware.Model {
             if(venditeDiProvenienza.Count < 1) {
                 throw new ArgumentException("La vendita di provenienza deve contenere almeno una vendita");
             }
-            this._voci = voci ?? new List<VoceFattura>();
+            this._voci = (voci == null) ? new List<VoceFattura>() : new List<VoceFattura>(voci);
             this._cliente = cliente;
-            this._venditeDiProvenienza = venditeDiProvenienza;
+            this._venditeDiProvenienza = new List<Vendita>(venditeDiProvenienza);
             this._numero = numero;
             this._data = data ?? DateTime.Now;
             this._anno = anno;

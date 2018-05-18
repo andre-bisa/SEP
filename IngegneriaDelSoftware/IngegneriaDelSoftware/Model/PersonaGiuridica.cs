@@ -71,21 +71,10 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="ragioneSociale">La ragione sociale della persona</param>
         /// <param name="sedeLegale">La sede legale della persona</param>
         /// <param name="partitaIVA">La partita IVA della persona</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public PersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA) : this(codiceFiscale, indirizzo, ragioneSociale, sedeLegale, partitaIVA, null, null) {
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="codiceFiscale">Il codice fiscale della persona</param>
-        /// <param name="indirizzo">L'indirizzo della persona</param>
-        /// <param name="ragioneSociale">La ragione sociale della persona</param>
-        /// <param name="sedeLegale">La sede legale della persona</param>
-        /// <param name="partitaIVA">La partita IVA della persona</param>
         /// <param name="telefoni">I numeri di telefono della persona</param>
         /// <param name="email">Gli indirizzi email della persona</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public PersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, List<Telefono> telefoni, List<Telefono> email) : base(codiceFiscale, indirizzo, telefoni, email) {
+        public PersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, List<Telefono> telefoni = null, List<Email> email = null) : base(codiceFiscale, indirizzo, telefoni, email) {
             if(ragioneSociale == null) {
                 throw new ArgumentNullException(nameof(ragioneSociale));
             }

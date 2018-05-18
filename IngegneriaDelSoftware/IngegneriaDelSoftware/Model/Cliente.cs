@@ -11,7 +11,14 @@ namespace IngegneriaDelSoftware.Model
     {
         public event EventHandler<ArgsModifica<Cliente>> OnModifica;
 
+        #region Campi privati
         private string _idCliente;
+        private Persona _persona;
+        private string _nota;
+        private List<Referente> _referenti;
+        #endregion
+
+        #region Proprietà
         public string IDCliente {
             get
             {
@@ -27,7 +34,6 @@ namespace IngegneriaDelSoftware.Model
                 }
             }
         }
-        private Persona _persona;
         public Persona Persona {
             get
             {
@@ -43,10 +49,6 @@ namespace IngegneriaDelSoftware.Model
                 }
             }
         }
-        private string _nota;
-
-        
-
         public string Nota {
             get
             {
@@ -63,7 +65,14 @@ namespace IngegneriaDelSoftware.Model
             }
         }
         public EnumTipoCliente TipoCliente { get; private set; }
-        public List<Referente> Referenti { get; private set; } = new List<Referente>();
+        public List<Referente> Referenti
+        {
+            get
+            {
+                return new List<Referente>(_referenti);
+            }
+        }
+        #endregion
 
         #region "Costruttori"
         /// <summary>
@@ -71,9 +80,10 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="persona">La persona dalla quale verrà creato il cliente</param>
         /// <param name="IDCliente">Codice del cliente</param>
-        /// <param name="tipoCliente">Tipo del cliente</param>
+        /// <param name="tipoCliente">Tipo del cliente. Default: Ativo</param>
+        /// <param name="nota">Nota del cliente. Default: ""</param>
         /// /// <exception cref="ArgumentNullException"></exception>
-        public Cliente(Persona persona, string IDCliente, EnumTipoCliente tipoCliente)
+        public Cliente(Persona persona, string IDCliente, List<Referente> referenti = null, EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo, string nota = "")
         {
             if(IDCliente == null) {
                  throw new ArgumentNullException(nameof(IDCliente));
@@ -88,50 +98,13 @@ namespace IngegneriaDelSoftware.Model
             //Persona.ModificaPersona += this.PersonaModificata; // Se ci sono modifiche dico che il cliente è stato modificato
             _persona.OnModifica += this.PersonaModificata;
             TipoCliente = tipoCliente;
+            _nota = nota;
+
+            this._referenti = (referenti == null) ? new List<Referente>() : new List<Referente>(referenti);
         }
 
-        /// <summary>
-        /// Costruttore
-        /// </summary>
-        /// <param name="persona">La persona dalla quale verrà creato il cliente</param>
-        /// <param name="IDCliente">Codice del cliente</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public Cliente (Persona persona, string IDCliente) : this(persona, IDCliente, EnumTipoCliente.Attivo)
+        protected Cliente(Cliente cliente) : this(cliente.Persona, cliente.IDCliente, cliente._referenti, cliente.TipoCliente, cliente.Nota)
         {
-        }
-
-        /// <summary>
-        /// Costruttore
-        /// </summary>
-        /// <param name="persona">La persona dalla quale verrà creato il cliente</param>
-        /// <param name="IDCliente">Codice del cliente</param>
-        /// <param name="nota">Eventuali note</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public Cliente (Persona persona, string IDCliente, string nota) : this(persona, IDCliente)
-        {
-            
-        }
-
-        /// <summary>
-        /// Costruttore
-        /// </summary>
-        /// <param name="persona">La persona dalla quale verrà creato il cliente</param>
-        /// <param name="IDCliente">Codice del cliente</param>
-        /// <param name="tipoCliente">Tipo del cliente</param>
-        /// <param name="nota">Eventuali note</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public Cliente (Persona persona, string IDCliente, EnumTipoCliente tipoCliente, string nota) : this(persona, IDCliente, tipoCliente)
-        {
-            if(nota == null) {
-                throw new ArgumentNullException(nameof(nota));
-            }
-            this._nota = nota;
-        }
-
-        protected Cliente(Cliente cliente) : this(cliente.Persona, cliente.IDCliente, cliente.TipoCliente)
-        {
-            this._nota = cliente.Nota;
-            this.Referenti = new List<Referente>(cliente.Referenti);
         }
         #endregion
 
@@ -233,9 +206,7 @@ namespace IngegneriaDelSoftware.Model
 
         private void PersonaModificata(object sender, ArgsModifica<Persona> p)
         {
-            Cliente clienteVecchio = new Cliente(p.Vecchio, this.IDCliente, this.TipoCliente);
-            clienteVecchio.Nota = this.Nota;
-            clienteVecchio.Referenti = this.Referenti;
+            Cliente clienteVecchio = new Cliente(p.Vecchio, this.IDCliente, this._referenti, this.TipoCliente, this.Nota);
             LanciaEvento(clienteVecchio);
         }
 

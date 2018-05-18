@@ -22,7 +22,7 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         public List<VoceVendita> Voci {
             get {
-                return _voci;
+                return new List<VoceVendita>(_voci);
             }
         }
         /// <summary>
@@ -103,7 +103,7 @@ namespace IngegneriaDelSoftware.Model {
                 throw new ArgumentException("Le voci devono essere almeno una");
             }
             this._cliente = cliente;
-            this._voci = voci ?? new List<VoceVendita>();
+            this._voci = (voci == null) ? new List<VoceVendita>() : new List<VoceVendita>(voci);
             this._preventivoDiProvenienza = preventivoDiProvenienza;
             this._data = data ?? DateTime.Now;
         }

@@ -9,14 +9,19 @@ namespace IngegneriaDelSoftware.Model
 {
     public abstract class Persona : IObservable<Persona>
     {
-        //public event EventHandler<ArgsModificaPersona> ModificaPersona;
         public event EventHandler<ArgsModifica<Persona>> OnModifica;
 
         public abstract EnumTipoPersona TipoPersona { get; }
-
         protected abstract Persona Clone();
 
+        #region Campi privati
         private string _codiceFiscale;
+        private string _indirizzo;
+        private List<Telefono> _telefoni;
+        private List<Email> _email;
+        #endregion
+
+        #region Proprietà
         /// <summary>
         /// Il codice fiscale della persona
         /// <para>Il set causa il lancio dell'evento <see cref="ModificaPersona"/></para>
@@ -36,7 +41,6 @@ namespace IngegneriaDelSoftware.Model
                 }
             }
         }
-        private string _indirizzo;
         /// <summary>
         /// L'indirizzo della persona
         /// <para>Il set causa il lancio dell'evento <see cref="ModificaPersona"/></para>
@@ -57,10 +61,21 @@ namespace IngegneriaDelSoftware.Model
             }
         }
 
-        //XXX ha senso che siano pubbliche?;
-
-        public List<Telefono> Telefoni { get; } = new List<Telefono>();
-        public List<Telefono> Email { get; } = new List<Telefono>();
+        public List<Telefono> Telefoni
+        {
+            get
+            {
+                return new List<Telefono>(_telefoni);
+            }
+        }
+        public List<Email> Email
+        {
+            get
+            {
+                return new List<Email>(_email);
+            }
+        }
+        #endregion
 
         #region "Costruttori"
         /// <summary>
@@ -68,61 +83,26 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="codiceFiscale">Il codice fiscale della persona</param>
         /// <param name="indirizzo">L'indirizzo della persona</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        protected Persona(string codiceFiscale, string indirizzo)
+        /// <param name="telefoni">I telefoni della persona. Default: lista vuota</param>
+        /// <param name="email">Gli indirizzi email della persona. Default: lista vuota</param>
+        /// <exception cref="ArgumentNullException">/exception>
+        protected Persona(string codiceFiscale, string indirizzo, List<Telefono> telefoni = null, List<Email> email = null)
         {
-            if(codiceFiscale == null) {
+
+            if (codiceFiscale == null)
+            {
                 throw new ArgumentNullException(nameof(codiceFiscale));
             }
             _codiceFiscale = codiceFiscale;
-            if(indirizzo == null) {
+            if (indirizzo == null)
+            {
                 throw new ArgumentNullException(nameof(indirizzo));
             }
             _indirizzo = indirizzo;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="codiceFiscale">Il codice fiscale della persona</param>
-        /// <param name="indirizzo">L'indirizzo della persona</param>
-        /// <param name="telefoni">I telefoni della persona</param>
-        /// <param name="email">Gli indirizzi email della persona</param>
-        /// <exception cref="ArgumentNullException">/exception>
-        protected Persona(string codiceFiscale, string indirizzo, List<Telefono> telefoni, List<Telefono> email) : this(codiceFiscale, indirizzo)
-        {
-            //N.B. il lancio delle eccezioni è evitato perchè si vuole rituilizzare questo codice negli altri due costruttori più sotto;
-            if(telefoni != null) {
-                foreach(Telefono tel in telefoni) {
-                    this.Telefoni.Add(tel);
-                }
-            }
 
-            if(email != null) {
-                foreach(Telefono mail in email) {
-                    this.Email.Add(mail);
-                }
-            }
-        }
+            this._telefoni = (telefoni == null) ? new List<Telefono>() : new List<Telefono>(telefoni);
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="codiceFiscale">Il codice fiscale della persona</param>
-        /// <param name="indirizzo">L'indirizzo della persona</param>
-        /// <param name="telefoni">I telefoni della persona</param>
-        /// <exception cref="ArgumentNullException">/exception>
-        protected Persona(string codiceFiscale, string indirizzo, List<Telefono> telefoni) : this(codiceFiscale, indirizzo, telefoni, null)
-        {
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="codiceFiscale">Il codice fiscale della persona</param>
-        /// <param name="indirizzo">L'indirizzo della persona</param>
-        /// <param name="email">Gli indirizzi email della persona</param>
-        /// <exception cref="ArgumentNullException">/exception>
-        protected Persona(string codiceFiscale, string indirizzo, List<Telefono> email) : this(codiceFiscale, indirizzo, null, email)
-        {
+            this._email = (email == null) ? new List<Email>() : new List<Email>(email);
         }
 
         protected Persona(Persona persona) : this(persona.CodiceFiscale, persona.Indirizzo, persona.Telefoni, persona.Email)
@@ -166,7 +146,7 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="email">L'indirizzo da aggiungere</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void AggiungiEmail(Telefono email)
+        public void AggiungiEmail(Email email)
         {
             if(email != null) {
                 this.Email.Add(email);
@@ -179,7 +159,7 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="email">L'indirizzo da rimuovere</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void RimuoviEmail(Telefono email)
+        public void RimuoviEmail(Email email)
         {
             if(email != null) {
                 this.Email.Remove(email);
