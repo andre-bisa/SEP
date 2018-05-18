@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using IngegneriaDelSoftware.Model;
 using IngegneriaDelSoftware.View.Overlay;
 using IngegneriaDelSoftware.Model.ArgsEvent;
+using IngegneriaDelSoftware.Controller;
 
 namespace IngegneriaDelSoftware.View.Controlli
 {
@@ -18,7 +19,14 @@ namespace IngegneriaDelSoftware.View.Controlli
         public event EventHandler<ArgsPannelloCliente> DoppioClickCliente;
         public event EventHandler<ArgsPannelloCliente> ModificataSelezione;
 
+        #region Campi privati
+        private Panel _panelContainer;
+        private MockControllerClienti _controller;
+
         private Cliente _cliente;
+        private bool _selected = false;
+        #endregion
+
         public Cliente Cliente {
             get
             {
@@ -30,8 +38,6 @@ namespace IngegneriaDelSoftware.View.Controlli
                 CaricaClienteSuForm();
             }
             }
-
-        private bool _selected = false;
         public bool Selected
         {
             get { return _selected; }
@@ -48,7 +54,6 @@ namespace IngegneriaDelSoftware.View.Controlli
             }
         }
 
-        private Panel _panelContainer = null;
 
         #region "Costruttori"
         protected PannelloCliente()
@@ -69,19 +74,27 @@ namespace IngegneriaDelSoftware.View.Controlli
         }
 
         /// <summary>
-        /// Costruttore di default
+        /// Costruttore
         /// </summary>
-        /// <param name="cliente">Cliente che si intende visualizzare</param>
-        public PannelloCliente(Cliente cliente) : this()
+        /// <param name="controller">Controller che verrà usato per modifiche/inserimenti/eliminazioni dei clienti</param>
+        /// <param name="cliente">Cliente da visualizzare</param>
+        /// <param name="panelContainer">Pannello che conterrà l'overlay a seguito della pressione del pulsante di espansione</param>
+        /// <exception cref="ArgumentNullException">Se vengono passati dei null</exception>
+        public PannelloCliente(MockControllerClienti controller, Cliente cliente, Panel panelContainer) : this()
         {
-            Cliente = cliente;
-            Cliente.OnModifica += this.ClienteModificato;
-        }
+            #region Controlli
+            if (controller == null)
+                throw new ArgumentNullException(nameof(controller));
+            if (cliente == null)
+                throw new ArgumentNullException(nameof(cliente));
+            #endregion
 
-        public PannelloCliente(Cliente cliente, Panel panelContainer) : this(cliente)
-        {
+            Cliente = cliente;
             _panelContainer = panelContainer;
+            _controller = controller;
+
             DoppioClickCliente += new EventHandler<ArgsPannelloCliente>(this.ApriOverlayCliente);
+            Cliente.OnModifica += this.ClienteModificato;
         }
         #endregion
 
@@ -159,7 +172,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         private void ApriOverlayCliente(object sender, ArgsCliente e)
         {
             if (_panelContainer != null)
-                new OverlayCliente(Cliente, _panelContainer).Open();
+                new OverlayCliente(_controller, _panelContainer, Cliente).Open();
         }
         #endregion
     }

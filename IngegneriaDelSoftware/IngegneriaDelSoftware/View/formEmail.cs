@@ -44,7 +44,7 @@ namespace IngegneriaDelSoftware.View
             if (clienteDaCaricare >= _clienti.Count /*|| _clienti[clienteDaCaricare] == null*/)
                 return;
 
-            SchedaCliente schedaCliente = new SchedaCliente(_clienti[clienteDaCaricare], this.panelForm);
+            SchedaCliente schedaCliente = new SchedaCliente(_controller, _clienti[clienteDaCaricare], this.panelForm);
             flowClienti.Controls.Add(schedaCliente);
 
             clienteDaCaricare++;

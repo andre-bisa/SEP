@@ -1,4 +1,5 @@
 ﻿using IngegneriaDelSoftware.Model;
+using IngegneriaDelSoftware.Model.ArgsEvent;
 using System;
 using System.Collections.Generic;
 using System.Linq;

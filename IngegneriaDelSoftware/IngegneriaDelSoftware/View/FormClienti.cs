@@ -24,10 +24,9 @@ namespace IngegneriaDelSoftware.View
 
         private MockControllerClienti _controller = new MockControllerClienti();
 
-        private List<Cliente> _clienti;
-        private int clienteDaCaricare = 0;
+        private Dictionary<string, Tuple<Cliente, PannelloCliente>> _clienti = new Dictionary<string, Tuple<Cliente, PannelloCliente>>();
 
-        private List<object> _clientiSelezionati = new List<object>();
+        private List<Cliente> _clientiSelezionati = new List<Cliente>();
 
         #region "Costruttori"
         public FormClienti()
@@ -35,7 +34,13 @@ namespace IngegneriaDelSoftware.View
             InitializeComponent();
             this.txtSearchBar.KeyDown += (sender, e) => { if (e.KeyCode == System.Windows.Forms.Keys.Enter) RicercaTraClienti(); };
 
-            _clienti = _controller.ListaClienti;
+            foreach (Cliente c in _controller.ListaClienti)
+            {
+                c.OnModifica += this.AggiornaDizionarioPerModificaCliente;
+                _clienti.Add(c.IDCliente, new Tuple<Cliente, PannelloCliente>(c, null));
+            }
+
+            _controller.RimossoCliente += this.RimossoCliente;
         }
         #endregion
 
@@ -58,15 +63,53 @@ namespace IngegneriaDelSoftware.View
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.Synchronized)]
         private void CaricaClienteSullaForm()
         {
-            if ( clienteDaCaricare >= _clienti.Count || _clienti[clienteDaCaricare] == null)
+            Cliente clienteDaCaricare = PrimoClienteNonMostrato();
+
+            if (clienteDaCaricare == null) // Sono già mostrati tutti i clienti
                 return;
 
-            PannelloCliente pannelloCliente = new PannelloCliente(_clienti[clienteDaCaricare], this.panelForm);
+            PannelloCliente pannelloCliente = new PannelloCliente(_controller, clienteDaCaricare, this.panelForm);
             pannelloCliente.Margin = new Padding(5, 3, 5, 3);
             pannelloCliente.ModificataSelezione += new EventHandler<ArgsPannelloCliente>(this.AbilitaDelete);
             this.flowClienti.Controls.Add(pannelloCliente);
-            clienteDaCaricare++;
+            this._clienti[clienteDaCaricare.IDCliente] = new Tuple<Cliente, PannelloCliente>(clienteDaCaricare, pannelloCliente);
         }
+
+        private Cliente PrimoClienteNonMostrato()
+        {
+            foreach (string id in this._clienti.Keys)
+            {
+                if (this._clienti[id].Item2 == null)
+                    return this._clienti[id].Item1;
+            }
+            return null;
+        }
+
+        private void RimossoCliente(object sender, ArgsCliente e)
+        {
+            if (e.Cliente == null)
+                return;
+
+            PannelloCliente pannelloDaRimuovere = this._clienti[e.Cliente.IDCliente].Item2;
+            this._clienti.Remove(e.Cliente.IDCliente);
+            this._clientiSelezionati.Remove(e.Cliente);
+            if (pannelloDaRimuovere != null)
+            {
+                this.flowClienti.Controls.Remove(pannelloDaRimuovere);
+                CaricaClienteSullaForm();
+            }
+        }
+
+        private void AggiornaDizionarioPerModificaCliente(object sender, ArgsModifica<Cliente> e)
+        {
+            if (e.Nuovo.GetHashCode() != e.Vecchio.GetHashCode())
+            {
+                PannelloCliente pannello = this._clienti[e.Vecchio.IDCliente].Item2;
+                this._clienti.Remove(e.Vecchio.IDCliente);
+                this._clienti.Add(e.Nuovo.IDCliente, new Tuple<Cliente, PannelloCliente>(e.Nuovo, pannello));
+            }
+        }
+
         #endregion
 
         /// <summary>
@@ -122,6 +165,14 @@ namespace IngegneriaDelSoftware.View
 
         private void LblElimina_Click(object sender, EventArgs e)
         {
+            if (FormConfim.Show("Eliminare clienti?", "Confermi l'eliminazione dei clienti?") == DialogResult.OK)
+            {
+                List<Cliente> clientiDaEliminare = new List<Cliente>(_clientiSelezionati);
+                foreach (Cliente c in clientiDaEliminare)
+                {
+                    this._controller.RimuoviCliente(c);
+                }
+            }
             MessageBox.Show("Elimina");
         }
 
@@ -132,7 +183,7 @@ namespace IngegneriaDelSoftware.View
 
         private void materialFloatingActionButton1_Click(object sender, EventArgs e)
         {
-            OverlayCliente overlayCliente = new OverlayCliente(this.panelForm);
+            OverlayCliente overlayCliente = new OverlayCliente(_controller, this.panelForm);
             overlayCliente.OverlayChiuso += this.ChiusoOverlayNuovoCliente;
             overlayCliente.Open();
         }
@@ -142,7 +193,7 @@ namespace IngegneriaDelSoftware.View
             if (! (sender is OverlayCliente))
                 return;
             OverlayCliente overlay = (OverlayCliente)sender;
-            this._controller.AggiungiCliente(overlay.Cliente);
+            this._clienti.Add(overlay.Cliente.IDCliente, new Tuple<Cliente, PannelloCliente>(overlay.Cliente, null));
         }
         #endregion
     }

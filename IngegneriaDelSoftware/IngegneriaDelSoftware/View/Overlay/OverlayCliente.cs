@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using IngegneriaDelSoftware.View.Overlay;
 using IngegneriaDelSoftware.Model;
 using IngegneriaDelSoftware.View.Controlli;
+using IngegneriaDelSoftware.Controller;
 
 namespace IngegneriaDelSoftware.View.Overlay
 {
@@ -19,30 +20,29 @@ namespace IngegneriaDelSoftware.View.Overlay
         /// Cliente dell'overlay
         /// </summary>
         public Cliente Cliente { get; private set; }
+        private MockControllerClienti _controller;
 
         #region "Costruttori"
         /// <summary>
         /// Costruttore da usare per la creazione di un overlay vuoto. Utile per l'inserimento di un cliente.
         /// </summary>
+        /// <param name="controller">Il controller dei clienti a cui dovrà fare riferimento la view (serve a chiedere di inserire/modificare/eliminare i clienti)</param>
         /// <param name="panelContainer">Pannello che conterrà l'overlay</param>
-        public OverlayCliente (Panel panelContainer) : base(panelContainer)
+        /// <param name="cliente">Cliente a cui si riferisce l'overlay</param>
+        public OverlayCliente(MockControllerClienti controller, Panel panelContainer, Cliente cliente = null) : base(panelContainer)
         {
             InitializeComponent();
+            base.AddPanel(this.panel1);
             btnSalva.Click += this.BottoneSalva;
 
-            base.AddPanel(this.panel1);
             this.Titolo = "Cliente";
-        }
 
-        /// <summary>
-        /// Costruttore di default
-        /// </summary>
-        /// <param name="cliente">Cliente a cui si riferisce l'overlay</param>
-        /// <param name="panelContainer">Pannello che conterrà l'overlay</param>
-        public OverlayCliente(Cliente cliente, Panel panelContainer) : this(panelContainer)
-        {
-            Cliente = cliente;
-            CaricaClienteSuForm();
+            this._controller = controller;
+            if (cliente != null)
+            {
+                Cliente = cliente;
+                CaricaClienteSuForm();
+            }
         }
         #endregion
 
@@ -74,6 +74,9 @@ namespace IngegneriaDelSoftware.View.Overlay
         {
             Persona persona;
             EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo;
+            DatiCliente datiCliente;
+            List<Referente> listaReferenti = null;
+            string nota = "";
 
             if (radioFisica.Checked)
             {
@@ -89,15 +92,15 @@ namespace IngegneriaDelSoftware.View.Overlay
             else if (checkPotenziale.Checked)
                 tipoCliente = EnumTipoCliente.Potenziale;
 
-            if (Cliente != null)
+            datiCliente = new DatiCliente(persona, txtCodice.Text, tipoCliente, listaReferenti, nota);
+            
+            if (Cliente == null) // devo creare un cliente
             {
-                Cliente.IDCliente = txtCodice.Text;
-                Cliente.Persona = persona;
-                Cliente.CambiaTipoCliente(tipoCliente);
+                Cliente = this._controller.AggiungiCliente(datiCliente);
             }
             else
             {
-                Cliente = new Cliente(persona, txtCodice.Text, tipoCliente);
+                this._controller.ModificaCliente(Cliente, datiCliente);
             }
         }
 

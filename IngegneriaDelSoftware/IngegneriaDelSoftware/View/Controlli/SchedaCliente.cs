@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using IngegneriaDelSoftware.View.Overlay;
 using IngegneriaDelSoftware.Model;
 using IngegneriaDelSoftware.Model.ArgsEvent;
+using IngegneriaDelSoftware.Controller;
 
 namespace IngegneriaDelSoftware.View.Controlli
 {
@@ -24,7 +25,14 @@ namespace IngegneriaDelSoftware.View.Controlli
         /// </summary>
         public event EventHandler<ArgsSchedaCliente> ModificataSelezione;
 
+        #region Campi privati
+        private Panel _panelContainer;
+        private MockControllerClienti _controller;
+
         private Cliente _cliente;
+        private bool _selected = false;
+        #endregion
+
         /// <summary>
         /// Il cliente cui la scheda fa riferimento.
         /// </summary>
@@ -41,7 +49,7 @@ namespace IngegneriaDelSoftware.View.Controlli
             }
         }
 
-        private bool _selected = false;
+        
         /// <summary>
         /// Dice se la scheda è selezionata.
         /// </summary>
@@ -63,29 +71,32 @@ namespace IngegneriaDelSoftware.View.Controlli
             }
         }
 
-        private Panel _panelContainer = null;
-
         #region "Costruttori"
-        /// <summary>
-        /// Costruttore base
-        /// </summary>
-        /// <param name="cliente">Cliente</param>
-        public SchedaCliente(Cliente cliente)
+        protected SchedaCliente()
         {
             InitializeComponent();
             this.Size = new System.Drawing.Size(200, SchedaCliente.AltezzaSchedaClienti());
-
-            Cliente = cliente;
-            Cliente.OnModifica += this.ClienteModificato;
         }
-
         /// <summary>
         /// Costruttore
         /// </summary>
+        /// <param name="controller">Controller che verrà usato per modifiche/inserimenti/eliminazioni dei clienti</param>
+        /// <param name="cliente">Cliente da visualizzare</param>
         /// <param name="panelContainer">Pannello che conterrà l'overlay a seguito della pressione del pulsante di espansione</param>
-        public SchedaCliente(Cliente cliente, Panel panelContainer) : this(cliente)
+        /// <exception cref="ArgumentNullException">Se vengono passati dei null</exception>
+        public SchedaCliente(MockControllerClienti controller, Cliente cliente, Panel panelContainer = null) : this()
         {
+            #region Controlli
+            if (controller == null)
+                throw new ArgumentNullException(nameof(controller));
+            if (cliente == null)
+                throw new ArgumentNullException(nameof(cliente));
+            #endregion
+
             _panelContainer = panelContainer;
+            _controller = controller;
+            Cliente = cliente;
+            Cliente.OnModifica += this.ClienteModificato;
             AperturaCliente += new EventHandler<ArgsSchedaCliente>(this.ApriOverlayCliente);
         }
         #endregion
@@ -126,7 +137,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         private void ApriOverlayCliente(object sender, ArgsCliente e)
         {
             if (_panelContainer != null)
-                new OverlayCliente(Cliente, _panelContainer).Open();
+                new OverlayCliente(_controller, _panelContainer, Cliente).Open();
         }
 
         private void CaricaClienteSuForm()
