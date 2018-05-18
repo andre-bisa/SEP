@@ -12,7 +12,7 @@ namespace IngegneriaDelSoftware.Model
         public abstract event EventHandler<ArgsModifica<Utente>> OnModifica;
         private string _username, _pIva, _cf, _indirizzo;
         private ListaTelefoni _telefoni;
-        private Telefono _email;
+        private Email _email;
 
         #region Costruttore
         /// <summary>
@@ -24,7 +24,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="indirizzo"></param>
         /// <param name="telefoni">Campo opzionale</param>
         /// <param name="email">Campo opzionale</param>
-        public Utente(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni = null, Telefono email = null)
+        public Utente(string username, string pIva, string cF, string indirizzo, Email email, List<Telefono> telefoni = null)
         {
             #region Controlli
             if (username == null)
@@ -42,10 +42,6 @@ namespace IngegneriaDelSoftware.Model
             if (indirizzo == null)
             {
                 throw new ArgumentNullException(nameof(indirizzo));
-            }
-            if (email == null)
-            {
-                throw new ArgumentNullException(nameof(email));
             }
             #endregion
 
@@ -88,7 +84,7 @@ namespace IngegneriaDelSoftware.Model
                 return new List<Telefono>(_telefoni);
             }
         }
-        public Telefono Email
+        public Email Email
         {
             get { return _email; }
             protected set { _email = value; }

@@ -37,10 +37,6 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public void Add(Telefono item)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException();
-            }
             ((ICollection<Telefono>)_telefoni).Add(item);
         }
 
@@ -60,10 +56,6 @@ namespace IngegneriaDelSoftware.Model
         /// <returns></returns>
         public bool Contains(Telefono item)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException();
-            }
             return ((ICollection<Telefono>)_telefoni).Contains(item);
         }
 
@@ -85,10 +77,6 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public bool Remove(Telefono item)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException();
-            }
             return ((ICollection<Telefono>)_telefoni).Remove(item);
         }
 
@@ -107,11 +95,6 @@ namespace IngegneriaDelSoftware.Model
             get { return _telefoni[i]; }
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException();
-                }
-
                 _telefoni[i] = value;
             }
         }

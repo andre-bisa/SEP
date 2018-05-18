@@ -11,8 +11,8 @@ namespace IngegneriaDelSoftware.Model
     {
         public event EventHandler<ArgsModifica<DatoreLavoro>> OnModifica;
         private string _nome, _cognome, _ragioneSociale, _pIva, _cF, _indirizzo;
-        private List<Telefono> _telefoni;
-        private Telefono _email;
+        private ListaTelefoni _telefoni;
+        private ListaEmail _email;
 
 
         #region Costruttori
@@ -28,7 +28,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="telefoni"></param>
         /// <param name="email"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        protected DatoreLavoro(string nome, string cognome, string ragioneSociale, string pIva, string cF, string indirizzo, List<Telefono> telefoni =  null, Telefono email = null)
+        protected DatoreLavoro(string nome, string cognome, string ragioneSociale, string pIva, string cF, string indirizzo, List<Telefono> telefoni =  null, List<Email> email = null)
         {
             #region Controlli
             if(nome == null)
@@ -64,8 +64,8 @@ namespace IngegneriaDelSoftware.Model
             _cF = cF;
             _indirizzo = indirizzo;
             //Se argomento nullo da' lista vuota, altrimenti crea una copia della lista data
-            _telefoni = (telefoni == null) ? new List<Telefono>() : new List<Telefono>(telefoni);
-            _email = email;
+            _telefoni = new ListaTelefoni(telefoni);
+            _email = new ListaEmail(email);
         }
 
 
@@ -123,7 +123,7 @@ namespace IngegneriaDelSoftware.Model
         /// <summary>
         /// Eventuali numeri di telefono del datore di lavoro
         /// </summary>
-        public List<Telefono> Telefono
+        public ListaTelefoni Telefoni
         {
             get { return _telefoni; }
             set { _telefoni = value; }
@@ -131,7 +131,7 @@ namespace IngegneriaDelSoftware.Model
         /// <summary>
         /// Eventuale email del datore di lavoro
         /// </summary>
-        public Telefono Email
+        public ListaEmail Email
         {
             get { return _email; }
             set { _email = value; }

@@ -64,7 +64,7 @@ namespace IngegneriaDelSoftware.Model {
 
         #region "Costruttori"
         /// <summary>
-        /// 
+        /// Costruttore di default
         /// </summary>
         /// <param name="codiceFiscale">Il codice fiscale della persona</param>
         /// <param name="indirizzo">L'indirizzo della persona</param>

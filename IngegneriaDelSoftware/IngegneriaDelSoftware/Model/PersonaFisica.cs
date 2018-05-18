@@ -8,7 +8,13 @@ namespace IngegneriaDelSoftware.Model
 {
     public class PersonaFisica : Persona
     {
+        #region Campi privati
         private string _nome;
+        private string _cognome;
+        private string _partitaIVA;
+        #endregion
+
+        #region Proprietà
         /// <summary>
         /// Il nome della persona
         /// <para>Il set causa il lancio dell'evento <see cref="Persona.ModificaPersona"/></para>
@@ -28,7 +34,6 @@ namespace IngegneriaDelSoftware.Model
                 }
             }
         }
-        private string _cognome;
         /// <summary>
         /// Il cognome della persona
         /// <para>Il set causa il lancio dell'evento <see cref="Persona.ModificaPersona"/></para>
@@ -48,8 +53,6 @@ namespace IngegneriaDelSoftware.Model
                 }
             }
         }
-        private string _partitaIVA;
-
         /// <summary>
         /// La partita IVA della persona. Can be <c>null</c>.
         /// <para>Il set causa il lancio dell'evento <see cref="Persona.ModificaPersona"/></para>
@@ -69,15 +72,15 @@ namespace IngegneriaDelSoftware.Model
                 }
             }
         }
-
         /// <summary>
         /// Il tipo di persona
         /// </summary>
         public override EnumTipoPersona TipoPersona { get { return EnumTipoPersona.Fisica; } }
+        #endregion
 
         #region "Costruttori"
         /// <summary>
-        /// 
+        /// Costruttore di default
         /// </summary>
         /// <param name="codiceFiscale">Il codice fiscale</param>
         /// <param name="indirizzo">L'indirizzo</param>

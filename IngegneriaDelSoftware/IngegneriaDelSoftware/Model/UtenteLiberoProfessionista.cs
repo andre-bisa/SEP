@@ -25,8 +25,8 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="nome"></param>
         /// <param name="cognome"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public UtenteLiberoProfessionista(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni, Telefono email, string nome, string cognome) 
-            : base(username, pIva, cF, indirizzo, telefoni, email)
+        public UtenteLiberoProfessionista(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni, Email email, string nome, string cognome) 
+            : base(username, pIva, cF, indirizzo, email, telefoni)
         {
             if(nome == null)
             {

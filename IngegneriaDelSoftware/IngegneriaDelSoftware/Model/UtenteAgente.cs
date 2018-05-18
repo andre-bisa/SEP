@@ -28,8 +28,8 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="provvigioneDefault"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public UtenteAgente(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni, Telefono email, string nome, string cognome, float provvigioneDefault = 0)
-            : base(username, pIva, cF, indirizzo, telefoni, email)
+        public UtenteAgente(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni, Email email, string nome, string cognome, float provvigioneDefault = 0)
+            : base(username, pIva, cF, indirizzo, email, telefoni)
         {
             #region Controlli
             if (nome == null)

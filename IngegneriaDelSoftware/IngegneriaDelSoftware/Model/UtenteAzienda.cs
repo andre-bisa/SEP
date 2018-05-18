@@ -25,8 +25,8 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="ragioneSociale"></param>
         /// <param name="sedeLegale"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public UtenteAzienda(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni, Telefono email, string ragioneSociale, string sedeLegale)
-            : base(username, pIva, cF, indirizzo, telefoni, email)
+        public UtenteAzienda(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni, Email email, string ragioneSociale, string sedeLegale)
+            : base(username, pIva, cF, indirizzo, email, telefoni)
         {
             if (ragioneSociale == null)
             {

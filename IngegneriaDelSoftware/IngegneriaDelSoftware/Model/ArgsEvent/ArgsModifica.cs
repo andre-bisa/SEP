@@ -9,7 +9,7 @@ namespace IngegneriaDelSoftware.Model.ArgsEvent
     public class ArgsModifica<Tipo>
     {
         /// <summary>
-        /// Il vecchio <see cref="Tipo"/>, <c>null</c> per inserire
+        /// Il vecchio <see cref="Tipo"/>
         /// </summary>
         public Tipo Vecchio { get; private set; }
         /// <summary>

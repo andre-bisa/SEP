@@ -23,7 +23,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="indirizzo">L'indirizzo email</param>
         /// <param name="nota">La nota dell'indirizzo mail</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public Email(string indirizzo, string nota)
+        public Email(string indirizzo, string nota = "")
         {
             if(indirizzo == null) {
                 throw new ArgumentNullException(nameof(indirizzo));
