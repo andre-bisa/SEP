@@ -1,12 +1,10 @@
-﻿using IngegneriaDelSoftware.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace IngegneriaDelSoftware.View.Controlli
+namespace IngegneriaDelSoftware.Model.ArgsEvent
 {
     public class ArgsCliente : EventArgs
     {
@@ -14,7 +12,8 @@ namespace IngegneriaDelSoftware.View.Controlli
 
         public ArgsCliente(Cliente cliente)
         {
-            Cliente = cliente;
+            this.Cliente = cliente;
         }
+
     }
 }
