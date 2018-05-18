@@ -71,9 +71,10 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="persona">La persona dalla quale verrà creato il cliente</param>
         /// <param name="IDCliente">Codice del cliente</param>
-        /// <param name="tipoCliente">Tipo del cliente</param>
+        /// <param name="tipoCliente">Tipo del cliente. Default: Ativo</param>
+        /// <param name="nota">Nota del cliente. Default: ""</param>
         /// /// <exception cref="ArgumentNullException"></exception>
-        public Cliente(Persona persona, string IDCliente, EnumTipoCliente tipoCliente)
+        public Cliente(Persona persona, string IDCliente, EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo, string nota = "")
         {
             if(IDCliente == null) {
                  throw new ArgumentNullException(nameof(IDCliente));
@@ -88,49 +89,11 @@ namespace IngegneriaDelSoftware.Model
             //Persona.ModificaPersona += this.PersonaModificata; // Se ci sono modifiche dico che il cliente è stato modificato
             _persona.OnModifica += this.PersonaModificata;
             TipoCliente = tipoCliente;
+            _nota = nota;
         }
 
-        /// <summary>
-        /// Costruttore
-        /// </summary>
-        /// <param name="persona">La persona dalla quale verrà creato il cliente</param>
-        /// <param name="IDCliente">Codice del cliente</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public Cliente (Persona persona, string IDCliente) : this(persona, IDCliente, EnumTipoCliente.Attivo)
+        protected Cliente(Cliente cliente) : this(cliente.Persona, cliente.IDCliente, cliente.TipoCliente, cliente.Nota)
         {
-        }
-
-        /// <summary>
-        /// Costruttore
-        /// </summary>
-        /// <param name="persona">La persona dalla quale verrà creato il cliente</param>
-        /// <param name="IDCliente">Codice del cliente</param>
-        /// <param name="nota">Eventuali note</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public Cliente (Persona persona, string IDCliente, string nota) : this(persona, IDCliente)
-        {
-            
-        }
-
-        /// <summary>
-        /// Costruttore
-        /// </summary>
-        /// <param name="persona">La persona dalla quale verrà creato il cliente</param>
-        /// <param name="IDCliente">Codice del cliente</param>
-        /// <param name="tipoCliente">Tipo del cliente</param>
-        /// <param name="nota">Eventuali note</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public Cliente (Persona persona, string IDCliente, EnumTipoCliente tipoCliente, string nota) : this(persona, IDCliente, tipoCliente)
-        {
-            if(nota == null) {
-                throw new ArgumentNullException(nameof(nota));
-            }
-            this._nota = nota;
-        }
-
-        protected Cliente(Cliente cliente) : this(cliente.Persona, cliente.IDCliente, cliente.TipoCliente)
-        {
-            this._nota = cliente.Nota;
             this.Referenti = new List<Referente>(cliente.Referenti);
         }
         #endregion

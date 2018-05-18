@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IngegneriaDelSoftware.Model.ArgsEvent;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model {
     public class VoceFattura: Voce {
+        public override event EventHandler<ArgsModifica<Voce>> OnModifica;
 
         #region Campi privati
         private float _iva;

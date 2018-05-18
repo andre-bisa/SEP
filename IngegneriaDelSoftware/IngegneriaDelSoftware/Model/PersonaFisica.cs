@@ -83,45 +83,6 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="indirizzo">L'indirizzo</param>
         /// <param name="nome">Il nome proprio della persona fisica</param>
         /// <param name="cognome">Il cognome della persona fisica</param>
-        /// <seealso cref="Persona"/>
-        /// <exception cref="ArgumentNullException"></exception>
-        public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome) : this(codiceFiscale, indirizzo, nome, cognome, null, null, null)
-        {
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="codiceFiscale">Il codice fiscale</param>
-        /// <param name="indirizzo">L'indirizzo</param>
-        /// <param name="nome">Il nome proprio della persona fisica</param>
-        /// <param name="cognome">Il cognome della persona fisica</param>
-        /// <param name="telefoni">I numeri di telefono della persona</param>
-        /// <param name="email">Le email della persona</param>
-        /// <seealso cref="Persona"/>
-        /// <exception cref="ArgumentNullException"></exception>
-        public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, List<Telefono> telefoni, List<Email> email) : this(codiceFiscale, indirizzo, nome, cognome, null, telefoni, email)
-        {
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="codiceFiscale">Il codice fiscale</param>
-        /// <param name="indirizzo">L'indirizzo</param>
-        /// <param name="nome">Il nome proprio della persona fisica</param>
-        /// <param name="cognome">Il cognome della persona fisica</param>
-        /// <param name="partitaIVA">La partita IVA (can be <c>null</c>)</param>
-        /// <seealso cref="Persona"/>
-        /// <exception cref="ArgumentNullException"></exception>
-        public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, string partitaIVA) : this(codiceFiscale, indirizzo, nome, cognome, partitaIVA, null, null)
-        {
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="codiceFiscale">Il codice fiscale</param>
-        /// <param name="indirizzo">L'indirizzo</param>
-        /// <param name="nome">Il nome proprio della persona fisica</param>
-        /// <param name="cognome">Il cognome della persona fisica</param>
         /// <param name="partitaIVA">La partita IVA (can be <c>null</c>)</param>
         /// <param name="telefoni">I numeri di telefono della persona</param>
         /// <param name="email">Le email della persona</param>

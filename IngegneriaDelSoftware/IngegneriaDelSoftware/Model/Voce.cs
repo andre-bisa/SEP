@@ -1,11 +1,13 @@
-﻿using System;
+﻿using IngegneriaDelSoftware.Model.ArgsEvent;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model {
-    public abstract class Voce: IComparable<Voce> {
+    public abstract class Voce: IComparable<Voce>, IObservable<Voce> {
+        public abstract event EventHandler<ArgsModifica<Voce>> OnModifica;
 
         #region Campi privati
         private string _causale;

@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Model {
-    public class Fattura: IEnumerable<VoceFattura>, ICollection<VoceFattura> {
+    public class Fattura : IEnumerable<VoceFattura>, ICollection<VoceFattura>, IObservable<Fattura> {
+        public event EventHandler<ArgsModifica<Fattura>> OnModifica;
         private enum Stato { UNLOCKED, LOCKED };
-
+ 
         #region Campi privati
         private List<VoceFattura> _voci;
         private Cliente _cliente;
@@ -18,6 +20,8 @@ namespace IngegneriaDelSoftware.Model {
         private int _anno;
         private Stato _stato;
         private float _sconto;
+
+       
         #endregion
 
         #region Property

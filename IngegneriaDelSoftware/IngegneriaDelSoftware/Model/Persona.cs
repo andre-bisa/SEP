@@ -68,61 +68,39 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="codiceFiscale">Il codice fiscale della persona</param>
         /// <param name="indirizzo">L'indirizzo della persona</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        protected Persona(string codiceFiscale, string indirizzo)
+        /// <param name="telefoni">I telefoni della persona. Default: lista vuota</param>
+        /// <param name="email">Gli indirizzi email della persona. Default: lista vuota</param>
+        /// <exception cref="ArgumentNullException">/exception>
+        protected Persona(string codiceFiscale, string indirizzo, List<Telefono> telefoni = null, List<Email> email = null)
         {
-            if(codiceFiscale == null) {
+
+            if (codiceFiscale == null)
+            {
                 throw new ArgumentNullException(nameof(codiceFiscale));
             }
             _codiceFiscale = codiceFiscale;
-            if(indirizzo == null) {
+            if (indirizzo == null)
+            {
                 throw new ArgumentNullException(nameof(indirizzo));
             }
             _indirizzo = indirizzo;
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="codiceFiscale">Il codice fiscale della persona</param>
-        /// <param name="indirizzo">L'indirizzo della persona</param>
-        /// <param name="telefoni">I telefoni della persona</param>
-        /// <param name="email">Gli indirizzi email della persona</param>
-        /// <exception cref="ArgumentNullException">/exception>
-        protected Persona(string codiceFiscale, string indirizzo, List<Telefono> telefoni, List<Email> email) : this(codiceFiscale, indirizzo)
-        {
-            //N.B. il lancio delle eccezioni è evitato perchè si vuole rituilizzare questo codice negli altri due costruttori più sotto;
-            if(telefoni != null) {
-                foreach(Telefono tel in telefoni) {
-                    this.Telefoni.Add(tel);
-                }
+
+            if (telefoni == null) {
+                this.Telefoni = new List<Telefono>();
+            }
+            else
+            {
+                this.Telefoni = new List<Telefono>(telefoni);
             }
 
-            if(email != null) {
-                foreach(Email mail in email) {
-                    this.Email.Add(mail);
-                }
+            if (email == null)
+            {
+                this.Email = new List<Email>();
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="codiceFiscale">Il codice fiscale della persona</param>
-        /// <param name="indirizzo">L'indirizzo della persona</param>
-        /// <param name="telefoni">I telefoni della persona</param>
-        /// <exception cref="ArgumentNullException">/exception>
-        protected Persona(string codiceFiscale, string indirizzo, List<Telefono> telefoni) : this(codiceFiscale, indirizzo, telefoni, null)
-        {
-        }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="codiceFiscale">Il codice fiscale della persona</param>
-        /// <param name="indirizzo">L'indirizzo della persona</param>
-        /// <param name="email">Gli indirizzi email della persona</param>
-        /// <exception cref="ArgumentNullException">/exception>
-        protected Persona(string codiceFiscale, string indirizzo, List<Email> email) : this(codiceFiscale, indirizzo, null, email)
-        {
+            else
+            {
+                this.Email = new List<Email>(email);
+            }
         }
 
         protected Persona(Persona persona) : this(persona.CodiceFiscale, persona.Indirizzo, persona.Telefoni, persona.Email)

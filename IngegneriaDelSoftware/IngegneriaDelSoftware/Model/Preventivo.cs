@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IngegneriaDelSoftware.Model.ArgsEvent;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model {
-    public class Preventivo: IEnumerable<VocePreventivo>, ICollection<VocePreventivo> {
+    public class Preventivo: IEnumerable<VocePreventivo>, ICollection<VocePreventivo>, IObservable<Preventivo> {
+        public event EventHandler<ArgsModifica<Preventivo>> OnModifica;
 
         #region Campi privati
         private List<VocePreventivo> _voci;

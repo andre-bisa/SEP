@@ -22,25 +22,17 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="nome">Il nome del referente</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public Referente(string nome)
+        public Referente(string nome, string nota = "")
         {
             if(nome == null) {
                 throw new ArgumentNullException(nameof(nome)); ;
             }
-            Nome = nome;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="nome">Il nome del referente</param>
-        /// <param name="nota">Una nota sul referente</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public Referente(string nome, string nota) : this(nome)
-        {
-            if(nota == null) {
+            if (nota == null)
+            {
                 throw new ArgumentNullException(nameof(nota));
             }
+
+            Nome = nome;
             Nota = nota;
         }
 
