@@ -213,9 +213,7 @@ namespace IngegneriaDelSoftware.Model
 
         private void PersonaModificata(object sender, ArgsModifica<Persona> p)
         {
-            Cliente clienteVecchio = new Cliente(p.Vecchio, this.IDCliente, this.TipoCliente);
-            clienteVecchio.Nota = this.Nota;
-            clienteVecchio.Referenti = this.Referenti;
+            Cliente clienteVecchio = new Cliente(p.Vecchio, this.IDCliente, this._referenti, this.TipoCliente, this.Nota);
             LanciaEvento(clienteVecchio);
         }
 
