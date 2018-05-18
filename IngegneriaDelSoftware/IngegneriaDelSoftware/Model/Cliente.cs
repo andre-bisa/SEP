@@ -63,7 +63,15 @@ namespace IngegneriaDelSoftware.Model
             }
         }
         public EnumTipoCliente TipoCliente { get; private set; }
-        public List<Referente> Referenti { get; private set; } = new List<Referente>();
+
+        private List<Referente> _referenti;
+        public List<Referente> Referenti
+        {
+            get
+            {
+                return new List<Referente>(_referenti);
+            }
+        }
 
         #region "Costruttori"
         /// <summary>
@@ -74,7 +82,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="tipoCliente">Tipo del cliente. Default: Ativo</param>
         /// <param name="nota">Nota del cliente. Default: ""</param>
         /// /// <exception cref="ArgumentNullException"></exception>
-        public Cliente(Persona persona, string IDCliente, EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo, string nota = "")
+        public Cliente(Persona persona, string IDCliente, List<Referente> referenti = null, EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo, string nota = "")
         {
             if(IDCliente == null) {
                  throw new ArgumentNullException(nameof(IDCliente));
@@ -90,11 +98,20 @@ namespace IngegneriaDelSoftware.Model
             _persona.OnModifica += this.PersonaModificata;
             TipoCliente = tipoCliente;
             _nota = nota;
+
+            if (referenti == null)
+            {
+                this._referenti = new List<Referente>();
+            }
+            else
+            {
+                this._referenti = new List<Referente>(referenti);
+            }
+
         }
 
-        protected Cliente(Cliente cliente) : this(cliente.Persona, cliente.IDCliente, cliente.TipoCliente, cliente.Nota)
+        protected Cliente(Cliente cliente) : this(cliente.Persona, cliente.IDCliente, cliente._referenti, cliente.TipoCliente, cliente.Nota)
         {
-            this.Referenti = new List<Referente>(cliente.Referenti);
         }
         #endregion
 

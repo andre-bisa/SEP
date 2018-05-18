@@ -59,8 +59,23 @@ namespace IngegneriaDelSoftware.Model
 
         //XXX ha senso che siano pubbliche?;
 
-        public List<Telefono> Telefoni { get; } = new List<Telefono>();
-        public List<Email> Email { get; } = new List<Email>();
+        private List<Telefono> _telefoni;
+        public List<Telefono> Telefoni
+        {
+            get
+            {
+                return new List<Telefono>(_telefoni);
+            }
+        }
+
+        private List<Email> _email;
+        public List<Email> Email
+        {
+            get
+            {
+                return new List<Email>(_email);
+            }
+        }
 
         #region "Costruttori"
         /// <summary>
@@ -86,20 +101,20 @@ namespace IngegneriaDelSoftware.Model
             _indirizzo = indirizzo;
 
             if (telefoni == null) {
-                this.Telefoni = new List<Telefono>();
+                this._telefoni = new List<Telefono>();
             }
             else
             {
-                this.Telefoni = new List<Telefono>(telefoni);
+                this._telefoni = new List<Telefono>(telefoni);
             }
 
             if (email == null)
             {
-                this.Email = new List<Email>();
+                this._email = new List<Email>();
             }
             else
             {
-                this.Email = new List<Email>(email);
+                this._email = new List<Email>(email);
             }
         }
 
