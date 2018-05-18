@@ -7,31 +7,48 @@ using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Model
 {
-    public class UtenteAgente : Utente, IObservable<UtenteAgente>
+    public class UtenteAgente : Utente
     {
+        public override event EventHandler<ArgsModifica<Utente>> OnModifica;
         private string _nome, _cognome;
         private float _provvigioneDefault;
-        public event EventHandler<ArgsModifica<UtenteAgente>> OnModifica;
 
         #region Costruttore
         /// <summary>
         /// Costruttore di un Utente di tipologia Agente
         /// </summary>
+        /// <param name="username"></param>
+        /// <param name="pIva"></param>
+        /// <param name="cF"></param>
+        /// <param name="indirizzo"></param>
+        /// <param name="telefoni"></param>
+        /// <param name="email"></param>
         /// <param name="nome"></param>
         /// <param name="cognome"></param>
-        /// <param name="provvigioneDefault">La percentuale di provvigione di default (espressa come numero da 0 a 1, es. 100% = 1, 50% = 0,5)</param>
+        /// <param name="provvigioneDefault"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public UtenteAgente(string nome, string cognome, float provvigioneDefault)
+        public UtenteAgente(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni, Telefono email, string nome, string cognome, float provvigioneDefault = 0)
+            : base(username, pIva, cF, indirizzo, telefoni, email)
         {
-            _nome = nome ?? throw new ArgumentNullException(nameof(nome));
-            _cognome = cognome ?? throw new ArgumentNullException(nameof(cognome));
+            #region Controlli
+            if (nome == null)
+            {
+                throw new ArgumentNullException(nameof(nome));
+            }
+            if(cognome == null)
+            {
+                throw new ArgumentNullException(nameof(cognome));
+            }
 
             if (provvigioneDefault > 1 || provvigioneDefault < 0)
             {
                 throw new ArgumentException();
             }
-
+            #endregion
+            
+            _nome = nome;
+            _cognome = cognome;
             _provvigioneDefault = provvigioneDefault;
         }
         #endregion
@@ -65,5 +82,10 @@ namespace IngegneriaDelSoftware.Model
             }
         }
         #endregion
+
+        public override string ToString()
+        {
+            return String.Format("Nome: {0} \nCognome: {1} \nProvvigione di Default: {2}", Nome, Cognome, ProvvigioneDefault);
+        }
     }
 }

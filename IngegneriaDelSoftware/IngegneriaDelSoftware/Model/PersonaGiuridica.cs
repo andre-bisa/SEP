@@ -85,7 +85,7 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="telefoni">I numeri di telefono della persona</param>
         /// <param name="email">Gli indirizzi email della persona</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public PersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, List<Telefono> telefoni, List<Email> email) : base(codiceFiscale, indirizzo, telefoni, email) {
+        public PersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, List<Telefono> telefoni, List<Telefono> email) : base(codiceFiscale, indirizzo, telefoni, email) {
             if(ragioneSociale == null) {
                 throw new ArgumentNullException(nameof(ragioneSociale));
             }

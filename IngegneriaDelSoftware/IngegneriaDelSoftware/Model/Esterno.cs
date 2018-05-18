@@ -34,11 +34,11 @@ namespace IngegneriaDelSoftware.Model
         /// <summary>
         /// Telefono. Può essere nullo.
         /// </summary>
-        public string Telefono { get; private set; }
+        public Telefono Telefono { get; private set; }
         /// <summary>
         /// Email. Può essere nullo.
         /// </summary>
-        public string Email { get; private set; }
+        public Telefono Email { get; private set; }
         /// <summary>
         /// Indirizzo. Può essere nullo.
         /// </summary>
@@ -56,7 +56,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="email">Email</param>
         /// <param name="indirizzo">Indirizzo</param>
         /// <exception cref="ArgumentNullException">Se i parametri obbligatori sono <c>null</c></exception>
-        public Esterno(string ID, string nome, string cognome = null, string partitaIVA = null, string codiceFiscale = null, string telefono = null, string email = null, string indirizzo = null)
+        public Esterno(string ID, string nome, string cognome = null, string partitaIVA = null, string codiceFiscale = null, Telefono telefono = null, Telefono email = null, string indirizzo = null)
         {
             if (ID == null)
                 throw new ArgumentNullException(nameof(ID));

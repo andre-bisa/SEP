@@ -7,21 +7,38 @@ using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Model
 {
-    public class UtenteAzienda : Utente, IObservable<UtenteAzienda>
+    public class UtenteAzienda : Utente
     {
+        public override event EventHandler<ArgsModifica<Utente>> OnModifica;
         private string _ragioneSociale, _sedeLegale;
-        public event EventHandler<ArgsModifica<UtenteAzienda>> OnModifica;
 
         #region Costruttore
         /// <summary>
         /// Costruttore di un Utente di tipologia Azienda
         /// </summary>
+        /// <param name="username"></param>
+        /// <param name="pIva"></param>
+        /// <param name="cF"></param>
+        /// <param name="indirizzo"></param>
+        /// <param name="telefoni"></param>
+        /// <param name="email"></param>
         /// <param name="ragioneSociale"></param>
         /// <param name="sedeLegale"></param>
-        public UtenteAzienda(string ragioneSociale, string sedeLegale)
+        /// <exception cref="ArgumentNullException"></exception>
+        public UtenteAzienda(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni, Telefono email, string ragioneSociale, string sedeLegale)
+            : base(username, pIva, cF, indirizzo, telefoni, email)
         {
-            _ragioneSociale = ragioneSociale ?? throw new ArgumentNullException(nameof(ragioneSociale));
-            _sedeLegale = sedeLegale ?? throw new ArgumentNullException(nameof(sedeLegale));
+            if (ragioneSociale == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (sedeLegale == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            _ragioneSociale = ragioneSociale;
+            _sedeLegale = sedeLegale;
         }
         #endregion
 
@@ -37,5 +54,10 @@ namespace IngegneriaDelSoftware.Model
             set { _sedeLegale = value; }
         }
         #endregion
+
+        public override string ToString()
+        {
+            return String.Format("Ragione sociale: {0} \nSedeLegale: {1}", RagioneSociale, SedeLegale);
+        }
     }
 }

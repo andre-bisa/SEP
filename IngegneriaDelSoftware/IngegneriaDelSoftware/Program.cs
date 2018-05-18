@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using IngegneriaDelSoftware.Test;
 using IngegneriaDelSoftware.View;
 
 namespace IngegneriaDelSoftware
@@ -28,8 +29,9 @@ namespace IngegneriaDelSoftware
                 });
             };
             g.InfoPanelEditable = false;
-            Application.Run(g);
+            //Application.Run(g);
             //Application.Run(new VisualizzaCalendario());
+            new TestCalendario();
         }
     }
 }

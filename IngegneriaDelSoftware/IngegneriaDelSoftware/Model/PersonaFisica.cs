@@ -99,7 +99,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="email">Le email della persona</param>
         /// <seealso cref="Persona"/>
         /// <exception cref="ArgumentNullException"></exception>
-        public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, List<Telefono> telefoni, List<Email> email) : this(codiceFiscale, indirizzo, nome, cognome, null, telefoni, email)
+        public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, List<Telefono> telefoni, List<Telefono> email) : this(codiceFiscale, indirizzo, nome, cognome, null, telefoni, email)
         {
         }
         /// <summary>
@@ -127,7 +127,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="email">Le email della persona</param>
         /// <seealso cref="Persona"/>
         /// <exception cref="ArgumentNullException"></exception>
-        public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, string partitaIVA, List<Telefono> telefoni, List<Email> email) : base(codiceFiscale, indirizzo, telefoni, email)
+        public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, string partitaIVA, List<Telefono> telefoni, List<Telefono> email) : base(codiceFiscale, indirizzo, telefoni, email)
         {
             if (nome == null) {
                  throw new ArgumentNullException(nameof(nome));

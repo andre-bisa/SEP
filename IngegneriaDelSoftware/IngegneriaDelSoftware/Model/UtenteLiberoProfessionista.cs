@@ -7,22 +7,38 @@ using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Model
 {
-    public class UtenteLiberoProfessionista : Utente, IObservable<UtenteLiberoProfessionista>
+    public class UtenteLiberoProfessionista : Utente
     {
+        public override event EventHandler<ArgsModifica<Utente>> OnModifica;
         private string _nome, _cognome;
-        public event EventHandler<ArgsModifica<UtenteLiberoProfessionista>> OnModifica;
 
         #region Costruttore
         /// <summary>
         /// Costruttore di un Utente di tipologia LiberoProfessionista
         /// </summary>
+        /// <param name="username"></param>
+        /// <param name="pIva"></param>
+        /// <param name="cF"></param>
+        /// <param name="indirizzo"></param>
+        /// <param name="telefoni"></param>
+        /// <param name="email"></param>
         /// <param name="nome"></param>
         /// <param name="cognome"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public UtenteLiberoProfessionista(string nome, string cognome)
+        public UtenteLiberoProfessionista(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni, Telefono email, string nome, string cognome) 
+            : base(username, pIva, cF, indirizzo, telefoni, email)
         {
-            _nome = nome ?? throw new ArgumentNullException(nameof(nome));
-            _cognome = cognome ?? throw new ArgumentNullException(nameof(cognome));
+            if(nome == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if(cognome == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            _nome = nome;
+            _cognome = cognome;
         }
         #endregion
 
@@ -38,5 +54,10 @@ namespace IngegneriaDelSoftware.Model
             set { _cognome = value; }
         }
         #endregion
+
+        public override string ToString()
+        {
+            return String.Format("Nome: {0} \nCognome: {1}", Nome, Cognome);
+        }
     }
 }

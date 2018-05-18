@@ -64,6 +64,8 @@
     <Compile Include="Model\Impostazioni.cs" />
     <Compile Include="Model\Intermediario.cs" />
     <Compile Include="Model\IObservable.cs" />
+    <Compile Include="Model\ListaEmail.cs" />
+    <Compile Include="Model\ListaTelefoni.cs" />
     <Compile Include="Model\Persona.cs" />
     <Compile Include="Model\PersonaFisica.cs" />
     <Compile Include="Model\PersonaGiuridica.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Model\VoceFattura.cs" />
     <Compile Include="Model\VocePreventivo.cs" />
     <Compile Include="Model\VoceVendita.cs" />
+    <Compile Include="Test\TestCalendario.cs" />
     <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />
     <Compile Include="View\Controlli\ArgsSchedaCliente.cs" />
     <Compile Include="View\FormConfim.cs">

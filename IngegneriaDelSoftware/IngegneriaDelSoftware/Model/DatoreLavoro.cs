@@ -9,11 +9,11 @@ namespace IngegneriaDelSoftware.Model
 {
     public class DatoreLavoro : IObservable<DatoreLavoro>
     {
+        public event EventHandler<ArgsModifica<DatoreLavoro>> OnModifica;
         private string _nome, _cognome, _ragioneSociale, _pIva, _cF, _indirizzo;
         private List<Telefono> _telefoni;
-        private Email _email;
+        private Telefono _email;
 
-        public event EventHandler<ArgsModifica<DatoreLavoro>> OnModifica;
 
         #region Costruttori
         /// <summary>
@@ -28,91 +28,44 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="telefoni"></param>
         /// <param name="email"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        protected DatoreLavoro(string nome, string cognome, string ragioneSociale, string pIva, string cF, string indirizzo, List<Telefono> telefoni, Email email)
+        protected DatoreLavoro(string nome, string cognome, string ragioneSociale, string pIva, string cF, string indirizzo, List<Telefono> telefoni =  null, Telefono email = null)
         {
-            _nome = nome ?? throw new ArgumentNullException(nameof(nome));
-            _cognome = cognome ?? throw new ArgumentNullException(nameof(cognome));
-            _ragioneSociale = ragioneSociale ?? throw new ArgumentNullException(nameof(ragioneSociale));
-            _pIva = pIva ?? throw new ArgumentNullException(nameof(pIva));
-            _cF = cF ?? throw new ArgumentNullException(nameof(cF));
-            _indirizzo = indirizzo ?? throw new ArgumentNullException(nameof(indirizzo));
-            this._telefoni = telefoni ?? throw new ArgumentNullException(nameof(telefoni));
-            this._email = email ?? throw new ArgumentNullException(nameof(email));
-        }
+            #region Controlli
+            if(nome == null)
+            {
+                throw new ArgumentNullException(nameof(nome));
+            }
+            if (cognome == null)
+            {
+                throw new ArgumentNullException(nameof(cognome));
+            }
+            if(ragioneSociale == null)
+            {
+                throw new ArgumentNullException(nameof(ragioneSociale));
+            }
+            if(pIva == null)
+            {
+                throw new ArgumentNullException(nameof(pIva));
+            }
+            if(cF == null)
+            {
+                throw new ArgumentNullException(nameof(cF));
+            }
+            if(indirizzo == null)
+            {
+                throw new ArgumentNullException(nameof(indirizzo));
+            }
+            #endregion
 
-        /// <summary>
-        /// Costruttore di DatoreLavoro minimale
-        /// </summary>
-        /// <param name="nome"></param>
-        /// <param name="cognome"></param>
-        /// <param name="regioneSociale"></param>
-        /// <param name="pIva"></param>
-        /// <param name="cF"></param>
-        /// <param name="indirizzo"></param>
-        /// <param name="telefoni"></param>
-        /// <param name="email"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        protected DatoreLavoro(string nome, string cognome, string ragioneSociale, string pIva, string cF, string indirizzo)
-        {
-            _nome = nome ?? throw new ArgumentNullException(nameof(nome));
-            _cognome = cognome ?? throw new ArgumentNullException(nameof(cognome));
-            _ragioneSociale = ragioneSociale ?? throw new ArgumentNullException(nameof(ragioneSociale));
-            _pIva = pIva ?? throw new ArgumentNullException(nameof(pIva));
-            _cF = cF ?? throw new ArgumentNullException(nameof(cF));
-            _indirizzo = indirizzo ?? throw new ArgumentNullException(nameof(indirizzo));
-
-            this._telefoni = null;
-            this._email = null;
-        }
-
-        /// <summary>
-        /// Costruttore di DatoreLavoro senza email
-        /// </summary>
-        /// <param name="nome"></param>
-        /// <param name="cognome"></param>
-        /// <param name="regioneSociale"></param>
-        /// <param name="pIva"></param>
-        /// <param name="cF"></param>
-        /// <param name="indirizzo"></param>
-        /// <param name="telefoni"></param>
-        /// <param name="email"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        protected DatoreLavoro(string nome, string cognome, string ragioneSociale, string pIva, string cF, string indirizzo, List<Telefono> telefoni)
-        {
-            _nome = nome ?? throw new ArgumentNullException(nameof(nome));
-            _cognome = cognome ?? throw new ArgumentNullException(nameof(cognome));
-            _ragioneSociale = ragioneSociale ?? throw new ArgumentNullException(nameof(ragioneSociale));
-            _pIva = pIva ?? throw new ArgumentNullException(nameof(pIva));
-            _cF = cF ?? throw new ArgumentNullException(nameof(cF));
-            _indirizzo = indirizzo ?? throw new ArgumentNullException(nameof(indirizzo));
-
-            this._telefoni = telefoni ?? throw new ArgumentNullException(nameof(telefoni));
-            this._email = null;
-        }
-
-        /// <summary>
-        /// Costruttore di DatoreLavoro senza telefono
-        /// </summary>
-        /// <param name="nome"></param>
-        /// <param name="cognome"></param>
-        /// <param name="regioneSociale"></param>
-        /// <param name="pIva"></param>
-        /// <param name="cF"></param>
-        /// <param name="indirizzo"></param>
-        /// <param name="telefoni"></param>
-        /// <param name="email"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        protected DatoreLavoro(string nome, string cognome, string ragioneSociale, string pIva, string cF, string indirizzo, Email email)
-        {
-            _nome = nome ?? throw new ArgumentNullException(nameof(nome));
-            _cognome = cognome ?? throw new ArgumentNullException(nameof(cognome));
-            _ragioneSociale = ragioneSociale ?? throw new ArgumentNullException(nameof(ragioneSociale));
-            _pIva = pIva ?? throw new ArgumentNullException(nameof(pIva));
-            _cF = cF ?? throw new ArgumentNullException(nameof(cF));
-            _indirizzo = indirizzo ?? throw new ArgumentNullException(nameof(indirizzo));
-
-            this._telefoni = null;
-            this._email = email ?? throw new ArgumentNullException(nameof(email));
+            _nome = nome;
+            _cognome = cognome;
+            _ragioneSociale = ragioneSociale;
+            _pIva = pIva;
+            _cF = cF;
+            _indirizzo = indirizzo;
+            //Se argomento nullo da' lista vuota, altrimenti crea una copia della lista data
+            _telefoni = (telefoni == null) ? new List<Telefono>() : new List<Telefono>(telefoni);
+            _email = email;
         }
 
 
@@ -178,7 +131,7 @@ namespace IngegneriaDelSoftware.Model
         /// <summary>
         /// Eventuale email del datore di lavoro
         /// </summary>
-        public Email Email
+        public Telefono Email
         {
             get { return _email; }
             set { _email = value; }

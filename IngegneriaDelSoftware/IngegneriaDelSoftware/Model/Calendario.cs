@@ -88,5 +88,10 @@ namespace IngegneriaDelSoftware.Model
         {
             get { return this._appuntamenti; }
         }
+
+        public override string ToString()
+        {
+            return String.Join("\n", this._appuntamenti);
+        }
     }
 }

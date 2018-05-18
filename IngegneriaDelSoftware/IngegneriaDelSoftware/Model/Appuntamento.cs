@@ -9,11 +9,11 @@ namespace IngegneriaDelSoftware.Model
 {
     public class Appuntamento : IObservable<Appuntamento>
     {
+        public event EventHandler<ArgsModifica<Appuntamento>> OnModifica;
         private Persona _conChi;
         private string _oggetto;
         private string _luogo;
         private DateTime _dataOra;
-        public event EventHandler<ArgsModifica<Appuntamento>> OnModifica;
 
         #region Costruttore
         /// <summary>
@@ -64,5 +64,9 @@ namespace IngegneriaDelSoftware.Model
         }
         #endregion
 
+        public override string ToString()
+        {
+            return String.Format("Data e ora: {0} \nLuogo: {1} \nCon chi: {2} \nOggetto: {3}", DataOra.ToString(), Luogo, ConChi.getDenominazione(), Oggetto);
+        }
     }
 }

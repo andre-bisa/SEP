@@ -3,51 +3,97 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Model
 {
-    public abstract class Utente
+    public abstract class Utente : IObservable<Utente>
     {
-        private string _username, _password, _pIva, _cf, _indirizzo;
-        private List<Telefono> _telefoni;
-        private Email _email;
+        public abstract event EventHandler<ArgsModifica<Utente>> OnModifica;
+        private string _username, _pIva, _cf, _indirizzo;
+        private ListaTelefoni _telefoni;
+        private Telefono _email;
+
+        #region Costruttore
+        /// <summary>
+        /// Costruttore di un Utente, inizializza solo i campi comuni ai figli
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="pIva"></param>
+        /// <param name="cF"></param>
+        /// <param name="indirizzo"></param>
+        /// <param name="telefoni">Campo opzionale</param>
+        /// <param name="email">Campo opzionale</param>
+        public Utente(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni = null, Telefono email = null)
+        {
+            #region Controlli
+            if (username == null)
+            {
+                throw new ArgumentNullException(nameof(username));
+            }
+            if (pIva == null)
+            {
+                throw new ArgumentNullException(nameof(pIva));
+            }
+            if (cF == null)
+            {
+                throw new ArgumentNullException(nameof(cF));
+            }
+            if (indirizzo == null)
+            {
+                throw new ArgumentNullException(nameof(indirizzo));
+            }
+            if (email == null)
+            {
+                throw new ArgumentNullException(nameof(email));
+            }
+            #endregion
+
+            _username = username;
+            _pIva = pIva;
+            _cf = cF;
+            _indirizzo = indirizzo;
+            //Se argomento nullo da' lista vuota, altrimenti crea una copia della lista data
+            _telefoni = new ListaTelefoni(telefoni);
+            _email = email;
+        }
+        #endregion
 
         #region Getters e setters
         public string Username
         {
             get { return _username; }
-            set { _username = value; }
+            protected set { _username = value; }
         }
-        protected string Password
-        {
-            get { return _password; }
-            set { _password = value; }
-        }
-        protected string PartitaIva
+        public string PartitaIva
         {
             get { return _pIva; }
-            set { _pIva = value; }
+            protected set { _pIva = value; }
         }
-        protected string CodiceFiscale
+        public string CodiceFiscale
         {
             get { return _cf; }
-            set { _cf = value; }
+            protected set { _cf = value; }
         }
-        protected string Indirizzo
+        public string Indirizzo
         {
             get { return _indirizzo; }
-            set { _indirizzo = value; }
+            protected set { _indirizzo = value; }
         }
-        protected List<Telefono> Telefono
+        public List<Telefono> Telefoni
         {
-            get { return _telefoni; }
-            set { _telefoni = value; }
+            get
+            {
+                //Ritorna la copia della lista
+                return new List<Telefono>(_telefoni);
+            }
         }
-        protected Email Eamil
+        public Telefono Email
         {
             get { return _email; }
-            set { _email = value; }
+            protected set { _email = value; }
         }
         #endregion
+
     }
 }

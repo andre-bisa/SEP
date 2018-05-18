@@ -18,7 +18,7 @@ namespace IngegneriaDelSoftware.Model
         public string Nota { get; private set; }
 
         /// <summary>
-        /// 
+        /// Il referente e' una classe di comodo del cliente
         /// </summary>
         /// <param name="nome">Il nome del referente</param>
         /// <exception cref="ArgumentNullException"></exception>

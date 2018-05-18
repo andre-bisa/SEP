@@ -60,7 +60,7 @@ namespace IngegneriaDelSoftware.Model
         //XXX ha senso che siano pubbliche?;
 
         public List<Telefono> Telefoni { get; } = new List<Telefono>();
-        public List<Email> Email { get; } = new List<Email>();
+        public List<Telefono> Email { get; } = new List<Telefono>();
 
         #region "Costruttori"
         /// <summary>
@@ -88,7 +88,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="telefoni">I telefoni della persona</param>
         /// <param name="email">Gli indirizzi email della persona</param>
         /// <exception cref="ArgumentNullException">/exception>
-        protected Persona(string codiceFiscale, string indirizzo, List<Telefono> telefoni, List<Email> email) : this(codiceFiscale, indirizzo)
+        protected Persona(string codiceFiscale, string indirizzo, List<Telefono> telefoni, List<Telefono> email) : this(codiceFiscale, indirizzo)
         {
             //N.B. il lancio delle eccezioni è evitato perchè si vuole rituilizzare questo codice negli altri due costruttori più sotto;
             if(telefoni != null) {
@@ -98,7 +98,7 @@ namespace IngegneriaDelSoftware.Model
             }
 
             if(email != null) {
-                foreach(Email mail in email) {
+                foreach(Telefono mail in email) {
                     this.Email.Add(mail);
                 }
             }
@@ -121,7 +121,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="indirizzo">L'indirizzo della persona</param>
         /// <param name="email">Gli indirizzi email della persona</param>
         /// <exception cref="ArgumentNullException">/exception>
-        protected Persona(string codiceFiscale, string indirizzo, List<Email> email) : this(codiceFiscale, indirizzo, null, email)
+        protected Persona(string codiceFiscale, string indirizzo, List<Telefono> email) : this(codiceFiscale, indirizzo, null, email)
         {
         }
 
@@ -166,7 +166,7 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="email">L'indirizzo da aggiungere</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void AggiungiEmail(Email email)
+        public void AggiungiEmail(Telefono email)
         {
             if(email != null) {
                 this.Email.Add(email);
@@ -179,7 +179,7 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="email">L'indirizzo da rimuovere</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void RimuoviEmail(Email email)
+        public void RimuoviEmail(Telefono email)
         {
             if(email != null) {
                 this.Email.Remove(email);
