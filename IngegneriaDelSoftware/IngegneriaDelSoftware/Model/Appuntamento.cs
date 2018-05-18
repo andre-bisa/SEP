@@ -3,24 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Model
 {
-    public class Appuntamento
+    public class Appuntamento : IObservable<Appuntamento>
     {
         private Persona _conChi;
         private string _oggetto;
         private string _luogo;
         private DateTime _dataOra;
+        public event EventHandler<ArgsModifica<Appuntamento>> OnModifica;
 
         #region Costruttore
         /// <summary>
-        /// 
+        /// Costruttore di Appuntamento
         /// </summary>
-        /// <param name="luogo"></param>
-        /// <param name="conChi"></param>
-        /// <param name="oggetto"></param>
-        /// <param name="dataOra"></param>
+        /// <param name="luogo">Luogo dove si tiene l'appuntamento</param>
+        /// <param name="conChi">Con chi viene tenuto l'appuntamento</param>
+        /// <param name="oggetto">Il motivo dell'appuntamento o una nota semplificativa</param>
+        /// <param name="dataOra">Data e ora dell'appuntamento</param>
         /// <exception cref="ArgumentNullException"></exception>
         public Appuntamento(string luogo, Persona conChi, string oggetto, DateTime dataOra)
         {
