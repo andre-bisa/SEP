@@ -22,6 +22,5 @@ namespace IngegneriaDelSoftware.Model {
         public VocePreventivo(string causale, decimal importo, string tipologia = null, int quantita = 1) : base(causale, importo, tipologia, quantita) {
         }
         #endregion
-
     }
 }

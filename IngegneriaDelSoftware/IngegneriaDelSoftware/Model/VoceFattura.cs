@@ -40,6 +40,22 @@ namespace IngegneriaDelSoftware.Model {
         public override string ToString() {
             return String.Format("{0}\t{1}", base.ToString(), this._iva);
         }
+
+        public override bool Equals(object obj)
+        {
+            var fattura = obj as VoceFattura;
+            return fattura != null &&
+                   base.Equals(obj) &&
+                   Iva == fattura.Iva;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 582580267;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + Iva.GetHashCode();
+            return hashCode;
+        }
         #endregion
 
     }
