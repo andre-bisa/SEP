@@ -97,7 +97,7 @@
             // lblEspandi
             // 
             this.lblEspandi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblEspandi.Image = global::IngegneriaDelSoftware.Properties.Resources.arrow_up_right;
+            this.lblEspandi.Image = global::IngegneriaDelSoftware.Properties.Resources.ic_aspect_ratio_black_48dp;
             this.lblEspandi.Location = new System.Drawing.Point(161, 111);
             this.lblEspandi.Name = "lblEspandi";
             this.lblEspandi.Size = new System.Drawing.Size(36, 36);
