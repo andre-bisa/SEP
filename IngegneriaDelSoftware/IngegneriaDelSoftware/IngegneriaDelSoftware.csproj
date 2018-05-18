@@ -75,6 +75,10 @@
     <Compile Include="Model\UtenteAzienda.cs" />
     <Compile Include="Model\UtenteLiberoProfessionista.cs" />
     <Compile Include="Model\Vendita.cs" />
+    <Compile Include="Model\Voce.cs" />
+    <Compile Include="Model\VoceFattura.cs" />
+    <Compile Include="Model\VocePreventivo.cs" />
+    <Compile Include="Model\VoceVendita.cs" />
     <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />
     <Compile Include="View\Controlli\ArgsSchedaCliente.cs" />
     <Compile Include="View\FormConfim.cs">
