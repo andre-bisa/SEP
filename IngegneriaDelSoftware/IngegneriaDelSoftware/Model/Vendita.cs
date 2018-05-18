@@ -9,11 +9,7 @@ namespace IngegneriaDelSoftware.Model {
     public class Vendita: IEnumerable<VoceVendita>, ICollection<VoceVendita> {
 
         #region Campi privati
-        private List<VoceVendita> _voci;
-        private Cliente _cliente;
-        private DateTime _data;
-        private Preventivo _preventivoDiProvenienza;
-        private UInt64 _ID;
+        private DatiVendita _datiVendita;
         #endregion
 
         #region Property
@@ -22,23 +18,15 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         public List<VoceVendita> Voci {
             get {
-                return new List<VoceVendita>(_voci);
+                return new List<VoceVendita>(this._datiVendita.Voci);
             }
         }
         /// <summary>
         /// Le voci nella vendita.
         /// </summary>
-        /// <exception cref="ArgumentNullException"></exception>
         public Cliente Cliente {
             get {
-                return _cliente;
-            }
-
-            set {
-                if(value == null) {
-                    throw new ArgumentNullException("Il cliente non può essere nullo");
-                }
-                this._cliente = value;
+                return this._datiVendita.Cliente;
             }
         }
         /// <summary>
@@ -46,11 +34,7 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         public DateTime Data {
             get {
-                return _data;
-            }
-
-            set {
-                this._data = value;
+                return this._datiVendita.Data;
             }
         }
         /// <summary>
@@ -59,7 +43,7 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         public Preventivo PreventivoDiProvenienza {
             get {
-                return _preventivoDiProvenienza;
+                return this._datiVendita.PreventivoDiProvenienza;
             }
         }
         /// <summary>
@@ -67,45 +51,59 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         public int Count {
             get {
-                return ((ICollection<VoceVendita>)this._voci).Count;
+                return ((ICollection<VoceVendita>)this._datiVendita.Voci).Count;
             }
         }
 
         public bool IsReadOnly {
             get {
-                return ((ICollection<VoceVendita>)this._voci).IsReadOnly;
+                return ((ICollection<VoceVendita>)this._datiVendita.Voci).IsReadOnly;
             }
         }
 
-        public UInt64 ID {
+        public ulong ID {
             get
             {
-                return _ID;
+                return this._datiVendita.ID;
+            }
+        }
+        /// <summary>
+        /// La struttura dati interna
+        /// </summary>
+        public DatiVendita DatiVenditaInterni {
+            get {
+                return _datiVendita;
+            }
+
+            set {
+                this._datiVendita = value;
             }
         }
         #endregion
 
         #region Costruttore
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="datiVendita"></param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+        public Vendita(DatiVendita datiVendita) {
+            this._datiVendita = datiVendita;
+        }
+        /// <summary>
         /// Una nuova vendita.
         /// </summary>
-        /// <param name="cliente">Il cliente a cui sono riferite le voci</param>
+        /// <param name="cliente">Il cliente a cui sono riferite le voci. Deve essere <see cref="EnumTipoCliente.Attivo"/>/param>
         /// <param name="data">La data della vendita.<para>Se <c>null</c> è la data corrente</para></param>
         /// <param name="voci">Le voci nella vendita. Deve contenere almeno un valore.<para>Se <c>null</c> è una lista vuota</para></param>
         /// <param name="preventivoDiProvenienza">Il preventivo da cui la fattura proviene.<para>Se <c>null</c> non viene inserito</para></param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        public Vendita(Cliente cliente, DateTime? data = null, List<VoceVendita> voci = null, Preventivo preventivoDiProvenienza = null) {
-            if(cliente == null) {
-                throw new ArgumentNullException("Il cliente non può essere nullo");
-            }
-            if(voci != null && voci.Count < 1) {
-                throw new ArgumentException("Le voci devono essere almeno una");
-            }
-            this._cliente = cliente;
-            this._voci = (voci == null) ? new List<VoceVendita>() : new List<VoceVendita>(voci);
-            this._preventivoDiProvenienza = preventivoDiProvenienza;
-            this._data = data ?? DateTime.Now;
+        /// <exception cref="InvalidOperationException"></exception>
+        public Vendita(ulong iD, Cliente cliente, DateTime? data = null, List<VoceVendita> voci = null, Preventivo preventivoDiProvenienza = null)
+            : this(new DatiVendita(iD, cliente, data, voci, preventivoDiProvenienza)){
         }
         #endregion
 
@@ -118,29 +116,29 @@ namespace IngegneriaDelSoftware.Model {
         /// <exception cref="InvalidOperationException"></exception>
         /// <exception cref="IndexOutOfRangeException"></exception>
         public VoceVendita this[int i] {
-            get { return this._voci[i]; }
-            set { this._voci[i] = value; }
+            get { return this._datiVendita.Voci[i]; }
+            set { this._datiVendita.Voci[i] = value; }
         }
         /// <summary>
         /// Calcola il valore della vendita
         /// </summary>
         /// <returns>il valore della vendita</returns>
         public decimal Totale() {
-            return this._voci.Select((e) => { return e.ValoreTotale(); }).Sum();
+            return this._datiVendita.Voci.Select((e) => { return e.ValoreTotale(); }).Sum();
         }
 
         public override string ToString() {
             return String.Format("Vendita {0}\t{1}\n{2}",
-                    this._data,
-                    this._cliente,
-                    String.Join("\n", this._voci)
+                    this._datiVendita.Data,
+                    this._datiVendita.Cliente,
+                    String.Join("\n", this._datiVendita.Voci)
                 );
         }
         /// <summary>
         /// Ordina la lista interna
         /// </summary>
         public void Sort() {
-            this._voci.Sort();
+            this._datiVendita.Voci.Sort();
         }
 
         public override bool Equals(object obj)
@@ -161,20 +159,20 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         /// <param name="item">La voce</param>
         public void Add(VoceVendita item) {
-            ((ICollection<VoceVendita>)this._voci).Add(item);
+            ((ICollection<VoceVendita>)this._datiVendita.Voci).Add(item);
         }
         /// <summary>
         /// Aggiunge una o più voci alla lista interna
         /// </summary>
         /// <param name="item">Le voci</param>
         public void Add(params VoceVendita[] item) {
-            this._voci.AddRange(item);
+            this._datiVendita.Voci.AddRange(item);
         }
         /// <summary>
         /// Svuota la lista
         /// </summary>
         public void Clear() {
-            ((ICollection<VoceVendita>)this._voci).Clear();
+            ((ICollection<VoceVendita>)this._datiVendita.Voci).Clear();
         }
         /// <summary>
         /// Verifica se la lista interna contiene o meno la voce
@@ -182,11 +180,11 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="item">Il valore da controllare</param>
         /// <returns></returns>
         public bool Contains(VoceVendita item) {
-            return ((ICollection<VoceVendita>)this._voci).Contains(item);
+            return ((ICollection<VoceVendita>)this._datiVendita.Voci).Contains(item);
         }
 
         public void CopyTo(VoceVendita[] array, int arrayIndex) {
-            ((ICollection<VoceVendita>)this._voci).CopyTo(array, arrayIndex);
+            ((ICollection<VoceVendita>)this._datiVendita.Voci).CopyTo(array, arrayIndex);
         }
         /// <summary>
         /// Rimuove una voce dalla lista
@@ -194,27 +192,65 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="item">L'elemento da rimuovere</param>
         /// <returns></returns>
         public bool Remove(VoceVendita item) {
-            return ((ICollection<VoceVendita>)this._voci).Remove(item);
+            return ((ICollection<VoceVendita>)this._datiVendita.Voci).Remove(item);
         }
         #endregion
 
         #region Iterator pattern implementation
         public IEnumerator<VoceVendita> GetEnumerator() {
-            return ((IEnumerable<VoceVendita>)this._voci).GetEnumerator();
+            return ((IEnumerable<VoceVendita>)this._datiVendita.Voci).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator() {
-            return ((IEnumerable<VoceVendita>)this._voci).GetEnumerator();
+            return ((IEnumerable<VoceVendita>)this._datiVendita.Voci).GetEnumerator();
         }
         #endregion
 
+        #endregion
+
+        #region Struct dati
+        public struct DatiVendita {
+            /// <summary>
+            /// Una nuova vendita.
+            /// </summary>
+            /// <param name="cliente">Il cliente a cui sono riferite le voci. Deve essere <see cref="EnumTipoCliente.Attivo"/></param>
+            /// <param name="data">La data della vendita.<para>Se <c>null</c> è la data corrente</para></param>
+            /// <param name="voci">Le voci nella vendita. Deve contenere almeno un valore.<para>Se <c>null</c> è una lista vuota</para></param>
+            /// <param name="preventivoDiProvenienza">Il preventivo da cui la fattura proviene.<para>Se <c>null</c> non viene inserito</para></param>
+            /// <exception cref="ArgumentException"></exception>
+            /// <exception cref="ArgumentNullException"></exception>
+            /// <exception cref="InvalidOperationException"></exception>
+            public DatiVendita(ulong iD, Cliente cliente, DateTime? data = null, List<VoceVendita> voci = null, Preventivo preventivoDiProvenienza = null) : this() {
+                if(cliente == null) {
+                    throw new ArgumentNullException("Il cliente non può essere nullo");
+                }
+                if(voci != null && voci.Count < 1) {
+                    throw new ArgumentException("Le voci devono essere almeno una");
+                }
+                if(cliente.TipoCliente != EnumTipoCliente.Attivo) {
+                    throw new InvalidOperationException("Il cliente deve essere attivo per potere preformare questa operazione");
+                }
+                this.Voci = (voci == null) ? new List<VoceVendita>() : new List<VoceVendita>(voci);
+                this.Cliente = cliente;
+                this.Data = data ?? DateTime.Now;
+                this.PreventivoDiProvenienza = preventivoDiProvenienza;
+                this.ID = iD;
+            }
+
+            public List<VoceVendita> Voci { get; private set; }
+            public Cliente Cliente { get; private set; }
+            public DateTime Data { get; private set; }
+            public Preventivo PreventivoDiProvenienza { get; private set; }
+            public ulong ID { get; private set; }
+
+        }
         #endregion
 
         #region Tests
         public static bool Test() {
             var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
             var cliente = new Cliente(persona, "1");
-            var vendita = new Vendita(cliente);
+            var vendita = new Vendita(1, cliente);
             var voce1 = new VoceVendita("Corda", 30);
             var voce2 = new VoceVendita("Canapa", 20);
 
