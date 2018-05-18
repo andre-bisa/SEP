@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model {
     public class VocePreventivo: Voce {
-        public override event EventHandler<ArgsModifica<Voce>> OnModifica;
 
         #region Costruttore
         /// <summary>

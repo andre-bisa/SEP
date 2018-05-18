@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model {
     public class VoceFattura: Voce {
-        public override event EventHandler<ArgsModifica<Voce>> OnModifica;
 
         #region Campi privati
         private float _iva;

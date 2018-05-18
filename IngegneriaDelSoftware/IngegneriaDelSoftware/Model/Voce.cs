@@ -6,8 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model {
-    public abstract class Voce: IComparable<Voce>, IObservable<Voce> {
-        public abstract event EventHandler<ArgsModifica<Voce>> OnModifica;
+    public abstract class Voce: IComparable<Voce> {
 
         #region Campi privati
         private string _causale;
