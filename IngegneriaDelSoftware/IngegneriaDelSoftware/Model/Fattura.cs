@@ -133,6 +133,17 @@ namespace IngegneriaDelSoftware.Model {
                 return ((ICollection<VoceFattura>)this._voci).IsReadOnly;
             }
         }
+
+        /// <summary>
+        /// Dice se la fattura è finalizzata
+        /// </summary>
+        public bool IsFinalizzata
+        {
+            get
+            {
+                return (this._stato == Stato.LOCKED);
+            }
+        }
         #endregion
 
         #region Costruttore
@@ -263,6 +274,22 @@ namespace IngegneriaDelSoftware.Model {
             this._voci.Sort();
         }
 
+        public override bool Equals(object obj)
+        {
+            var fattura = obj as Fattura;
+            return fattura != null &&
+                   Numero == fattura.Numero &&
+                   Anno == fattura.Anno;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -200852566;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Numero);
+            hashCode = hashCode * -1521134295 + Anno.GetHashCode();
+            return hashCode;
+        }
+
         #region Iterator pattern implementation
         public IEnumerator<VoceFattura> GetEnumerator() {
             return ((IEnumerable<VoceFattura>)this._voci).GetEnumerator();
@@ -368,6 +395,7 @@ namespace IngegneriaDelSoftware.Model {
             }
             return true;
         }
+
         #endregion
 
     }

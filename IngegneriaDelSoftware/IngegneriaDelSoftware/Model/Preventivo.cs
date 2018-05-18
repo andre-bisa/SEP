@@ -13,6 +13,7 @@ namespace IngegneriaDelSoftware.Model {
         private bool _accettato;
         private Cliente _cliente;
         private DateTime _data;
+        private UInt64 _ID;
         #endregion
 
         #region Property
@@ -77,6 +78,14 @@ namespace IngegneriaDelSoftware.Model {
                 return ((ICollection<VocePreventivo>)this._voci).IsReadOnly;
             }
         }
+
+        public UInt64 ID
+        {
+            get
+            {
+                return _ID;
+            }
+        }
         #endregion
 
         #region Costruttore
@@ -136,6 +145,18 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         public void Sort() {
             this._voci.Sort();
+        }
+
+        public override bool Equals(object obj)
+        {
+            var preventivo = obj as Preventivo;
+            return preventivo != null &&
+                   ID == preventivo.ID;
+        }
+
+        public override int GetHashCode()
+        {
+            return 1213502048 + ID.GetHashCode();
         }
 
         #region Collection implementation

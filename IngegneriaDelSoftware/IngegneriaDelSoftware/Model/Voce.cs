@@ -80,6 +80,26 @@ namespace IngegneriaDelSoftware.Model {
             return this._importo.CompareTo(other.Importo);
         }
 
+        public override bool Equals(object obj)
+        {
+            var voce = obj as Voce;
+            return voce != null &&
+                   Causale == voce.Causale &&
+                   Importo == voce.Importo &&
+                   Tipologia == voce.Tipologia &&
+                   Quantita == voce.Quantita;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 87959449;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Causale);
+            hashCode = hashCode * -1521134295 + Importo.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Tipologia);
+            hashCode = hashCode * -1521134295 + Quantita.GetHashCode();
+            return hashCode;
+        }
+
         #endregion
     }
 }
