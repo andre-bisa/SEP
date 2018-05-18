@@ -11,7 +11,14 @@ namespace IngegneriaDelSoftware.Model
     {
         public event EventHandler<ArgsModifica<Cliente>> OnModifica;
 
+        #region Campi privati
         private string _idCliente;
+        private Persona _persona;
+        private string _nota;
+        private List<Referente> _referenti;
+        #endregion
+
+        #region Proprietà
         public string IDCliente {
             get
             {
@@ -27,7 +34,6 @@ namespace IngegneriaDelSoftware.Model
                 }
             }
         }
-        private Persona _persona;
         public Persona Persona {
             get
             {
@@ -43,10 +49,6 @@ namespace IngegneriaDelSoftware.Model
                 }
             }
         }
-        private string _nota;
-
-        
-
         public string Nota {
             get
             {
@@ -63,8 +65,6 @@ namespace IngegneriaDelSoftware.Model
             }
         }
         public EnumTipoCliente TipoCliente { get; private set; }
-
-        private List<Referente> _referenti;
         public List<Referente> Referenti
         {
             get
@@ -72,6 +72,7 @@ namespace IngegneriaDelSoftware.Model
                 return new List<Referente>(_referenti);
             }
         }
+        #endregion
 
         #region "Costruttori"
         /// <summary>

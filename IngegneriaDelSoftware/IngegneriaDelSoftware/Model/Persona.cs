@@ -9,14 +9,19 @@ namespace IngegneriaDelSoftware.Model
 {
     public abstract class Persona : IObservable<Persona>
     {
-        //public event EventHandler<ArgsModificaPersona> ModificaPersona;
         public event EventHandler<ArgsModifica<Persona>> OnModifica;
 
         public abstract EnumTipoPersona TipoPersona { get; }
-
         protected abstract Persona Clone();
 
+        #region Campi privati
         private string _codiceFiscale;
+        private string _indirizzo;
+        private List<Telefono> _telefoni;
+        private List<Email> _email;
+        #endregion
+
+        #region Proprietà
         /// <summary>
         /// Il codice fiscale della persona
         /// <para>Il set causa il lancio dell'evento <see cref="ModificaPersona"/></para>
@@ -36,7 +41,6 @@ namespace IngegneriaDelSoftware.Model
                 }
             }
         }
-        private string _indirizzo;
         /// <summary>
         /// L'indirizzo della persona
         /// <para>Il set causa il lancio dell'evento <see cref="ModificaPersona"/></para>
@@ -57,9 +61,6 @@ namespace IngegneriaDelSoftware.Model
             }
         }
 
-        //XXX ha senso che siano pubbliche?;
-
-        private List<Telefono> _telefoni;
         public List<Telefono> Telefoni
         {
             get
@@ -67,8 +68,6 @@ namespace IngegneriaDelSoftware.Model
                 return new List<Telefono>(_telefoni);
             }
         }
-
-        private List<Email> _email;
         public List<Email> Email
         {
             get
@@ -76,6 +75,7 @@ namespace IngegneriaDelSoftware.Model
                 return new List<Email>(_email);
             }
         }
+        #endregion
 
         #region "Costruttori"
         /// <summary>
