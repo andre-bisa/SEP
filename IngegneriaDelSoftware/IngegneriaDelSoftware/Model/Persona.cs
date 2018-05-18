@@ -119,11 +119,7 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public void AggiungiTelefono (Telefono telefono)
         {
-            if(telefono != null) {
-                this.Telefoni.Add(telefono);
-            } else {
-                throw new ArgumentNullException(nameof(telefono));
-            }
+            this.Telefoni.Add(telefono);
         }
         /// <summary>
         /// Rimuove un numero di telefono alla lista interna
@@ -132,11 +128,7 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public void RimuoviTelefono (Telefono telefono)
         {
-            if(telefono != null) {
-                this.Telefoni.Remove(telefono);
-            } else {
-                throw new ArgumentNullException(nameof(telefono));
-            }
+            this.Telefoni.Remove(telefono);
         }
         #endregion
 
@@ -148,11 +140,7 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public void AggiungiEmail(Email email)
         {
-            if(email != null) {
-                this.Email.Add(email);
-            } else {
-                throw new ArgumentNullException(nameof(email));
-            }
+            this.Email.Add(email);
         }
         /// <summary>
         /// Rimuove un indirizzo email dalla lista interna
@@ -161,11 +149,7 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public void RimuoviEmail(Email email)
         {
-            if(email != null) {
-                this.Email.Remove(email);
-            } else {
-                throw new ArgumentNullException(nameof(email));
-            }
+            this.Email.Remove(email);
         }
         #endregion
 

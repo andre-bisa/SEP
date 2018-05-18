@@ -37,10 +37,6 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public void Add(Email item)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException();
-            }
             ((ICollection<Email>)_email).Add(item);
         }
 
@@ -60,10 +56,6 @@ namespace IngegneriaDelSoftware.Model
         /// <returns></returns>
         public bool Contains(Email item)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException();
-            }
             return ((ICollection<Email>)_email).Contains(item);
         }
 
@@ -84,11 +76,7 @@ namespace IngegneriaDelSoftware.Model
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
         public bool Remove(Email item)
-        {
-            if (item == null)
-            {
-                throw new ArgumentNullException();
-            }
+        { 
             return ((ICollection<Email>)_email).Remove(item);
         }
 
@@ -107,11 +95,6 @@ namespace IngegneriaDelSoftware.Model
             get { return _email[i]; }
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException();
-                }
-
                 _email[i] = value;
             }
         }

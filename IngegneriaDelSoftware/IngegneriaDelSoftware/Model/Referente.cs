@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model
 {
-    public class Referente
+    public struct Referente
     {
         /// <summary>
         /// Il nome del referente
@@ -38,17 +38,18 @@ namespace IngegneriaDelSoftware.Model
 
         public override bool Equals(object obj)
         {
-            var referente = obj as Referente;
-            return referente != null &&
-                   Nome == referente.Nome;
+            if (!(obj is Referente))
+            {
+                return false;
+            }
+
+            var referente = (Referente)obj;
+            return Nome == referente.Nome;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 557927457;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Nome);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Nota);
-            return hashCode;
+            return 285249808 + EqualityComparer<string>.Default.GetHashCode(Nome);
         }
     }
 }

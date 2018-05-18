@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model
 {
-    public class Email
+    public struct Email
     {
         /// <summary>
         /// L'indirizzo email
@@ -21,24 +21,16 @@ namespace IngegneriaDelSoftware.Model
         /// 
         /// </summary>
         /// <param name="indirizzo">L'indirizzo email</param>
+        /// <param name="nota">La nota dell'indirizzo mail</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public Email(string indirizzo)
+        public Email(string indirizzo, string nota)
         {
             if(indirizzo == null) {
                 throw new ArgumentNullException(nameof(indirizzo));
             }
             Indirizzo = indirizzo;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="indirizzo">L'indirizzo email</param>
-        /// <param name="nota">Una nota sull'indirizzo</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public Email(string indirizzo, string nota) : this(indirizzo)
-        {
-            if(nota == null) {
+            if (nota == null)
+            {
                 throw new ArgumentNullException(nameof(nota));
             }
             Nota = nota;
@@ -46,17 +38,18 @@ namespace IngegneriaDelSoftware.Model
 
         public override bool Equals(object obj)
         {
-            var email = obj as Email;
-            return email != null &&
-                   Indirizzo == email.Indirizzo;
+            if (!(obj is Email))
+            {
+                return false;
+            }
+
+            var email = (Email)obj;
+            return Indirizzo == email.Indirizzo;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 1478606598;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Indirizzo);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Nota);
-            return hashCode;
+            return 1205928949 + EqualityComparer<string>.Default.GetHashCode(Indirizzo);
         }
     }
 }
