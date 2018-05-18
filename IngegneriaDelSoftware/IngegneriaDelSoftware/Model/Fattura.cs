@@ -50,7 +50,7 @@ namespace IngegneriaDelSoftware.Model {
         /// <exception cref="InvalidOperationException"></exception>
         public List<Vendita> VenditeDiProvenienza {
             get {
-                return _venditeDiProvenienza;
+                return new List<Vendita>(_venditeDiProvenienza);
             }
         }
         /// <summary>
@@ -181,9 +181,9 @@ namespace IngegneriaDelSoftware.Model {
             if(venditeDiProvenienza.Count < 1) {
                 throw new ArgumentException("La vendita di provenienza deve contenere almeno una vendita");
             }
-            this._voci = voci ?? new List<VoceFattura>();
+            this._voci = (voci == null) ? new List<VoceFattura>() : new List<VoceFattura>(voci);
             this._cliente = cliente;
-            this._venditeDiProvenienza = venditeDiProvenienza;
+            this._venditeDiProvenienza = new List<Vendita>(venditeDiProvenienza);
             this._numero = numero;
             this._data = data ?? DateTime.Now;
             this._anno = anno;

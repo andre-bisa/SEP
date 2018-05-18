@@ -100,22 +100,9 @@ namespace IngegneriaDelSoftware.Model
             }
             _indirizzo = indirizzo;
 
-            if (telefoni == null) {
-                this._telefoni = new List<Telefono>();
-            }
-            else
-            {
-                this._telefoni = new List<Telefono>(telefoni);
-            }
+            this._telefoni = (telefoni == null) ? new List<Telefono>() : new List<Telefono>(telefoni);
 
-            if (email == null)
-            {
-                this._email = new List<Email>();
-            }
-            else
-            {
-                this._email = new List<Email>(email);
-            }
+            this._email = (email == null) ? new List<Email>() : new List<Email>(email);
         }
 
         protected Persona(Persona persona) : this(persona.CodiceFiscale, persona.Indirizzo, persona.Telefoni, persona.Email)

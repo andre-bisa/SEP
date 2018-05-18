@@ -99,15 +99,7 @@ namespace IngegneriaDelSoftware.Model
             TipoCliente = tipoCliente;
             _nota = nota;
 
-            if (referenti == null)
-            {
-                this._referenti = new List<Referente>();
-            }
-            else
-            {
-                this._referenti = new List<Referente>(referenti);
-            }
-
+            this._referenti = (referenti == null) ? new List<Referente>() : new List<Referente>(referenti);
         }
 
         protected Cliente(Cliente cliente) : this(cliente.Persona, cliente.IDCliente, cliente._referenti, cliente.TipoCliente, cliente.Nota)

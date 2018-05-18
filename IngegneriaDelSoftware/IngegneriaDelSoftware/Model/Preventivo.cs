@@ -24,7 +24,7 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         public List<VocePreventivo> Voci {
             get {
-                return _voci;
+                return new List<VocePreventivo>(_voci);
             }
         }
         /// <summary>
@@ -106,7 +106,7 @@ namespace IngegneriaDelSoftware.Model {
             if(voci != null && voci.Count < 1) {
                 throw new ArgumentException("La lista voci deve contenere almeno un elemento");
             }
-            this._voci = voci ?? new List<VocePreventivo>();
+            this._voci = (voci == null) ? new List<VocePreventivo>() : new List<VocePreventivo>(voci);
             this._accettato = accettato;
             this._cliente = cliente;
             this._data = data ?? DateTime.Now;

@@ -88,7 +88,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="email">Le email della persona</param>
         /// <seealso cref="Persona"/>
         /// <exception cref="ArgumentNullException"></exception>
-        public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, string partitaIVA, List<Telefono> telefoni, List<Email> email) : base(codiceFiscale, indirizzo, telefoni, email)
+        public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, string partitaIVA = null, List<Telefono> telefoni = null, List<Email> email = null) : base(codiceFiscale, indirizzo, telefoni, email)
         {
             if (nome == null) {
                  throw new ArgumentNullException(nameof(nome));
