@@ -10,54 +10,84 @@ namespace IngegneriaDelSoftware.Model
     public class UtenteLiberoProfessionista : Utente
     {
         public override event EventHandler<ArgsModifica<Utente>> OnModifica;
-        private string _nome, _cognome;
+        private DatiUtenteLiberoProfessionista _datiUtenteLiberoProfessionista;
 
         #region Costruttore
-        /// <summary>
-        /// Costruttore di un Utente di tipologia LiberoProfessionista
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="pIva"></param>
-        /// <param name="cF"></param>
-        /// <param name="indirizzo"></param>
-        /// <param name="telefoni"></param>
-        /// <param name="email"></param>
-        /// <param name="nome"></param>
-        /// <param name="cognome"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public UtenteLiberoProfessionista(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni, Email email, string nome, string cognome) 
-            : base(username, pIva, cF, indirizzo, email, telefoni)
+        public UtenteLiberoProfessionista(DatiUtenteLiberoProfessionista datiUtenteLiberoProfessionista)
         {
-            if(nome == null)
-            {
-                throw new ArgumentNullException();
-            }
-            if(cognome == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            _nome = nome;
-            _cognome = cognome;
+            _datiUtenteLiberoProfessionista = datiUtenteLiberoProfessionista;
         }
         #endregion
 
-        #region Getters e setters
+        #region Properties
         public string Nome
         {
-            get { return _nome; }
-            set { _nome = value; }
+            get { return _datiUtenteLiberoProfessionista.Nome; }
         }
         public string Cognome
         {
-            get { return _cognome; }
-            set { _cognome = value; }
+            get { return _datiUtenteLiberoProfessionista.Cognome; }
+        }
+        public override string Username
+        {
+            get { return _datiUtenteLiberoProfessionista.Username; }
+        }
+        public override string PartitaIva
+        {
+            get { return _datiUtenteLiberoProfessionista.PartitaIva; }
+        }
+        public override string CodiceFiscale
+        {
+            get { return _datiUtenteLiberoProfessionista.CodiceFiscale; }
+        }
+        public override string Indirizzo
+        {
+            get { return _datiUtenteLiberoProfessionista.Indirizzo; }
+        }
+        public override CollezioneTelefoni Telefoni
+        {
+            get { return _datiUtenteLiberoProfessionista.Telefoni; }
+        }
+        public override Email Email
+        {
+            get { return _datiUtenteLiberoProfessionista.Email; }
         }
         #endregion
 
         public override string ToString()
         {
-            return String.Format("Nome: {0} \nCognome: {1}", Nome, Cognome);
+            return String.Format("{0} \nNome: {1} \nCognome: {2}", base.ToString(),  Nome, Cognome);
+        }
+    }
+
+
+    public class DatiUtenteLiberoProfessionista : DatiUtente
+    {
+        public string Nome { get; private set; }
+        public string Cognome { get; private set; }
+
+        /// <summary>
+        /// Costruttore di Dati Utente di tipo LiberoProfessionista
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="pIva"></param>
+        /// <param name="cf"></param>
+        /// <param name="indirizzo"></param>
+        /// <param name="email"></param>
+        /// <param name="ragioneSociale"></param>
+        /// <param name="sedeLegale"></param>
+        /// <param name="telefoni"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public DatiUtenteLiberoProfessionista(string username, string pIva, string cf, string indirizzo, Email email, string nome, string cognome, HashSet<Telefono> telefoni = null)
+            : base(username, pIva, cf, indirizzo, email, telefoni)
+        {
+            if (nome == null || cognome == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            Nome = nome;
+            Cognome = cognome;
         }
     }
 }

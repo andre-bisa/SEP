@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model
 {
-    public class ListaTelefoni : ICollection<Telefono>, IEnumerable<Telefono>
+    public class CollezioneTelefoni : ICollection<Telefono>, IEnumerable<Telefono>
     {
-        private List<Telefono> _telefoni;
+        //Set poiche' non ha senso aggiungere due o piu' numeri uguali
+        private HashSet<Telefono> _telefoni;
 
         /// <summary>
         /// Costruttore
         /// </summary>
-        public ListaTelefoni(List<Telefono> telefoni = null)
+        public CollezioneTelefoni(HashSet<Telefono> telefoni = null)
         {
             //Se argomento nullo da' lista vuota, altrimenti crea una copia della lista data
-            _telefoni = (telefoni == null) ? new List<Telefono>() : new List<Telefono>(telefoni);
+            _telefoni = (telefoni == null) ? new HashSet<Telefono>() : new HashSet<Telefono>(telefoni);
         }
 
         public int Count
@@ -92,11 +93,12 @@ namespace IngegneriaDelSoftware.Model
         /// <returns></returns>
         public Telefono this[int i]
         {
-            get { return _telefoni[i]; }
-            set
-            {
-                _telefoni[i] = value;
-            }
+            get { return _telefoni.ElementAt<Telefono>(i); }
+        }
+
+        public override string ToString()
+        {
+            return String.Join("\n", this._telefoni);
         }
     }
 }

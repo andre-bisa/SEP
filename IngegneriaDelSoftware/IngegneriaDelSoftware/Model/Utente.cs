@@ -10,86 +10,74 @@ namespace IngegneriaDelSoftware.Model
     public abstract class Utente : IObservable<Utente>
     {
         public abstract event EventHandler<ArgsModifica<Utente>> OnModifica;
-        private string _username, _pIva, _cf, _indirizzo;
-        private ListaTelefoni _telefoni;
-        private Email _email;
 
-        #region Costruttore
+        #region Properties
+        public abstract string Username { get; }
+        public abstract string PartitaIva { get; }
+        public abstract string CodiceFiscale { get; }
+        public abstract string Indirizzo { get; }
+        public abstract CollezioneTelefoni Telefoni { get; }
+        public abstract Email Email { get; }
+        #endregion
+
+        #region ToString()
+        public override string ToString()
+        {
+            return String.Format("Username: {0} \nPartita Iva: {1} \nCodice Fiscale: {2}" +
+                " \nIndirizzo: {3}  \nTelefoni: {4} \nEmail: {5}", Username, PartitaIva, CodiceFiscale,
+                Indirizzo, Telefoni.ToString(), Email.ToString());
+        }
+        #endregion
+    }
+
+    //Abstract class per avere ereditarieta' con gli altri tipi di utente
+    public abstract class DatiUtente
+    {
+        public string Username { get; private set; }
+        public string PartitaIva { get; private set; }
+        public string CodiceFiscale { get; private set; }
+        public string Indirizzo { get; private set; }
+        public CollezioneTelefoni Telefoni { get; private set; }
+        public Email Email { get; private set; }
+
         /// <summary>
-        /// Costruttore di un Utente, inizializza solo i campi comuni ai figli
+        /// 
         /// </summary>
         /// <param name="username"></param>
         /// <param name="pIva"></param>
-        /// <param name="cF"></param>
+        /// <param name="cf"></param>
         /// <param name="indirizzo"></param>
-        /// <param name="telefoni">Campo opzionale</param>
-        /// <param name="email">Campo opzionale</param>
-        public Utente(string username, string pIva, string cF, string indirizzo, Email email, List<Telefono> telefoni = null)
+        /// <param name="email"></param>
+        /// <param name="telefoni"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public DatiUtente(string username, string pIva, string cf, string indirizzo, Email email, HashSet<Telefono> telefoni = null)
         {
             #region Controlli
-            if (username == null)
+            if(username == null)
             {
-                throw new ArgumentNullException(nameof(username));
+                throw new ArgumentNullException();
             }
             if (pIva == null)
             {
-                throw new ArgumentNullException(nameof(pIva));
+                throw new ArgumentNullException();
             }
-            if (cF == null)
+            if (cf == null)
             {
-                throw new ArgumentNullException(nameof(cF));
+                throw new ArgumentNullException();
             }
             if (indirizzo == null)
             {
-                throw new ArgumentNullException(nameof(indirizzo));
+                throw new ArgumentNullException();
             }
             #endregion
 
-            _username = username;
-            _pIva = pIva;
-            _cf = cF;
-            _indirizzo = indirizzo;
+            Username = username;
+            PartitaIva = pIva;
+            CodiceFiscale = cf;
+            Indirizzo = indirizzo;
+            Email = email;
             //Se argomento nullo da' lista vuota, altrimenti crea una copia della lista data
-            _telefoni = new ListaTelefoni(telefoni);
-            _email = email;
+            Telefoni = new CollezioneTelefoni(telefoni);
         }
-        #endregion
-
-        #region Getters e setters
-        public string Username
-        {
-            get { return _username; }
-            protected set { _username = value; }
-        }
-        public string PartitaIva
-        {
-            get { return _pIva; }
-            protected set { _pIva = value; }
-        }
-        public string CodiceFiscale
-        {
-            get { return _cf; }
-            protected set { _cf = value; }
-        }
-        public string Indirizzo
-        {
-            get { return _indirizzo; }
-            protected set { _indirizzo = value; }
-        }
-        public List<Telefono> Telefoni
-        {
-            get
-            {
-                //Ritorna la copia della lista
-                return new List<Telefono>(_telefoni);
-            }
-        }
-        public Email Email
-        {
-            get { return _email; }
-            protected set { _email = value; }
-        }
-        #endregion
-
     }
 }

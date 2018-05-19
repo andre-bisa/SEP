@@ -10,132 +10,138 @@ namespace IngegneriaDelSoftware.Model
     public class DatoreLavoro : IObservable<DatoreLavoro>
     {
         public event EventHandler<ArgsModifica<DatoreLavoro>> OnModifica;
-        private string _nome, _cognome, _ragioneSociale, _pIva, _cF, _indirizzo;
-        private ListaTelefoni _telefoni;
-        private ListaEmail _email;
+        private DatiDatoreLavoro _datiDatoreLavoro;
 
-
-        #region Costruttori
+        #region Costruttore
         /// <summary>
-        /// Costruttore di DatoreLavoro completo
+        /// Costruttore di DatoreLavoro
         /// </summary>
-        /// <param name="nome"></param>
-        /// <param name="cognome"></param>
-        /// <param name="regioneSociale"></param>
-        /// <param name="pIva"></param>
-        /// <param name="cF"></param>
-        /// <param name="indirizzo"></param>
-        /// <param name="telefoni"></param>
-        /// <param name="email"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        protected DatoreLavoro(string nome, string cognome, string ragioneSociale, string pIva, string cF, string indirizzo, List<Telefono> telefoni =  null, List<Email> email = null)
+        /// <param name="datiDatoreLavoro"></param>
+        public DatoreLavoro(DatiDatoreLavoro datiDatoreLavoro)
         {
-            #region Controlli
-            if(nome == null)
-            {
-                throw new ArgumentNullException(nameof(nome));
-            }
-            if (cognome == null)
-            {
-                throw new ArgumentNullException(nameof(cognome));
-            }
-            if(ragioneSociale == null)
-            {
-                throw new ArgumentNullException(nameof(ragioneSociale));
-            }
-            if(pIva == null)
-            {
-                throw new ArgumentNullException(nameof(pIva));
-            }
-            if(cF == null)
-            {
-                throw new ArgumentNullException(nameof(cF));
-            }
-            if(indirizzo == null)
-            {
-                throw new ArgumentNullException(nameof(indirizzo));
-            }
-            #endregion
-
-            _nome = nome;
-            _cognome = cognome;
-            _ragioneSociale = ragioneSociale;
-            _pIva = pIva;
-            _cF = cF;
-            _indirizzo = indirizzo;
-            //Se argomento nullo da' lista vuota, altrimenti crea una copia della lista data
-            _telefoni = new ListaTelefoni(telefoni);
-            _email = new ListaEmail(email);
+            _datiDatoreLavoro = datiDatoreLavoro;
         }
 
 
         #endregion
 
-        #region Getters e setters
+        #region Properties
         /// <summary>
         /// Nome del datore di lavoro
         /// </summary>
         public string Nome
         {
-            get { return _nome; }
-            set { _nome = value; }
+            get { return _datiDatoreLavoro.Nome; }
         }
         /// <summary>
         /// Cognome del datore di lavoro
         /// </summary>
         public string Cognome
         {
-            get { return _cognome; }
-            set { _cognome = value; }
+            get { return _datiDatoreLavoro.Cognome; }
         }
         /// <summary>
         /// Ragione sociale del datore di lavoro
         /// </summary>
         public string RagioneSociale
         {
-            get { return _ragioneSociale; }
-            set { _ragioneSociale = value; }
+            get { return _datiDatoreLavoro.RagioneSociale; }
         }
         /// <summary>
         /// Partita Iva del datore di lavoro
         /// </summary>
         public string PartitaIva
         {
-            get { return _pIva; }
-            set { _pIva = value; }
+            get { return _datiDatoreLavoro.PartitaIva; }
         }
         /// <summary>
         /// Codice fiscale del datore di lavoro
         /// </summary>
         public string CodiceFiscale
         {
-            get { return _cF; }
-            set { _cF = value; }
+            get { return _datiDatoreLavoro.CodiceFiscale; }
         }
         /// <summary>
         /// Indirizzo del datore di lavoro
         /// </summary>
         public string Indirizzo
         {
-            get { return _indirizzo; }
-            set { _indirizzo = value; }
+            get { return _datiDatoreLavoro.Indirizzo; }
         }
         /// <summary>
         /// Eventuali numeri di telefono del datore di lavoro
         /// </summary>
-        public ListaTelefoni Telefoni
+        public CollezioneTelefoni Telefoni
         {
-            get { return _telefoni; }
-            set { _telefoni = value; }
+            get { return _datiDatoreLavoro.Telefoni; }
         }
         /// <summary>
         /// Eventuale email del datore di lavoro
         /// </summary>
-        public ListaEmail Email
+        public Email? Email
         {
-            get { return _email; }
-            set { _email = value; }
+            get { return _datiDatoreLavoro.Email; }
+        }
+        #endregion
+
+        #region ToString()
+        public override string ToString()
+        {
+            return String.Format("Nome: {0} \nCognome: {1} \nPartita Iva: {2} \nCodice Fiscale: {3}" +
+                " \nIndirizzo: {4}  \nTelefoni: {4} \nEmail: {5}", Nome, Cognome, PartitaIva, CodiceFiscale,
+                Indirizzo, Telefoni.ToString(), Email.ToString());
         }
         #endregion
     }
+
+    #region Struct interna
+    public struct DatiDatoreLavoro
+    {
+        public string Nome { get; private set; }
+        public string Cognome { get; private set; }
+        public string RagioneSociale { get; private set; }
+        public string PartitaIva { get; private set; }
+        public string CodiceFiscale { get; private set; }
+        public string Indirizzo { get; private set; }
+        public CollezioneTelefoni Telefoni { get; private set; }
+        //Email? siccome e' una struct che puo' essere nulla
+        public Email? Email { get; private set; }
+        
+        public DatiDatoreLavoro(string nome, string cognome, string pIva, string cf, string ragioneSociale, string indirizzo, HashSet<Telefono> telefoni = null, Email? email = null)
+        {
+            #region Controlli
+            if (nome == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (cognome == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (pIva == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (indirizzo == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (ragioneSociale == null)
+            {
+                throw new ArgumentNullException();
+            }
+            #endregion
+
+            Nome = nome;
+            Cognome = cognome;
+            PartitaIva = pIva;
+            CodiceFiscale = cf;
+            Indirizzo = indirizzo;
+            RagioneSociale = ragioneSociale;
+            //Se argomento nullo da' lista vuota, altrimenti crea una copia della lista data
+            Telefoni = new CollezioneTelefoni(telefoni);
+            Email = email;
+        }
+    }
+    #endregion
 }

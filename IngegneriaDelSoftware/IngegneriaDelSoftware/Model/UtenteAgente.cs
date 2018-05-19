@@ -10,82 +10,90 @@ namespace IngegneriaDelSoftware.Model
     public class UtenteAgente : Utente
     {
         public override event EventHandler<ArgsModifica<Utente>> OnModifica;
-        private string _nome, _cognome;
-        private float _provvigioneDefault;
+        private DatiUtenteAgente _datiUtenteAgente;
 
         #region Costruttore
-        /// <summary>
-        /// Costruttore di un Utente di tipologia Agente
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="pIva"></param>
-        /// <param name="cF"></param>
-        /// <param name="indirizzo"></param>
-        /// <param name="telefoni"></param>
-        /// <param name="email"></param>
-        /// <param name="nome"></param>
-        /// <param name="cognome"></param>
-        /// <param name="provvigioneDefault"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="ArgumentException"></exception>
-        public UtenteAgente(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni, Email email, string nome, string cognome, float provvigioneDefault = 0)
-            : base(username, pIva, cF, indirizzo, email, telefoni)
+        public UtenteAgente(DatiUtenteAgente datiUtenteAgente)
         {
-            #region Controlli
-            if (nome == null)
-            {
-                throw new ArgumentNullException(nameof(nome));
-            }
-            if(cognome == null)
-            {
-                throw new ArgumentNullException(nameof(cognome));
-            }
-
-            if (provvigioneDefault > 1 || provvigioneDefault < 0)
-            {
-                throw new ArgumentException();
-            }
-            #endregion
-            
-            _nome = nome;
-            _cognome = cognome;
-            _provvigioneDefault = provvigioneDefault;
+            _datiUtenteAgente = datiUtenteAgente;
         }
         #endregion
 
-        #region Getters e setters
+        #region Properties
         public string Nome
         {
-            get { return _nome; }
-            set { _nome = value; }
+            get { return _datiUtenteAgente.Nome; }
         }
         public string Cognome
         {
-            get { return _cognome; }
-            set { _cognome = value; }
+            get { return _datiUtenteAgente.Cognome; }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <exception cref="ArgumentException"></exception>
         public float ProvvigioneDefault
         {
-            get { return _provvigioneDefault; }
-            set
-            {
-                if (value < 0 || value > 1)
-                {
-                    throw new ArgumentException();
-                }
-
-                _provvigioneDefault = value;
-            }
+            get { return _datiUtenteAgente.ProvigioneDefault; }
+        }
+        public override string Username
+        {
+            get { return _datiUtenteAgente.Username; }
+        }
+        public override string PartitaIva
+        {
+            get { return _datiUtenteAgente.PartitaIva; }
+        }
+        public override string CodiceFiscale
+        {
+            get { return _datiUtenteAgente.CodiceFiscale; }
+        }
+        public override string Indirizzo
+        {
+            get { return _datiUtenteAgente.Indirizzo; }
+        }
+        public override CollezioneTelefoni Telefoni
+        {
+            get { return _datiUtenteAgente.Telefoni; }
+        }
+        public override Email Email
+        {
+            get { return _datiUtenteAgente.Email; }
         }
         #endregion
 
+        #region ToString()
         public override string ToString()
         {
-            return String.Format("Nome: {0} \nCognome: {1} \nProvvigione di Default: {2}", Nome, Cognome, ProvvigioneDefault);
+            return String.Format("{0} \nNome: {1} \nCognome: {2} \nProvvigione di Default: {3}", base.ToString(), Nome, Cognome, ProvvigioneDefault);
+        }
+        #endregion
+    }
+
+    public class DatiUtenteAgente : DatiUtente
+    {
+        public string Nome { get; private set; }
+        public string Cognome { get; private set; }
+        public float ProvigioneDefault { get; private set; }
+
+        /// <summary>
+        /// Costruttore di Dati di UtenteAgente
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <param name="cognome"></param>
+        /// <param name="provigioneDefault">La percentuale default di provvigione espressa con un numero da 0 a 1 (es. 100% = 1, 50% = 0,5)/param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public DatiUtenteAgente(string username, string pIva, string cf, string indirizzo, Email email, string nome, string cognome, float provigioneDefault, HashSet<Telefono> telefoni = null)
+            : base(username, pIva, cf, indirizzo, email, telefoni)
+        {
+            if (nome == null || cognome == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (provigioneDefault < 0 || provigioneDefault > 1)
+            {
+                throw new ArgumentException();
+            }
+
+            Nome = nome;
+            Cognome = cognome;
+            ProvigioneDefault = provigioneDefault;
         }
     }
 }
