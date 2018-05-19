@@ -9,73 +9,70 @@ namespace IngegneriaDelSoftware.Model
     public class PersonaFisica : Persona
     {
         #region Campi privati
-        private string _nome;
-        private string _cognome;
-        private string _partitaIVA;
+        private DatiPersonaFisica _datiPersona;
         #endregion
 
         #region Proprietà
-        /// <summary>
-        /// Il nome della persona
-        /// <para>Il set causa il lancio dell'evento <see cref="Persona.ModificaPersona"/></para>
-        /// </summary>
         public string Nome
         {
             get
             {
-                return _nome;
-            }
-            private set
-            {
-                if (_nome != value)
-                {
-                    _nome = value;
-                    base.LanciaEvento(this);
-                }
+                return this._datiPersona.Nome;
             }
         }
-        /// <summary>
-        /// Il cognome della persona
-        /// <para>Il set causa il lancio dell'evento <see cref="Persona.ModificaPersona"/></para>
-        /// </summary>
         public string Cognome
         {
             get
             {
-                return _cognome;
-            }
-            private set
-            {
-                if (_cognome != value)
-                {
-                    _cognome = value;
-                    base.LanciaEvento(this);
-                }
+                return this._datiPersona.Cognome;
             }
         }
-        /// <summary>
-        /// La partita IVA della persona. Can be <c>null</c>.
-        /// <para>Il set causa il lancio dell'evento <see cref="Persona.ModificaPersona"/></para>
-        /// </summary>
         public string PartitaIVA
         {
             get
             {
-                return _partitaIVA;
-            }
-            private set
-            {
-                if (_partitaIVA != value)
-                {
-                    _partitaIVA = value;
-                    base.LanciaEvento(this);
-                }
+                return this._datiPersona.PartitaIVA;
             }
         }
-        /// <summary>
-        /// Il tipo di persona
-        /// </summary>
-        public override EnumTipoPersona TipoPersona { get { return EnumTipoPersona.Fisica; } }
+        public override EnumTipoPersona TipoPersona
+        {
+            get
+            {
+                return this._datiPersona.TipoDatiPersona();
+            }
+        }
+
+        public override string CodiceFiscale
+        {
+            get
+            {
+                return this._datiPersona.CodiceFiscale;
+            }
+        }
+
+        public override string Indirizzo
+        {
+            get
+            {
+                return this._datiPersona.Indirizzo;
+            }
+        }
+
+        public override ListaTelefoni Telefoni
+        {
+            get
+            {
+                return this._datiPersona.Telefoni;
+            }
+        }
+
+        public override ListaEmail Email
+        {
+            get
+            {
+                return this._datiPersona.Email;
+            }
+        }
         #endregion
 
         #region "Costruttori"
@@ -91,24 +88,14 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="email">Le email della persona</param>
         /// <seealso cref="Persona"/>
         /// <exception cref="ArgumentNullException"></exception>
-        public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, string partitaIVA = null, List<Telefono> telefoni = null, List<Email> email = null) : base(codiceFiscale, indirizzo, telefoni, email)
+        public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, string partitaIVA = "", List<Telefono> telefoni = null, List<Email> email = null)
         {
-            if (nome == null) {
-                 throw new ArgumentNullException(nameof(nome));
-            }
-            _nome = nome;
-            if(cognome == null) {
-                throw new ArgumentNullException(nameof(cognome));
-            }
-            _cognome = cognome; 
-            _partitaIVA = partitaIVA; // can be null
+            this._datiPersona = new DatiPersonaFisica(codiceFiscale, indirizzo, nome, cognome, partitaIVA, telefoni, email);
         }
 
-        protected PersonaFisica(PersonaFisica personaFisica) : base(personaFisica)
+        public PersonaFisica(DatiPersonaFisica datiPersonaFisica)
         {
-            this._nome = personaFisica.Nome;
-            this._cognome = personaFisica.Cognome;
-            this._partitaIVA = personaFisica.PartitaIVA;
+            this._datiPersona = datiPersonaFisica;
         }
         #endregion
 
@@ -121,10 +108,177 @@ namespace IngegneriaDelSoftware.Model
             return this.Nome + " " + this.Cognome;
         }
 
+        /// <summary>
+        /// Funzione che permette di cambiare i dati all'interno della persona
+        /// </summary>
+        /// <param name="datiPersona">Dati della nuova persona. DEVONO essere <see cref="DatiPersonaFisica"/></param>
+        /// <exception cref="InvalidOperationException">Si verifica se NON si passano dei <see cref="DatiPersonaFisica"/></exception>
+        public override void CambiaDatiPersona(DatiPersona datiPersona)
+        {
+            if (this._datiPersona.Equals(datiPersona))
+                return;
+
+            if (datiPersona.TipoDatiPersona() == EnumTipoPersona.Fisica)
+            {
+                Persona vecchio = this.Clone();
+                this._datiPersona = (DatiPersonaFisica) datiPersona;
+                base.LanciaEvento(vecchio);
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
         protected override Persona Clone()
         {
-            return new PersonaFisica(this);
+            return new PersonaFisica(this._datiPersona);
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
         }
 
     }
+
+    public class DatiPersonaFisica : DatiPersona
+    {
+        #region Campi privati
+        private string _codiceFiscale;
+        private string _indirizzo;
+        private ListaTelefoni _telefoni;
+        private ListaEmail _email;
+        private string _nome;
+        private string _cognome;
+        private string _partitaIVA;
+        #endregion
+
+        #region Proprietà
+        public override string CodiceFiscale
+        {
+            get
+            {
+                return this._codiceFiscale;
+            }
+        }
+
+        public override string Indirizzo
+        {
+            get
+            {
+                return this._indirizzo;
+            }
+        }
+
+        public override ListaTelefoni Telefoni
+        {
+            get
+            {
+                return this._telefoni;
+            }
+        }
+
+        public override ListaEmail Email
+        {
+            get
+            {
+                return this._email;
+            }
+        }
+
+        public string Nome
+        {
+            get
+            {
+                return this._nome;
+            }
+        }
+
+        public string Cognome
+        {
+            get
+            {
+                return this._cognome;
+            }
+        }
+
+        public string PartitaIVA
+        {
+            get
+            {
+                return this._partitaIVA;
+            }
+        }
+
+        #endregion
+
+        #region Costruttori
+        public DatiPersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, string partitaIVA = "", List<Telefono> telefoni = null, List<Email> email = null)
+        {
+            #region Controlli
+            if (codiceFiscale == null)
+                throw new ArgumentNullException();
+            if (indirizzo == null)
+                throw new ArgumentNullException();
+            if (nome == null)
+                throw new ArgumentNullException();
+            if (cognome == null)
+                throw new ArgumentNullException();
+            if (partitaIVA == null)
+                throw new ArgumentNullException();
+            #endregion
+
+            this._codiceFiscale = codiceFiscale;
+            this._indirizzo = indirizzo;
+            this._nome = nome;
+            this._cognome = cognome;
+            this._partitaIVA = partitaIVA;
+            this._telefoni = new ListaTelefoni(telefoni);
+            this._email = new ListaEmail(email);
+        }
+        #endregion
+
+        public override EnumTipoPersona TipoDatiPersona()
+        {
+            return EnumTipoPersona.Fisica;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is DatiPersonaFisica))
+            {
+                return false;
+            }
+
+            var fisica = (DatiPersonaFisica)obj;
+            return CodiceFiscale == fisica.CodiceFiscale &&
+                   Indirizzo == fisica.Indirizzo &&
+                   Nome == fisica.Nome &&
+                   Cognome == fisica.Cognome &&
+                   PartitaIVA == fisica.PartitaIVA;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 80561879;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(CodiceFiscale);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Indirizzo);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Nome);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Cognome);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(PartitaIVA);
+            return hashCode;
+        }
+
+        public static bool operator ==(DatiPersonaFisica fisica1, DatiPersonaFisica fisica2)
+        {
+            return fisica1.Equals(fisica2);
+        }
+
+        public static bool operator !=(DatiPersonaFisica fisica1, DatiPersonaFisica fisica2)
+        {
+            return !(fisica1 == fisica2);
+        }
+    }
+
 }

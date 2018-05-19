@@ -14,96 +14,11 @@ namespace IngegneriaDelSoftware.Model
         public abstract EnumTipoPersona TipoPersona { get; }
         protected abstract Persona Clone();
 
-        #region Campi privati
-        private string _codiceFiscale;
-        private string _indirizzo;
-        private ListaTelefoni _telefoni;
-        private ListaEmail _email;
-        private string _ID;
-        #endregion
-
         #region Proprietà
-        /// <summary>
-        /// Il codice fiscale della persona
-        /// <para>Il set causa il lancio dell'evento <see cref="ModificaPersona"/></para>
-        /// </summary>
-        public string CodiceFiscale {
-            get
-            {
-                return _codiceFiscale;
-            }
-            set
-            {
-                if (_codiceFiscale != value)
-                {
-                    Persona vecchiaPersona = this.Clone();
-                    _codiceFiscale = value;
-                    LanciaEvento(vecchiaPersona);
-                }
-            }
-        }
-        /// <summary>
-        /// L'indirizzo della persona
-        /// <para>Il set causa il lancio dell'evento <see cref="ModificaPersona"/></para>
-        /// </summary>
-        public string Indirizzo {
-            get
-            {
-                return _indirizzo;
-            }
-            set
-            {
-                if (_indirizzo != value)
-                {
-                    Persona vecchiaPersona = this.Clone();
-                    _indirizzo = value;
-                    LanciaEvento(vecchiaPersona);
-                }
-            }
-        }
-        public ListaTelefoni Telefoni
-        {
-            get
-            {
-                return this._telefoni;
-            }
-        }
-        public ListaEmail Email
-        {
-            get
-            {
-                return _email;
-            }
-        }
-        #endregion
-
-        #region "Costruttori"
-        /// <summary>
-        /// Costruttore di default
-        /// </summary>
-        /// <param name="codiceFiscale">Il codice fiscale della persona</param>
-        /// <param name="indirizzo">L'indirizzo della persona</param>
-        /// <param name="telefoni">I telefoni della persona. Default: lista vuota</param>
-        /// <param name="email">Gli indirizzi email della persona. Default: lista vuota</param>
-        /// <exception cref="ArgumentNullException">/exception>
-        protected Persona(string codiceFiscale, string indirizzo, List<Telefono> telefoni = null, List<Email> email = null)
-        {
-            if (codiceFiscale == null)
-            {
-                throw new ArgumentNullException(nameof(codiceFiscale));
-            }
-            _codiceFiscale = codiceFiscale;
-            if (indirizzo == null)
-            {
-                throw new ArgumentNullException(nameof(indirizzo));
-            }
-            _indirizzo = indirizzo;
-            this._telefoni = new ListaTelefoni(telefoni);
-            this._email = new ListaEmail(email);
-        }
-
-        protected Persona(Persona persona) : this(persona.CodiceFiscale, persona.Indirizzo, persona.Telefoni.ToList<Telefono>(), persona.Email.ToList<Email>())
-        {}
+        public abstract string CodiceFiscale { get; }
+        public abstract string Indirizzo { get; }
+        public abstract ListaTelefoni Telefoni { get; }
+        public abstract ListaEmail Email { get; }
         #endregion
 
         #region "Funzioni pubbliche"
@@ -112,19 +27,41 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <returns>La denominazione</returns>
         public abstract string getDenominazione();
-        #endregion
 
-        #region "Funzioni private"
-        protected void LanciaEvento(Persona vecchiaPersona)
+        public abstract void CambiaDatiPersona(DatiPersona datiPersona);
+
+        protected void LanciaEvento(Persona vecchio)
         {
             if (OnModifica != null)
             {
-                ArgsModifica<Persona> args = new ArgsModifica<Persona>(vecchiaPersona, this);
+                ArgsModifica<Persona> args = new ArgsModifica<Persona>(vecchio, this);
                 OnModifica(this, args);
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            var persona = obj as Persona;
+            return persona != null &&
+                   CodiceFiscale == persona.CodiceFiscale;
+        }
+
+        public override int GetHashCode()
+        {
+            return 542064849 + EqualityComparer<string>.Default.GetHashCode(CodiceFiscale);
         }
         #endregion
 
     }
 
+    public abstract class DatiPersona
+    {
+        public abstract string CodiceFiscale { get; }
+        public abstract string Indirizzo { get; }
+        public abstract ListaTelefoni Telefoni { get; }
+        public abstract ListaEmail Email { get; }
+
+        public abstract EnumTipoPersona TipoDatiPersona();
+
+    }
 }
