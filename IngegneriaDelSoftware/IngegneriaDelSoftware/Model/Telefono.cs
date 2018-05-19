@@ -37,6 +37,13 @@ namespace IngegneriaDelSoftware.Model
             Nota = nota;
         }
 
+        #region ToString()
+        public override string ToString()
+        {
+            return String.Format("Numero: {0} \nNota: {1}", Numero, Nota);
+        }
+        #endregion
+
         public override bool Equals(object obj)
         {
             if (!(obj is Telefono))

@@ -54,9 +54,9 @@ namespace IngegneriaDelSoftware.Model
             }
         }
         /// <summary>
-        /// Restituisce una <see cref="ListaReferenti"/> che contiene l'elenco dei referenti
+        /// Restituisce una <see cref="CollezioneReferenti"/> che contiene l'elenco dei referenti
         /// </summary>
-        public ListaReferenti Referenti
+        public CollezioneReferenti Referenti
         {
             get
             {
@@ -197,7 +197,7 @@ namespace IngegneriaDelSoftware.Model
         public string IDCliente { get; private set; }
         public Persona Persona { get; private set; }
         public string Nota { get; private set; }
-        public ListaReferenti Referenti { get; private set; }
+        public CollezioneReferenti Referenti { get; private set; }
         public EnumTipoCliente TipoCliente { get; private set; }
 
         #region Costruttori
@@ -215,7 +215,7 @@ namespace IngegneriaDelSoftware.Model
             this.IDCliente = IDCliente;
             this.TipoCliente = tipoCliente;
             this.Persona = persona;
-            this.Referenti = new ListaReferenti(referenti); // La gestione del null la fa la ListaReferenti
+            this.Referenti = new CollezioneReferenti(referenti); // La gestione del null la fa la ListaReferenti
             this.Nota = nota;
         }
         #endregion
@@ -232,7 +232,7 @@ namespace IngegneriaDelSoftware.Model
             return IDCliente == cliente.IDCliente &&
                    EqualityComparer<Persona>.Default.Equals(Persona, cliente.Persona) &&
                    Nota == cliente.Nota &&
-                   EqualityComparer<ListaReferenti>.Default.Equals(Referenti, cliente.Referenti) &&
+                   EqualityComparer<CollezioneReferenti>.Default.Equals(Referenti, cliente.Referenti) &&
                    TipoCliente == cliente.TipoCliente;
         }
 
@@ -242,7 +242,7 @@ namespace IngegneriaDelSoftware.Model
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(IDCliente);
             hashCode = hashCode * -1521134295 + EqualityComparer<Persona>.Default.GetHashCode(Persona);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Nota);
-            hashCode = hashCode * -1521134295 + EqualityComparer<ListaReferenti>.Default.GetHashCode(Referenti);
+            hashCode = hashCode * -1521134295 + EqualityComparer<CollezioneReferenti>.Default.GetHashCode(Referenti);
             hashCode = hashCode * -1521134295 + TipoCliente.GetHashCode();
             return hashCode;
         }

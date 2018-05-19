@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model
 {
-    public class ListaReferenti : ICollection<Referente>, IEnumerable<Referente>
+    public class CollezioneReferenti : ICollection<Referente>, IEnumerable<Referente>
     {
-        private List<Referente> _referenti;
+        //Set poiche' non ha senso aggiungere due o piu' referenti uguali
+        private HashSet<Referente> _referenti;
 
         /// <summary>
         /// Costruttore
         /// </summary>
-        public ListaReferenti(List<Referente> referenti = null)
+        public CollezioneReferenti(HashSet<Referente> referenti = null)
         {
             //Se argomento nullo dà lista vuota, altrimenti crea una copia della lista data
-            _referenti = (referenti == null) ? new List<Referente>() : new List<Referente>(referenti);
+            _referenti = (referenti == null) ? new HashSet<Referente>() : new HashSet<Referente>(referenti);
         }
 
         public int Count
@@ -92,11 +93,12 @@ namespace IngegneriaDelSoftware.Model
         /// <returns></returns>
         public Referente this[int i]
         {
-            get { return _referenti[i]; }
-            set
-            {
-                _referenti[i] = value;
-            }
+            get { return _referenti.ElementAt<Referente>(i); }
+        }
+
+        public override string ToString()
+        {
+            return String.Join("\n", this._referenti);
         }
     }
 }

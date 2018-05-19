@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model
 {
-    public class ListaEmail : ICollection<Email>, IEnumerable<Email>
+    public class CollezioneEmail : ICollection<Email>, IEnumerable<Email>
     {
-        private List<Email> _email;
+        //Set poiche' non ha senso aggiungere due o piu' email uguali
+        private HashSet<Email> _email;
 
         /// <summary>
         /// Costruttore
         /// </summary>
-        public ListaEmail(List<Email> email = null)
+        public CollezioneEmail(HashSet<Email> email = null)
         {
             //Se argomento nullo da' lista vuota, altrimenti crea una copia della lista data
-            _email = (email == null) ? new List<Email>() : new List<Email>(email);
+            _email = (email == null) ? new HashSet<Email>() : new HashSet<Email>(email);
         }
 
         public int Count
@@ -92,11 +93,12 @@ namespace IngegneriaDelSoftware.Model
         /// <returns></returns>
         public Email this[int i]
         {
-            get { return _email[i]; }
-            set
-            {
-                _email[i] = value;
-            }
+            get { return _email.ElementAt<Email>(i); }
+        }
+
+        public override string ToString()
+        {
+            return String.Join("\n", this._email);
         }
     }
 }
