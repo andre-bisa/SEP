@@ -268,10 +268,5 @@ namespace IngegneriaDelSoftware.Model {
 
         }
         #endregion
-
-        #region Tests
-
-
-        #endregion
     }
 }
