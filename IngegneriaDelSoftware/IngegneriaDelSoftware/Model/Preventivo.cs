@@ -7,11 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model {
-    public class Preventivo: IEnumerable<VocePreventivo>, ICollection<VocePreventivo>, IObservable<Preventivo> {
+    public class Preventivo: IEnumerable<VocePreventivo>, ICollection<VocePreventivo>, IObservable<Preventivo>{
         public event EventHandler<ArgsModifica<Preventivo>> OnModifica;
 
         #region Campi privati
         private DatiPreventivo _datiPreventivo;
+        private List<VocePreventivo> _voci;
         #endregion
 
         #region Property
@@ -20,7 +21,7 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         public List<VocePreventivo> Voci {
             get {
-                return new List<VocePreventivo>(this._datiPreventivo.Voci);
+                return new List<VocePreventivo>(this._voci);
             }
         }
         /// <summary>
@@ -52,13 +53,13 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         public int Count {
             get {
-                return ((ICollection<VocePreventivo>)this._datiPreventivo.Voci).Count;
+                return ((ICollection<VocePreventivo>)this._voci).Count;
             }
         }
 
         public bool IsReadOnly {
             get {
-                return ((ICollection<VocePreventivo>)this._datiPreventivo.Voci).IsReadOnly;
+                return ((ICollection<VocePreventivo>)this._voci).IsReadOnly;
             }
         }
 
@@ -78,9 +79,13 @@ namespace IngegneriaDelSoftware.Model {
             }
 
             set {
+                var old = this.Clone();
                 this._datiPreventivo = value;
+                this.OnModifica?.Invoke(this, new ArgsModifica<Preventivo>(old, this));
             }
         }
+
+        
         #endregion
 
         #region Costruttore
@@ -90,7 +95,8 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="datiPreventivo"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
-        public Preventivo(DatiPreventivo datiPreventivo) {
+        public Preventivo(DatiPreventivo datiPreventivo, List<VocePreventivo> voci) {
+            this._voci = (voci == null) ? new List<VocePreventivo>() : new List<VocePreventivo>(voci);
             this._datiPreventivo = datiPreventivo;
         }
         /// <summary>
@@ -103,7 +109,7 @@ namespace IngegneriaDelSoftware.Model {
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
         public Preventivo(ulong id, Cliente cliente, DateTime? data = null, bool accettato = false, List<VocePreventivo> voci = null)
-            :this(new DatiPreventivo(id, cliente, data, accettato, voci)){
+            :this(new DatiPreventivo(id, cliente, data, accettato), voci) {
             
         }
         #endregion
@@ -115,7 +121,7 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         /// <returns>il valore della vendita</returns>
         public decimal Totale() {
-            return this._datiPreventivo.Voci.Select((e) => { return e.ValoreTotale(); }).Sum();
+            return this._voci.Select((e) => { return e.ValoreTotale(); }).Sum();
         }
 
         /// <summary>
@@ -125,8 +131,12 @@ namespace IngegneriaDelSoftware.Model {
         /// <returns>La <see cref="VocePreventivo"/> richiesta</returns>
         /// <exception cref="IndexOutOfRangeException"></exception>
         public VocePreventivo this[int i] {
-            get { return this._datiPreventivo.Voci[i]; }
-            set { this._datiPreventivo.Voci[i] = value; }
+            get { return this._voci[i]; }
+            set {
+                var old = this.Clone();
+                this._voci[i] = value;
+                this.OnModifica?.Invoke(this, new ArgsModifica<Preventivo>(old, this));
+            }
         }
 
         public override string ToString() {
@@ -134,14 +144,14 @@ namespace IngegneriaDelSoftware.Model {
                     this._datiPreventivo.Data,
                     this._datiPreventivo.Cliente,
                     this._datiPreventivo.Accettato,
-                    String.Join("\n", this._datiPreventivo.Voci)
+                    String.Join("\n", this._voci)
                 );
         }
         /// <summary>
         /// Ordina la lista interna
         /// </summary>
         public void Sort() {
-            this._datiPreventivo.Voci.Sort();
+            this._voci.Sort();
         }
 
         public override bool Equals(object obj)
@@ -162,20 +172,26 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         /// <param name="item">La voce</param>
         public void Add(VocePreventivo item) {
-            ((ICollection<VocePreventivo>)this._datiPreventivo.Voci).Add(item);
+            var old = this.Clone();
+            ((ICollection<VocePreventivo>)this._voci).Add(item);
+            this.OnModifica?.Invoke(this, new ArgsModifica<Preventivo>(old, this));
         }
         /// <summary>
         /// Aggiunge una o più voci alla lista interna
         /// </summary>
         /// <param name="item">Le voci</param>
         public void Add(params VocePreventivo[] item) {
-            this._datiPreventivo.Voci.AddRange(item);
+            var old = this.Clone();
+            this._voci.AddRange(item);
+            this.OnModifica?.Invoke(this, new ArgsModifica<Preventivo>(old, this));
         }
         /// <summary>
         /// Svuota la lista
         /// </summary>
         public void Clear() {
-            ((ICollection<VocePreventivo>)this._datiPreventivo.Voci).Clear();
+            var old = this.Clone();
+            ((ICollection<VocePreventivo>)this._voci).Clear();
+            this.OnModifica?.Invoke(this, new ArgsModifica<Preventivo>(old, this));
         }
         /// <summary>
         /// Verifica se la lista interna contiene o meno la voce
@@ -183,11 +199,11 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="item">Il valore da controllare</param>
         /// <returns></returns>
         public bool Contains(VocePreventivo item) {
-            return ((ICollection<VocePreventivo>)this._datiPreventivo.Voci).Contains(item);
+            return ((ICollection<VocePreventivo>)this._voci).Contains(item);
         }
 
         public void CopyTo(VocePreventivo[] array, int arrayIndex) {
-            ((ICollection<VocePreventivo>)this._datiPreventivo.Voci).CopyTo(array, arrayIndex);
+            ((ICollection<VocePreventivo>)this._voci).CopyTo(array, arrayIndex);
         }
         /// <summary>
         /// Rimuove una voce dalla lista
@@ -195,25 +211,33 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="item">L'elemento da rimuovere</param>
         /// <returns></returns>
         public bool Remove(VocePreventivo item) {
-            return ((ICollection<VocePreventivo>)this._datiPreventivo.Voci).Remove(item);
+            var old = this.Clone();
+            bool result = ((ICollection<VocePreventivo>)this._voci).Remove(item);
+            this.OnModifica?.Invoke(this, new ArgsModifica<Preventivo>(old, this));
+            return result;
         }
         #endregion
 
         #region Iterator pattern implementation
         public IEnumerator<VocePreventivo> GetEnumerator() {
-            return ((IEnumerable<VocePreventivo>)this._datiPreventivo.Voci).GetEnumerator();
+            return ((IEnumerable<VocePreventivo>)this._voci).GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator() {
-            return ((IEnumerable<VocePreventivo>)this._datiPreventivo.Voci).GetEnumerator();
+            return ((IEnumerable<VocePreventivo>)this._voci).GetEnumerator();
         }
         #endregion
 
+        #endregion
+
+        #region Funzioni protected
+        protected Preventivo Clone() {
+            return new Preventivo(this._datiPreventivo, this._voci);
+        }
         #endregion
 
         #region Struct dati
         public struct DatiPreventivo {
-            public List<VocePreventivo> Voci { get; private set; }
             public bool Accettato { get; private set; }
             public Cliente Cliente { get; private set; }
             public DateTime Data { get; private set; }
@@ -224,74 +248,25 @@ namespace IngegneriaDelSoftware.Model {
             /// <param name="cliente">Il cliente a cui è proposto il preventivo. Non può essere <see cref="EnumTipoCliente.Ex"/></param>
             /// <param name="data">La data del preventivo<para>Se <c>null</c> è la data corrente</para></param>
             /// <param name="accettato">Se il preventivo è accettato o meno. <c>false</c> di default</param>
-            /// <param name="voci">Le voci contenute nel preventivo<para>se <c>null</c> viene inizializzato a lista vuota</para></param>
             /// <param name="iD">L'id del preventivo</param>
             /// <exception cref="ArgumentNullException"></exception>
             /// <exception cref="InvalidOperationException"></exception>
-            public DatiPreventivo(ulong iD, Cliente cliente, DateTime? data = null, bool accettato = false, List<VocePreventivo> voci = null) {
+            public DatiPreventivo(ulong iD, Cliente cliente, DateTime? data = null, bool accettato = false) {
                 if(cliente == null) {
                     throw new ArgumentNullException("Cliente non può essere nullo");
-                }
-                if(voci != null && voci.Count < 1) {
-                    throw new ArgumentException("La lista voci deve contenere almeno un elemento");
                 }
                 if(cliente.TipoCliente == EnumTipoCliente.Ex) {
                     throw new InvalidOperationException("Il cliente deve essere attivo per potere preformare questa operazione");
                 }
                 this.Cliente = cliente;
-                this.Voci = (voci == null) ? new List<VocePreventivo>() : new List<VocePreventivo>(voci);
                 this.Accettato = accettato;
                 this.Data = data ?? DateTime.Now;
                 this.ID = iD;
             }
+            public DatiPreventivo(DatiPreventivo old, ulong? iD = null, Cliente cliente = null, DateTime? data = null, bool? accettato = false) 
+                : this(iD ?? old.ID, cliente ?? old.Cliente, data ?? old.Data, accettato ?? old.Accettato) { }
 
         }
-        #endregion
-
-        #region Tests
-        public static bool Test() {
-            var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
-            var cliente = new Cliente(persona, "1");
-            var preventivo = new Preventivo(1, cliente);
-            var voce1 = new VocePreventivo("Corda", 30);
-            var voce2 = new VocePreventivo("Canapa", 20);
-
-            preventivo.Add(voce1, voce2);
-            if(!preventivo[0].Equals(voce1)) {
-                return false;
-            }
-            if(!preventivo[1].Equals(voce2)) {
-                return false;
-            }
-            if(preventivo.Count != 2) {
-                return false;
-            }
-            preventivo.Sort();
-            if(!preventivo[0].Equals(voce2)) {
-                return false;
-            }
-            if(!preventivo[1].Equals(voce1)) {
-                return false;
-            }
-            preventivo.Clear();
-            preventivo.Add(voce1);
-            if(preventivo.Count != 1) {
-                return false;
-            }
-            preventivo.Add(voce1, voce2);
-            if(preventivo.Totale() != 80) {
-                return false;
-            }
-            if(preventivo.Accettato) {
-                return false;
-            }/*
-            preventivo.Accettato = true;
-            if(!preventivo.Accettato) {
-                return false;
-            }*/
-            return true;
-        }
-
         #endregion
     }
 }
