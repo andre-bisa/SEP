@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IngegneriaDelSoftware.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,61 +7,84 @@ using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model {
     public class PersonaGiuridica: Persona {
-        private string _ragioneSociale;
+
+        #region Campi privati
+        private DatiPersonaGiuridica _datiPersona;
+        #endregion
+
+        #region Proprietà
         /// <summary>
         /// La ragione sociale
         /// <para>Il set causa il lancio dell'evento <see cref="Persona.ModificaPersona"/></para>
         /// </summary>
         public string RagioneSociale {
             get {
-                return _ragioneSociale;
-            }
-            private set {
-                if (_ragioneSociale != value)
-                {
-                    _ragioneSociale = value;
-                    base.LanciaEvento(this);
-                }
+                return this._datiPersona.RagioneSociale;
             }
         }
-        private string _sedeLegale;
+        
         /// <summary>
         /// La sede legale della persona
         /// <para>Il set causa il lancio dell'evento <see cref="Persona.ModificaPersona"/></para>
         /// </summary>
         public string SedeLegale {
             get {
-                return _sedeLegale;
-            }
-            private set {
-                if (_sedeLegale != value)
-                {
-                    _sedeLegale = value;
-                    base.LanciaEvento(this);
-                }
+                return this._datiPersona.SedeLegale;
             }
         }
-        private string _partitaIVA;
+        
         /// <summary>
         /// La partita IVA della persona
         /// <para>Il set causa il lancio dell'evento <see cref="Persona.ModificaPersona"/></para>
         /// </summary>
         public string PartitaIVA {
             get {
-                return _partitaIVA;
-            }
-            private set {
-                if (_partitaIVA != value)
-                {
-                    _partitaIVA = value;
-                    base.LanciaEvento(this);
-                }
+                return this._datiPersona.PartitaIVA;
             }
         }
         /// <summary>
         /// Il tipo di persona
         /// </summary>
-        public override EnumTipoPersona TipoPersona { get { return EnumTipoPersona.Giuridica; } }
+        public override EnumTipoPersona TipoPersona
+        {
+            get
+            {
+                return this._datiPersona.TipoDatiPersona();
+            }
+        }
+
+        public override string CodiceFiscale
+        {
+            get
+            {
+                return this._datiPersona.CodiceFiscale;
+            }
+        }
+
+        public override string Indirizzo
+        {
+            get
+            {
+                return this._datiPersona.Indirizzo;
+            }
+        }
+
+        public override ListaTelefoni Telefoni
+        {
+            get
+            {
+                return this._datiPersona.Telefoni;
+            }
+        }
+
+        public override ListaEmail Email
+        {
+            get
+            {
+                return this._datiPersona.Email;
+            }
+        }
+        #endregion
 
         #region "Costruttori"
         /// <summary>
@@ -74,26 +98,13 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="telefoni">I numeri di telefono della persona</param>
         /// <param name="email">Gli indirizzi email della persona</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public PersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, List<Telefono> telefoni = null, List<Email> email = null) : base(codiceFiscale, indirizzo, telefoni, email) {
-            if(ragioneSociale == null) {
-                throw new ArgumentNullException(nameof(ragioneSociale));
-            }
-            RagioneSociale = ragioneSociale;
-            if(sedeLegale == null) {
-                throw new ArgumentNullException(nameof(sedeLegale));
-            }
-            SedeLegale = sedeLegale;
-            if(partitaIVA == null) {
-                throw new ArgumentNullException(nameof(partitaIVA));
-            }
-            PartitaIVA = partitaIVA;
+        public PersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, List<Telefono> telefoni = null, List<Email> email = null) {
+            this._datiPersona = new DatiPersonaGiuridica(codiceFiscale, indirizzo, ragioneSociale, sedeLegale, partitaIVA, telefoni, email);
         }
 
-        protected PersonaGiuridica(PersonaGiuridica personaGiuridica) : base(personaGiuridica)
+        public PersonaGiuridica(DatiPersonaGiuridica datiPersonaGiuridica)
         {
-            this._partitaIVA = personaGiuridica.PartitaIVA;
-            this._ragioneSociale = personaGiuridica.RagioneSociale;
-            this._sedeLegale = personaGiuridica.SedeLegale;
+            this._datiPersona = datiPersonaGiuridica;
         }
         #endregion
 
@@ -105,9 +116,171 @@ namespace IngegneriaDelSoftware.Model {
             return this.RagioneSociale;
         }
 
+        public override void CambiaDatiPersona(DatiPersona datiPersona)
+        {
+            if (this._datiPersona.Equals(datiPersona))
+                return;
+
+            if (datiPersona.TipoDatiPersona() == EnumTipoPersona.Giuridica)
+            {
+                Persona vecchio = this.Clone();
+                this._datiPersona = (DatiPersonaGiuridica)datiPersona;
+                base.LanciaEvento(vecchio);
+            }
+            else
+            {
+                throw new InvalidOperationException();
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
         protected override Persona Clone()
         {
-            return new PersonaGiuridica(this);
+            return new PersonaGiuridica(this._datiPersona);
+        }
+    }
+
+    public class DatiPersonaGiuridica : DatiPersona
+    {
+
+        #region Campi privati
+        private string _codiceFiscale;
+        private string _indirizzo;
+        private ListaTelefoni _telefoni;
+        private ListaEmail _email;
+        private string _ragioneSociale;
+        private string _sedeLegale;
+        private string _partitaIVA;
+        #endregion
+
+        #region Proprietà
+        public override string CodiceFiscale
+        {
+            get
+            {
+                return _codiceFiscale;
+            }
+        }
+        /// <summary>
+        /// L'indirizzo della persona
+        /// <para>Il set causa il lancio dell'evento <see cref="ModificaPersona"/></para>
+        /// </summary>
+        public override string Indirizzo
+        {
+            get
+            {
+                return _indirizzo;
+            }
+        }
+        public override ListaTelefoni Telefoni
+        {
+            get
+            {
+                return this._telefoni;
+            }
+        }
+        public override ListaEmail Email
+        {
+            get
+            {
+                return _email;
+            }
+        }
+
+        public string RagioneSociale
+        {
+            get
+            {
+                return this._ragioneSociale;
+            }
+        }
+
+        public string SedeLegale
+        {
+            get
+            {
+                return _sedeLegale;
+            }
+        }
+
+        public string PartitaIVA
+        {
+            get
+            {
+                return _partitaIVA;
+            }
+        }
+        #endregion
+
+        #region Costruttori
+        public DatiPersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, List<Telefono> telefoni = null, List<Email> email = null)
+        {
+            #region Controlli
+            if (codiceFiscale == null)
+                throw new ArgumentNullException();
+            if (indirizzo == null)
+                throw new ArgumentNullException();
+            if (ragioneSociale == null)
+                throw new ArgumentNullException();
+            if (sedeLegale == null)
+                throw new ArgumentNullException();
+            if (partitaIVA == null)
+                throw new ArgumentNullException();
+            #endregion
+
+            this._codiceFiscale = codiceFiscale;
+            this._indirizzo = indirizzo;
+            this._ragioneSociale = ragioneSociale;
+            this._sedeLegale = sedeLegale;
+            this._partitaIVA = partitaIVA;
+            this._telefoni = new ListaTelefoni(telefoni);
+            this._email = new ListaEmail(email);
+        }
+        #endregion
+
+        public override EnumTipoPersona TipoDatiPersona()
+        {
+            return EnumTipoPersona.Giuridica;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is DatiPersonaGiuridica))
+            {
+                return false;
+            }
+
+            var giuridica = (DatiPersonaGiuridica)obj;
+            return CodiceFiscale == giuridica.CodiceFiscale &&
+                   Indirizzo == giuridica.Indirizzo &&
+                   RagioneSociale == giuridica.RagioneSociale &&
+                   SedeLegale == giuridica.SedeLegale &&
+                   PartitaIVA == giuridica.PartitaIVA;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -559532584;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(CodiceFiscale);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Indirizzo);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(RagioneSociale);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(SedeLegale);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(PartitaIVA);
+            return hashCode;
+        }
+
+        public static bool operator ==(DatiPersonaGiuridica giuridica1, DatiPersonaGiuridica giuridica2)
+        {
+            return giuridica1.Equals(giuridica2);
+        }
+
+        public static bool operator !=(DatiPersonaGiuridica giuridica1, DatiPersonaGiuridica giuridica2)
+        {
+            return !(giuridica1 == giuridica2);
         }
     }
 }

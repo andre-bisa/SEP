@@ -13,6 +13,7 @@ namespace IngegneriaDelSoftware.Model
 
         #region Campi privati
         private DatiCliente _datiCliente;
+        private Persona _persona;
         #endregion
 
         #region Proprietà
@@ -31,7 +32,7 @@ namespace IngegneriaDelSoftware.Model
         public Persona Persona {
             get
             {
-                return _datiCliente.Persona;
+                return _persona;
             }
         }
         /// <summary>
@@ -91,11 +92,12 @@ namespace IngegneriaDelSoftware.Model
                 throw new ArgumentNullException(nameof(nota));
             }
             #endregion
-            this._datiCliente = new DatiCliente(persona, IDCliente, tipoCliente, referenti, nota);
+            this._datiCliente = new DatiCliente(IDCliente, tipoCliente, referenti, nota);
+            _persona = persona;
             persona.OnModifica += this.PersonaModificata;
         }
 
-        public Cliente(DatiCliente cliente) : this(cliente.Persona, cliente.IDCliente, cliente.Referenti.ToList<Referente>(), cliente.TipoCliente, cliente.Nota)
+        public Cliente(DatiCliente cliente, Persona persona) : this(persona, cliente.IDCliente, cliente.Referenti.ToList<Referente>(), cliente.TipoCliente, cliente.Nota)
         {}
         #endregion
 
@@ -111,6 +113,31 @@ namespace IngegneriaDelSoftware.Model
             {
                 Cliente vecchioCliente = this.Clone();
                 this._datiCliente = nuoviDati;
+                LanciaEvento(vecchioCliente);
+            }
+        }
+
+        public void CambiaPersona(DatiPersona datiPersona)
+        {
+            switch (datiPersona.TipoDatiPersona())
+            {
+                case EnumTipoPersona.Fisica:
+                    this.CambiaPersona(new PersonaFisica((DatiPersonaFisica)datiPersona));
+                    break;
+
+                case EnumTipoPersona.Giuridica:
+                    this.CambiaPersona(new PersonaGiuridica((DatiPersonaGiuridica)datiPersona));
+                    break;
+            }
+        }
+
+        public void CambiaPersona(Persona persona)
+        {
+            if (_persona != persona)
+            {
+                Cliente vecchioCliente = this.Clone();
+                this._persona = persona;
+                persona.OnModifica += this.PersonaModificata;
                 LanciaEvento(vecchioCliente);
             }
         }
@@ -144,7 +171,7 @@ namespace IngegneriaDelSoftware.Model
                 throw new ArgumentException();
             }
 
-            DatiCliente nuoviDati = new DatiCliente(this.Persona, this.IDCliente, nuovoTipoCliente, this.Referenti.ToList<Referente>(), this.Nota);
+            DatiCliente nuoviDati = new DatiCliente(this.IDCliente, nuovoTipoCliente, this.Referenti.ToList<Referente>(), this.Nota);
             CambiaDatiCliente(nuoviDati);
         }
 
@@ -187,7 +214,7 @@ namespace IngegneriaDelSoftware.Model
 
         protected Cliente Clone()
         {
-            return new Cliente(this._datiCliente);
+            return new Cliente(this._datiCliente, this._persona);
         }
         #endregion
     }
@@ -195,17 +222,14 @@ namespace IngegneriaDelSoftware.Model
     public struct DatiCliente
     {
         public string IDCliente { get; private set; }
-        public Persona Persona { get; private set; }
         public string Nota { get; private set; }
         public CollezioneReferenti Referenti { get; private set; }
         public EnumTipoCliente TipoCliente { get; private set; }
 
         #region Costruttori
-        public DatiCliente(Persona persona, string IDCliente, EnumTipoCliente tipoCliente, List<Referente> referenti = null, string nota = "")
+        public DatiCliente(string IDCliente, EnumTipoCliente tipoCliente, List<Referente> referenti = null, string nota = "")
         {
             #region Controlli
-            if (persona == null)
-                throw new ArgumentNullException(nameof(persona));
             if (IDCliente == null)
                 throw new ArgumentNullException(nameof(IDCliente));
             if (nota == null)
@@ -214,8 +238,7 @@ namespace IngegneriaDelSoftware.Model
 
             this.IDCliente = IDCliente;
             this.TipoCliente = tipoCliente;
-            this.Persona = persona;
-            this.Referenti = new CollezioneReferenti(referenti); // La gestione del null la fa la ListaReferenti
+            this.Referenti = new ListaReferenti(referenti); // La gestione del null la fa la ListaReferenti
             this.Nota = nota;
         }
         #endregion
@@ -230,20 +253,14 @@ namespace IngegneriaDelSoftware.Model
 
             var cliente = (DatiCliente)obj;
             return IDCliente == cliente.IDCliente &&
-                   EqualityComparer<Persona>.Default.Equals(Persona, cliente.Persona) &&
-                   Nota == cliente.Nota &&
-                   EqualityComparer<CollezioneReferenti>.Default.Equals(Referenti, cliente.Referenti) &&
-                   TipoCliente == cliente.TipoCliente;
+                   Nota == cliente.Nota;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 919071402;
+            var hashCode = 337836863;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(IDCliente);
-            hashCode = hashCode * -1521134295 + EqualityComparer<Persona>.Default.GetHashCode(Persona);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Nota);
-            hashCode = hashCode * -1521134295 + EqualityComparer<CollezioneReferenti>.Default.GetHashCode(Referenti);
-            hashCode = hashCode * -1521134295 + TipoCliente.GetHashCode();
             return hashCode;
         }
 

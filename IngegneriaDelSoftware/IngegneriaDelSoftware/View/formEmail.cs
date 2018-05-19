@@ -18,20 +18,30 @@ namespace IngegneriaDelSoftware.View
 {
     public partial class FormEmail : MaterialForm
     {
-        private MockControllerClienti _controller = new MockControllerClienti();
+        private ControllerClienti _controller;
 
-        private List<Cliente> _clienti;
-        private int clienteDaCaricare = 0;
+        private VisualizzatoreCliente _visualizzatore;
+
+        private Dictionary<string, Tuple<Cliente, PannelloCliente>> _clienti = new Dictionary<string, Tuple<Cliente, PannelloCliente>>();
 
         #region "Costruttore"
-        public FormEmail()
+        protected FormEmail()
         {
             InitializeComponent();
 
-            _clienti = _controller.ListaClienti;
-
             flowClienti.Scroll += (s, e) => HandleScroll();
             flowClienti.MouseWheel += (s, e) => HandleScroll();
+        }
+
+        public FormEmail(ControllerClienti controller) : this()
+        {
+            this._controller = controller;
+            this._visualizzatore = new VisualizzatoreCliente(controller.CollezioneClienti);
+
+            foreach (Cliente c in _controller.CollezioneClienti)
+            {
+                this._clienti.Add(c.IDCliente, new Tuple<Cliente, PannelloCliente>(c, null));
+            }
         }
         #endregion
 
@@ -41,13 +51,9 @@ namespace IngegneriaDelSoftware.View
         /// </summary>
         private void CaricaSchedaCliente()
         {
-            if (clienteDaCaricare >= _clienti.Count /*|| _clienti[clienteDaCaricare] == null*/)
-                return;
-
-            SchedaCliente schedaCliente = new SchedaCliente(_controller, _clienti[clienteDaCaricare], this.panelForm);
+            Cliente clienteDaMostrare = _visualizzatore.ProssimoCliente();
+            SchedaCliente schedaCliente = new SchedaCliente(_controller, clienteDaMostrare, this.panelForm);
             flowClienti.Controls.Add(schedaCliente);
-
-            clienteDaCaricare++;
         }
 
         /// <summary>
