@@ -22,19 +22,26 @@ namespace IngegneriaDelSoftware.View
         private const int NUMERO_CLIENTI_PER_PAGINA = 12;
         private const int NUMERO_PAGINE_CARICATE_INIZIALMENTE = 2;
 
-        private MockControllerClienti _controller = new MockControllerClienti();
+        private ControllerClienti _controller;
+        private VisualizzatoreCliente _visualizzatoreCliente;
 
         private Dictionary<string, Tuple<Cliente, PannelloCliente>> _clienti = new Dictionary<string, Tuple<Cliente, PannelloCliente>>();
 
         private List<Cliente> _clientiSelezionati = new List<Cliente>();
 
         #region "Costruttori"
-        public FormClienti()
+        protected FormClienti()
         {
             InitializeComponent();
             this.txtSearchBar.KeyDown += (sender, e) => { if (e.KeyCode == System.Windows.Forms.Keys.Enter) RicercaTraClienti(); };
+        }
 
-            foreach (Cliente c in _controller.ListaClienti)
+        public FormClienti(ControllerClienti controller): this()
+        {
+            this._visualizzatoreCliente = new VisualizzatoreCliente(controller.CollezioneClienti);
+            this._controller = controller;
+
+            foreach (Cliente c in _controller.CollezioneClienti)
             {
                 c.OnModifica += this.AggiornaDizionarioPerModificaCliente;
                 _clienti.Add(c.IDCliente, new Tuple<Cliente, PannelloCliente>(c, null));
@@ -63,7 +70,7 @@ namespace IngegneriaDelSoftware.View
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.Synchronized)]
         private void CaricaClienteSullaForm()
         {
-            Cliente clienteDaCaricare = PrimoClienteNonMostrato();
+            Cliente clienteDaCaricare = _visualizzatoreCliente.ProssimoCliente();
 
             if (clienteDaCaricare == null) // Sono già mostrati tutti i clienti
                 return;
@@ -73,16 +80,6 @@ namespace IngegneriaDelSoftware.View
             pannelloCliente.ModificataSelezione += new EventHandler<ArgsPannelloCliente>(this.AbilitaDelete);
             this.flowClienti.Controls.Add(pannelloCliente);
             this._clienti[clienteDaCaricare.IDCliente] = new Tuple<Cliente, PannelloCliente>(clienteDaCaricare, pannelloCliente);
-        }
-
-        private Cliente PrimoClienteNonMostrato()
-        {
-            foreach (string id in this._clienti.Keys)
-            {
-                if (this._clienti[id].Item2 == null)
-                    return this._clienti[id].Item1;
-            }
-            return null;
         }
 
         private void RimossoCliente(object sender, ArgsCliente e)
@@ -173,7 +170,8 @@ namespace IngegneriaDelSoftware.View
                     this._controller.RimuoviCliente(c);
                 }
             }
-            MessageBox.Show("Elimina");
+            MessageBox.Show("Eliminati");
+            lblElimina.Enabled = false;
         }
 
         private void LblFilter_Click(object sender, EventArgs e)
@@ -193,7 +191,8 @@ namespace IngegneriaDelSoftware.View
             if (! (sender is OverlayCliente))
                 return;
             OverlayCliente overlay = (OverlayCliente)sender;
-            this._clienti.Add(overlay.Cliente.IDCliente, new Tuple<Cliente, PannelloCliente>(overlay.Cliente, null));
+            if (overlay.Cliente != null)
+                this._clienti.Add(overlay.Cliente.IDCliente, new Tuple<Cliente, PannelloCliente>(overlay.Cliente, null));
         }
         #endregion
     }

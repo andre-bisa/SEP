@@ -27,7 +27,7 @@ namespace IngegneriaDelSoftware.View.Controlli
 
         #region Campi privati
         private Panel _panelContainer;
-        private MockControllerClienti _controller;
+        private ControllerClienti _controller;
 
         private Cliente _cliente;
         private bool _selected = false;
@@ -84,7 +84,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         /// <param name="cliente">Cliente da visualizzare</param>
         /// <param name="panelContainer">Pannello che conterrà l'overlay a seguito della pressione del pulsante di espansione</param>
         /// <exception cref="ArgumentNullException">Se vengono passati dei null</exception>
-        public SchedaCliente(MockControllerClienti controller, Cliente cliente, Panel panelContainer = null) : this()
+        public SchedaCliente(ControllerClienti controller, Cliente cliente, Panel panelContainer = null) : this()
         {
             #region Controlli
             if (controller == null)

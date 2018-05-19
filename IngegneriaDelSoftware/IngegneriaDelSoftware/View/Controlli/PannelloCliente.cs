@@ -21,7 +21,7 @@ namespace IngegneriaDelSoftware.View.Controlli
 
         #region Campi privati
         private Panel _panelContainer;
-        private MockControllerClienti _controller;
+        private ControllerClienti _controller;
 
         private Cliente _cliente;
         private bool _selected = false;
@@ -80,7 +80,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         /// <param name="cliente">Cliente da visualizzare</param>
         /// <param name="panelContainer">Pannello che conterrà l'overlay a seguito della pressione del pulsante di espansione</param>
         /// <exception cref="ArgumentNullException">Se vengono passati dei null</exception>
-        public PannelloCliente(MockControllerClienti controller, Cliente cliente, Panel panelContainer) : this()
+        public PannelloCliente(ControllerClienti controller, Cliente cliente, Panel panelContainer) : this()
         {
             #region Controlli
             if (controller == null)
@@ -116,22 +116,13 @@ namespace IngegneriaDelSoftware.View.Controlli
         #region "Funzioni private"
         private void ClienteModificato(object sender, ArgsModifica<Cliente> e)
         {
-            Cliente = e.Nuovo;
+            CaricaClienteSuForm();
         }
 
         private void CaricaClienteSuForm()
         {
             lblIndirizzo.Text = Cliente.Persona.Indirizzo;
-            if (Cliente.Persona.TipoPersona == EnumTipoPersona.Fisica)
-            {
-                PersonaFisica personaFisica = (PersonaFisica)Cliente.Persona;
-                lblDenominazione.Text = personaFisica.Nome + " " + personaFisica.Cognome;
-            }
-            else
-            {
-                PersonaGiuridica personaGiuridica = (PersonaGiuridica)Cliente.Persona;
-                lblDenominazione.Text = personaGiuridica.RagioneSociale;
-            }
+            lblDenominazione.Text = Cliente.Persona.getDenominazione();
 
             lblReferenti.Text = "";
             foreach (Referente referente in Cliente.Referenti)

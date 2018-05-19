@@ -20,7 +20,7 @@ namespace IngegneriaDelSoftware.View.Overlay
         /// Cliente dell'overlay
         /// </summary>
         public Cliente Cliente { get; private set; }
-        private MockControllerClienti _controller;
+        private ControllerClienti _controller;
 
         #region "Costruttori"
         /// <summary>
@@ -29,7 +29,7 @@ namespace IngegneriaDelSoftware.View.Overlay
         /// <param name="controller">Il controller dei clienti a cui dovrà fare riferimento la view (serve a chiedere di inserire/modificare/eliminare i clienti)</param>
         /// <param name="panelContainer">Pannello che conterrà l'overlay</param>
         /// <param name="cliente">Cliente a cui si riferisce l'overlay</param>
-        public OverlayCliente(MockControllerClienti controller, Panel panelContainer, Cliente cliente = null) : base(panelContainer)
+        public OverlayCliente(ControllerClienti controller, Panel panelContainer, Cliente cliente = null) : base(panelContainer)
         {
             InitializeComponent();
             base.AddPanel(this.panel1);
@@ -72,7 +72,7 @@ namespace IngegneriaDelSoftware.View.Overlay
 
         private void BottoneSalva(object sender, EventArgs e)
         {
-            Persona persona;
+            DatiPersona datiPersona;
             EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo;
             DatiCliente datiCliente;
             List<Referente> listaReferenti = null;
@@ -80,11 +80,11 @@ namespace IngegneriaDelSoftware.View.Overlay
 
             if (radioFisica.Checked)
             {
-                persona = new PersonaFisica(txtCodiceFiscale.Text, txtIndirizzo.Text, txtNome.Text, txtCognome.Text, txtPartitaIVA.Text);
+                datiPersona = new DatiPersonaFisica(txtCodiceFiscale.Text, txtIndirizzo.Text, txtNome.Text, txtCognome.Text, txtPartitaIVA.Text);
             }
             else // Giuridica
             {
-                persona = new PersonaGiuridica(txtCodiceFiscale.Text, txtIndirizzo.Text, txtDenominazione.Text, txtIndirizzo.Text, txtPartitaIVA.Text);
+                datiPersona = new DatiPersonaGiuridica(txtCodiceFiscale.Text, txtIndirizzo.Text, txtDenominazione.Text, "Sede legale", txtPartitaIVA.Text);
             }
 
             if (checkEx.Checked)
@@ -92,15 +92,15 @@ namespace IngegneriaDelSoftware.View.Overlay
             else if (checkPotenziale.Checked)
                 tipoCliente = EnumTipoCliente.Potenziale;
 
-            datiCliente = new DatiCliente(persona, txtCodice.Text, tipoCliente, listaReferenti, nota);
+            datiCliente = new DatiCliente(txtCodice.Text, tipoCliente, listaReferenti, nota);
             
             if (Cliente == null) // devo creare un cliente
             {
-                Cliente = this._controller.AggiungiCliente(datiCliente);
+                Cliente = this._controller.AggiungiCliente(datiCliente, datiPersona);
             }
             else
             {
-                this._controller.ModificaCliente(Cliente, datiCliente);
+                this._controller.ModificaCliente(Cliente, datiCliente, datiPersona);
             }
         }
 
