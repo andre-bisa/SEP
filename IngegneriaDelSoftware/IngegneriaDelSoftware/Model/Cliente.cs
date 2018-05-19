@@ -55,9 +55,9 @@ namespace IngegneriaDelSoftware.Model
             }
         }
         /// <summary>
-        /// Restituisce una <see cref="ListaReferenti"/> che contiene l'elenco dei referenti
+        /// Restituisce una <see cref="CollezioneReferenti"/> che contiene l'elenco dei referenti
         /// </summary>
-        public ListaReferenti Referenti
+        public CollezioneReferenti Referenti
         {
             get
             {
@@ -223,7 +223,7 @@ namespace IngegneriaDelSoftware.Model
     {
         public string IDCliente { get; private set; }
         public string Nota { get; private set; }
-        public ListaReferenti Referenti { get; private set; }
+        public CollezioneReferenti Referenti { get; private set; }
         public EnumTipoCliente TipoCliente { get; private set; }
 
         #region Costruttori

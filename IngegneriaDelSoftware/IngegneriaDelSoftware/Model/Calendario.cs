@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model
 {
-    public class Calendario
+    public class Calendario : IEnumerable<Appuntamento>, ICollection<Appuntamento>
     {
         private List<Appuntamento> _appuntamenti;
 
@@ -16,36 +17,6 @@ namespace IngegneriaDelSoftware.Model
         public Calendario()
         {
             _appuntamenti = new List<Appuntamento>();
-        }
-
-        /// <summary>
-        /// Permette di aggiungere un appuntamento al calendario
-        /// </summary>
-        /// <param name="appuntamento"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public void AggiungiAppuntamento(Appuntamento appuntamento)
-        {
-            if (appuntamento == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            _appuntamenti.Add(appuntamento);
-        }
-
-        /// <summary>
-        /// Permette di rimuovere un appuntamento specifico
-        /// </summary>
-        /// <param name="appuntamento"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public void RimuoviAppuntamento(Appuntamento appuntamento)
-        {
-            if (appuntamento == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            _appuntamenti.Remove(appuntamento);
         }
 
         /// <summary>
@@ -70,9 +41,9 @@ namespace IngegneriaDelSoftware.Model
 
             List<Appuntamento> risultato = new List<Appuntamento>();
 
-            foreach (Appuntamento appuntamento in this._appuntamenti){
+            foreach (Appuntamento appuntamento in this._appuntamenti) {
                 //Se l'appuntamento rientra nel range
-                if(appuntamento.DataOra.CompareTo(da) >= 0 && appuntamento.DataOra.CompareTo(a) <= 0)
+                if (appuntamento.DataOra.CompareTo(da) >= 0 && appuntamento.DataOra.CompareTo(a) <= 0)
                 {
                     risultato.Add(appuntamento);
                 }
@@ -89,9 +60,89 @@ namespace IngegneriaDelSoftware.Model
             get { return this._appuntamenti; }
         }
 
+        public int Count
+        {
+            get { return ((ICollection<Appuntamento>)_appuntamenti).Count; }
+        }
+
+        public bool IsReadOnly
+        {
+            get { return ((ICollection<Appuntamento>)_appuntamenti).IsReadOnly; }
+        }
+
         public override string ToString()
         {
             return String.Join("\n", this._appuntamenti);
+        }
+
+        public IEnumerator<Appuntamento> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Permette di aggiungere un appuntamento al calendario
+        /// </summary>
+        /// <param name="item"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public void Add(Appuntamento item)
+        {
+            if (item == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            ((ICollection<Appuntamento>)_appuntamenti).Add(item);
+        }
+
+        /// <summary>
+        /// Svuota il calendario
+        /// </summary>
+        public void Clear()
+        {
+            ((ICollection<Appuntamento>)_appuntamenti).Clear();
+        }
+
+        /// <summary>
+        /// Controlla se un appuntamento sta nel calendario
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public bool Contains(Appuntamento item)
+        {
+            if (item == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return ((ICollection<Appuntamento>)_appuntamenti).Contains(item);
+        }
+
+        public void CopyTo(Appuntamento[] array, int arrayIndex)
+        {
+            ((ICollection<Appuntamento>)_appuntamenti).CopyTo(array, arrayIndex);
+        }
+
+        /// <summary>
+        /// Permette di rimuovere un appuntamento specifico
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        public bool Remove(Appuntamento item)
+        {
+            if (item == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            return ((ICollection<Appuntamento>)_appuntamenti).Remove(item);
         }
     }
 }

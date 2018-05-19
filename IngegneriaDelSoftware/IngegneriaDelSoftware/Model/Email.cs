@@ -36,6 +36,13 @@ namespace IngegneriaDelSoftware.Model
             Nota = nota;
         }
 
+        #region ToString()
+        public override string ToString()
+        {
+            return String.Format("Indirizzo: {0} \nNota: {1}", Indirizzo, Nota);
+        }
+        #endregion
+
         public override bool Equals(object obj)
         {
             if (!(obj is Email))

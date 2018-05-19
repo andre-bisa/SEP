@@ -10,54 +10,86 @@ namespace IngegneriaDelSoftware.Model
     public class UtenteAzienda : Utente
     {
         public override event EventHandler<ArgsModifica<Utente>> OnModifica;
-        private string _ragioneSociale, _sedeLegale;
+        private DatiUtenteAzienda _datiUtenteAzienda;
 
         #region Costruttore
-        /// <summary>
-        /// Costruttore di un Utente di tipologia Azienda
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="pIva"></param>
-        /// <param name="cF"></param>
-        /// <param name="indirizzo"></param>
-        /// <param name="telefoni"></param>
-        /// <param name="email"></param>
-        /// <param name="ragioneSociale"></param>
-        /// <param name="sedeLegale"></param>
-        /// <exception cref="ArgumentNullException"></exception>
-        public UtenteAzienda(string username, string pIva, string cF, string indirizzo, List<Telefono> telefoni, Email email, string ragioneSociale, string sedeLegale)
-            : base(username, pIva, cF, indirizzo, email, telefoni)
+        public UtenteAzienda(DatiUtenteAzienda datiUtenteAzienda)
         {
-            if (ragioneSociale == null)
-            {
-                throw new ArgumentNullException();
-            }
-            if (sedeLegale == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            _ragioneSociale = ragioneSociale;
-            _sedeLegale = sedeLegale;
+            _datiUtenteAzienda = datiUtenteAzienda;
         }
         #endregion
 
-        #region Getters e setters
+        #region Properties
         public string RagioneSociale
         {
-            get { return _ragioneSociale; }
-            set { _ragioneSociale = value; }
+            get { return _datiUtenteAzienda.RagioneSociale; }
         }
         public string SedeLegale
         {
-            get { return _sedeLegale; }
-            set { _sedeLegale = value; }
+            get { return _datiUtenteAzienda.SedeLegale; }
+        }
+
+        public override string Username
+        {
+            get { return _datiUtenteAzienda.Username; }
+        }
+        public override string PartitaIva
+        {
+            get { return _datiUtenteAzienda.PartitaIva; }
+        }
+        public override string CodiceFiscale
+        {
+            get { return _datiUtenteAzienda.CodiceFiscale; }
+        }
+        public override string Indirizzo
+        {
+            get { return _datiUtenteAzienda.Indirizzo; }
+        }
+        public override CollezioneTelefoni Telefoni
+        {
+            get { return _datiUtenteAzienda.Telefoni; }
+        }
+        public override Email Email
+        {
+            get { return _datiUtenteAzienda.Email; }
         }
         #endregion
 
+        #region ToString()
         public override string ToString()
         {
-            return String.Format("Ragione sociale: {0} \nSedeLegale: {1}", RagioneSociale, SedeLegale);
+            return  String.Format("{0} \nRagione sociale: {1} \nSedeLegale: {2}", base.ToString(), RagioneSociale, SedeLegale);
+        }
+        #endregion
+    }
+
+    public class DatiUtenteAzienda : DatiUtente
+    {
+        public string RagioneSociale { get; private set; }
+        public string SedeLegale { get; private set; }
+        
+        /// <summary>
+        /// Costruttore di Dati Utente di tipo Azienda
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="pIva"></param>
+        /// <param name="cf"></param>
+        /// <param name="indirizzo"></param>
+        /// <param name="email"></param>
+        /// <param name="ragioneSociale"></param>
+        /// <param name="sedeLegale"></param>
+        /// <param name="telefoni"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public DatiUtenteAzienda(string username, string pIva, string cf, string indirizzo, Email email, string ragioneSociale, string sedeLegale, HashSet<Telefono> telefoni = null)
+            : base(username, pIva, cf, indirizzo, email, telefoni)
+        {
+            if (ragioneSociale == null || sedeLegale == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            RagioneSociale = ragioneSociale;
+            SedeLegale = sedeLegale;
         }
     }
 }

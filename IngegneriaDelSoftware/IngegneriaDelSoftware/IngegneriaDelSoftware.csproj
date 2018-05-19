@@ -86,10 +86,10 @@
     <Compile Include="Model\Impostazioni.cs" />
     <Compile Include="Model\Intermediario.cs" />
     <Compile Include="Model\IObservable.cs" />
-    <Compile Include="Model\CollezioneClienti.cs" />
-    <Compile Include="Model\ListaEmail.cs" />
-    <Compile Include="Model\ListaReferenti.cs" />
-    <Compile Include="Model\ListaTelefoni.cs" />
+	<Compile Include="Model\CollezioneClienti.cs" />
+    <Compile Include="Model\CollezioneEmail.cs" />
+    <Compile Include="Model\CollezioneReferenti.cs" />
+    <Compile Include="Model\CollezioneTelefoni.cs" />
     <Compile Include="Model\Persona.cs" />
     <Compile Include="Model\PersonaFisica.cs" />
     <Compile Include="Model\PersonaGiuridica.cs" />
@@ -106,6 +106,7 @@
     <Compile Include="Model\VocePreventivo.cs" />
     <Compile Include="Model\VoceVendita.cs" />
     <Compile Include="Test\TestCalendario.cs" />
+    <Compile Include="Test\TestFattura.cs" />
     <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />
     <Compile Include="View\Controlli\ArgsSchedaCliente.cs" />
     <Compile Include="View\FormConfim.cs">
@@ -3978,6 +3979,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\ArgsEvent\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
