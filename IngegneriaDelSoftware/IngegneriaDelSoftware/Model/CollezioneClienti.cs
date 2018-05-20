@@ -15,6 +15,16 @@ namespace IngegneriaDelSoftware.Model
 
         private HashSet<Cliente> _clienti = new HashSet<Cliente>();
 
+        #region Singleton
+        private static CollezioneClienti _listaClienti = null;
+        public static CollezioneClienti GetInstance()
+        {
+            if (_listaClienti == null)
+                _listaClienti = new CollezioneClienti();
+            return _listaClienti;
+        }
+        #endregion
+
         protected CollezioneClienti()
         {
             for (int i = 0; i < 100; i++)
@@ -83,16 +93,6 @@ namespace IngegneriaDelSoftware.Model
         {
             return ((IEnumerable<Cliente>)_clienti).GetEnumerator();
         }
-
-        #region Singleton
-        private static CollezioneClienti _listaClienti = null;
-        public static CollezioneClienti GetInstance()
-        {
-            if (_listaClienti == null)
-                _listaClienti = new CollezioneClienti();
-            return _listaClienti;
-        }
-        #endregion
 
         private void LanciaEvento(EventHandler<ArgsCliente> evento, Cliente cliente)
         {

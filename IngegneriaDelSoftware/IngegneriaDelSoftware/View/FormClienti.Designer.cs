@@ -39,7 +39,7 @@
             this.txtSearchBar = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.panelControlli = new System.Windows.Forms.Panel();
             this.lblElimina = new MaterialSkin.Controls.MaterialLabel();
-            this.lblFilter = new MaterialSkin.Controls.MaterialLabel();
+            this.lblOrdina = new MaterialSkin.Controls.MaterialLabel();
             this.flowClienti = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnCaricaAltri = new MaterialSkin.Controls.MaterialFlatButton();
@@ -181,7 +181,7 @@
             // panelControlli
             // 
             this.panelControlli.Controls.Add(this.lblElimina);
-            this.panelControlli.Controls.Add(this.lblFilter);
+            this.panelControlli.Controls.Add(this.lblOrdina);
             this.panelControlli.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControlli.Location = new System.Drawing.Point(0, 0);
             this.panelControlli.Name = "panelControlli";
@@ -204,20 +204,20 @@
             this.lblElimina.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblElimina.Click += new System.EventHandler(this.LblElimina_Click);
             // 
-            // lblFilter
+            // lblOrdina
             // 
-            this.lblFilter.Depth = 0;
-            this.lblFilter.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lblFilter.Font = new System.Drawing.Font("Roboto", 11F);
-            this.lblFilter.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblFilter.Image = global::IngegneriaDelSoftware.Properties.Resources.baseline_filter_list_black_18dp;
-            this.lblFilter.Location = new System.Drawing.Point(676, 0);
-            this.lblFilter.MouseState = MaterialSkin.MouseState.HOVER;
-            this.lblFilter.Name = "lblFilter";
-            this.lblFilter.Size = new System.Drawing.Size(36, 33);
-            this.lblFilter.TabIndex = 0;
-            this.lblFilter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.lblFilter.Click += new System.EventHandler(this.LblFilter_Click);
+            this.lblOrdina.Depth = 0;
+            this.lblOrdina.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblOrdina.Font = new System.Drawing.Font("Roboto", 11F);
+            this.lblOrdina.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblOrdina.Image = global::IngegneriaDelSoftware.Properties.Resources.baseline_filter_list_black_18dp;
+            this.lblOrdina.Location = new System.Drawing.Point(676, 0);
+            this.lblOrdina.MouseState = MaterialSkin.MouseState.HOVER;
+            this.lblOrdina.Name = "lblOrdina";
+            this.lblOrdina.Size = new System.Drawing.Size(36, 33);
+            this.lblOrdina.TabIndex = 0;
+            this.lblOrdina.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblOrdina.Click += new System.EventHandler(this.LblOrdina_Click);
             // 
             // flowClienti
             // 
@@ -283,7 +283,7 @@
             this.materialFloatingActionButton1.TabIndex = 1;
             this.materialFloatingActionButton1.Text = "materialFloatingActionButton1";
             this.materialFloatingActionButton1.UseVisualStyleBackColor = true;
-            this.materialFloatingActionButton1.Click += new System.EventHandler(this.materialFloatingActionButton1_Click);
+            this.materialFloatingActionButton1.Click += new System.EventHandler(this.MaterialFloatingActionButton1_Click);
             // 
             // panelForm
             // 
@@ -335,7 +335,7 @@
         private System.Windows.Forms.Panel panelControlli;
         private System.Windows.Forms.Panel panelForm;
         private MaterialSkin.Controls.MaterialLabel lblElimina;
-        private MaterialSkin.Controls.MaterialLabel lblFilter;
+        private MaterialSkin.Controls.MaterialLabel lblOrdina;
         private MaterialSkin.Controls.MaterialFloatingActionButton materialFloatingActionButton1;
         private System.Windows.Forms.Panel panel1;
     }
