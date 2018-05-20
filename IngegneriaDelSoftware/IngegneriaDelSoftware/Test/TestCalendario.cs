@@ -12,7 +12,7 @@ namespace IngegneriaDelSoftware.Test
     public class TestCalendario
     {
         private Calendario _calendario;
-        Appuntamento a1, a2, a3, a4;
+        private Appuntamento a1, a2, a3, a4;
 
         public TestCalendario()
         {
