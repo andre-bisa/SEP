@@ -23,5 +23,14 @@ namespace IngegneriaDelSoftware.Model {
         public VocePreventivo(string causale, decimal importo, string tipologia = null, int quantita = 1) : base(causale, importo, tipologia, quantita) {
         }
         #endregion
+
+        /// <summary>
+        /// Crea una nuova <see cref="VoceVendita"/> a partire da una <see cref="VocePreventivo"/>.
+        /// <para>Il valore della provvigione è quello di default (<c>0</c>)</para>
+        /// </summary>
+        /// <param name="input"></param>
+        public VoceVendita ToVendita() {
+            return new VoceVendita(this.Causale, this.Importo,tipologia: this.Tipologia, quantita: this.Quantita);
+        }
     }
 }
