@@ -65,12 +65,10 @@ namespace IngegneriaDelSoftware.View.Overlay
         #region "Metodi pubblici"
         public virtual void Open()
         {
-            this.SuspendLayout();
             if (!_panelContainer.Controls.Contains(this))
                 _panelContainer.Controls.Add(this);
             this.Visible = true;
             this.BringToFront();
-            this.ResumeLayout(false);
         }
 
         public virtual void Close()
