@@ -69,7 +69,7 @@ namespace IngegneriaDelSoftware.Model {
             }
         }
 
-        public override ListaTelefoni Telefoni
+        public override CollezioneTelefoni Telefoni
         {
             get
             {
@@ -77,7 +77,7 @@ namespace IngegneriaDelSoftware.Model {
             }
         }
 
-        public override ListaEmail Email
+        public override CollezioneEmail Email
         {
             get
             {
@@ -142,6 +142,13 @@ namespace IngegneriaDelSoftware.Model {
         {
             return new PersonaGiuridica(this._datiPersona);
         }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1989808641;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            return hashCode;
+        }
     }
 
     public class DatiPersonaGiuridica : DatiPersona
@@ -150,8 +157,8 @@ namespace IngegneriaDelSoftware.Model {
         #region Campi privati
         private string _codiceFiscale;
         private string _indirizzo;
-        private ListaTelefoni _telefoni;
-        private ListaEmail _email;
+        private CollezioneTelefoni _telefoni;
+        private CollezioneEmail _email;
         private string _ragioneSociale;
         private string _sedeLegale;
         private string _partitaIVA;
@@ -176,14 +183,14 @@ namespace IngegneriaDelSoftware.Model {
                 return _indirizzo;
             }
         }
-        public override ListaTelefoni Telefoni
+        public override CollezioneTelefoni Telefoni
         {
             get
             {
                 return this._telefoni;
             }
         }
-        public override ListaEmail Email
+        public override CollezioneEmail Email
         {
             get
             {
@@ -237,8 +244,8 @@ namespace IngegneriaDelSoftware.Model {
             this._ragioneSociale = ragioneSociale;
             this._sedeLegale = sedeLegale;
             this._partitaIVA = partitaIVA;
-            this._telefoni = new ListaTelefoni(telefoni);
-            this._email = new ListaEmail(email);
+            this._telefoni = new CollezioneTelefoni(telefoni);
+            this._email = new CollezioneEmail(email);
         }
         #endregion
 

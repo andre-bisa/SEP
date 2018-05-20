@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using IngegneriaDelSoftware.Test;
 using IngegneriaDelSoftware.View;
+using IngegneriaDelSoftware.Controller;
 
 namespace IngegneriaDelSoftware
 {
@@ -16,6 +16,9 @@ namespace IngegneriaDelSoftware
         [STAThread]
         static void Main()
         {
+
+            ControllerClienti controller = new ControllerClienti();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var g = new View.GenericForm(View.GenericForm.TipoForm.FATTURE);
@@ -30,8 +33,14 @@ namespace IngegneriaDelSoftware
             };
             g.InfoPanelEditable = false;
             //Application.Run(g);
-            //Application.Run(new VisualizzaCalendario());
-            new TestCalendario();
+
+            //Application.Run(new FormAppuntamenti());
+            Application.Run(new FormClienti(controller));
+            Application.Run(new FormEmail(controller));
+            Application.Run(new Login());
+            Application.Run(new VisualizzaCalendario());
+            if (FormConfim.Show("Titolo", "Messaggio") == DialogResult.OK)
+                MessageBox.Show("Premuto OK");
         }
     }
 }

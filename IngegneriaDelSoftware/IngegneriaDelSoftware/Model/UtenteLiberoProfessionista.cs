@@ -78,7 +78,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="sedeLegale"></param>
         /// <param name="telefoni"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public DatiUtenteLiberoProfessionista(string username, string pIva, string cf, string indirizzo, Email email, string nome, string cognome, HashSet<Telefono> telefoni = null)
+        public DatiUtenteLiberoProfessionista(string username, string pIva, string cf, string indirizzo, Email email, string nome, string cognome, List<Telefono> telefoni = null)
             : base(username, pIva, cf, indirizzo, email, telefoni)
         {
             if (nome == null || cognome == null)
