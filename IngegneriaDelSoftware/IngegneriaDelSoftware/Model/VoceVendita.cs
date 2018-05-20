@@ -40,15 +40,15 @@ namespace IngegneriaDelSoftware.Model {
         public override string ToString() {
             return String.Format("{0}\t{1}", base.ToString(), this._provvigione);
         }
-        #endregion
-
+        
         /// <summary>
         /// Crea una nuova <see cref="VoceFattura"/> a partire da una <see cref="VoceVendita"/>.
         /// <para>Il valore dell'iva è quello di default (<c>0</c>)</para>
         /// </summary>
         /// <param name="input"></param>
-        public static explicit operator VoceFattura(VoceVendita input) {
-            return new VoceFattura(input.Causale, input.Importo, tipologia: input.Tipologia, quantita: input.Quantita);
+        public  VoceFattura ToFattura() {
+            return new VoceFattura(this.Causale, this.Importo, tipologia: this.Tipologia, quantita: this.Quantita);
         }
+        #endregion
     }
 }

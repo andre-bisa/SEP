@@ -354,7 +354,10 @@ namespace IngegneriaDelSoftware.Model {
 
         #region Statics
         public static Fattura FromVendita(int anno, string numero, Vendita input, DateTime? data = null, float sconto = 0, bool finalizzato = false) {
-            return new Fattura(anno, numero, input.Cliente, input, data, sconto, input.Voci.Cast<VoceFattura>().ToList<VoceFattura>(), finalizzato);
+            return new Fattura(anno, numero, input.Cliente, input, data, sconto, 
+                (from voce in input.Voci
+                select voce.ToFattura()).ToList<VoceFattura>(),
+            finalizzato);
         }
         //Non ho idea di cosa faccia questa;
         public static Fattura FromVendite(int anno, string numero, List<Vendita> input, DateTime? data = null, float sconto = 0, bool finalizzato = false) {
@@ -365,8 +368,8 @@ namespace IngegneriaDelSoftware.Model {
                                     return a.Concat(b).ToList();
                                 })
                      )
-                 select (VoceFattura)voce).ToList<VoceFattura>()
-                , finalizzato);
+                 select voce.ToFattura()).ToList<VoceFattura>(),
+            finalizzato);
         }
         #endregion
 

@@ -140,10 +140,9 @@ namespace IngegneriaDelSoftware.Test {
             var cliente = new Cliente(persona, "1");
             var preventivo = new Preventivo(1, cliente, accettato: true);
             var voce1 = new VocePreventivo("Corda", 30);
-            var voce2 = new VocePreventivo("Canapa", 20);
             preventivo.Add(voce1);
             var vendita = Vendita.FromPreventivo(1, preventivo);
-            Assert.AreEqual((VoceVendita)voce1, vendita[0]);
+            Assert.AreEqual(voce1.ToVendita(), vendita[0]);
         }
         [Test]
         public void TestConversioneVenditaFattura() {
@@ -161,10 +160,49 @@ namespace IngegneriaDelSoftware.Test {
             vendite.Add(vendita1);
             vendite.Add(vendita2);
             var fattura = Fattura.FromVendite(2018, "3", vendite);
-            Assert.AreEqual((VoceFattura)voce11, fattura[0]);
-            Assert.AreEqual((VoceFattura)voce12, fattura[0]);
-            Assert.AreEqual((VoceFattura)voce21, fattura[0]);
-            Assert.AreEqual((VoceFattura)voce22, fattura[0]);
+            Assert.AreEqual(voce11.ToFattura(), fattura[0]);
+            Assert.AreEqual(voce12.ToFattura(), fattura[1]);
+            Assert.AreEqual(voce21.ToFattura(), fattura[2]);
+            Assert.AreEqual(voce22.ToFattura(), fattura[3]);
+
+        }
+        [Test]
+        public void TestMixedConversionePreventivoVendita() {
+            var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
+            var cliente = new Cliente(persona, "1");
+            var preventivo = new Preventivo(1, cliente, accettato: true);
+            var voce1 = new VocePreventivo("Corda", 30);
+            var voce2 = new VoceVendita("Canapa", 20);
+            preventivo.Add(voce1);
+            var vendita = Vendita.FromPreventivo(1, preventivo);
+            vendita.Add(voce2);
+            Assert.AreEqual(voce1.ToVendita(), vendita[0]);
+            Assert.AreEqual(voce2, vendita[1]);
+            Assert.AreEqual(2, vendita.Count);
+        }
+        [Test]
+        public void TestMixedConversioneVenditaFattura() {
+            var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
+            var cliente = new Cliente(persona, "1");
+            var vendita1 = new Vendita(1, cliente);
+            var voce11 = new VoceVendita("Corda", 30, 0.20f);
+            var voce12 = new VoceVendita("Canapa", 20, 0.20f);
+            vendita1.Add(voce11, voce12);
+            var vendita2 = new Vendita(2, cliente);
+            var voce21 = new VoceVendita("Corda1", 30, 0.20f);
+            var voce22 = new VoceVendita("Canapa1", 20, 0.20f);
+            vendita2.Add(voce21, voce22);
+            List<Vendita> vendite = new List<Vendita>();
+            vendite.Add(vendita1);
+            vendite.Add(vendita2);
+            var fattura = Fattura.FromVendite(2018, "3", vendite);
+            var voce31 = new VoceFattura("Canapa1", 20, 0.20f);
+            fattura.Add(voce31);
+            Assert.AreEqual(voce11.ToFattura(), fattura[0]);
+            Assert.AreEqual(voce12.ToFattura(), fattura[1]);
+            Assert.AreEqual(voce21.ToFattura(), fattura[2]);
+            Assert.AreEqual(voce22.ToFattura(), fattura[3]);
+            Assert.AreEqual(voce31, fattura[4]);
 
         }
         [Test]
@@ -173,12 +211,38 @@ namespace IngegneriaDelSoftware.Test {
             var cliente1 = new Cliente(persona1, "1");
             var persona2 = new PersonaFisica("BBBBBBBBBB", "Via del Cane 12", "Sylvia", "Zbornak");
             var cliente2 = new Cliente(persona2, "2");
+            var clientePot = new Cliente(persona1, "1", tipoCliente: EnumTipoCliente.Potenziale);
+            var clienteEx = new Cliente(persona1, "1", tipoCliente: EnumTipoCliente.Ex);
             var vendita1 = new Vendita(1, cliente1);
             var vendita2 = new Vendita(1, cliente2);
             List<Vendita> vendite = new List<Vendita>();
             vendite.Add(vendita1);
             vendite.Add(vendita2);
-            Assert.DoesNotThrow(() => { var fattura = new Fattura(2018, "2", cliente1, vendite); });
+            Assert.Catch(() => { var fattura = new Fattura(2018, "2", cliente1, vendite); });
+            Assert.Catch(() => { var fattura = new Fattura(2018, "3", null, vendite); });
+            Assert.Catch(() => { var fattura = new Fattura(2018, null, cliente1, vendite); });
+            Assert.Catch(() => { var fattura = new Fattura(2018, "3", cliente1, venditeDiProvenienza: null); });
+            Assert.Catch(() => { var fattura = new Fattura(1, "4", clientePot, vendite); });
+            Assert.Catch(() => { var fattura = new Fattura(1, "5", null, vendite); });
+            Assert.Catch(() => { var fattura = new Fattura(1, "6", clienteEx, vendite); });
+            Assert.Catch(() => { var fattura = new Fattura(1, "6", clienteEx, vendite, sconto: -9); });
+        }
+        [Test]
+        public void TestCostruttorePreventivo() {
+            var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
+            var cliente = new Cliente(persona, "1");
+            var clienteEx = new Cliente(persona, "1", tipoCliente: EnumTipoCliente.Ex);
+            Assert.Catch(() => { var preventivo = new Preventivo(1, null); });
+            Assert.Catch(() => { var preventivo = new Preventivo(1, clienteEx); });
+        }
+        [Test]
+        public void TestCostruttoreVendita() {
+            var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
+            var clientePot = new Cliente(persona, "1", tipoCliente: EnumTipoCliente.Potenziale);
+            var clienteEx = new Cliente(persona, "1", tipoCliente: EnumTipoCliente.Ex);
+            Assert.Catch(() => { var vendita = new Vendita(1, clientePot); });
+            Assert.Catch(() => { var vendita = new Vendita(1, null); });
+            Assert.Catch(() => { var vendita = new Vendita(1, clienteEx); });
         }
     }
 }

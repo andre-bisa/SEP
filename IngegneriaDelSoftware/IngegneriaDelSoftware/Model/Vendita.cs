@@ -249,7 +249,10 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="data">La data della vendita <para><see cref="DateTime.Now"/> di default</para></param>
         /// <returns></returns>
         public static Vendita FromPreventivo(ulong iD, Preventivo input, DateTime? data = null) {
-            return new Vendita(iD, input.Cliente, data ?? DateTime.Now, input.Voci.Cast<VoceVendita>().ToList<VoceVendita>(), input);
+            return new Vendita(iD, input.Cliente, data,
+                (from voce in input.Voci
+                 select voce.ToVendita()).ToList<VoceVendita>(),
+            input);
         }
         #endregion
 
@@ -271,7 +274,7 @@ namespace IngegneriaDelSoftware.Model {
                 if(cliente.TipoCliente != EnumTipoCliente.Attivo) {
                     throw new InvalidOperationException("Il cliente deve essere attivo per potere preformare questa operazione");
                 }
-                if(preventivoDiProvenienza != null && preventivoDiProvenienza.Accettato) {
+                if(preventivoDiProvenienza != null && !preventivoDiProvenienza.Accettato) {
                     throw new ArgumentException("Il preventivo deve essere accettato");
                 }
                 this.Cliente = cliente;

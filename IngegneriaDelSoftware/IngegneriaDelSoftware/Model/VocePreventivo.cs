@@ -29,8 +29,8 @@ namespace IngegneriaDelSoftware.Model {
         /// <para>Il valore della provvigione è quello di default (<c>0</c>)</para>
         /// </summary>
         /// <param name="input"></param>
-        public static explicit operator VoceVendita(VocePreventivo input) {
-            return new VoceVendita(input.Causale, input.Importo,tipologia:input.Tipologia, quantita:input.Quantita);
+        public VoceVendita ToVendita() {
+            return new VoceVendita(this.Causale, this.Importo,tipologia: this.Tipologia, quantita: this.Quantita);
         }
     }
 }
