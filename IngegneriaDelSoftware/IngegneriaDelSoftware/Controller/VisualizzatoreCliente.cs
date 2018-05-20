@@ -53,7 +53,7 @@ namespace IngegneriaDelSoftware.Controller
 
         /// <summary>
         /// Imposta il nuovo filtro per i clienti.
-        /// N.B. NON verranno riproposti i clienti già dati, per vedere tutti i clienti utilizzare <see cref="Reset"/>
+        /// N.B. NON verranno riproposti i clienti già dati con <see cref="ProssimoCliente"/>, per vedere tutti i clienti utilizzare <see cref="Reset"/>
         /// </summary>
         /// <param name="filtro">Nuovo filtro che verrà applicato ai clienti</param>
         /// <exception cref="ArgumentNullException">Se passato un filtro nullo</exception>
