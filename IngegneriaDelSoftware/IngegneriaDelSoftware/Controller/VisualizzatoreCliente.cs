@@ -56,10 +56,13 @@ namespace IngegneriaDelSoftware.Controller
         /// N.B. NON verranno riproposti i clienti già dati, per vedere tutti i clienti utilizzare <see cref="Reset"/>
         /// </summary>
         /// <param name="filtro">Nuovo filtro che verrà applicato ai clienti</param>
+        /// <exception cref="ArgumentNullException">Se passato un filtro nullo</exception>
         public void ImpostaFiltro(Predicate<Cliente> filtro)
         {
-            if (filtro != null)
-                this._filtro = new Predicate<CoppiaClienteVisualizzato>(c => filtro.Invoke(c.Cliente));
+            if (filtro == null)
+                throw new ArgumentNullException("Errore. Il filtro è nullo.");
+
+            this._filtro = new Predicate<CoppiaClienteVisualizzato>(c => filtro.Invoke(c.Cliente));
 
             var queryClientiCheNonDevonoPiuEssereVisualizzati =
                 (from coppia in this._lista
@@ -101,12 +104,13 @@ namespace IngegneriaDelSoftware.Controller
             }
         }
 
+        /// <summary>
+        /// Restituisce un enumeratore di una copia della lista
+        /// </summary>
+        /// <returns></returns>
         public IEnumerator<Cliente> GetEnumerator()
         {
-            foreach (CoppiaClienteVisualizzato corrente in this._lista)
-            {
-                yield return corrente.Cliente;
-            }
+            return this._lista.Select(c => c.Cliente).GetEnumerator(); // Enumeratore di una copia della lista
         }
         #endregion
 
