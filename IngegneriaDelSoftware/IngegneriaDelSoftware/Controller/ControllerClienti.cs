@@ -10,8 +10,6 @@ namespace IngegneriaDelSoftware.Controller
 {
     public class ControllerClienti
     {
-        public event EventHandler<ArgsCliente> RimossoCliente;
-
         private CollezioneClienti _clienti;
         public CollezioneClienti CollezioneClienti
         {
@@ -50,10 +48,6 @@ namespace IngegneriaDelSoftware.Controller
         public void RimuoviCliente(Cliente cliente)
         {
             this._clienti.Remove(cliente);
-            if (RimossoCliente != null)
-            {
-                RimossoCliente(this, new ArgsCliente(cliente));
-            }
         }
 
         public void ModificaCliente(Cliente clienteDaModificare, DatiCliente nuoviDatiCliente, DatiPersona nuoviDatiPersona)
