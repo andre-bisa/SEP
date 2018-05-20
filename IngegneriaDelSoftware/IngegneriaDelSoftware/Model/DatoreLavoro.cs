@@ -107,7 +107,7 @@ namespace IngegneriaDelSoftware.Model
         //Email? siccome e' una struct che puo' essere nulla
         public Email? Email { get; private set; }
         
-        public DatiDatoreLavoro(string nome, string cognome, string pIva, string cf, string ragioneSociale, string indirizzo, HashSet<Telefono> telefoni = null, Email? email = null)
+        public DatiDatoreLavoro(string nome, string cognome, string pIva, string cf, string ragioneSociale, string indirizzo, List<Telefono> telefoni = null, Email? email = null)
         {
             #region Controlli
             if (nome == null)

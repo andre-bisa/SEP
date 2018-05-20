@@ -102,6 +102,8 @@ namespace IngegneriaDelSoftware.View.Overlay
             {
                 this._controller.ModificaCliente(Cliente, datiCliente, datiPersona);
             }
+
+            this.Close(); // Chiudo l'overlay
         }
 
         private void btnAnnulla_Click(object sender, EventArgs e)

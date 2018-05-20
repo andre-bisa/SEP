@@ -238,7 +238,7 @@ namespace IngegneriaDelSoftware.Model
 
             this.IDCliente = IDCliente;
             this.TipoCliente = tipoCliente;
-            this.Referenti = new ListaReferenti(referenti); // La gestione del null la fa la ListaReferenti
+            this.Referenti = new CollezioneReferenti(referenti); // La gestione del null la fa la ListaReferenti
             this.Nota = nota;
         }
         #endregion

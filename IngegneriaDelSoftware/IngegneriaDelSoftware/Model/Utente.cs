@@ -50,7 +50,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="email"></param>
         /// <param name="telefoni"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public DatiUtente(string username, string pIva, string cf, string indirizzo, Email email, HashSet<Telefono> telefoni = null)
+        public DatiUtente(string username, string pIva, string cf, string indirizzo, Email email, List<Telefono> telefoni = null)
         {
             #region Controlli
             if(username == null)

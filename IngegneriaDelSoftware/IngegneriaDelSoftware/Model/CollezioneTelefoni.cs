@@ -15,7 +15,7 @@ namespace IngegneriaDelSoftware.Model
         /// <summary>
         /// Costruttore
         /// </summary>
-        public CollezioneTelefoni(HashSet<Telefono> telefoni = null)
+        public CollezioneTelefoni(List<Telefono> telefoni = null)
         {
             //Se argomento nullo da' lista vuota, altrimenti crea una copia della lista data
             _telefoni = (telefoni == null) ? new HashSet<Telefono>() : new HashSet<Telefono>(telefoni);

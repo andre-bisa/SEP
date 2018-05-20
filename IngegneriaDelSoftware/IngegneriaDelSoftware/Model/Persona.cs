@@ -17,8 +17,8 @@ namespace IngegneriaDelSoftware.Model
         #region Proprietà
         public abstract string CodiceFiscale { get; }
         public abstract string Indirizzo { get; }
-        public abstract ListaTelefoni Telefoni { get; }
-        public abstract ListaEmail Email { get; }
+        public abstract CollezioneTelefoni Telefoni { get; }
+        public abstract CollezioneEmail Email { get; }
         #endregion
 
         #region "Funzioni pubbliche"
@@ -58,8 +58,8 @@ namespace IngegneriaDelSoftware.Model
     {
         public abstract string CodiceFiscale { get; }
         public abstract string Indirizzo { get; }
-        public abstract ListaTelefoni Telefoni { get; }
-        public abstract ListaEmail Email { get; }
+        public abstract CollezioneTelefoni Telefoni { get; }
+        public abstract CollezioneEmail Email { get; }
 
         public abstract EnumTipoPersona TipoDatiPersona();
 

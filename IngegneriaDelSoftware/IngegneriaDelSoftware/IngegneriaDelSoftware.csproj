@@ -86,7 +86,7 @@
     <Compile Include="Model\Impostazioni.cs" />
     <Compile Include="Model\Intermediario.cs" />
     <Compile Include="Model\IObservable.cs" />
-	<Compile Include="Model\CollezioneClienti.cs" />
+    <Compile Include="Model\CollezioneClienti.cs" />
     <Compile Include="Model\CollezioneEmail.cs" />
     <Compile Include="Model\CollezioneReferenti.cs" />
     <Compile Include="Model\CollezioneTelefoni.cs" />
@@ -105,6 +105,7 @@
     <Compile Include="Model\VoceFattura.cs" />
     <Compile Include="Model\VocePreventivo.cs" />
     <Compile Include="Model\VoceVendita.cs" />
+    <Compile Include="Test\TestClienti.cs" />
     <Compile Include="Test\TestCalendario.cs" />
     <Compile Include="Test\TestFattura.cs" />
     <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />
