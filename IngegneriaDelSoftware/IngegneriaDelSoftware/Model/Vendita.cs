@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Model {
+    /// <summary>
+    /// <example>this._voci.AddRange(this._datiVendita.PreventivoDiProvenienza.Cast<VoceVendita>());</example>
+    /// </summary>
     public class Vendita: IEnumerable<VoceVendita>, ICollection<VoceVendita>, IObservable<Vendita> {
         public event EventHandler<ArgsModifica<Vendita>> OnModifica;
 
@@ -164,6 +167,8 @@ namespace IngegneriaDelSoftware.Model {
             return 1213502048 + ID.GetHashCode();
         }
 
+        
+
         #region Collection implementation
         /// <summary>
         /// Aggiunge una voce alla lista interna
@@ -231,6 +236,20 @@ namespace IngegneriaDelSoftware.Model {
         #region Funzioni protected
         protected Vendita Clone() {
             return new Vendita(this._datiVendita, this._voci);
+        }
+        #endregion
+
+        #region Statics
+        /// <summary>
+        /// Crea una nuova vendita da un preventivo riversando la lista delle <see cref="VocePreventivo"/> in quella di
+        /// <see cref="VoceVendita"/> interna della nuova <see cref="Vendita"/>.
+        /// </summary>
+        /// <param name="iD">L'id della vendita</param>
+        /// <param name="input">Il preventivo d'ingresso</param>
+        /// <param name="data">La data della vendita <para><see cref="DateTime.Now"/> di default</para></param>
+        /// <returns></returns>
+        public static Vendita FromPreventivo(ulong iD, Preventivo input, DateTime? data = null) {
+            return new Vendita(iD, input.Cliente, data ?? DateTime.Now, input.Voci.Cast<VoceVendita>().ToList<VoceVendita>(), input);
         }
         #endregion
 

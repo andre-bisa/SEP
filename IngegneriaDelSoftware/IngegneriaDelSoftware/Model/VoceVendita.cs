@@ -42,5 +42,13 @@ namespace IngegneriaDelSoftware.Model {
         }
         #endregion
 
+        /// <summary>
+        /// Crea una nuova <see cref="VoceFattura"/> a partire da una <see cref="VoceVendita"/>.
+        /// <para>Il valore dell'iva è quello di default (<c>0</c>)</para>
+        /// </summary>
+        /// <param name="input"></param>
+        public static explicit operator VoceFattura(VoceVendita input) {
+            return new VoceFattura(input.Causale, input.Importo, tipologia: input.Tipologia, quantita: input.Quantita);
+        }
     }
 }

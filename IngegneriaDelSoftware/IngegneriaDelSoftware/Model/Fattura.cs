@@ -122,6 +122,19 @@ namespace IngegneriaDelSoftware.Model {
         public Fattura(DatiFattura datiFattura, List<Vendita> venditeDiProvenienza, List<VoceFattura> voci = null, bool finalizzato = false) {
             this._datiFattura = datiFattura;
             this._stato = finalizzato ? Stato.LOCKED : Stato.UNLOCKED;
+            if(venditeDiProvenienza == null) {
+                throw new ArgumentNullException("La vendita di provenienza non può essere nulla");
+            }
+            if(venditeDiProvenienza.Count < 1) {
+                throw new ArgumentException("La vendita di provenienza deve contenere almeno una vendita");
+            }
+            if(venditeDiProvenienza.Select((e) => {
+                return e.Cliente;
+            }).Distinct().Count() > 1) {
+                throw new ArgumentException("Una fattura può essere inizializzata solo da una lista di vendite allo stesso cliente");
+            }
+            this._venditeDiProvenienza = new List<Vendita>(venditeDiProvenienza);
+            this._voci = (voci == null) ? new List<VoceFattura>() : new List<VoceFattura>(voci);
         }
         /// <summary>
         /// Una nuova fattura
@@ -139,15 +152,8 @@ namespace IngegneriaDelSoftware.Model {
         /// <exception cref="InvalidOperationException"></exception>
         public Fattura(int anno, string numero, Cliente cliente, List<Vendita> venditeDiProvenienza,
              DateTime? data = null, float sconto = 0, List<VoceFattura> voci = null, bool finalizzato = false) 
-            :this(new DatiFattura(anno, numero, cliente, data, sconto),venditeDiProvenienza, voci, finalizzato){
-            if(venditeDiProvenienza == null) {
-                throw new ArgumentNullException("La vendita di provenienza non può essere nulla");
-            }
-            if(venditeDiProvenienza.Count < 1) {
-                throw new ArgumentException("La vendita di provenienza deve contenere almeno una vendita");
-            }
-            this._venditeDiProvenienza = new List<Vendita>(venditeDiProvenienza);
-            this._voci = (voci == null) ? new List<VoceFattura>() : new List<VoceFattura>(voci);
+            :this(new DatiFattura(anno, numero, cliente, data, sconto), venditeDiProvenienza, voci, finalizzato){
+            
         }
         /// <summary>
         /// Una nuova fattura
@@ -343,6 +349,24 @@ namespace IngegneriaDelSoftware.Model {
         #region Funzioni protected
         protected Fattura Clone() {
             return new Fattura(this._datiFattura, this._venditeDiProvenienza, this._voci, this._stato == Stato.LOCKED);
+        }
+        #endregion
+
+        #region Statics
+        public static Fattura FromVendita(int anno, string numero, Vendita input, DateTime? data = null, float sconto = 0, bool finalizzato = false) {
+            return new Fattura(anno, numero, input.Cliente, input, data, sconto, input.Voci.Cast<VoceFattura>().ToList<VoceFattura>(), finalizzato);
+        }
+        //Non ho idea di cosa faccia questa;
+        public static Fattura FromVendite(int anno, string numero, List<Vendita> input, DateTime? data = null, float sconto = 0, bool finalizzato = false) {
+            return new Fattura(anno, numero, input[0].Cliente, input, data, sconto,
+                (from voce in (
+                    (from vendita in input
+                                select vendita.Voci).Aggregate(new List<VoceVendita>(), (a, b) => {
+                                    return a.Concat(b).ToList();
+                                })
+                     )
+                 select (VoceFattura)voce).ToList<VoceFattura>()
+                , finalizzato);
         }
         #endregion
 
