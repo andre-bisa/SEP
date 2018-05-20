@@ -13,7 +13,7 @@ namespace IngegneriaDelSoftware.Model
         public event EventHandler<ArgsCliente> OnAggiunta;
         public event EventHandler<ArgsCliente> OnRimozione;
 
-        private List<Cliente> _clienti = new List<Cliente>();
+        private HashSet<Cliente> _clienti = new HashSet<Cliente>();
 
         protected CollezioneClienti()
         {
@@ -107,7 +107,12 @@ namespace IngegneriaDelSoftware.Model
         {
             get
             {
-                return this._clienti.Find(c => c.IDCliente == id);
+                foreach (Cliente c in this._clienti)
+                {
+                    if (c.IDCliente == id)
+                        return c;
+                }
+                return null;
             }
         }
 

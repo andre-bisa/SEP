@@ -34,7 +34,7 @@ namespace IngegneriaDelSoftware.Model
                 throw new ArgumentNullException();
             }
             //Se la data di partenza viene dopo quella d'arrivo
-            if (da.CompareTo(a) > 0)
+            if (da > a)
             {
                 throw new ArgumentException();
             }
@@ -42,8 +42,7 @@ namespace IngegneriaDelSoftware.Model
             List<Appuntamento> risultato = new List<Appuntamento>();
 
             foreach (Appuntamento appuntamento in this._appuntamenti) {
-                //Se l'appuntamento rientra nel range
-                if (appuntamento.DataOra.CompareTo(da) >= 0 && appuntamento.DataOra.CompareTo(a) <= 0)
+                if (da <= appuntamento.DataOra && a >= appuntamento.DataOra) //Se l'appuntamento rientra nel range
                 {
                     risultato.Add(appuntamento);
                 }
@@ -77,12 +76,12 @@ namespace IngegneriaDelSoftware.Model
 
         public IEnumerator<Appuntamento> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this._appuntamenti.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return this._appuntamenti.GetEnumerator();
         }
 
         /// <summary>

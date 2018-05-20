@@ -105,7 +105,7 @@
     <Compile Include="Model\VoceFattura.cs" />
     <Compile Include="Model\VocePreventivo.cs" />
     <Compile Include="Model\VoceVendita.cs" />
-    <Compile Include="Test\TestClienti.cs" />
+    <Compile Include="Test\TestCollezioneClienti.cs" />
     <Compile Include="Test\TestCalendario.cs" />
     <Compile Include="Test\TestFattura.cs" />
     <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />

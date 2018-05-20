@@ -19,7 +19,6 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="datiAppuntamento"></param>
         public Appuntamento(DatiAppuntamento datiAppuntamento)
         {
-
             _datiAppuntamento = datiAppuntamento;
         }
         #endregion
@@ -52,6 +51,28 @@ namespace IngegneriaDelSoftware.Model
             return String.Format("Data e ora: {0} \nLuogo: {1} \nCon chi: {2} \nOggetto: {3}", DataOra.ToString(), Luogo, ConChi.getDenominazione(), Oggetto);
         }
         #endregion
+
+        #region Equals
+        public override bool Equals(object obj)
+        {
+            var appuntamento = obj as Appuntamento;
+            return appuntamento != null &&
+                   Oggetto == appuntamento.Oggetto &&
+                   Luogo == appuntamento.Luogo &&
+                   DataOra == appuntamento.DataOra;
+        }
+
+        public static bool operator ==(Appuntamento appuntamento1, Appuntamento appuntamento2)
+        {
+            return EqualityComparer<Appuntamento>.Default.Equals(appuntamento1, appuntamento2);
+        }
+
+        public static bool operator !=(Appuntamento appuntamento1, Appuntamento appuntamento2)
+        {
+            return !(appuntamento1 == appuntamento2);
+        }
+        #endregion
+
     }
 
     #region Struct interna
