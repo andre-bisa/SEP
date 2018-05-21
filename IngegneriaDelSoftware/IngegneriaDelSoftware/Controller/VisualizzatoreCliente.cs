@@ -9,7 +9,7 @@ using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Controller
 {
-    public class VisualizzatoreCliente : IEnumerable<Cliente>
+    public class VisualizzatoreCliente
     {
         // Il bool serve per sapere se il cliente è stato mostrato oppure no
         private List<CoppiaClienteVisualizzato> _lista = new List<CoppiaClienteVisualizzato>();
@@ -48,7 +48,8 @@ namespace IngegneriaDelSoftware.Controller
         /// <param name="stringaDaCercare">Stringa con il valore inserito</param>
         public void FiltraSuTuttiICampi(string stringaDaCercare)
         {
-            //TODO da fare, deve impostare un filtro che cerchi su tutti i campi
+            _filtro = new Predicate<CoppiaClienteVisualizzato>(c => c.Cliente.IDCliente.Contains(stringaDaCercare)
+            || c.Cliente.Persona.getDenominazione().Contains(stringaDaCercare) || c.Cliente.Referenti.Any(r => r.Nome.Contains(stringaDaCercare)));
         }
 
         /// <summary>
@@ -100,24 +101,10 @@ namespace IngegneriaDelSoftware.Controller
         {
             foreach (CoppiaClienteVisualizzato cliente in this._lista)
             {
-                cliente.Visualizzato = true;
+                cliente.Visualizzato = false;
             }
         }
-
-        /// <summary>
-        /// Restituisce un enumeratore di una copia della lista
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator<Cliente> GetEnumerator()
-        {
-            return this._lista.Select(c => c.Cliente).GetEnumerator(); // Enumeratore di una copia della lista
-        }
-        #endregion
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
+        
 
     }
 
