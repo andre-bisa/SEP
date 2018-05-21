@@ -28,7 +28,15 @@ namespace IngegneriaDelSoftware.View
         protected FormClienti()
         {
             InitializeComponent();
-            this.txtSearchBar.KeyDown += (sender, e) => { if (e.KeyCode == System.Windows.Forms.Keys.Enter) RicercaTraClienti(); };
+            this.txtSearchBar.KeyDown += (sender, e) => 
+            {
+                if (e.KeyCode == System.Windows.Forms.Keys.Enter)
+                {
+                    RicercaTraClienti();
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
+            };
         }
 
         public FormClienti(ControllerClienti controller): this()
