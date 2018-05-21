@@ -104,8 +104,7 @@ namespace IngegneriaDelSoftware.Controller
                 cliente.Visualizzato = false;
             }
         }
-        
-
+        #endregion
     }
 
     class CoppiaClienteVisualizzato
