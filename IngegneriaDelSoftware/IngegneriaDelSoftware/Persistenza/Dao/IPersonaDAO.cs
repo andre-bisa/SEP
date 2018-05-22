@@ -9,13 +9,13 @@ namespace IngegneriaDelSoftware.Persistenza.Dao
 {
     public interface IPersonaDAO
     {
-        void Crea(DatiPersona persona);
+        void Crea(DatiPersona persona, string ID);
 
-        Persona Leggi(string CF);
+        Persona Leggi(string ID);
 
-        bool Aggiorna(Persona personaVecchia, DatiPersona datiPersona);
+        bool Aggiorna(Persona personaVecchia, DatiPersona datiPersona, string ID);
 
-        bool Elimina(string CF);
+        bool Elimina(string ID);
 
     }
 }

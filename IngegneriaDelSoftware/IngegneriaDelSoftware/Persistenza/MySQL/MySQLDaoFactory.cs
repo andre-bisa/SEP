@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IngegneriaDelSoftware.Persistenza;
 using IngegneriaDelSoftware.Persistenza.Dao;
+using MySql.Data.MySqlClient;
 
 namespace IngegneriaDelSoftware.Persistenza.MySQL
 {
@@ -23,14 +24,25 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         }
         #endregion
 
-        public static void ApriConnessione() // TODO da cambiare il ritorno
+        private static MySqlConnection connessione;
+        public static MySqlConnection ApriConnessione()
         {
-
+            try
+            {
+                connessione = new MySqlConnection("SERVER=andre-bisa.ddns.net;database=SEP;uid=SEP;password=password");
+                if (connessione != null)
+                    connessione.Open();
+            } catch (MySqlException e)
+            {
+                connessione = null;
+            }
+            return connessione;
         }
 
         public static void ChiudiConnessione()
         {
-            // TODO da implementare
+            if (connessione != null)
+                connessione.Close();
         }
 
         #region Getters della Factory

@@ -9,11 +9,11 @@ namespace IngegneriaDelSoftware.Persistenza.Dao
 {
     public interface IClienteDAO
     {
-        void Crea(DatiCliente datiCliente, DatiPersona persona);
+        bool Crea(Cliente cliente);
 
         Cliente Leggi(string IDCliente);
 
-        bool Aggiorna(Cliente clienteVecchio, DatiCliente datiCliente, DatiPersona datiPersona);
+        bool Aggiorna(Cliente clienteVecchio, Cliente clienteNuovo);
 
         bool Elimina(string IDCliente);
 
