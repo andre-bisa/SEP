@@ -182,7 +182,7 @@ namespace IngegneriaDelSoftware.Model
                 throw new ArgumentException();
             }
 
-            DatiCliente nuoviDati = new DatiCliente(this.IDCliente, nuovoTipoCliente, this.Referenti.ToList<Referente>(), this.Nota);
+            DatiCliente nuoviDati = new DatiCliente(this.IDCliente, nuovoTipoCliente, this.Referenti, this.Nota);
             CambiaDatiCliente(nuoviDati);
         }
 
@@ -238,7 +238,7 @@ namespace IngegneriaDelSoftware.Model
         public EnumTipoCliente TipoCliente { get; private set; }
 
         #region Costruttori
-        public DatiCliente(string IDCliente, EnumTipoCliente tipoCliente, List<Referente> referenti = null, string nota = "")
+        public DatiCliente(string IDCliente, EnumTipoCliente tipoCliente, IEnumerable<Referente> referenti = null, string nota = "")
         {
             #region Controlli
             if (IDCliente == null)

@@ -15,7 +15,7 @@ namespace IngegneriaDelSoftware.Model
         /// <summary>
         /// Costruttore
         /// </summary>
-        public CollezioneReferenti(List<Referente> referenti = null)
+        public CollezioneReferenti(IEnumerable<Referente> referenti = null)
         {
             //Se argomento nullo dà lista vuota, altrimenti crea una copia della lista data
             _referenti = (referenti == null) ? new HashSet<Referente>() : new HashSet<Referente>(referenti);

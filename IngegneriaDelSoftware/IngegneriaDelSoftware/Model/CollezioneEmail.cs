@@ -15,7 +15,7 @@ namespace IngegneriaDelSoftware.Model
         /// <summary>
         /// Costruttore
         /// </summary>
-        public CollezioneEmail(List<Email> email = null)
+        public CollezioneEmail(IEnumerable<Email> email = null)
         {
             //Se argomento nullo da' lista vuota, altrimenti crea una copia della lista data
             _email = (email == null) ? new HashSet<Email>() : new HashSet<Email>(email);
