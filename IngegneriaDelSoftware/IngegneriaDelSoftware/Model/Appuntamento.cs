@@ -73,7 +73,7 @@ namespace IngegneriaDelSoftware.Model
 
         public static bool operator ==(Appuntamento appuntamento1, Appuntamento appuntamento2)
         {
-            return appuntamento1.Equals(appuntamento2);
+            return EqualityComparer<Appuntamento>.Default.Equals(appuntamento1, appuntamento2);
         }
 
         public static bool operator !=(Appuntamento appuntamento1, Appuntamento appuntamento2)
