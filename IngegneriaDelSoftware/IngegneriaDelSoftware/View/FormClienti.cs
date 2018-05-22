@@ -20,7 +20,7 @@ namespace IngegneriaDelSoftware.View
         private ControllerClienti _controller;
         private VisualizzatoreCliente _visualizzatoreCliente;
 
-        private List<TriplaCliente> _clientiCaricati = new List<TriplaCliente>();
+        private List<ClienteMostrato<PannelloCliente>> _clientiCaricati = new List<ClienteMostrato<PannelloCliente>>();
 
         private int quantiClientiCaricare = NUMERO_CLIENTI_PER_PAGINA * NUMERO_PAGINE_CARICATE_INIZIALMENTE;
 
@@ -78,7 +78,7 @@ namespace IngegneriaDelSoftware.View
             pannelloCliente.Margin = new Padding(5, 3, 5, 3);
             pannelloCliente.ModificataSelezione += new EventHandler<ArgsPannelloCliente>(this.AbilitaDelete);
             this.flowClienti.Controls.Add(pannelloCliente);
-            this._clientiCaricati.Add(new TriplaCliente(clienteDaCaricare, pannelloCliente, false));
+            this._clientiCaricati.Add(new ClienteMostrato<PannelloCliente>(clienteDaCaricare, pannelloCliente, false));
         }
 
         private void RimossoCliente(object sender, ArgsCliente e)
@@ -86,10 +86,15 @@ namespace IngegneriaDelSoftware.View
             if (e.Cliente == null)
                 return;
 
-            PannelloCliente pannelloDaRimuovere = this._clientiCaricati.Find(c => e.Cliente.Equals(c.Cliente)).PannelloCliente;
+            ClienteMostrato<PannelloCliente> cliente = this._clientiCaricati.Find(c => e.Cliente == c.Cliente);
+            if (cliente == null) // non è stato visualizzato
+                return;
+
+            PannelloCliente pannelloDaRimuovere = cliente.DoveMostrato;
             if (pannelloDaRimuovere != null)
             {
                 this.flowClienti.Controls.Remove(pannelloDaRimuovere);
+                this._clientiCaricati.Remove(cliente);
                 CaricaClientiMancanti();
             }
         }
@@ -120,10 +125,10 @@ namespace IngegneriaDelSoftware.View
                  select tripla
                  );
 
-            foreach (TriplaCliente tripla in new List<TriplaCliente>(queryTriplaClientiDaRimuovere))
+            foreach (ClienteMostrato<PannelloCliente> cliente in new List<ClienteMostrato<PannelloCliente>>(queryTriplaClientiDaRimuovere))
             {
-                this.flowClienti.Controls.Remove(tripla.PannelloCliente);
-                this._clientiCaricati.Remove(tripla);
+                this.flowClienti.Controls.Remove(cliente.DoveMostrato);
+                this._clientiCaricati.Remove(cliente);
             }
 
             CaricaClientiMancanti();
@@ -134,16 +139,16 @@ namespace IngegneriaDelSoftware.View
         {
             if (e == null)
                 return;
-            TriplaCliente tripla = _clientiCaricati.Find(t => t.Cliente.Equals(e.Cliente));
+            ClienteMostrato<PannelloCliente> cliente = _clientiCaricati.Find(t => t.Cliente.Equals(e.Cliente));
 
             if (e.PannelloCliente.Selected)
             {
-                tripla.Selezionato = true;
+                cliente.Selezionato = true;
                 lblElimina.Enabled = true;
             }
             else
             {
-                tripla.Selezionato = false;
+                cliente.Selezionato = false;
                 if (_clientiCaricati.Sum(t => (t.Selezionato) ? 1 : 0 ) == 0)
                     lblElimina.Enabled = false;
             }
@@ -192,21 +197,6 @@ namespace IngegneriaDelSoftware.View
             overlayCliente.Open();
         }
         #endregion
-    }
-
-    class TriplaCliente
-    {
-        public Cliente Cliente { get; }
-        public PannelloCliente PannelloCliente { get; set; }
-        public bool Selezionato { get; set; }
-
-        public TriplaCliente (Cliente cliente, PannelloCliente pannello, bool selezionato)
-        {
-            this.Cliente = cliente;
-            this.PannelloCliente = pannello;
-            this.Selezionato = selezionato;
-        }
-
     }
 
 }

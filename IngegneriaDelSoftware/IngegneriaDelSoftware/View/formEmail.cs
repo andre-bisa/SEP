@@ -13,16 +13,16 @@ using IngegneriaDelSoftware.View.Controlli;
 using System.Windows.Forms;
 using IngegneriaDelSoftware.Model;
 using IngegneriaDelSoftware.Controller;
+using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.View
 {
     public partial class FormEmail : MaterialForm
     {
         private ControllerClienti _controller;
-
         private VisualizzatoreCliente _visualizzatore;
 
-        private Dictionary<string, Tuple<Cliente, PannelloCliente>> _clienti = new Dictionary<string, Tuple<Cliente, PannelloCliente>>();
+        private List<ClienteMostrato<SchedaCliente>> _clientiCaricati = new List<ClienteMostrato<SchedaCliente>>();
 
         #region "Costruttore"
         protected FormEmail()
@@ -38,10 +38,7 @@ namespace IngegneriaDelSoftware.View
             this._controller = controller;
             this._visualizzatore = new VisualizzatoreCliente(controller.CollezioneClienti);
 
-            foreach (Cliente c in _controller.CollezioneClienti)
-            {
-                this._clienti.Add(c.IDCliente, new Tuple<Cliente, PannelloCliente>(c, null));
-            }
+            this._controller.CollezioneClienti.OnRimozione += this.RimossoCliente;
         }
         #endregion
 
@@ -52,8 +49,13 @@ namespace IngegneriaDelSoftware.View
         private void CaricaSchedaCliente()
         {
             Cliente clienteDaMostrare = _visualizzatore.ProssimoCliente();
+            if (clienteDaMostrare == null)
+                return;
+
             SchedaCliente schedaCliente = new SchedaCliente(_controller, clienteDaMostrare, this.panelForm);
-            flowClienti.Controls.Add(schedaCliente);
+            this.flowClienti.Controls.Add(schedaCliente);
+            this._clientiCaricati.Add(new ClienteMostrato<SchedaCliente>(clienteDaMostrare, schedaCliente, false));
+
         }
 
         /// <summary>
@@ -83,6 +85,25 @@ namespace IngegneriaDelSoftware.View
             // if (sto visualizzando l'ultimo cliente) => ne carico un altro
             if (flowClienti.VerticalScroll.Value >= flowClienti.VerticalScroll.Maximum - flowClienti.VerticalScroll.LargeChange - SchedaCliente.AltezzaSchedaClienti())
                 RiempiSchedeClienti(1);
+        }
+
+        private void RimossoCliente(object sender, ArgsCliente e)
+        {
+            if (e.Cliente == null)
+                return;
+
+            ClienteMostrato<SchedaCliente> cliente = this._clientiCaricati.Find(c => e.Cliente == c.Cliente);
+
+            if (cliente == null) // Se non è stato mostrato
+                return;
+
+            SchedaCliente schedaDaRimuovere = this._clientiCaricati.Find(c => e.Cliente.Equals(c.Cliente)).DoveMostrato;
+            if (schedaDaRimuovere != null)
+            {
+                this.flowClienti.Controls.Remove(schedaDaRimuovere);
+                this._clientiCaricati.Remove(cliente);
+                CaricaSchedaCliente();
+            }
         }
     }
 

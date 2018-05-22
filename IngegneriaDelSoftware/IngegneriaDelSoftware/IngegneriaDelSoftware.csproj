@@ -66,6 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ControllerClienti.cs" />
+    <Compile Include="Controller\OggettoVisualizzato.cs" />
+    <Compile Include="Controller\Visualizzatore.cs" />
     <Compile Include="Controller\VisualizzatoreCliente.cs" />
     <Compile Include="Model\Appuntamento.cs" />
     <Compile Include="Model\ArgsEvent\ArgsCliente.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Test\TestCollezioneClienti.cs" />
     <Compile Include="Test\TestCalendario.cs" />
     <Compile Include="Test\TestFattura.cs" />
+    <Compile Include="View\ClienteMostrato.cs" />
     <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />
     <Compile Include="View\Controlli\ArgsSchedaCliente.cs" />
     <Compile Include="View\FormConfim.cs">
