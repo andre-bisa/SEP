@@ -56,15 +56,9 @@ namespace IngegneriaDelSoftware.View
         #region "Carica clienti"
         private void CaricaClientiMancanti()
         {
-            bool caricatoQualcosa = false;
             for (int i = this._clientiCaricati.Count; i < this.quantiClientiCaricare; i++)
             {
                 CaricaClienteSullaForm();
-                caricatoQualcosa = true;
-            }
-            if (caricatoQualcosa)
-            {
-
             }
         }
 
@@ -176,7 +170,14 @@ namespace IngegneriaDelSoftware.View
 
         private void LblOrdina_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Ordina");
+            this._visualizzatoreCliente.ImpostaComparatore(Comparer<Cliente>.Create((x, y) => x.Denominazione.CompareTo(y.Denominazione)));
+
+            foreach (ClienteMostrato<PannelloCliente> c in this._clientiCaricati)
+            {
+                this.flowClienti.Controls.Remove(c.DoveMostrato);
+            }
+            this._clientiCaricati.Clear();
+            CaricaClientiMancanti();
         }
 
         private void MaterialFloatingActionButton1_Click(object sender, EventArgs e)

@@ -9,9 +9,16 @@ namespace IngegneriaDelSoftware.Controller
 {
     public abstract class Visualizzatore<T>
     {
+        /// <summary>
+        /// Lista di <see cref="OggettoVisualizzato{T}"/>
+        /// </summary>
         protected List<OggettoVisualizzato<T>> Lista { get; } = new List<OggettoVisualizzato<T>>();
 
+        /// <summary>
+        /// Filtro che si applicherà quando verrà richiesto un <see cref="T"/>
+        /// </summary>
         protected Predicate<OggettoVisualizzato<T>> Filtro { get; private set; }
+
         private Func<T, string, bool> _filtroTuttiCampi;
 
         /// <summary>

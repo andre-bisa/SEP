@@ -12,14 +12,18 @@ namespace IngegneriaDelSoftware.Controller
     public class VisualizzatoreCliente : Visualizzatore<Cliente>
     {
 
+        private IComparer<Cliente> _comparatore;
+
         /// <summary>
         /// Costruttore di default
         /// </summary>
         /// <param name="collezioneClienti">Collezione di clienti da cui partire</param>
         /// <param name="filtroSuTuttiCampi">Funzione che dato un <see cref="Cliente"/> e data una <see cref="string"/> restituisce <c>true</c> o <c>false</c>.
         /// La funzione verrà usata in <see cref="ImpostaFiltroTuttiParametri(string)"/></param>
-        public VisualizzatoreCliente(CollezioneClienti collezioneClienti, Func<Cliente, string, bool> filtroSuTuttiCampi = null) : base(filtroSuTuttiCampi)
+        public VisualizzatoreCliente(CollezioneClienti collezioneClienti, Func<Cliente, string, bool> filtroSuTuttiCampi = null, IComparer<Cliente> comparatore = null) : base(filtroSuTuttiCampi)
         {
+            this._comparatore = comparatore;
+
             collezioneClienti.OnAggiunta += this.NuovoCliente;
             collezioneClienti.OnRimozione += this.RimossoCliente;
 
@@ -27,6 +31,8 @@ namespace IngegneriaDelSoftware.Controller
             {
                 base.Lista.Add(new OggettoVisualizzato<Cliente>(c, false));
             }
+            if (_comparatore != null)
+                base.Lista.Sort((x, y) => _comparatore.Compare(x.Oggetto, y.Oggetto));
         }
 
         #region Gestione eventi
@@ -38,6 +44,8 @@ namespace IngegneriaDelSoftware.Controller
         private void NuovoCliente(object sender, ArgsCliente e)
         {
             this.Lista.Add(new OggettoVisualizzato<Cliente>(e.Cliente, false));
+            if (_comparatore != null)
+                base.Lista.Sort((x, y) => _comparatore.Compare(x.Oggetto, y.Oggetto));
         }
         #endregion
 
@@ -50,6 +58,21 @@ namespace IngegneriaDelSoftware.Controller
         {
             return base.Prossimo();
         }
+
+        /// <summary>
+        /// Imposta un nuovo comparatore che permette di dare una logica diversa di ordinamento. L'invocazione di questo metodo comporta in automatico l'invocazione di <see cref="Visualizzatore{T}.Reset"/>
+        /// </summary>
+        /// <param name="comparatore">Nuova logica di ordinamento degli elementi</param>
+        public void ImpostaComparatore(IComparer<Cliente> comparatore)
+        {
+            if (comparatore == null)
+                return;
+
+            this._comparatore = comparatore;
+            base.Lista.Sort((x, y) => _comparatore.Compare(x.Oggetto, y.Oggetto));
+            this.Reset();
+        }
+
         #endregion
     }
 
