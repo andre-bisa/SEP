@@ -8,7 +8,7 @@ using IngegneriaDelSoftware.Persistenza.Dao;
 
 namespace IngegneriaDelSoftware.Persistenza.MySQL
 {
-    public class MySQLPersonaDAO : PersonaDAO
+    public class MySQLPersonaDAO : IPersonaDAO
     {
         public bool Aggiorna(Persona personaVecchia, DatiPersona datiPersona)
         {

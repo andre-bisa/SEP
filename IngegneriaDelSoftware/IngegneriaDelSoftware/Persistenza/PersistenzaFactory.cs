@@ -23,9 +23,9 @@ namespace IngegneriaDelSoftware.Persistenza
             return null;
         }
 
-        public abstract ClienteDAO GetClienteDAO();
+        public abstract IClienteDAO GetClienteDAO();
 
-        public abstract PersonaDAO GetPersonaDAO();
+        public abstract IPersonaDAO GetPersonaDAO();
 
     }
 }

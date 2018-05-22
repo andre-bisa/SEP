@@ -107,8 +107,8 @@
     <Compile Include="Model\VoceFattura.cs" />
     <Compile Include="Model\VocePreventivo.cs" />
     <Compile Include="Model\VoceVendita.cs" />
-    <Compile Include="Persistenza\Dao\ClienteDAO.cs" />
-    <Compile Include="Persistenza\Dao\PersonaDAO.cs" />
+    <Compile Include="Persistenza\Dao\IClienteDAO.cs" />
+    <Compile Include="Persistenza\Dao\IPersonaDAO.cs" />
     <Compile Include="Persistenza\EnumTipoPersistenza.cs" />
     <Compile Include="Persistenza\MySQL\MySQLClienteDAO.cs" />
     <Compile Include="Persistenza\MySQL\MySQLDaoFactory.cs" />

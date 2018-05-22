@@ -7,7 +7,7 @@ using IngegneriaDelSoftware.Model;
 
 namespace IngegneriaDelSoftware.Persistenza.Dao
 {
-    public interface PersonaDAO
+    public interface IPersonaDAO
     {
         void Crea(DatiPersona persona);
 

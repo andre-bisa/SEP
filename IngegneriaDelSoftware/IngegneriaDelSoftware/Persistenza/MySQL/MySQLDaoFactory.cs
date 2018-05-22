@@ -34,12 +34,12 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         }
 
         #region Getters della Factory
-        public override ClienteDAO GetClienteDAO()
+        public override IClienteDAO GetClienteDAO()
         {
             return new MySQLClienteDAO();
         }
 
-        public override PersonaDAO GetPersonaDAO()
+        public override IPersonaDAO GetPersonaDAO()
         {
             return new MySQLPersonaDAO();
         }
