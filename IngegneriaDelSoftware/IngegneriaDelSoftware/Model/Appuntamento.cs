@@ -62,15 +62,25 @@ namespace IngegneriaDelSoftware.Model
                    DataOra == appuntamento.DataOra;
         }
 
+        public override int GetHashCode()
+        {
+            var hashCode = -1334492624;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Oggetto);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Luogo);
+            hashCode = hashCode * -1521134295 + DataOra.GetHashCode();
+            return hashCode;
+        }
+
         public static bool operator ==(Appuntamento appuntamento1, Appuntamento appuntamento2)
         {
-            return EqualityComparer<Appuntamento>.Default.Equals(appuntamento1, appuntamento2);
+            return appuntamento1.Equals(appuntamento2);
         }
 
         public static bool operator !=(Appuntamento appuntamento1, Appuntamento appuntamento2)
         {
             return !(appuntamento1 == appuntamento2);
         }
+
         #endregion
 
     }
