@@ -38,7 +38,7 @@ namespace IngegneriaDelSoftware.Test
         }
 
         [Test]
-        public void TestRimuovi()
+        public void TestRimuoviCalendario()
         {
             Persona p2 = new PersonaFisica("s", "Via x", "Mario", "Verdi");
             DatiAppuntamento datiAppuntamento2 = new DatiAppuntamento(p2, "Riunione", "Milano", new DateTime(2018, 4, 30, 12, 0, 0));
@@ -48,7 +48,7 @@ namespace IngegneriaDelSoftware.Test
         }
 
         [Test]
-        public void TestAggiungi()
+        public void TestAggiungiCalendario()
         {
             Persona p = new PersonaFisica("s", "Via x", "Mario", "Rossi");
             DatiAppuntamento datiAppuntamento2 = new DatiAppuntamento(p, "Chiacchierare", "Bologna", new DateTime(2018, 4, 30, 12, 0, 0));
@@ -60,7 +60,7 @@ namespace IngegneriaDelSoftware.Test
         }
 
         [Test]
-        public void TestDaA()
+        public void TestCalendarioDaA()
         {
             List<Appuntamento> appuntamenti = _calendario.AppuntamentiDaA(new DateTime(2018, 3, 1, 0, 0, 0), DateTime.Now);
 

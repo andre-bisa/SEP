@@ -46,7 +46,7 @@ namespace IngegneriaDelSoftware.Test
         }
 
         [Test]
-        public void TestRimuovi()
+        public void TestRimuoviCollezioneClienti()
         {
             Persona p1 = new PersonaFisica("CF", "Indirizzo", "Nome", "Cognome", "P.IVA", null, null);
             Cliente c1 = new Cliente(p1, "ID1", null, EnumTipoCliente.Attivo, "Nota1");
@@ -55,7 +55,7 @@ namespace IngegneriaDelSoftware.Test
         }
 
         [Test]
-        public void TestAggiungi()
+        public void TestAggiungiCollezioneClienti()
         {
             Persona p = new PersonaFisica("s", "Via x", "Mario", "Rossi");
             Cliente c = new Cliente(p, "ID");

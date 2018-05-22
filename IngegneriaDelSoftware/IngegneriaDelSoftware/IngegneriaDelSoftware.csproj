@@ -109,6 +109,7 @@
     <Compile Include="Model\VoceVendita.cs" />
     <Compile Include="Test\TestCollezioneClienti.cs" />
     <Compile Include="Test\TestCalendario.cs" />
+    <Compile Include="Test\TestControllerClienti.cs" />
     <Compile Include="Test\TestFattura.cs" />
     <Compile Include="View\ClienteMostrato.cs" />
     <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />

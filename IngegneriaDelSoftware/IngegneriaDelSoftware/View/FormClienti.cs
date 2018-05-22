@@ -44,7 +44,7 @@ namespace IngegneriaDelSoftware.View
             // Funzione che permette di effettuare la ricerca per tutti i campi
             var ricercaTuttiParametri = new Func<Cliente, string, bool>((cliente, stringa) =>
             {
-                return cliente.IDCliente.Contains(stringa) || cliente.Persona.getDenominazione().Contains(stringa) || cliente.Referenti.Any(referente => referente.Nome.Contains(stringa));
+                return cliente.IDCliente.Contains(stringa) || cliente.Denominazione.Contains(stringa) || cliente.Referenti.Any(referente => referente.Nome.Contains(stringa));
             });
             this._visualizzatoreCliente = new VisualizzatoreCliente(controller.CollezioneClienti, ricercaTuttiParametri);
             this._controller = controller;
