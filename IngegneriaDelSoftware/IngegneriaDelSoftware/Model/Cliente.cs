@@ -64,6 +64,17 @@ namespace IngegneriaDelSoftware.Model
                 return _datiCliente.Referenti;
             }
         }
+
+        /// <summary>
+        /// Restituisce il nome del cliente indistintamente tra PersonaFisica o PersonaGiuridica
+        /// </summary>
+        public string Denominazione
+        {
+            get
+            {
+                return this.Persona.getDenominazione();
+            }
+        }
         #endregion
 
         #region "Costruttori"
