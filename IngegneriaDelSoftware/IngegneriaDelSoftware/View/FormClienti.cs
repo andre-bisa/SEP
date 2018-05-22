@@ -41,7 +41,12 @@ namespace IngegneriaDelSoftware.View
 
         public FormClienti(ControllerClienti controller): this()
         {
-            this._visualizzatoreCliente = new VisualizzatoreCliente(controller.CollezioneClienti);
+            // Funzione che permette di effettuare la ricerca per tutti i campi
+            var ricercaTuttiParametri = new Func<Cliente, string, bool>((cliente, stringa) =>
+            {
+                return cliente.IDCliente.Contains(stringa) || cliente.Persona.getDenominazione().Contains(stringa) || cliente.Referenti.Any(referente => referente.Nome.Contains(stringa));
+            });
+            this._visualizzatoreCliente = new VisualizzatoreCliente(controller.CollezioneClienti, ricercaTuttiParametri);
             this._controller = controller;
 
             _controller.CollezioneClienti.OnRimozione += this.RimossoCliente;
@@ -63,9 +68,6 @@ namespace IngegneriaDelSoftware.View
             }
         }
 
-        /// <summary>
-        /// Funzione che aggiunge sulla form un cliente
-        /// </summary>
         [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.Synchronized)]
         private void CaricaClienteSullaForm()
         {
@@ -101,31 +103,17 @@ namespace IngegneriaDelSoftware.View
 
         #endregion
 
-        /// <summary>
-        /// Funzione che effettua il filtraggio dei clienti
-        /// </summary>
         private void RicercaTraClienti()
         {
-            Predicate<Cliente> filtro;
+            this._visualizzatoreCliente.ImpostaFiltroTuttiParametri(txtSearchBar.Text.Trim());
 
-            if (txtSearchBar.Text.Trim() == "")
-            {
-                filtro = new Predicate<Cliente>(c => true);
-            }
-            else
-            {
-                filtro = new Predicate<Cliente>(c => c.Persona.getDenominazione().Contains(txtSearchBar.Text.Trim()));
-            }
-
-            this._visualizzatoreCliente.ImpostaFiltro(filtro);
-
-            var queryTriplaClientiDaRimuovere =
+            var queryClientiDaRimuovere =
                 (from tripla in this._clientiCaricati
-                 where !filtro.Invoke(tripla.Cliente)    // dove il filtro non è applicabile
+                 where ! this._visualizzatoreCliente.Visualizzabile(tripla.Cliente)    // dove i clienti non devono essere visualizzati
                  select tripla
                  );
 
-            foreach (ClienteMostrato<PannelloCliente> cliente in new List<ClienteMostrato<PannelloCliente>>(queryTriplaClientiDaRimuovere))
+            foreach (ClienteMostrato<PannelloCliente> cliente in new List<ClienteMostrato<PannelloCliente>>(queryClientiDaRimuovere))
             {
                 this.flowClienti.Controls.Remove(cliente.DoveMostrato);
                 this._clientiCaricati.Remove(cliente);

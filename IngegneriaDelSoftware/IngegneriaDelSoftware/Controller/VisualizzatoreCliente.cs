@@ -12,7 +12,13 @@ namespace IngegneriaDelSoftware.Controller
     public class VisualizzatoreCliente : Visualizzatore<Cliente>
     {
 
-        public VisualizzatoreCliente(CollezioneClienti collezioneClienti)
+        /// <summary>
+        /// Costruttore di default
+        /// </summary>
+        /// <param name="collezioneClienti">Collezione di clienti da cui partire</param>
+        /// <param name="filtroSuTuttiCampi">Funzione che dato un <see cref="Cliente"/> e data una <see cref="string"/> restituisce <c>true</c> o <c>false</c>.
+        /// La funzione verrà usata in <see cref="ImpostaFiltroTuttiParametri(string)"/></param>
+        public VisualizzatoreCliente(CollezioneClienti collezioneClienti, Func<Cliente, string, bool> filtroSuTuttiCampi = null) : base(filtroSuTuttiCampi)
         {
             collezioneClienti.OnAggiunta += this.NuovoCliente;
             collezioneClienti.OnRimozione += this.RimossoCliente;
@@ -37,19 +43,9 @@ namespace IngegneriaDelSoftware.Controller
 
         #region Metodi pubblici
         /// <summary>
-        /// Imposta un filtro che cerca su tutti i campi di <see cref="Cliente"/>
+        /// Restituisce il prossimo <see cref="Cliente"/> da visualizzare, <c>null</c> se sono terminati i <see cref="Cliente"/>
         /// </summary>
-        /// <param name="stringaDaCercare">Stringa con il valore inserito</param>
-        public override void FiltraSuTuttiICampi(string stringaDaCercare)
-        {
-            ImpostaFiltro(new Predicate<Cliente>(c => c.IDCliente.Contains(stringaDaCercare)
-            || c.Persona.getDenominazione().Contains(stringaDaCercare) || c.Referenti.Any(r => r.Nome.Contains(stringaDaCercare))));
-        }
-
-        /// <summary>
-        /// Restituisce il prossimo cliente da visualizzare
-        /// </summary>
-        /// <returns></returns>
+        /// <returns>Il <see cref="Cliente"/>, <c>null</c> se sono terminati</returns>
         public Cliente ProssimoCliente()
         {
             return base.Prossimo();

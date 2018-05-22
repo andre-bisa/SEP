@@ -12,10 +12,17 @@ namespace IngegneriaDelSoftware.Controller
         protected List<OggettoVisualizzato<T>> Lista { get; } = new List<OggettoVisualizzato<T>>();
 
         protected Predicate<OggettoVisualizzato<T>> Filtro { get; private set; }
+        private Func<T, string, bool> _filtroTuttiCampi;
 
-        protected Visualizzatore()
+        /// <summary>
+        /// Costruttore di default
+        /// </summary>
+        /// <param name="filtroTuttiCampi">Funzione che dato un <see cref="T"/> e data una <see cref="string"/> restituisce <c>true</c> o <c>false</c>.
+        /// La funzione verrà usata in <see cref="ImpostaFiltroTuttiParametri(string)"/></param>
+        protected Visualizzatore(Func<T, string, bool> filtroTuttiCampi = null)
         {
-            Filtro = new Predicate<OggettoVisualizzato<T>>(c => true); // di base accetta tutto
+            Filtro = new Predicate<OggettoVisualizzato<T>>(o => true); // di base accetta tutto
+            this._filtroTuttiCampi = filtroTuttiCampi; // può essere null
         }
 
         /// <summary>
@@ -31,13 +38,32 @@ namespace IngegneriaDelSoftware.Controller
 
         #region Metodi pubblici
         /// <summary>
-        /// Imposta un filtro che cerca su tutti i campi di <see cref="T"/>
+        /// Funzione che dice se l'oggetto è positivo o meno al filtro impostato.
         /// </summary>
-        /// <param name="stringaDaCercare">Stringa con il valore inserito</param>
-        public abstract void FiltraSuTuttiICampi(string stringaDaCercare);
+        /// <param name="oggetto">Oggetto su cui testare il filtro</param>
+        /// <returns>true se l'oggetto è positivo al filtro impostato</returns>
+        public bool Visualizzabile(T oggetto)
+        {
+            OggettoVisualizzato<T> mockOggettoVisualizzato = new OggettoVisualizzato<T>(oggetto, false);
+            return this.Filtro.Invoke(mockOggettoVisualizzato);
+        }
 
         /// <summary>
-        /// Imposta il nuovo filtro per i <see cref="T"/>.
+        /// Imposta un filtro che cerca su tutti i campi. Si basa sulla funzione passata al costruttore
+        /// </summary>
+        /// <param name="stringaDaCercare">Stringa con il valore inserito</param>
+        public void ImpostaFiltroTuttiParametri(string stringaDaCercare)
+        {
+            if (this._filtroTuttiCampi == null)
+                return;
+            if (stringaDaCercare.Length != 0)
+                ImpostaFiltro(new Predicate<T>(t => this._filtroTuttiCampi.Invoke(t, stringaDaCercare)));
+            else
+                ImpostaFiltro(new Predicate<T>(t => true));
+        }
+
+        /// <summary>
+        /// Imposta il nuovo filtro.
         /// N.B. NON verranno riproposti i clienti già dati con <see cref="Prossimo"/>, per vedere tutti gli oggetti utilizzare <see cref="Reset"/>
         /// </summary>
         /// <param name="filtro">Nuovo filtro che verrà applicato agli oggetti</param>
@@ -62,9 +88,9 @@ namespace IngegneriaDelSoftware.Controller
         }
 
         /// <summary>
-        /// Restituisce il prossimo oggetto da visualizzare
+        /// Restituisce il prossimo <see cref="T"/> da visualizzare, <c>default(T)</c> se sono terminati i <see cref="T"/>
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Il <see cref="T"/>, <c>default(T)</c> se sono terminati</returns>
         public T Prossimo()
         {
             foreach (OggettoVisualizzato<T> oggetto in this.Lista.FindAll(this.Filtro))

@@ -23,6 +23,7 @@ namespace IngegneriaDelSoftware.View
         private VisualizzatoreCliente _visualizzatore;
 
         private List<ClienteMostrato<SchedaCliente>> _clientiCaricati = new List<ClienteMostrato<SchedaCliente>>();
+        private int quantiClientiMostrare;
 
         #region "Costruttore"
         protected FormEmail()
@@ -31,12 +32,27 @@ namespace IngegneriaDelSoftware.View
 
             flowClienti.Scroll += (s, e) => HandleScroll();
             flowClienti.MouseWheel += (s, e) => HandleScroll();
+            txtSearchBar.KeyDown += (sender, e) =>
+            {
+                if (e.KeyCode == System.Windows.Forms.Keys.Enter)
+                {
+                    RicercaTraClienti();
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
+            };
         }
 
         public FormEmail(ControllerClienti controller) : this()
         {
             this._controller = controller;
-            this._visualizzatore = new VisualizzatoreCliente(controller.CollezioneClienti);
+
+            // Funzione che permette di effettuare la ricerca per tutti i campi
+            var ricercaTuttiParametri = new Func<Cliente, string, bool>((cliente, stringa) =>
+            {
+                return cliente.IDCliente.Contains(stringa) || cliente.Persona.getDenominazione().Contains(stringa) || cliente.Referenti.Any(referente => referente.Nome.Contains(stringa));
+            });
+            this._visualizzatore = new VisualizzatoreCliente(controller.CollezioneClienti, ricercaTuttiParametri);
 
             this._controller.CollezioneClienti.OnRimozione += this.RimossoCliente;
         }
@@ -64,7 +80,13 @@ namespace IngegneriaDelSoftware.View
         /// <param name="quanti">Quanti clienti mostrare</param>
         private void RiempiSchedeClienti(int quanti)
         {
-            for (int i = 0; i < quanti; i++)
+            this.quantiClientiMostrare += quanti;
+            CaricaClientiMancanti();
+        }
+
+        private void CaricaClientiMancanti()
+        {
+            for (int i = this._clientiCaricati.Count; i < this.quantiClientiMostrare; i++)
             {
                 CaricaSchedaCliente();
             }
@@ -105,6 +127,31 @@ namespace IngegneriaDelSoftware.View
                 CaricaSchedaCliente();
             }
         }
+
+        private void RicercaTraClienti()
+        {
+            this._visualizzatore.ImpostaFiltroTuttiParametri(txtSearchBar.Text.Trim());
+
+            var queryClientiDaRimuovere =
+                (from tripla in this._clientiCaricati
+                 where !this._visualizzatore.Visualizzabile(tripla.Cliente)    // dove i clienti non devono essere visualizzati
+                 select tripla
+                 );
+
+            foreach (ClienteMostrato<SchedaCliente> cliente in new List<ClienteMostrato<SchedaCliente>>(queryClientiDaRimuovere))
+            {
+                this.flowClienti.Controls.Remove(cliente.DoveMostrato);
+                this._clientiCaricati.Remove(cliente);
+            }
+
+            CaricaClientiMancanti();
+        }
+
+        private void PictureBox1_Click(object sender, EventArgs e)
+        {
+            RicercaTraClienti();
+        }
+
     }
 
 }
