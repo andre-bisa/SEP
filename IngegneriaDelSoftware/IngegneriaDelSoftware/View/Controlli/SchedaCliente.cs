@@ -31,6 +31,7 @@ namespace IngegneriaDelSoftware.View.Controlli
 
         private Cliente _cliente;
         private bool _selected = false;
+        private Impostazioni _impostazioni = new Impostazioni();
         #endregion
 
         /// <summary>
@@ -49,7 +50,6 @@ namespace IngegneriaDelSoftware.View.Controlli
             }
         }
 
-        
         /// <summary>
         /// Dice se la scheda è selezionata.
         /// </summary>
@@ -61,11 +61,11 @@ namespace IngegneriaDelSoftware.View.Controlli
                 _selected = value;
                 if (Selected)
                 {
-                    this.BackColor = System.Drawing.Color.LightCyan;
+                    this.BackColor = Color.LightBlue;
                 }
                 else
                 {
-                    this.BackColor = System.Drawing.SystemColors.Info;
+                    this.BackColor = _impostazioni.ColoreCliente(Cliente.TipoCliente);
                 }
                 LanciaEvento(ModificataSelezione);
             }
@@ -143,6 +143,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         private void CaricaClienteSuForm()
         {
             lblIndirizzo.Text = Cliente.Persona.Indirizzo;
+            lblEmail.Text = Cliente.Persona.Email.ToString();
             if (Cliente.Persona.TipoPersona == EnumTipoPersona.Fisica)
             {
                 PersonaFisica personaFisica = (PersonaFisica)Cliente.Persona;
@@ -153,6 +154,8 @@ namespace IngegneriaDelSoftware.View.Controlli
                 PersonaGiuridica personaGiuridica = (PersonaGiuridica)Cliente.Persona;
                 lblDenominazione.Text = personaGiuridica.RagioneSociale;
             }
+
+            this.BackColor = _impostazioni.ColoreCliente(Cliente.TipoCliente);
         }
         #endregion
 

@@ -40,7 +40,7 @@ namespace IngegneriaDelSoftware.Model
         #region ToString()
         public override string ToString()
         {
-            return String.Format("Numero: {0} \nNota: {1}", Numero, Nota);
+            return Numero;
         }
         #endregion
 
@@ -59,5 +59,6 @@ namespace IngegneriaDelSoftware.Model
         {
             return -1449941195 + EqualityComparer<string>.Default.GetHashCode(Numero);
         }
+
     }
 }

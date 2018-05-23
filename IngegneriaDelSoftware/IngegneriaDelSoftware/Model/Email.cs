@@ -39,7 +39,7 @@ namespace IngegneriaDelSoftware.Model
         #region ToString()
         public override string ToString()
         {
-            return String.Format("Indirizzo: {0} \nNota: {1}", Indirizzo, Nota);
+            return Indirizzo;
         }
         #endregion
 

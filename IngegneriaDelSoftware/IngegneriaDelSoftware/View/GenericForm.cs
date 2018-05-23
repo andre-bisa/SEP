@@ -96,7 +96,7 @@ namespace IngegneriaDelSoftware.View {
         ///  <exception cref="ArgumentException"></exception>
         public GenericForm(TipoForm tipo, bool provvigione = false) {
             if(tipo != TipoForm.VENDITE && provvigione) {
-                throw new ArgumentException("Sono una form di tipo VENDITE può avere il campo provvigione settato a true");
+                throw new ArgumentException("Solo una form di tipo VENDITE può avere il campo provvigione settato a true");
             }
             // Settato a 1 perchè 0 è l'intestazione;
             this._numeroInserimentoRigheVoci = 1;
@@ -113,25 +113,25 @@ namespace IngegneriaDelSoftware.View {
             _quantitaLabel.Width = 50;
 
             //Crea il pannello delle voci;
-            this.ValoriPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.ValoriPanel = new TableLayoutPanel();
             this.ValoriPanel.AutoScroll = true;
             this.ValoriPanel.ColumnCount = 5;
             //Stili delle colonne;
-            this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
-            this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.AutoSize));
-            this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
-            this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.ValoriPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 80F));
+            this.ValoriPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+            this.ValoriPanel.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
+            this.ValoriPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
+            this.ValoriPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 50F));
             //Aggiunge le label;
             this.ValoriPanel.Controls.Add(this.CausaleLabel, 2, 0);
             this.ValoriPanel.Controls.Add(this.ImportoLabel, 3, 0);
             this.ValoriPanel.Controls.Add(this._quantitaLabel, 4, 0);
             this.ValoriPanel.Controls.Add(this.TipologiaLabel, 1, 0);
-            this.ValoriPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ValoriPanel.Dock = DockStyle.Fill;
             this.ValoriPanel.Location = new System.Drawing.Point(373, 102);
             this.ValoriPanel.Name = "ValoriPanel";
             this.ValoriPanel.RowCount = 1;
-            this.ValoriPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.ValoriPanel.RowStyles.Add(new RowStyle());
             this.ValoriPanel.TabIndex = 0;
             this.ValoriPanel.Visible = false;
             //Aggiunge il controllo;
@@ -150,7 +150,7 @@ namespace IngegneriaDelSoftware.View {
                 //Crea un nuova colonna;
                 this.ValoriPanel.ColumnCount += 1;
                 //Aggiungi uno stile per la colonna;
-                this.ValoriPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+                this.ValoriPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
                 //Aggiungi una label per la colonna;
                 _provvigioneLabel = new MaterialSkin.Controls.MaterialLabel();
                 //Testo della label;

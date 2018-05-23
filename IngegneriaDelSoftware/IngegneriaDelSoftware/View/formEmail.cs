@@ -19,11 +19,17 @@ namespace IngegneriaDelSoftware.View
 {
     public partial class FormEmail : MaterialForm
     {
-        private ControllerClienti _controller;
+        private ControllerInviaMail _controllerInviaMail = new ControllerInviaMail();
+
+        private ControllerClienti _controllerClienti;
         private VisualizzatoreCliente _visualizzatore;
 
         private List<ClienteMostrato<SchedaCliente>> _clientiCaricati = new List<ClienteMostrato<SchedaCliente>>();
         private int quantiClientiMostrare;
+
+        private List<Email> _indirizziACuiMandare = new List<Email>();
+
+        private CollezioneEmailInviate _emailInviate = CollezioneEmailInviate.GetInstance();
 
         #region "Costruttore"
         protected FormEmail()
@@ -45,7 +51,7 @@ namespace IngegneriaDelSoftware.View
 
         public FormEmail(ControllerClienti controller) : this()
         {
-            this._controller = controller;
+            this._controllerClienti = controller;
 
             // Funzione che permette di effettuare la ricerca per tutti i campi
             var ricercaTuttiParametri = new Func<Cliente, string, bool>((cliente, stringa) =>
@@ -54,7 +60,7 @@ namespace IngegneriaDelSoftware.View
             });
             this._visualizzatore = new VisualizzatoreCliente(controller.CollezioneClienti, ricercaTuttiParametri);
 
-            this._controller.CollezioneClienti.OnRimozione += this.RimossoCliente;
+            this._controllerClienti.CollezioneClienti.OnRimozione += this.RimossoCliente;
         }
         #endregion
 
@@ -64,14 +70,36 @@ namespace IngegneriaDelSoftware.View
         /// </summary>
         private void CaricaSchedaCliente()
         {
-            Cliente clienteDaMostrare = _visualizzatore.ProssimoCliente();
+            Cliente clienteDaMostrare;
+
+            do // Non mostro i clienti che non hanno indirizzi Email
+            {
+                clienteDaMostrare = _visualizzatore.ProssimoCliente();
+            } while (clienteDaMostrare != null && clienteDaMostrare.Persona.Email.Count == 0);
+
             if (clienteDaMostrare == null)
                 return;
 
-            SchedaCliente schedaCliente = new SchedaCliente(_controller, clienteDaMostrare, this.panelForm);
+            SchedaCliente schedaCliente = new SchedaCliente(_controllerClienti, clienteDaMostrare, this.panelForm);
+            schedaCliente.ModificataSelezione += ModificataSelezione;
             this.flowClienti.Controls.Add(schedaCliente);
             this._clientiCaricati.Add(new ClienteMostrato<SchedaCliente>(clienteDaMostrare, schedaCliente, false));
 
+        }
+
+        private void ModificataSelezione(object sender, ArgsSchedaCliente e)
+        {
+            if (e.SchedaCliente.Selected)
+            {
+                this._indirizziACuiMandare.AddRange(e.Cliente.Persona.Email);
+            }
+            else
+            {
+                foreach (Email email in e.Cliente.Persona.Email)
+                {
+                    this._indirizziACuiMandare.Remove(email);
+                }
+            }
         }
 
         /// <summary>
@@ -93,10 +121,23 @@ namespace IngegneriaDelSoftware.View
         }
         #endregion
 
+        #region Carica email in lista
+        private void CaricaEmailNellaLista()
+        {
+            foreach (MailInviata email in this._emailInviate)
+            {
+                string[] row = { email.Data.ToString(), email.Oggetto, email.Email, email.Corpo };
+                ListViewItem item = new ListViewItem(row);
+                this.listMailInviate.Items.Add(item);
+            }
+        }
+        #endregion
+
         private void FormEmail_Load(object sender, EventArgs e)
         {
             // Carico il numero di clienti che possono essere visti in base alle dimensioni dello schermo
             RiempiSchedeClienti(Screen.FromControl(this).Bounds.Height / SchedaCliente.AltezzaSchedaClienti() + 1);
+            CaricaEmailNellaLista();
         }
 
         /// <summary>
@@ -152,6 +193,17 @@ namespace IngegneriaDelSoftware.View
             RicercaTraClienti();
         }
 
+        private void btnAnnulla_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnInvia_Click(object sender, EventArgs e)
+        {
+            bool mandate = this._controllerInviaMail.InviaMail(DateTime.Now, txtOggetto.Text.Trim(), txtCorpo.Text, this._indirizziACuiMandare);
+            if (mandate)
+                MessageBox.Show("Mail inviata con successo.");
+        }
     }
 
 }

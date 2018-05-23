@@ -98,7 +98,7 @@ namespace IngegneriaDelSoftware.Model
 
         public override string ToString()
         {
-            return String.Join("\n", this._referenti);
+            return String.Join(",", this._referenti);
         }
     }
 }

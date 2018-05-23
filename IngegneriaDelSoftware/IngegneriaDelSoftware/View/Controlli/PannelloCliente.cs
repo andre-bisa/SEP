@@ -25,6 +25,7 @@ namespace IngegneriaDelSoftware.View.Controlli
 
         private Cliente _cliente;
         private bool _selected = false;
+        private Impostazioni _impostazioni = new Impostazioni();
         #endregion
 
         public Cliente Cliente {
@@ -46,9 +47,9 @@ namespace IngegneriaDelSoftware.View.Controlli
                 _selected = value;
                 if ( Selected )
                 {
-                    this.BackColor = System.Drawing.Color.LightCyan;
+                    this.BackColor = System.Drawing.Color.LightBlue;
                 } else {
-                    this.BackColor = System.Drawing.SystemColors.Info;
+                    this.BackColor = _impostazioni.ColoreCliente(Cliente.TipoCliente);
                 }
                 LanciaEvento(ModificataSelezione);
             }
@@ -123,13 +124,18 @@ namespace IngegneriaDelSoftware.View.Controlli
         {
             lblIndirizzo.Text = Cliente.Persona.Indirizzo;
             lblDenominazione.Text = Cliente.Persona.getDenominazione();
+            lblEmail.Text = Cliente.Persona.Email.ToString();
+            lblTelefoni.Text = Cliente.Persona.Telefoni.ToString();
+            lblReferenti.Text = Cliente.Referenti.ToString();
 
             lblReferenti.Text = "";
             foreach (Referente referente in Cliente.Referenti)
             {
                 lblReferenti.Text += referente.Nome;
             }
-        }
+
+            this.BackColor = _impostazioni.ColoreCliente(Cliente.TipoCliente);
+    }
 
         /// <summary>
         /// Funzione di gestione quando si effettua il click sul panel

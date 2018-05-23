@@ -49,7 +49,7 @@
             this.txtSearchBar = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.materialDivider1 = new MaterialSkin.Controls.MaterialDivider();
-            this.materialListView1 = new MaterialSkin.Controls.MaterialListView();
+            this.listMailInviate = new MaterialSkin.Controls.MaterialListView();
             this.ListaData = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ListaOggetto = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ListaDestinatario = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -151,6 +151,7 @@
             this.btnAnnulla.TabIndex = 5;
             this.btnAnnulla.Text = "Annulla";
             this.btnAnnulla.UseVisualStyleBackColor = true;
+            this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
             // 
             // btnInvia
             // 
@@ -168,6 +169,7 @@
             this.btnInvia.TabIndex = 4;
             this.btnInvia.Text = "Invia";
             this.btnInvia.UseVisualStyleBackColor = true;
+            this.btnInvia.Click += new System.EventHandler(this.btnInvia_Click);
             // 
             // txtCorpo
             // 
@@ -177,7 +179,7 @@
             this.txtCorpo.Location = new System.Drawing.Point(31, 104);
             this.txtCorpo.Multiline = true;
             this.txtCorpo.Name = "txtCorpo";
-            this.txtCorpo.Size = new System.Drawing.Size(494, 137);
+            this.txtCorpo.Size = new System.Drawing.Size(478, 137);
             this.txtCorpo.TabIndex = 3;
             // 
             // materialLabel2
@@ -208,7 +210,7 @@
             this.txtOggetto.SelectedText = "";
             this.txtOggetto.SelectionLength = 0;
             this.txtOggetto.SelectionStart = 0;
-            this.txtOggetto.Size = new System.Drawing.Size(495, 23);
+            this.txtOggetto.Size = new System.Drawing.Size(479, 23);
             this.txtOggetto.TabIndex = 1;
             this.txtOggetto.TabStop = false;
             this.txtOggetto.UseSystemPasswordChar = false;
@@ -330,35 +332,35 @@
             // 
             // panelMailInviate
             // 
-            panelMailInviate.Controls.Add(this.materialListView1);
+            panelMailInviate.Controls.Add(this.listMailInviate);
             panelMailInviate.Dock = System.Windows.Forms.DockStyle.Fill;
             panelMailInviate.Location = new System.Drawing.Point(3, 3);
             panelMailInviate.Name = "panelMailInviate";
             panelMailInviate.Size = new System.Drawing.Size(778, 295);
             panelMailInviate.TabIndex = 0;
             // 
-            // materialListView1
+            // listMailInviate
             // 
-            this.materialListView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.materialListView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listMailInviate.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.listMailInviate.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ListaData,
             this.ListaOggetto,
             this.ListaDestinatario,
             this.ListaCorpo});
-            this.materialListView1.Depth = 0;
-            this.materialListView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.materialListView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
-            this.materialListView1.FullRowSelect = true;
-            this.materialListView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.materialListView1.Location = new System.Drawing.Point(0, 0);
-            this.materialListView1.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialListView1.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialListView1.Name = "materialListView1";
-            this.materialListView1.OwnerDraw = true;
-            this.materialListView1.Size = new System.Drawing.Size(778, 295);
-            this.materialListView1.TabIndex = 0;
-            this.materialListView1.UseCompatibleStateImageBehavior = false;
-            this.materialListView1.View = System.Windows.Forms.View.Details;
+            this.listMailInviate.Depth = 0;
+            this.listMailInviate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listMailInviate.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
+            this.listMailInviate.FullRowSelect = true;
+            this.listMailInviate.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.listMailInviate.Location = new System.Drawing.Point(0, 0);
+            this.listMailInviate.MouseLocation = new System.Drawing.Point(-1, -1);
+            this.listMailInviate.MouseState = MaterialSkin.MouseState.OUT;
+            this.listMailInviate.Name = "listMailInviate";
+            this.listMailInviate.OwnerDraw = true;
+            this.listMailInviate.Size = new System.Drawing.Size(778, 295);
+            this.listMailInviate.TabIndex = 0;
+            this.listMailInviate.UseCompatibleStateImageBehavior = false;
+            this.listMailInviate.View = System.Windows.Forms.View.Details;
             // 
             // ListaData
             // 
@@ -435,7 +437,7 @@
 
         #endregion
         private System.Windows.Forms.Panel panelForm;
-        private MaterialSkin.Controls.MaterialListView materialListView1;
+        private MaterialSkin.Controls.MaterialListView listMailInviate;
         private System.Windows.Forms.ColumnHeader ListaData;
         private System.Windows.Forms.ColumnHeader ListaOggetto;
         private System.Windows.Forms.ColumnHeader ListaDestinatario;

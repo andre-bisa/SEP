@@ -22,6 +22,8 @@ namespace IngegneriaDelSoftware.View.Overlay
         public Cliente Cliente { get; private set; }
         private ControllerClienti _controller;
 
+        private Impostazioni _impostazioni = new Impostazioni();
+
         #region "Costruttori"
         /// <summary>
         /// Costruttore da usare per la creazione di un overlay vuoto. Utile per l'inserimento di un cliente.
@@ -76,7 +78,7 @@ namespace IngegneriaDelSoftware.View.Overlay
             EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo;
             DatiCliente datiCliente;
             List<Referente> listaReferenti = null;
-            string nota = "";
+            string nota = txtNote.Text;
 
             if (radioFisica.Checked)
             {
@@ -119,6 +121,32 @@ namespace IngegneriaDelSoftware.View.Overlay
             txtCodice.Text = Cliente.IDCliente;
             txtCodiceFiscale.Text = Cliente.Persona.CodiceFiscale;
             txtIndirizzo.Text = Cliente.Persona.Indirizzo;
+            txtNote.Text = Cliente.Nota;
+
+            // Carico Email
+            foreach (Email email in Cliente.Persona.Email)
+            {
+                string[] rows = { email.Indirizzo, email.Nota };
+                ListViewItem item = new ListViewItem(rows);
+                listEmail.Items.Add(item);
+            }
+
+            // Carico Telefoni
+            foreach (Telefono tel in Cliente.Persona.Telefoni)
+            {
+                string[] rows = { tel.Numero, tel.Nota };
+                ListViewItem item = new ListViewItem(rows);
+                listTelefoni.Items.Add(item);
+            }
+
+            // Carico Referenti
+            foreach (Referente referente in Cliente.Referenti)
+            {
+                string[] rows = { referente.Nome, referente.Nota };
+                ListViewItem item = new ListViewItem(rows);
+                listReferenti.Items.Add(item);
+            }
+
             if (Cliente.Persona.TipoPersona == EnumTipoPersona.Fisica)
             {
                 PersonaFisica personaFisica = (PersonaFisica) Cliente.Persona;
@@ -139,9 +167,54 @@ namespace IngegneriaDelSoftware.View.Overlay
             if (Cliente.TipoCliente == EnumTipoCliente.Ex)
                 checkEx.Checked = true;
             else if (Cliente.TipoCliente == EnumTipoCliente.Potenziale)
-                checkEx.Checked = true;
+                checkPotenziale.Checked = true;
+
+            // Disattivo scelte non valide
+            switch (Cliente.TipoCliente)
+            {
+                case EnumTipoCliente.Attivo:
+                    checkEx.Enabled = true;
+                    checkPotenziale.Enabled = false;
+                    break;
+                case EnumTipoCliente.Ex:
+                    checkPotenziale.Enabled = false;
+                    checkEx.Enabled = true;
+                    break;
+                case EnumTipoCliente.Potenziale:
+                    checkEx.Enabled = false;
+                    checkPotenziale.Enabled = true;
+                    break;
+            }
+
+            // Colore di sfondo
+            base.ColoreSfondo = this._impostazioni.ColoreCliente(Cliente.TipoCliente);
         }
         #endregion
 
+        private void checkPotenziale_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkPotenziale.Checked)
+            {
+                checkEx.Enabled = false;
+                checkEx.Checked = false;
+            }
+            else
+            {
+                checkEx.Enabled = true;
+            }
+        }
+
+        private void checkEx_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkEx.Checked)
+            {
+                checkPotenziale.Enabled = false;
+                checkPotenziale.Checked = false;
+            }
+            else
+            {
+                checkPotenziale.Enabled = true;
+            }
+        }
     }
 }

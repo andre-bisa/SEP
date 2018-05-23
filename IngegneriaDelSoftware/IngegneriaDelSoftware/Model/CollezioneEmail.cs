@@ -42,11 +42,12 @@ namespace IngegneriaDelSoftware.Model
         }
 
         /// <summary>
-        /// Svuota la lista
+        /// Funzione non utilizzabile. Lancia SEMPRE eccezione
         /// </summary>
+        /// <exception cref="InvalidOperationException">Viene lanciata SEMPRE</exception>
         public void Clear()
         {
-            ((ICollection<Email>)_email).Clear();
+            throw new InvalidOperationException("Errore. Operazione non valida. Non è possibile svuotare questa collezione.");
         }
 
         /// <summary>
@@ -98,7 +99,7 @@ namespace IngegneriaDelSoftware.Model
 
         public override string ToString()
         {
-            return String.Join("\n", this._email);
+            return String.Join(",", this._email);
         }
     }
 }
