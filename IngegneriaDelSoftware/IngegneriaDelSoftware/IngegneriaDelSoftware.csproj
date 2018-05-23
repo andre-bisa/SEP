@@ -121,6 +121,7 @@
     <Compile Include="Persistenza\Dao\IUtenteDAO.cs" />
     <Compile Include="Persistenza\Dao\IVenditaDAO.cs" />
     <Compile Include="Persistenza\EnumTipoPersistenza.cs" />
+    <Compile Include="Persistenza\ExceptionPersistenza.cs" />
     <Compile Include="Persistenza\MySQL\MySQLAppuntamentoDAO.cs" />
     <Compile Include="Persistenza\MySQL\MySQLClienteDAO.cs" />
     <Compile Include="Persistenza\MySQL\MySQLDaoFactory.cs" />

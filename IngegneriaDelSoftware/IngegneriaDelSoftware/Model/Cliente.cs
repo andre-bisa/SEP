@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IngegneriaDelSoftware.Model.ArgsEvent;
+using IngegneriaDelSoftware.Persistenza;
 
 namespace IngegneriaDelSoftware.Model
 {
     public class Cliente : IObservable<Cliente>
     {
         public event EventHandler<ArgsModifica<Cliente>> OnModifica;
+
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
 
         #region Campi privati
         private DatiCliente _datiCliente;
@@ -118,12 +121,19 @@ namespace IngegneriaDelSoftware.Model
         /// Funzione che permette di impostare i nuovi <see cref="DatiCliente"/>
         /// </summary>
         /// <param name="nuoviDati">Nuovi dati del cliente</param>
+        /// <exception cref="ExceptionPersistenza">Se si sono verificati errori con la persistenza</exception>
         public void CambiaDatiCliente(DatiCliente nuoviDati)
         {
             if (_datiCliente != nuoviDati)
             {
                 Cliente vecchioCliente = this.Clone();
                 this._datiCliente = nuoviDati;
+
+                if (! _persistenza.GetClienteDAO().Aggiorna(vecchioCliente, this))
+                { // se ci sono errori con la persistenza
+                    this._datiCliente = vecchioCliente._datiCliente; // recupero i dati utente che avevo prima
+                    throw new ExceptionPersistenza();
+                }
                 LanciaEvento(vecchioCliente);
             }
         }
