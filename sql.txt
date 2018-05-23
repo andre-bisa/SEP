@@ -1,0 +1,147 @@
+
+CREATE TRIGGER FATTURATRIGGERBU BEFORE UPDATE ON FATTURA
+    FOR EACH ROW
+    BEGIN
+        IF (TIPOAGENTE is not null and IDDATORELAVORO is not null)   or (TIPOAGENTE is null and IDDATORELAVORO is null) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
+CREATE TRIGGER FATTURATRIGGERBI BEFORE INSERT ON FATTURA
+    FOR EACH ROW
+    BEGIN
+        IF (TIPOAGENTE is not null and IDDATORELAVORO is not null)   or (TIPOAGENTE is null and IDDATORELAVORO is null) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
+
+CREATE TRIGGER FATTURATRIGGERBU BEFORE UPDATE ON FATTURA
+    FOR EACH ROW
+    BEGIN
+        IF (TIPOAGENTE is not null and IDCLIENTE is null)   or (TIPOAGENTE is null and IDCLIENTE is not null)   or (TIPOAGENTE is null and IDCLIENTE is null) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
+CREATE TRIGGER FATTURATRIGGERBI BEFORE INSERT ON FATTURA
+    FOR EACH ROW
+    BEGIN
+        IF (TIPOAGENTE is not null and IDCLIENTE is null)   or (TIPOAGENTE is null and IDCLIENTE is not null)   or (TIPOAGENTE is null and IDCLIENTE is null) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
+
+CREATE TRIGGER UTENTETRIGGERBU BEFORE UPDATE ON UTENTE
+    FOR EACH ROW
+    BEGIN
+        IF exists(select * from DATORE_LAVORO  where DATORE_LAVORO.IDUTENTE = IDUTENTE) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
+CREATE TRIGGER UTENTETRIGGERBI BEFORE INSERT ON UTENTE
+    FOR EACH ROW
+    BEGIN
+        IF exists(select * from DATORE_LAVORO  where DATORE_LAVORO.IDUTENTE = IDUTENTE) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
+
+CREATE TRIGGER UTENTETRIGGERBU BEFORE UPDATE ON UTENTE
+    FOR EACH ROW
+    BEGIN
+        IF (NOME is not null and COGNOME is not null)   or (NOME is null and COGNOME is null) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
+CREATE TRIGGER UTENTETRIGGERBI BEFORE INSERT ON UTENTE
+    FOR EACH ROW
+    BEGIN
+        IF (NOME is not null and COGNOME is not null)   or (NOME is null and COGNOME is null) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
+
+CREATE TRIGGER UTENTETRIGGERBU BEFORE UPDATE ON UTENTE
+    FOR EACH ROW
+    BEGIN
+        IF (NOME is not null and COGNOME is not null and PROVVIGIONE_DEFAULT is not null)   or (NOME is null and COGNOME is null and PROVVIGIONE_DEFAULT is null) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
+CREATE TRIGGER UTENTETRIGGERBI BEFORE INSERT ON UTENTE
+    FOR EACH ROW
+    BEGIN
+        IF (NOME is not null and COGNOME is not null and PROVVIGIONE_DEFAULT is not null)   or (NOME is null and COGNOME is null and PROVVIGIONE_DEFAULT is null) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
+
+CREATE TRIGGER UTENTETRIGGERBU BEFORE UPDATE ON UTENTE
+    FOR EACH ROW
+    BEGIN
+        IF (RAGIONE_SOCIALE is not null and SEDE_LEGALE is not null)   or (RAGIONE_SOCIALE is null and SEDE_LEGALE is null) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
+CREATE TRIGGER UTENTETRIGGERBI BEFORE INSERT ON UTENTE
+    FOR EACH ROW
+    BEGIN
+        IF (RAGIONE_SOCIALE is not null and SEDE_LEGALE is not null)   or (RAGIONE_SOCIALE is null and SEDE_LEGALE is null) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
+
+CREATE TRIGGER VENDITATRIGGERBU BEFORE UPDATE ON VENDITA
+    FOR EACH ROW
+    BEGIN
+        IF (TIPOAGENTE is not null and PROVVIGIONE is not null)   or (TIPOAGENTE is null and PROVVIGIONE is null) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
+CREATE TRIGGER VENDITATRIGGERBI BEFORE INSERT ON VENDITA
+    FOR EACH ROW
+    BEGIN
+        IF (TIPOAGENTE is not null and PROVVIGIONE is not null)   or (TIPOAGENTE is null and PROVVIGIONE is null) THEN
+            SIGNAL SQLSTATE '45000' 
+            SET MESSAGE_TEXT = "your error text;
+        END IF;
+    END;
+//
+
