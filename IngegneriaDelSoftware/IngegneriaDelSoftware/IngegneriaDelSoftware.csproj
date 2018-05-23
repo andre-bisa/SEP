@@ -139,7 +139,6 @@
     <Compile Include="Persistenza\PersistenzaFactory.cs" />
     <Compile Include="Persistenza\XML\XMLClienteDao.cs" />
     <Compile Include="Persistenza\XML\XMLDaoFactory.cs" />
-    <Compile Include="Persistenza\XML\XMLPersonaDao.cs" />
     <Compile Include="Test\TestCollezioneClienti.cs" />
     <Compile Include="Test\TestCalendario.cs" />
     <Compile Include="Test\TestControllerClienti.cs" />

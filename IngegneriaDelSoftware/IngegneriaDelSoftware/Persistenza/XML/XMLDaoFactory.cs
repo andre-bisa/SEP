@@ -47,8 +47,40 @@ namespace IngegneriaDelSoftware.Persistenza.XML {
             return new XMLClienteDao(this._clienteXMLFile);
         }
 
-        public override IPersonaDAO GetPersonaDAO() {
-            return new XMLPersonaDao(this._personaXMLFile);
+        public override IAppuntamentoDAO GetAppuntamentoDAO() {
+            throw new NotImplementedException();
+        }
+
+        public override IDatoreLavoroDAO GetDatoreLavoroDAO() {
+            throw new NotImplementedException();
+        }
+
+        public override IEsternoDAO GetEsternoDAO() {
+            throw new NotImplementedException();
+        }
+
+        public override IFatturaDAO GetFatturaDAO() {
+            throw new NotImplementedException();
+        }
+
+        public override IIntermediarioDAO GetIntermediarioDAO() {
+            throw new NotImplementedException();
+        }
+
+        public override IMailInviataDAO GetMailInviataDAO() {
+            throw new NotImplementedException();
+        }
+
+        public override IPreventivoDAO GetPreventivoDAO() {
+            throw new NotImplementedException();
+        }
+
+        public override IUtenteDAO GetUtenteDAO() {
+            throw new NotImplementedException();
+        }
+
+        public override IVenditaDAO GetVenditaDAO() {
+            throw new NotImplementedException();
         }
     }
 }
