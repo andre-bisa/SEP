@@ -643,6 +643,7 @@
             this.checkPotenziale.TabIndex = 3;
             this.checkPotenziale.Text = "Potenziale";
             this.checkPotenziale.UseVisualStyleBackColor = true;
+            this.checkPotenziale.CheckedChanged += new System.EventHandler(this.checkPotenziale_CheckedChanged);
             // 
             // checkEx
             // 
@@ -661,6 +662,7 @@
             this.checkEx.TabIndex = 2;
             this.checkEx.Text = "Ex";
             this.checkEx.UseVisualStyleBackColor = true;
+            this.checkEx.CheckedChanged += new System.EventHandler(this.checkEx_CheckedChanged);
             // 
             // splitContainer5
             // 
@@ -913,7 +915,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Name = "OverlayCliente";
-            this.Size = new System.Drawing.Size(1043, 656);
+            this.Size = new System.Drawing.Size(1043, 612);
             splitContainer3.Panel1.ResumeLayout(false);
             splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(splitContainer3)).EndInit();

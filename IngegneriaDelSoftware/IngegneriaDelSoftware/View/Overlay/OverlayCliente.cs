@@ -22,6 +22,8 @@ namespace IngegneriaDelSoftware.View.Overlay
         public Cliente Cliente { get; private set; }
         private ControllerClienti _controller;
 
+        private Impostazioni _impostazioni = new Impostazioni();
+
         #region "Costruttori"
         /// <summary>
         /// Costruttore da usare per la creazione di un overlay vuoto. Utile per l'inserimento di un cliente.
@@ -165,8 +167,54 @@ namespace IngegneriaDelSoftware.View.Overlay
             if (Cliente.TipoCliente == EnumTipoCliente.Ex)
                 checkEx.Checked = true;
             else if (Cliente.TipoCliente == EnumTipoCliente.Potenziale)
-                checkEx.Checked = true;
+                checkPotenziale.Checked = true;
+
+            // Disattivo scelte non valide
+            switch (Cliente.TipoCliente)
+            {
+                case EnumTipoCliente.Attivo:
+                    checkEx.Enabled = true;
+                    checkPotenziale.Enabled = false;
+                    break;
+                case EnumTipoCliente.Ex:
+                    checkPotenziale.Enabled = false;
+                    checkEx.Enabled = true;
+                    break;
+                case EnumTipoCliente.Potenziale:
+                    checkEx.Enabled = false;
+                    checkPotenziale.Enabled = true;
+                    break;
+            }
+
+            // Colore di sfondo
+            base.ColoreSfondo = this._impostazioni.ColoreCliente(Cliente.TipoCliente);
         }
         #endregion
+
+        private void checkPotenziale_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkPotenziale.Checked)
+            {
+                checkEx.Enabled = false;
+                checkEx.Checked = false;
+            }
+            else
+            {
+                checkEx.Enabled = true;
+            }
+        }
+
+        private void checkEx_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkEx.Checked)
+            {
+                checkPotenziale.Enabled = false;
+                checkPotenziale.Checked = false;
+            }
+            else
+            {
+                checkPotenziale.Enabled = true;
+            }
+        }
     }
 }

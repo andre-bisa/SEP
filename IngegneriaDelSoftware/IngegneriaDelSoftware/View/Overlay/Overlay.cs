@@ -27,6 +27,19 @@ namespace IngegneriaDelSoftware.View.Overlay
             set { lblTitolo.Text = value; }
         }
 
+        public Color ColoreSfondo
+        {
+            get
+            {
+                return this.mainPanel.BackColor;
+            }
+            internal set
+            {
+                if (value != null)
+                    this.mainPanel.BackColor = value;
+            }
+        }
+
         private Panel _panelContainer;  // Pannello dove mostrare l'overlay
 
         #region "Costruttori"
