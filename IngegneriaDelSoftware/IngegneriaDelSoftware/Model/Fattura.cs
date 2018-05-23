@@ -12,7 +12,7 @@ namespace IngegneriaDelSoftware.Model {
         private enum Stato { UNLOCKED, LOCKED };
 
         #region Campi privati
-        private List<VoceFattura> _voci;
+        protected List<VoceFattura> _voci;
         private List<Vendita> _venditeDiProvenienza;
         private Stato _stato;
         private DatiFattura _datiFattura;

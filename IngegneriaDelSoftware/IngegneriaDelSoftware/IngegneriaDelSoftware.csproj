@@ -67,8 +67,10 @@
   <ItemGroup>
     <Compile Include="Controller\ControllerClienti.cs" />
     <Compile Include="Controller\OggettoVisualizzato.cs" />
+    <Compile Include="Controller\ScriptProvider.cs" />
     <Compile Include="Controller\Visualizzatore.cs" />
     <Compile Include="Controller\VisualizzatoreCliente.cs" />
+    <Compile Include="Librerie\ScriptInCSharp.cs" />
     <Compile Include="Model\Appuntamento.cs" />
     <Compile Include="Model\ArgsEvent\ArgsCliente.cs" />
     <Compile Include="Model\ArgsEvent\ArgsModifica.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Model\FatturaAgente.cs" />
     <Compile Include="Model\FatturaAzienda.cs" />
     <Compile Include="Model\FatturaLiberoProfessionista.cs" />
+    <Compile Include="Model\FatturaScripting.cs" />
     <Compile Include="Model\Impostazioni.cs" />
     <Compile Include="Model\Intermediario.cs" />
     <Compile Include="Model\IObservable.cs" />
@@ -114,10 +117,15 @@
     <Compile Include="Persistenza\MySQL\MySQLDaoFactory.cs" />
     <Compile Include="Persistenza\MySQL\MySQLPersonaDAO.cs" />
     <Compile Include="Persistenza\PersistenzaFactory.cs" />
+    <Compile Include="Persistenza\XML\XMLClienteDao.cs" />
+    <Compile Include="Persistenza\XML\XMLDaoFactory.cs" />
+    <Compile Include="Persistenza\XML\XMLPersonaDao.cs" />
     <Compile Include="Test\TestCollezioneClienti.cs" />
     <Compile Include="Test\TestCalendario.cs" />
     <Compile Include="Test\TestControllerClienti.cs" />
     <Compile Include="Test\TestFattura.cs" />
+    <Compile Include="Test\TestScripting.cs" />
+    <Compile Include="Test\TestXMLPersistenza.cs" />
     <Compile Include="View\ClienteMostrato.cs" />
     <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />
     <Compile Include="View\Controlli\ArgsSchedaCliente.cs" />
