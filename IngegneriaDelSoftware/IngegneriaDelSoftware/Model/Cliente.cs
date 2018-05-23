@@ -264,14 +264,16 @@ namespace IngegneriaDelSoftware.Model
 
             var cliente = (DatiCliente)obj;
             return IDCliente == cliente.IDCliente &&
-                   Nota == cliente.Nota;
+                   Nota == cliente.Nota &&
+                   TipoCliente == cliente.TipoCliente;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 337836863;
+            var hashCode = -358072698;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(IDCliente);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Nota);
+            hashCode = hashCode * -1521134295 + TipoCliente.GetHashCode();
             return hashCode;
         }
 

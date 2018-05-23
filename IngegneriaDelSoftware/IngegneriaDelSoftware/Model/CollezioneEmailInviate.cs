@@ -15,7 +15,7 @@ namespace IngegneriaDelSoftware.Model
         {
             for (int i = 0; i < 10; i++)
             {
-                this._email.Add(new MailInviata(i, new DateTime(2018, 5, i+1), "Oggetto" + i, "Corpo", "mail@mail.com"));
+                this._email.Add(new MailInviata(new DateTime(2018, 5, i+1), "Oggetto" + i, "Corpo", "mail@mail.com"));
             }
         }
 
