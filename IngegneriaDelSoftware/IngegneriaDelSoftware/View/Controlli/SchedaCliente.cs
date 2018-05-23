@@ -49,7 +49,6 @@ namespace IngegneriaDelSoftware.View.Controlli
             }
         }
 
-        
         /// <summary>
         /// Dice se la scheda è selezionata.
         /// </summary>
@@ -143,6 +142,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         private void CaricaClienteSuForm()
         {
             lblIndirizzo.Text = Cliente.Persona.Indirizzo;
+            lblEmail.Text = Cliente.Persona.Email.ToString();
             if (Cliente.Persona.TipoPersona == EnumTipoPersona.Fisica)
             {
                 PersonaFisica personaFisica = (PersonaFisica)Cliente.Persona;

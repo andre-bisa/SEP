@@ -25,6 +25,10 @@ namespace IngegneriaDelSoftware.View
         private List<ClienteMostrato<SchedaCliente>> _clientiCaricati = new List<ClienteMostrato<SchedaCliente>>();
         private int quantiClientiMostrare;
 
+        private List<Email> _indirizziACuiMandare = new List<Email>();
+
+        private CollezioneEmailInviate _emailInviate = CollezioneEmailInviate.GetInstance();
+
         #region "Costruttore"
         protected FormEmail()
         {
@@ -64,14 +68,36 @@ namespace IngegneriaDelSoftware.View
         /// </summary>
         private void CaricaSchedaCliente()
         {
-            Cliente clienteDaMostrare = _visualizzatore.ProssimoCliente();
+            Cliente clienteDaMostrare;
+
+            do // Non mostro i clienti che non hanno indirizzi Email
+            {
+                clienteDaMostrare = _visualizzatore.ProssimoCliente();
+            } while (clienteDaMostrare != null && clienteDaMostrare.Persona.Email.Count == 0);
+
             if (clienteDaMostrare == null)
                 return;
 
             SchedaCliente schedaCliente = new SchedaCliente(_controller, clienteDaMostrare, this.panelForm);
+            schedaCliente.ModificataSelezione += ModificataSelezione;
             this.flowClienti.Controls.Add(schedaCliente);
             this._clientiCaricati.Add(new ClienteMostrato<SchedaCliente>(clienteDaMostrare, schedaCliente, false));
 
+        }
+
+        private void ModificataSelezione(object sender, ArgsSchedaCliente e)
+        {
+            if (e.SchedaCliente.Selected)
+            {
+                this._indirizziACuiMandare.AddRange(e.Cliente.Persona.Email);
+            }
+            else
+            {
+                foreach (Email email in e.Cliente.Persona.Email)
+                {
+                    this._indirizziACuiMandare.Remove(email);
+                }
+            }
         }
 
         /// <summary>
@@ -93,10 +119,23 @@ namespace IngegneriaDelSoftware.View
         }
         #endregion
 
+        #region Carica email in lista
+        private void CaricaEmailNellaLista()
+        {
+            foreach (MailInviata email in this._emailInviate)
+            {
+                string[] row = { email.Data.ToString(), email.Oggetto, email.Email, email.Corpo };
+                ListViewItem item = new ListViewItem(row);
+                this.listMailInviate.Items.Add(item);
+            }
+        }
+        #endregion
+
         private void FormEmail_Load(object sender, EventArgs e)
         {
             // Carico il numero di clienti che possono essere visti in base alle dimensioni dello schermo
             RiempiSchedeClienti(Screen.FromControl(this).Bounds.Height / SchedaCliente.AltezzaSchedaClienti() + 1);
+            CaricaEmailNellaLista();
         }
 
         /// <summary>

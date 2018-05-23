@@ -76,7 +76,7 @@ namespace IngegneriaDelSoftware.View.Overlay
             EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo;
             DatiCliente datiCliente;
             List<Referente> listaReferenti = null;
-            string nota = "";
+            string nota = txtNote.Text;
 
             if (radioFisica.Checked)
             {
@@ -119,6 +119,32 @@ namespace IngegneriaDelSoftware.View.Overlay
             txtCodice.Text = Cliente.IDCliente;
             txtCodiceFiscale.Text = Cliente.Persona.CodiceFiscale;
             txtIndirizzo.Text = Cliente.Persona.Indirizzo;
+            txtNote.Text = Cliente.Nota;
+
+            // Carico Email
+            foreach (Email email in Cliente.Persona.Email)
+            {
+                string[] rows = { email.Indirizzo, email.Nota };
+                ListViewItem item = new ListViewItem(rows);
+                listEmail.Items.Add(item);
+            }
+
+            // Carico Telefoni
+            foreach (Telefono tel in Cliente.Persona.Telefoni)
+            {
+                string[] rows = { tel.Numero, tel.Nota };
+                ListViewItem item = new ListViewItem(rows);
+                listTelefoni.Items.Add(item);
+            }
+
+            // Carico Referenti
+            foreach (Referente referente in Cliente.Referenti)
+            {
+                string[] rows = { referente.Nome, referente.Nota };
+                ListViewItem item = new ListViewItem(rows);
+                listReferenti.Items.Add(item);
+            }
+
             if (Cliente.Persona.TipoPersona == EnumTipoPersona.Fisica)
             {
                 PersonaFisica personaFisica = (PersonaFisica) Cliente.Persona;
@@ -142,6 +168,5 @@ namespace IngegneriaDelSoftware.View.Overlay
                 checkEx.Checked = true;
         }
         #endregion
-
     }
 }

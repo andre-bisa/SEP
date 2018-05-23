@@ -31,7 +31,7 @@ namespace IngegneriaDelSoftware.View.Overlay
 
         #region "Costruttori"
 
-        protected Overlay()
+        private Overlay()
         {
             InitializeComponent();
             this.Dock = DockStyle.Fill;

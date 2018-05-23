@@ -123,6 +123,9 @@ namespace IngegneriaDelSoftware.View.Controlli
         {
             lblIndirizzo.Text = Cliente.Persona.Indirizzo;
             lblDenominazione.Text = Cliente.Persona.getDenominazione();
+            lblEmail.Text = Cliente.Persona.Email.ToString();
+            lblTelefoni.Text = Cliente.Persona.Telefoni.ToString();
+            lblReferenti.Text = Cliente.Referenti.ToString();
 
             lblReferenti.Text = "";
             foreach (Referente referente in Cliente.Referenti)

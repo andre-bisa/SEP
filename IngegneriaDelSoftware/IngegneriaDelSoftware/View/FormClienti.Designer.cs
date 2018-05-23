@@ -85,7 +85,7 @@
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 62F));
-            tableLayoutPanel1.Size = new System.Drawing.Size(798, 382);
+            tableLayoutPanel1.Size = new System.Drawing.Size(898, 732);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // panelSearchBar
@@ -93,9 +93,9 @@
             panelSearchBar.Controls.Add(panelTextboxSearchBar);
             panelSearchBar.Controls.Add(panelIconSearchBar);
             panelSearchBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelSearchBar.Location = new System.Drawing.Point(42, 3);
+            panelSearchBar.Location = new System.Drawing.Point(47, 3);
             panelSearchBar.Name = "panelSearchBar";
-            panelSearchBar.Size = new System.Drawing.Size(712, 30);
+            panelSearchBar.Size = new System.Drawing.Size(802, 30);
             panelSearchBar.TabIndex = 0;
             // 
             // panelTextboxSearchBar
@@ -104,7 +104,7 @@
             panelTextboxSearchBar.Dock = System.Windows.Forms.DockStyle.Fill;
             panelTextboxSearchBar.Location = new System.Drawing.Point(0, 0);
             panelTextboxSearchBar.Name = "panelTextboxSearchBar";
-            panelTextboxSearchBar.Size = new System.Drawing.Size(672, 30);
+            panelTextboxSearchBar.Size = new System.Drawing.Size(762, 30);
             panelTextboxSearchBar.TabIndex = 1;
             // 
             // txtSearchBar
@@ -122,7 +122,7 @@
             this.txtSearchBar.SelectedText = "";
             this.txtSearchBar.SelectionLength = 0;
             this.txtSearchBar.SelectionStart = 0;
-            this.txtSearchBar.Size = new System.Drawing.Size(666, 23);
+            this.txtSearchBar.Size = new System.Drawing.Size(756, 23);
             this.txtSearchBar.TabIndex = 10000;
             this.txtSearchBar.TabStop = false;
             this.txtSearchBar.UseSystemPasswordChar = false;
@@ -131,7 +131,7 @@
             // 
             panelIconSearchBar.Controls.Add(lblIconSearchBar);
             panelIconSearchBar.Dock = System.Windows.Forms.DockStyle.Right;
-            panelIconSearchBar.Location = new System.Drawing.Point(672, 0);
+            panelIconSearchBar.Location = new System.Drawing.Point(762, 0);
             panelIconSearchBar.Name = "panelIconSearchBar";
             panelIconSearchBar.Size = new System.Drawing.Size(40, 30);
             panelIconSearchBar.TabIndex = 0;
@@ -155,9 +155,9 @@
             // 
             panelMainContent.Controls.Add(splitMainContent);
             panelMainContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelMainContent.Location = new System.Drawing.Point(42, 39);
+            panelMainContent.Location = new System.Drawing.Point(47, 39);
             panelMainContent.Name = "panelMainContent";
-            panelMainContent.Size = new System.Drawing.Size(712, 278);
+            panelMainContent.Size = new System.Drawing.Size(802, 628);
             panelMainContent.TabIndex = 1;
             // 
             // splitMainContent
@@ -174,8 +174,8 @@
             // splitMainContent.Panel2
             // 
             splitMainContent.Panel2.Controls.Add(this.flowClienti);
-            splitMainContent.Size = new System.Drawing.Size(712, 278);
-            splitMainContent.SplitterDistance = 33;
+            splitMainContent.Size = new System.Drawing.Size(802, 628);
+            splitMainContent.SplitterDistance = 74;
             splitMainContent.TabIndex = 0;
             // 
             // panelControlli
@@ -185,7 +185,7 @@
             this.panelControlli.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControlli.Location = new System.Drawing.Point(0, 0);
             this.panelControlli.Name = "panelControlli";
-            this.panelControlli.Size = new System.Drawing.Size(712, 33);
+            this.panelControlli.Size = new System.Drawing.Size(802, 74);
             this.panelControlli.TabIndex = 0;
             // 
             // lblElimina
@@ -196,10 +196,10 @@
             this.lblElimina.Font = new System.Drawing.Font("Roboto", 11F);
             this.lblElimina.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblElimina.Image = global::IngegneriaDelSoftware.Properties.Resources.baseline_delete_black_18dp;
-            this.lblElimina.Location = new System.Drawing.Point(640, 0);
+            this.lblElimina.Location = new System.Drawing.Point(730, 0);
             this.lblElimina.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblElimina.Name = "lblElimina";
-            this.lblElimina.Size = new System.Drawing.Size(36, 33);
+            this.lblElimina.Size = new System.Drawing.Size(36, 74);
             this.lblElimina.TabIndex = 1;
             this.lblElimina.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblElimina.Click += new System.EventHandler(this.LblElimina_Click);
@@ -211,10 +211,10 @@
             this.lblOrdina.Font = new System.Drawing.Font("Roboto", 11F);
             this.lblOrdina.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblOrdina.Image = global::IngegneriaDelSoftware.Properties.Resources.baseline_filter_list_black_18dp;
-            this.lblOrdina.Location = new System.Drawing.Point(676, 0);
+            this.lblOrdina.Location = new System.Drawing.Point(766, 0);
             this.lblOrdina.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblOrdina.Name = "lblOrdina";
-            this.lblOrdina.Size = new System.Drawing.Size(36, 33);
+            this.lblOrdina.Size = new System.Drawing.Size(36, 74);
             this.lblOrdina.TabIndex = 0;
             this.lblOrdina.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblOrdina.Click += new System.EventHandler(this.LblOrdina_Click);
@@ -225,7 +225,7 @@
             this.flowClienti.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowClienti.Location = new System.Drawing.Point(0, 0);
             this.flowClienti.Name = "flowClienti";
-            this.flowClienti.Size = new System.Drawing.Size(712, 241);
+            this.flowClienti.Size = new System.Drawing.Size(802, 550);
             this.flowClienti.TabIndex = 0;
             // 
             // panelCaricaAltri
@@ -235,9 +235,9 @@
             panelCaricaAltri.Controls.Add(this.panel1);
             panelCaricaAltri.Controls.Add(this.materialFloatingActionButton1);
             panelCaricaAltri.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelCaricaAltri.Location = new System.Drawing.Point(42, 323);
+            panelCaricaAltri.Location = new System.Drawing.Point(47, 673);
             panelCaricaAltri.Name = "panelCaricaAltri";
-            panelCaricaAltri.Size = new System.Drawing.Size(712, 56);
+            panelCaricaAltri.Size = new System.Drawing.Size(802, 56);
             panelCaricaAltri.TabIndex = 2;
             // 
             // panel1
@@ -246,7 +246,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(656, 56);
+            this.panel1.Size = new System.Drawing.Size(746, 56);
             this.panel1.TabIndex = 2;
             // 
             // btnCaricaAltri
@@ -262,7 +262,7 @@
             this.btnCaricaAltri.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCaricaAltri.Name = "btnCaricaAltri";
             this.btnCaricaAltri.Primary = false;
-            this.btnCaricaAltri.Size = new System.Drawing.Size(656, 56);
+            this.btnCaricaAltri.Size = new System.Drawing.Size(746, 56);
             this.btnCaricaAltri.TabIndex = 0;
             this.btnCaricaAltri.Text = "Carica altri";
             this.btnCaricaAltri.UseVisualStyleBackColor = false;
@@ -275,7 +275,7 @@
             this.materialFloatingActionButton1.Depth = 0;
             this.materialFloatingActionButton1.Dock = System.Windows.Forms.DockStyle.Right;
             this.materialFloatingActionButton1.Icon = global::IngegneriaDelSoftware.Properties.Resources.ic_add_black_48dp;
-            this.materialFloatingActionButton1.Location = new System.Drawing.Point(656, 0);
+            this.materialFloatingActionButton1.Location = new System.Drawing.Point(746, 0);
             this.materialFloatingActionButton1.Mini = false;
             this.materialFloatingActionButton1.MouseState = MaterialSkin.MouseState.HOVER;
             this.materialFloatingActionButton1.Name = "materialFloatingActionButton1";
@@ -296,15 +296,16 @@
             this.panelForm.Location = new System.Drawing.Point(1, 64);
             this.panelForm.Margin = new System.Windows.Forms.Padding(0);
             this.panelForm.Name = "panelForm";
-            this.panelForm.Size = new System.Drawing.Size(798, 382);
+            this.panelForm.Size = new System.Drawing.Size(898, 732);
             this.panelForm.TabIndex = 1;
             // 
             // FormClienti
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(900, 800);
             this.Controls.Add(this.panelForm);
+            this.MinimumSize = new System.Drawing.Size(900, 800);
             this.Name = "FormClienti";
             this.Text = "Clienti";
             this.Shown += new System.EventHandler(this.FormClienti_Shown);
