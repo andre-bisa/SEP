@@ -63,7 +63,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
         public List<Cliente> LeggiTuttiClienti()
         {
-            throw new NotImplementedException();
+            return new List<Cliente>();
         }
     }
 }
