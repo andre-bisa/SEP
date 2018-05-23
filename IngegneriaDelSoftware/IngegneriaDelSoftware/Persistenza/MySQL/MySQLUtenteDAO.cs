@@ -8,24 +8,19 @@ using IngegneriaDelSoftware.Persistenza.Dao;
 
 namespace IngegneriaDelSoftware.Persistenza.MySQL
 {
-    public class MySQLPersonaDAO : IPersonaDAO
+    public class MySQLUtenteDAO : IUtenteDAO
     {
-        public bool Aggiorna(Persona personaVecchia, DatiPersona datiPersona, string ID)
+        public bool Aggiorna(Utente vecchia, Utente nuova)
         {
             throw new NotImplementedException();
         }
 
-        public void Crea(DatiPersona persona, string ID)
+        public bool Crea(Utente nuova)
         {
             throw new NotImplementedException();
         }
 
-        public bool Elimina(string ID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Persona Leggi(string ID)
+        public Utente Leggi(string ID)
         {
             throw new NotImplementedException();
         }

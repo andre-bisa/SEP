@@ -25,7 +25,23 @@ namespace IngegneriaDelSoftware.Persistenza
 
         public abstract IClienteDAO GetClienteDAO();
 
-        public abstract IPersonaDAO GetPersonaDAO();
+        public abstract IAppuntamentoDAO GetAppuntamentoDAO();
+
+        public abstract IDatoreLavoroDAO GetDatoreLavoroDAO();
+
+        public abstract IEsternoDAO GetEsternoDAO();
+
+        public abstract IFatturaDAO GetFatturaDAO();
+
+        public abstract IIntermediarioDAO GetIntermediarioDAO();
+
+        public abstract IMailInviataDAO GetMailInviataDAO();
+
+        public abstract IPreventivoDAO GetPreventivoDAO();
+
+        public abstract IUtenteDAO GetUtenteDAO();
+
+        public abstract IVenditaDAO GetVenditaDAO();
 
     }
 }
