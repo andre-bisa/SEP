@@ -51,5 +51,10 @@ namespace IngegneriaDelSoftware.Model
         {
             return 285249808 + EqualityComparer<string>.Default.GetHashCode(Nome);
         }
+
+        public override string ToString()
+        {
+            return Nome;
+        }
     }
 }

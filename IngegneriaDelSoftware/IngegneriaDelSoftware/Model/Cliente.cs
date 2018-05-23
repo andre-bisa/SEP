@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IngegneriaDelSoftware.Model.ArgsEvent;
+using IngegneriaDelSoftware.Persistenza;
 
 namespace IngegneriaDelSoftware.Model
 {
     public class Cliente : IObservable<Cliente>
     {
         public event EventHandler<ArgsModifica<Cliente>> OnModifica;
+
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
 
         #region Campi privati
         private DatiCliente _datiCliente;
@@ -87,7 +90,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="tipoCliente">Tipo del cliente. Default: Ativo</param>
         /// <param name="nota">Nota del cliente. Default: ""</param>
         /// /// <exception cref="ArgumentNullException"></exception>
-        public Cliente(Persona persona, string IDCliente, List<Referente> referenti = null, EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo, string nota = "")
+        public Cliente(Persona persona, string IDCliente, IEnumerable<Referente> referenti = null, EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo, string nota = "")
         {
             #region Controlli
             if(IDCliente == null)
@@ -108,7 +111,7 @@ namespace IngegneriaDelSoftware.Model
             persona.OnModifica += this.PersonaModificata;
         }
 
-        public Cliente(DatiCliente cliente, Persona persona) : this(persona, cliente.IDCliente, cliente.Referenti.ToList<Referente>(), cliente.TipoCliente, cliente.Nota)
+        public Cliente(DatiCliente cliente, Persona persona) : this(persona, cliente.IDCliente, cliente.Referenti, cliente.TipoCliente, cliente.Nota)
         {}
         #endregion
 
@@ -118,12 +121,19 @@ namespace IngegneriaDelSoftware.Model
         /// Funzione che permette di impostare i nuovi <see cref="DatiCliente"/>
         /// </summary>
         /// <param name="nuoviDati">Nuovi dati del cliente</param>
+        /// <exception cref="ExceptionPersistenza">Se si sono verificati errori con la persistenza</exception>
         public void CambiaDatiCliente(DatiCliente nuoviDati)
         {
             if (_datiCliente != nuoviDati)
             {
                 Cliente vecchioCliente = this.Clone();
                 this._datiCliente = nuoviDati;
+
+                if (! _persistenza.GetClienteDAO().Aggiorna(vecchioCliente, this))
+                { // se ci sono errori con la persistenza
+                    this._datiCliente = vecchioCliente._datiCliente; // recupero i dati utente che avevo prima
+                    throw new ExceptionPersistenza();
+                }
                 LanciaEvento(vecchioCliente);
             }
         }
@@ -264,14 +274,16 @@ namespace IngegneriaDelSoftware.Model
 
             var cliente = (DatiCliente)obj;
             return IDCliente == cliente.IDCliente &&
-                   Nota == cliente.Nota;
+                   Nota == cliente.Nota &&
+                   TipoCliente == cliente.TipoCliente;
         }
 
         public override int GetHashCode()
         {
-            var hashCode = 337836863;
+            var hashCode = -358072698;
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(IDCliente);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Nota);
+            hashCode = hashCode * -1521134295 + TipoCliente.GetHashCode();
             return hashCode;
         }
 

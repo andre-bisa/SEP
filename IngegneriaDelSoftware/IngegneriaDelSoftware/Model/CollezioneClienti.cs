@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IngegneriaDelSoftware.Model.ArgsEvent;
+using IngegneriaDelSoftware.Persistenza;
 
 namespace IngegneriaDelSoftware.Model
 {
@@ -15,8 +16,15 @@ namespace IngegneriaDelSoftware.Model
 
         private HashSet<Cliente> _clienti = new HashSet<Cliente>();
 
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
+
         #region Singleton
         private static CollezioneClienti _listaClienti = null;
+        /// <summary>
+        /// Funzioen che dà un'istanza della <see cref="CollezioneClienti"/>
+        /// </summary>
+        /// <returns>La collezione riempita con tutti i clienti</returns>
+        /// <exception cref="ExceptionPersistenza">Se si sono verificati errori nella persistenza</exception>
         public static CollezioneClienti GetInstance()
         {
             if (_listaClienti == null)
@@ -27,9 +35,21 @@ namespace IngegneriaDelSoftware.Model
 
         protected CollezioneClienti()
         {
+            try
+            {
+                foreach (Cliente c in _persistenza.GetClienteDAO().LeggiTuttiClienti())
+                {
+                    _clienti.Add(c);
+                }
+            } catch (Exception) { throw new ExceptionPersistenza(); }
+
+            // TODO REMOVE! mock
             for (int i = 0; i < 100; i++)
             {
-                _clienti.Add(new Cliente(new PersonaFisica("cf", "indirizzo" + i, "nome" + i, "cognome"), "ID" + i));
+                Telefono[] telefoni = { new Telefono( "0510000"+i, "Nota "+i) };
+                Email[] email = { new Email("indirizzo" + i + "@prova.com", "Nota" + i) };
+                Referente[] referenti = { new Referente("Ref" + i, "Nota" + i), new Referente("Ref2" + i, "Nota2" + i) };
+                _clienti.Add(new Cliente(new PersonaFisica("cf", "indirizzo" + i, "nome" + i, "cognome", "PIVA", telefoni, email), "ID" + i, referenti, EnumTipoCliente.Attivo, "Nota"+i));
             }
         }
 
@@ -54,6 +74,7 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="item">Cliente da aggiungere alla collezione</param>
         /// <exception cref="ArgumentNullException">Se il <see cref="Cliente"/> è nullo</exception>
+        /// <exception cref="ExceptionPersistenza">Se si sono verificati errori nella persistenza</exception>
         public void Add(Cliente item)
         {
             if (item == null)
@@ -61,8 +82,15 @@ namespace IngegneriaDelSoftware.Model
 
             if (!this._clienti.Contains(item))
             {
-                ((ICollection<Cliente>)_clienti).Add(item);
-                LanciaEvento(OnAggiunta, item);
+                if (_persistenza.GetClienteDAO().Crea(item))
+                {
+                    ((ICollection<Cliente>)_clienti).Add(item);
+                    LanciaEvento(OnAggiunta, item);
+                }
+                else
+                { // Se si sono verificati errori nella persistenza
+                    throw new ExceptionPersistenza();
+                }
             }
         }
 
@@ -90,13 +118,26 @@ namespace IngegneriaDelSoftware.Model
             return ((IEnumerable<Cliente>)_clienti).GetEnumerator();
         }
 
+        /// <summary>
+        /// Funzione che elimina un utente dalla collezione
+        /// </summary>
+        /// <param name="item">L'utente che si intende eliminare</param>
+        /// <returns><c>true</c> o <c>false</c> a seconda se ci è riuscito oppure no</returns>
+        /// <exception cref="ExceptionPersistenza">Se si sono verificati errori nella persistenza</exception>
         public bool Remove(Cliente item)
         {
             bool rimosso = false;
             if (item != null)
             {
-                rimosso = ((ICollection<Cliente>)_clienti).Remove(item);
-                LanciaEvento(OnRimozione, item);
+                if (_persistenza.GetClienteDAO().Elimina(item.IDCliente))
+                {
+                    rimosso = ((ICollection<Cliente>)_clienti).Remove(item);
+                    LanciaEvento(OnRimozione, item);
+                }
+                else
+                { // Se ci sono errori nella persistenza
+                    throw new ExceptionPersistenza();
+                }
             }
             return rimosso;
         }

@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ControllerClienti.cs" />
+    <Compile Include="Controller\ControllerInviaMail.cs" />
     <Compile Include="Controller\OggettoVisualizzato.cs" />
     <Compile Include="Controller\ScriptProvider.cs" />
     <Compile Include="Controller\Visualizzatore.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Model\ArgsEvent\ArgsModificaPersona.cs" />
     <Compile Include="Model\Calendario.cs" />
     <Compile Include="Model\Cliente.cs" />
+    <Compile Include="Model\CollezioneEmailInviate.cs" />
     <Compile Include="Model\DatoreLavoro.cs" />
     <Compile Include="Model\Email.cs" />
     <Compile Include="Model\EnumTipoPersona.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="Model\CollezioneEmail.cs" />
     <Compile Include="Model\CollezioneReferenti.cs" />
     <Compile Include="Model\CollezioneTelefoni.cs" />
+    <Compile Include="Model\MailInviata.cs" />
     <Compile Include="Model\Persona.cs" />
     <Compile Include="Model\PersonaFisica.cs" />
     <Compile Include="Model\PersonaGiuridica.cs" />
@@ -110,12 +113,29 @@
     <Compile Include="Model\VoceFattura.cs" />
     <Compile Include="Model\VocePreventivo.cs" />
     <Compile Include="Model\VoceVendita.cs" />
+    <Compile Include="Persistenza\Dao\IAppuntamentoDAO.cs" />
     <Compile Include="Persistenza\Dao\IClienteDAO.cs" />
-    <Compile Include="Persistenza\Dao\IPersonaDAO.cs" />
+    <Compile Include="Persistenza\Dao\IDatoreLavoroDAO.cs" />
+    <Compile Include="Persistenza\Dao\IEsternoDAO.cs" />
+    <Compile Include="Persistenza\Dao\IFatturaDAO.cs" />
+    <Compile Include="Persistenza\Dao\IIntermediarioDAO.cs" />
+    <Compile Include="Persistenza\Dao\IMailInviataDAO.cs" />
+    <Compile Include="Persistenza\Dao\IPreventivoDAO.cs" />
+    <Compile Include="Persistenza\Dao\IUtenteDAO.cs" />
+    <Compile Include="Persistenza\Dao\IVenditaDAO.cs" />
     <Compile Include="Persistenza\EnumTipoPersistenza.cs" />
+    <Compile Include="Persistenza\ExceptionPersistenza.cs" />
+    <Compile Include="Persistenza\MySQL\MySQLAppuntamentoDAO.cs" />
     <Compile Include="Persistenza\MySQL\MySQLClienteDAO.cs" />
     <Compile Include="Persistenza\MySQL\MySQLDaoFactory.cs" />
-    <Compile Include="Persistenza\MySQL\MySQLPersonaDAO.cs" />
+    <Compile Include="Persistenza\MySQL\MySQLDatoreLavoroDAO.cs" />
+    <Compile Include="Persistenza\MySQL\MySQLEsternoDAO.cs" />
+    <Compile Include="Persistenza\MySQL\MySQLFatturaDAO.cs" />
+    <Compile Include="Persistenza\MySQL\MySQLIntermediarioDAO.cs" />
+    <Compile Include="Persistenza\MySQL\MySQLMailInviataDAO.cs" />
+    <Compile Include="Persistenza\MySQL\MySQLPreventivoDAO.cs" />
+    <Compile Include="Persistenza\MySQL\MySQLUtenteDAO.cs" />
+    <Compile Include="Persistenza\MySQL\MySQLVenditaDAO.cs" />
     <Compile Include="Persistenza\PersistenzaFactory.cs" />
     <Compile Include="Persistenza\XML\XMLClienteDao.cs" />
     <Compile Include="Persistenza\XML\XMLDaoFactory.cs" />

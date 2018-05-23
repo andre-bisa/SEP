@@ -28,7 +28,7 @@ namespace IngegneriaDelSoftware.Model
         {
             get { return _datiUtenteAgente.Cognome; }
         }
-        public float ProvvigioneDefault
+        public double ProvvigioneDefault
         {
             get { return _datiUtenteAgente.ProvigioneDefault; }
         }
@@ -70,7 +70,7 @@ namespace IngegneriaDelSoftware.Model
     {
         public string Nome { get; private set; }
         public string Cognome { get; private set; }
-        public float ProvigioneDefault { get; private set; }
+        public double ProvigioneDefault { get; private set; }
 
         /// <summary>
         /// Costruttore di Dati di UtenteAgente
@@ -79,7 +79,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="cognome"></param>
         /// <param name="provigioneDefault">La percentuale default di provvigione espressa con un numero da 0 a 1 (es. 100% = 1, 50% = 0,5)/param>
         /// <exception cref="ArgumentNullException"></exception>
-        public DatiUtenteAgente(string username, string pIva, string cf, string indirizzo, Email email, string nome, string cognome, float provigioneDefault, List<Telefono> telefoni = null)
+        public DatiUtenteAgente(string username, string pIva, string cf, string indirizzo, Email email, string nome, string cognome, double provigioneDefault, List<Telefono> telefoni = null)
             : base(username, pIva, cf, indirizzo, email, telefoni)
         {
             if (nome == null || cognome == null)

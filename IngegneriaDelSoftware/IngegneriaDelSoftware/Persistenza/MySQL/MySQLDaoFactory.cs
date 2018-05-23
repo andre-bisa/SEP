@@ -51,9 +51,49 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             return new MySQLClienteDAO();
         }
 
-        public override IPersonaDAO GetPersonaDAO()
+        public override IAppuntamentoDAO GetAppuntamentoDAO()
         {
-            return new MySQLPersonaDAO();
+            return new MySQLAppuntamentoDAO();
+        }
+
+        public override IDatoreLavoroDAO GetDatoreLavoroDAO()
+        {
+            return new MySQLDatoreLavoroDAO();
+        }
+
+        public override IEsternoDAO GetEsternoDAO()
+        {
+            return new MySQLEsternoDAO();
+        }
+
+        public override IFatturaDAO GetFatturaDAO()
+        {
+            return new MySQLFatturaDAO();
+        }
+
+        public override IIntermediarioDAO GetIntermediarioDAO()
+        {
+            return new MySQLIntermediarioDAO();
+        }
+
+        public override IMailInviataDAO GetMailInviataDAO()
+        {
+            return new MySQLMailInviataDAO();
+        }
+
+        public override IPreventivoDAO GetPreventivoDAO()
+        {
+            return new MySQLPreventivoDAO();
+        }
+
+        public override IUtenteDAO GetUtenteDAO()
+        {
+            return new MySQLUtenteDAO();
+        }
+
+        public override IVenditaDAO GetVenditaDAO()
+        {
+            return new MySQLVenditaDAO();
         }
         #endregion
     }
