@@ -98,7 +98,7 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="telefoni">I numeri di telefono della persona</param>
         /// <param name="email">Gli indirizzi email della persona</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public PersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, List<Telefono> telefoni = null, List<Email> email = null) {
+        public PersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, IEnumerable<Telefono> telefoni = null, IEnumerable<Email> email = null) {
             this._datiPersona = new DatiPersonaGiuridica(codiceFiscale, indirizzo, ragioneSociale, sedeLegale, partitaIVA, telefoni, email);
         }
 
@@ -224,7 +224,7 @@ namespace IngegneriaDelSoftware.Model {
         #endregion
 
         #region Costruttori
-        public DatiPersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, List<Telefono> telefoni = null, List<Email> email = null)
+        public DatiPersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, IEnumerable<Telefono> telefoni = null, IEnumerable<Email> email = null)
         {
             #region Controlli
             if (codiceFiscale == null)

@@ -9,114 +9,71 @@ using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Controller
 {
-    public class VisualizzatoreCliente
+    public class VisualizzatoreCliente : Visualizzatore<Cliente>
     {
-        // Il bool serve per sapere se il cliente è stato mostrato oppure no
-        private List<CoppiaClienteVisualizzato> _lista = new List<CoppiaClienteVisualizzato>();
 
-        private Predicate<CoppiaClienteVisualizzato> _filtro;
+        private IComparer<Cliente> _comparatore;
 
-        public VisualizzatoreCliente(CollezioneClienti collezioneClienti)
+        /// <summary>
+        /// Costruttore di default
+        /// </summary>
+        /// <param name="collezioneClienti">Collezione di clienti da cui partire</param>
+        /// <param name="filtroSuTuttiCampi">Funzione che dato un <see cref="Cliente"/> e data una <see cref="string"/> restituisce <c>true</c> o <c>false</c>.
+        /// La funzione verrà usata in <see cref="ImpostaFiltroTuttiParametri(string)"/></param>
+        public VisualizzatoreCliente(CollezioneClienti collezioneClienti, Func<Cliente, string, bool> filtroSuTuttiCampi = null, IComparer<Cliente> comparatore = null) : base(filtroSuTuttiCampi)
         {
-            _filtro = new Predicate<CoppiaClienteVisualizzato>(c => true); // di base accetta tutto
+            this._comparatore = comparatore;
 
             collezioneClienti.OnAggiunta += this.NuovoCliente;
             collezioneClienti.OnRimozione += this.RimossoCliente;
 
             foreach (Cliente c in collezioneClienti)
             {
-                _lista.Add(new CoppiaClienteVisualizzato(c, false));
+                base.Lista.Add(new OggettoVisualizzato<Cliente>(c, false));
             }
+            if (_comparatore != null)
+                base.Lista.Sort((x, y) => _comparatore.Compare(x.Oggetto, y.Oggetto));
         }
 
         #region Gestione eventi
         private void RimossoCliente(object sender, ArgsCliente e)
         {
-            this._lista.Remove(this._lista.Find(c => c.Cliente.Equals(e.Cliente)));
+            this.Lista.Remove(this.Lista.Find(c => c.Oggetto.Equals(e.Cliente)));
         }
 
         private void NuovoCliente(object sender, ArgsCliente e)
         {
-            this._lista.Add(new CoppiaClienteVisualizzato(e.Cliente, false));
+            this.Lista.Add(new OggettoVisualizzato<Cliente>(e.Cliente, false));
+            if (_comparatore != null)
+                base.Lista.Sort((x, y) => _comparatore.Compare(x.Oggetto, y.Oggetto));
         }
         #endregion
 
         #region Metodi pubblici
         /// <summary>
-        /// Imposta un filtro che cerca su tutti i campi di <see cref="Cliente"/>
+        /// Restituisce il prossimo <see cref="Cliente"/> da visualizzare, <c>null</c> se sono terminati i <see cref="Cliente"/>
         /// </summary>
-        /// <param name="stringaDaCercare">Stringa con il valore inserito</param>
-        public void FiltraSuTuttiICampi(string stringaDaCercare)
-        {
-            _filtro = new Predicate<CoppiaClienteVisualizzato>(c => c.Cliente.IDCliente.Contains(stringaDaCercare)
-            || c.Cliente.Persona.getDenominazione().Contains(stringaDaCercare) || c.Cliente.Referenti.Any(r => r.Nome.Contains(stringaDaCercare)));
-        }
-
-        /// <summary>
-        /// Imposta il nuovo filtro per i clienti.
-        /// N.B. NON verranno riproposti i clienti già dati con <see cref="ProssimoCliente"/>, per vedere tutti i clienti utilizzare <see cref="Reset"/>
-        /// </summary>
-        /// <param name="filtro">Nuovo filtro che verrà applicato ai clienti</param>
-        /// <exception cref="ArgumentNullException">Se passato un filtro nullo</exception>
-        public void ImpostaFiltro(Predicate<Cliente> filtro)
-        {
-            if (filtro == null)
-                throw new ArgumentNullException("Errore. Il filtro è nullo.");
-
-            this._filtro = new Predicate<CoppiaClienteVisualizzato>(c => filtro.Invoke(c.Cliente));
-
-            var queryClientiCheNonDevonoPiuEssereVisualizzati =
-                (from coppia in this._lista
-                 where !filtro.Invoke(coppia.Cliente)   // dove il filtro non è applicabile
-                 select coppia
-                 );
-
-            foreach (CoppiaClienteVisualizzato coppia in new List<CoppiaClienteVisualizzato>(queryClientiCheNonDevonoPiuEssereVisualizzati))
-            {
-                coppia.Visualizzato = false;
-            }
-        }
-
-        /// <summary>
-        /// Restituisce il prossimo cliente da visualizzare
-        /// </summary>
-        /// <returns></returns>
+        /// <returns>Il <see cref="Cliente"/>, <c>null</c> se sono terminati</returns>
         public Cliente ProssimoCliente()
         {
-            foreach (CoppiaClienteVisualizzato cliente in this._lista.FindAll(this._filtro))
-            {
-                if (! cliente.Visualizzato)
-                {
-                    cliente.Visualizzato = true;
-                    return cliente.Cliente;
-                }
-            }
-            return null;
+            return base.Prossimo();
         }
 
         /// <summary>
-        /// Dopo la chiamata a questa funzione verranno riproposti tutti i clienti
+        /// Imposta un nuovo comparatore che permette di dare una logica diversa di ordinamento. L'invocazione di questo metodo comporta in automatico l'invocazione di <see cref="Visualizzatore{T}.Reset"/>
         /// </summary>
-        public void Reset()
+        /// <param name="comparatore">Nuova logica di ordinamento degli elementi</param>
+        public void ImpostaComparatore(IComparer<Cliente> comparatore)
         {
-            foreach (CoppiaClienteVisualizzato cliente in this._lista)
-            {
-                cliente.Visualizzato = false;
-            }
+            if (comparatore == null)
+                return;
+
+            this._comparatore = comparatore;
+            base.Lista.Sort((x, y) => _comparatore.Compare(x.Oggetto, y.Oggetto));
+            this.Reset();
         }
+
         #endregion
-    }
-
-    class CoppiaClienteVisualizzato
-    {
-        public Cliente Cliente { get; }
-        public bool Visualizzato { get; set; }
-
-        public CoppiaClienteVisualizzato(Cliente cliente, bool visualizzato)
-        {
-            this.Cliente = cliente;
-            this.Visualizzato = visualizzato;
-        }
     }
 
 }

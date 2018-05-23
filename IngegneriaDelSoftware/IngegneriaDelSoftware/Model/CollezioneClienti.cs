@@ -49,15 +49,27 @@ namespace IngegneriaDelSoftware.Model
             }
         }
 
+        /// <summary>
+        /// Aggiunge un <see cref="Cliente"/> alla collezione
+        /// </summary>
+        /// <param name="item">Cliente da aggiungere alla collezione</param>
+        /// <exception cref="ArgumentNullException">Se il <see cref="Cliente"/> è nullo</exception>
         public void Add(Cliente item)
         {
-            if (item != null)
+            if (item == null)
+                throw new ArgumentNullException("Errore. Il cliente è nullo");
+
+            if (!this._clienti.Contains(item))
             {
                 ((ICollection<Cliente>)_clienti).Add(item);
                 LanciaEvento(OnAggiunta, item);
             }
         }
 
+        /// <summary>
+        /// Funzione non supportata. Lancia SEMPRE eccezione
+        /// </summary>
+        /// <exception cref="InvalidOperationException">Viene lanciata SEMPRE!</exception>
         public void Clear()
         {
             throw new InvalidOperationException();

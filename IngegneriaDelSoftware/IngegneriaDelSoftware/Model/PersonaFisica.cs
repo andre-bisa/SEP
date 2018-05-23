@@ -88,7 +88,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="email">Le email della persona</param>
         /// <seealso cref="Persona"/>
         /// <exception cref="ArgumentNullException"></exception>
-        public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, string partitaIVA = "", List<Telefono> telefoni = null, List<Email> email = null)
+        public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, string partitaIVA = "", IEnumerable<Telefono> telefoni = null, IEnumerable<Email> email = null)
         {
             this._datiPersona = new DatiPersonaFisica(codiceFiscale, indirizzo, nome, cognome, partitaIVA, telefoni, email);
         }
@@ -230,7 +230,7 @@ namespace IngegneriaDelSoftware.Model
         #endregion
 
         #region Costruttori
-        public DatiPersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, string partitaIVA = "", List<Telefono> telefoni = null, List<Email> email = null)
+        public DatiPersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, string partitaIVA = "", IEnumerable<Telefono> telefoni = null, IEnumerable<Email> email = null)
         {
             #region Controlli
             if (codiceFiscale == null)

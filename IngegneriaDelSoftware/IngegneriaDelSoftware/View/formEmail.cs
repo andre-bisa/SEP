@@ -13,16 +13,17 @@ using IngegneriaDelSoftware.View.Controlli;
 using System.Windows.Forms;
 using IngegneriaDelSoftware.Model;
 using IngegneriaDelSoftware.Controller;
+using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.View
 {
     public partial class FormEmail : MaterialForm
     {
         private ControllerClienti _controller;
-
         private VisualizzatoreCliente _visualizzatore;
 
-        private Dictionary<string, Tuple<Cliente, PannelloCliente>> _clienti = new Dictionary<string, Tuple<Cliente, PannelloCliente>>();
+        private List<ClienteMostrato<SchedaCliente>> _clientiCaricati = new List<ClienteMostrato<SchedaCliente>>();
+        private int quantiClientiMostrare;
 
         #region "Costruttore"
         protected FormEmail()
@@ -31,17 +32,29 @@ namespace IngegneriaDelSoftware.View
 
             flowClienti.Scroll += (s, e) => HandleScroll();
             flowClienti.MouseWheel += (s, e) => HandleScroll();
+            txtSearchBar.KeyDown += (sender, e) =>
+            {
+                if (e.KeyCode == System.Windows.Forms.Keys.Enter)
+                {
+                    RicercaTraClienti();
+                    e.Handled = true;
+                    e.SuppressKeyPress = true;
+                }
+            };
         }
 
         public FormEmail(ControllerClienti controller) : this()
         {
             this._controller = controller;
-            this._visualizzatore = new VisualizzatoreCliente(controller.CollezioneClienti);
 
-            foreach (Cliente c in _controller.CollezioneClienti)
+            // Funzione che permette di effettuare la ricerca per tutti i campi
+            var ricercaTuttiParametri = new Func<Cliente, string, bool>((cliente, stringa) =>
             {
-                this._clienti.Add(c.IDCliente, new Tuple<Cliente, PannelloCliente>(c, null));
-            }
+                return cliente.IDCliente.Contains(stringa) || cliente.Denominazione.Contains(stringa) || cliente.Referenti.Any(referente => referente.Nome.Contains(stringa));
+            });
+            this._visualizzatore = new VisualizzatoreCliente(controller.CollezioneClienti, ricercaTuttiParametri);
+
+            this._controller.CollezioneClienti.OnRimozione += this.RimossoCliente;
         }
         #endregion
 
@@ -52,8 +65,13 @@ namespace IngegneriaDelSoftware.View
         private void CaricaSchedaCliente()
         {
             Cliente clienteDaMostrare = _visualizzatore.ProssimoCliente();
+            if (clienteDaMostrare == null)
+                return;
+
             SchedaCliente schedaCliente = new SchedaCliente(_controller, clienteDaMostrare, this.panelForm);
-            flowClienti.Controls.Add(schedaCliente);
+            this.flowClienti.Controls.Add(schedaCliente);
+            this._clientiCaricati.Add(new ClienteMostrato<SchedaCliente>(clienteDaMostrare, schedaCliente, false));
+
         }
 
         /// <summary>
@@ -62,7 +80,13 @@ namespace IngegneriaDelSoftware.View
         /// <param name="quanti">Quanti clienti mostrare</param>
         private void RiempiSchedeClienti(int quanti)
         {
-            for (int i = 0; i < quanti; i++)
+            this.quantiClientiMostrare += quanti;
+            CaricaClientiMancanti();
+        }
+
+        private void CaricaClientiMancanti()
+        {
+            for (int i = this._clientiCaricati.Count; i < this.quantiClientiMostrare; i++)
             {
                 CaricaSchedaCliente();
             }
@@ -84,6 +108,50 @@ namespace IngegneriaDelSoftware.View
             if (flowClienti.VerticalScroll.Value >= flowClienti.VerticalScroll.Maximum - flowClienti.VerticalScroll.LargeChange - SchedaCliente.AltezzaSchedaClienti())
                 RiempiSchedeClienti(1);
         }
+
+        private void RimossoCliente(object sender, ArgsCliente e)
+        {
+            if (e.Cliente == null)
+                return;
+
+            ClienteMostrato<SchedaCliente> cliente = this._clientiCaricati.Find(c => e.Cliente == c.Cliente);
+
+            if (cliente == null) // Se non è stato mostrato
+                return;
+
+            SchedaCliente schedaDaRimuovere = this._clientiCaricati.Find(c => e.Cliente.Equals(c.Cliente)).DoveMostrato;
+            if (schedaDaRimuovere != null)
+            {
+                this.flowClienti.Controls.Remove(schedaDaRimuovere);
+                this._clientiCaricati.Remove(cliente);
+                CaricaSchedaCliente();
+            }
+        }
+
+        private void RicercaTraClienti()
+        {
+            this._visualizzatore.ImpostaFiltroTuttiParametri(txtSearchBar.Text.Trim());
+
+            var queryClientiDaRimuovere =
+                (from tripla in this._clientiCaricati
+                 where !this._visualizzatore.Visualizzabile(tripla.Cliente)    // dove i clienti non devono essere visualizzati
+                 select tripla
+                 );
+
+            foreach (ClienteMostrato<SchedaCliente> cliente in new List<ClienteMostrato<SchedaCliente>>(queryClientiDaRimuovere))
+            {
+                this.flowClienti.Controls.Remove(cliente.DoveMostrato);
+                this._clientiCaricati.Remove(cliente);
+            }
+
+            CaricaClientiMancanti();
+        }
+
+        private void PictureBox1_Click(object sender, EventArgs e)
+        {
+            RicercaTraClienti();
+        }
+
     }
 
 }

@@ -66,6 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ControllerClienti.cs" />
+    <Compile Include="Controller\OggettoVisualizzato.cs" />
+    <Compile Include="Controller\Visualizzatore.cs" />
     <Compile Include="Controller\VisualizzatoreCliente.cs" />
     <Compile Include="Model\Appuntamento.cs" />
     <Compile Include="Model\ArgsEvent\ArgsCliente.cs" />
@@ -105,9 +107,18 @@
     <Compile Include="Model\VoceFattura.cs" />
     <Compile Include="Model\VocePreventivo.cs" />
     <Compile Include="Model\VoceVendita.cs" />
+    <Compile Include="Persistenza\Dao\IClienteDAO.cs" />
+    <Compile Include="Persistenza\Dao\IPersonaDAO.cs" />
+    <Compile Include="Persistenza\EnumTipoPersistenza.cs" />
+    <Compile Include="Persistenza\MySQL\MySQLClienteDAO.cs" />
+    <Compile Include="Persistenza\MySQL\MySQLDaoFactory.cs" />
+    <Compile Include="Persistenza\MySQL\MySQLPersonaDAO.cs" />
+    <Compile Include="Persistenza\PersistenzaFactory.cs" />
     <Compile Include="Test\TestCollezioneClienti.cs" />
     <Compile Include="Test\TestCalendario.cs" />
+    <Compile Include="Test\TestControllerClienti.cs" />
     <Compile Include="Test\TestFattura.cs" />
+    <Compile Include="View\ClienteMostrato.cs" />
     <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />
     <Compile Include="View\Controlli\ArgsSchedaCliente.cs" />
     <Compile Include="View\FormConfim.cs">
