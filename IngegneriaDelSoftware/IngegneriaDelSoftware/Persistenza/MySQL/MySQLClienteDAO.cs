@@ -23,6 +23,8 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
         public bool Crea(Cliente cliente)
         {
+            return true;
+            /*
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
@@ -48,7 +50,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             connessione.Close();
 
-            return (modifiche == 1);
+            return (modifiche == 1);*/
         }
 
         public bool Elimina(string IDCliente)
