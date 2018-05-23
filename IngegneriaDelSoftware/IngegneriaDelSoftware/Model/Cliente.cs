@@ -87,7 +87,7 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="tipoCliente">Tipo del cliente. Default: Ativo</param>
         /// <param name="nota">Nota del cliente. Default: ""</param>
         /// /// <exception cref="ArgumentNullException"></exception>
-        public Cliente(Persona persona, string IDCliente, List<Referente> referenti = null, EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo, string nota = "")
+        public Cliente(Persona persona, string IDCliente, IEnumerable<Referente> referenti = null, EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo, string nota = "")
         {
             #region Controlli
             if(IDCliente == null)
@@ -108,7 +108,7 @@ namespace IngegneriaDelSoftware.Model
             persona.OnModifica += this.PersonaModificata;
         }
 
-        public Cliente(DatiCliente cliente, Persona persona) : this(persona, cliente.IDCliente, cliente.Referenti.ToList<Referente>(), cliente.TipoCliente, cliente.Nota)
+        public Cliente(DatiCliente cliente, Persona persona) : this(persona, cliente.IDCliente, cliente.Referenti, cliente.TipoCliente, cliente.Nota)
         {}
         #endregion
 
