@@ -144,6 +144,7 @@
     <Compile Include="Test\TestControllerClienti.cs" />
     <Compile Include="Test\TestFattura.cs" />
     <Compile Include="Test\TestScripting.cs" />
+    <Compile Include="Test\TestUtente.cs" />
     <Compile Include="Test\TestXMLPersistenza.cs" />
     <Compile Include="View\ClienteMostrato.cs" />
     <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />

@@ -82,7 +82,7 @@ namespace IngegneriaDelSoftware.Model {
                     return i.Importo;
                 }).ToArray();
                 //Aggiunge al valutatore i dati appena creati;
-                scriptEngine.AddArrayVariable(tipologia.Key, tmp);
+                scriptEngine.AddArrayVariable(tipologia.Key.Replace(" ", ""), tmp);
             }
             scriptEngine.Calculate();
             //Recupera tutte le label e le variabili marcate important;
