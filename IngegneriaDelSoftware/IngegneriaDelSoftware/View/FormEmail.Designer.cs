@@ -151,6 +151,7 @@
             this.btnAnnulla.TabIndex = 5;
             this.btnAnnulla.Text = "Annulla";
             this.btnAnnulla.UseVisualStyleBackColor = true;
+            this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
             // 
             // btnInvia
             // 
@@ -168,6 +169,7 @@
             this.btnInvia.TabIndex = 4;
             this.btnInvia.Text = "Invia";
             this.btnInvia.UseVisualStyleBackColor = true;
+            this.btnInvia.Click += new System.EventHandler(this.btnInvia_Click);
             // 
             // txtCorpo
             // 

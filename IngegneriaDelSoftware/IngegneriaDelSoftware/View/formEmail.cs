@@ -19,7 +19,9 @@ namespace IngegneriaDelSoftware.View
 {
     public partial class FormEmail : MaterialForm
     {
-        private ControllerClienti _controller;
+        private ControllerInviaMail _controllerInviaMail = new ControllerInviaMail();
+
+        private ControllerClienti _controllerClienti;
         private VisualizzatoreCliente _visualizzatore;
 
         private List<ClienteMostrato<SchedaCliente>> _clientiCaricati = new List<ClienteMostrato<SchedaCliente>>();
@@ -49,7 +51,7 @@ namespace IngegneriaDelSoftware.View
 
         public FormEmail(ControllerClienti controller) : this()
         {
-            this._controller = controller;
+            this._controllerClienti = controller;
 
             // Funzione che permette di effettuare la ricerca per tutti i campi
             var ricercaTuttiParametri = new Func<Cliente, string, bool>((cliente, stringa) =>
@@ -58,7 +60,7 @@ namespace IngegneriaDelSoftware.View
             });
             this._visualizzatore = new VisualizzatoreCliente(controller.CollezioneClienti, ricercaTuttiParametri);
 
-            this._controller.CollezioneClienti.OnRimozione += this.RimossoCliente;
+            this._controllerClienti.CollezioneClienti.OnRimozione += this.RimossoCliente;
         }
         #endregion
 
@@ -78,7 +80,7 @@ namespace IngegneriaDelSoftware.View
             if (clienteDaMostrare == null)
                 return;
 
-            SchedaCliente schedaCliente = new SchedaCliente(_controller, clienteDaMostrare, this.panelForm);
+            SchedaCliente schedaCliente = new SchedaCliente(_controllerClienti, clienteDaMostrare, this.panelForm);
             schedaCliente.ModificataSelezione += ModificataSelezione;
             this.flowClienti.Controls.Add(schedaCliente);
             this._clientiCaricati.Add(new ClienteMostrato<SchedaCliente>(clienteDaMostrare, schedaCliente, false));
@@ -191,6 +193,17 @@ namespace IngegneriaDelSoftware.View
             RicercaTraClienti();
         }
 
+        private void btnAnnulla_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnInvia_Click(object sender, EventArgs e)
+        {
+            bool mandate = this._controllerInviaMail.InviaMail(DateTime.Now, txtOggetto.Text.Trim(), txtCorpo.Text, this._indirizziACuiMandare);
+            if (mandate)
+                MessageBox.Show("Mail inviata con successo.");
+        }
     }
 
 }

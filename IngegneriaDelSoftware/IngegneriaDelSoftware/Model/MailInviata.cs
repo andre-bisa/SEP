@@ -8,15 +8,13 @@ namespace IngegneriaDelSoftware.Model
 {
     public class MailInviata
     {
-        public int ID { get; private set; }
         public DateTime Data { get; private set; }
         public string Oggetto { get; private set; }
         public string Corpo { get; private set; }
         public string Email { get; private set; }
 
-        public MailInviata(int iD, DateTime data, string oggetto, string corpo, string email)
+        public MailInviata(DateTime data, string oggetto, string corpo, string email)
         {
-            ID = iD;
             Data = data;
             Oggetto = oggetto;
             Corpo = corpo;
@@ -47,4 +45,5 @@ namespace IngegneriaDelSoftware.Model
         }
         #endregion
     }
+
 }

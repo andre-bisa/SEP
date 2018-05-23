@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ControllerClienti.cs" />
+    <Compile Include="Controller\ControllerInviaMail.cs" />
     <Compile Include="Controller\OggettoVisualizzato.cs" />
     <Compile Include="Controller\Visualizzatore.cs" />
     <Compile Include="Controller\VisualizzatoreCliente.cs" />
