@@ -201,6 +201,13 @@
     <Compile Include="View\FormEmail.Designer.cs">
       <DependentUpon>FormEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\GenericViewLoader.cs" />
+    <Compile Include="View\GetClienteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\GetClienteForm.Designer.cs">
+      <DependentUpon>GetClienteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -257,6 +264,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\FormEmail.resx">
       <DependentUpon>FormEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\GetClienteForm.resx">
+      <DependentUpon>GetClienteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>

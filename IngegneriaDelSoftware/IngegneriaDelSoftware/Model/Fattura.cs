@@ -105,6 +105,15 @@ namespace IngegneriaDelSoftware.Model {
                 this._datiFattura = value;
                 this.OnModifica?.Invoke(this, new ArgsModifica<Fattura>(old, this));
             }
+            get {
+                return this._datiFattura;
+            }
+        }
+
+        public List<VoceFattura> Voci {
+            get {
+                return _voci;
+            }
         }
         #endregion
 
@@ -412,7 +421,7 @@ namespace IngegneriaDelSoftware.Model {
                 this.Anno = anno;
                 this.Sconto = sconto;
             }
-            public DatiFattura(DatiFattura old, int? anno, string numero, Cliente cliente, DateTime? data = null, float? sconto = null)
+            public DatiFattura(DatiFattura old, int? anno = null, string numero = null, Cliente cliente = null, DateTime? data = null, float? sconto = null)
                 : this(anno ?? old.Anno, numero ?? old.Numero, cliente ?? old.Cliente, data ?? old.Data, sconto ?? old.Sconto ) { }
 
         }

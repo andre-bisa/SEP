@@ -27,7 +27,7 @@ namespace IngegneriaDelSoftware.View {
         //delegati per gli eventi;
         /// <param name="o"></param>
         /// <param name="e"></param>
-        public delegate void PannelloLateraleClick(object o, EventArgs e);
+        public delegate void PannelloLateraleClick(MaterialSkin.Controls.MaterialListView o, EventArgs e);
         /// <summary>
         /// Rappresenta il click sul pannello delle collezioni a sinistra.<para/>
         /// Significa il cambio dell'oggetto col focus
@@ -36,7 +36,7 @@ namespace IngegneriaDelSoftware.View {
 
         /// <param name="l">Lista delle voci presenti nel pannello</param>
         /// <param name="e"></param>
-        public delegate void CreaClick(List<Voce> l, EventArgs e);
+        public delegate void CreaClick(GenericForm o, EventArgs e);
         /// <summary>
         /// Rappresenta il click sul bottone di conferma/creazione
         /// </summary>
@@ -44,7 +44,7 @@ namespace IngegneriaDelSoftware.View {
 
         /// <param name="o">La form corrente</param>
         /// <param name="e"></param>
-        public delegate void RifiutaClick(object o, EventArgs e);
+        public delegate void RifiutaClick(GenericForm o, EventArgs e);
         /// <summary>
         /// Rappresenta il click sul bottone di rifiuto
         /// </summary>
@@ -52,7 +52,7 @@ namespace IngegneriaDelSoftware.View {
 
         /// <param name="o">La form corrente</param>
         /// <param name="e"></param>
-        public delegate void AccettaClick(object o, EventArgs e);
+        public delegate void AccettaClick(GenericForm o, EventArgs e);
         /// <summary>
         /// Rappresenta il click sul bottone di accettazione
         /// </summary>
@@ -60,7 +60,7 @@ namespace IngegneriaDelSoftware.View {
 
         /// <param name="o">La form corrente</param>
         /// <param name="e"></param>
-        public delegate void NuovaClick(object o, EventArgs e);
+        public delegate void NuovaClick(GenericForm o, EventArgs e);
         /// <summary>
         /// Rappresenta il click sul bottone di creazione di una nuova
         /// </summary>
@@ -170,7 +170,16 @@ namespace IngegneriaDelSoftware.View {
             this.RifiutaBtn.Visible = this.AccettaBtn.Visible = this.tipo == TipoForm.PREVENTIVI;
 
             //Mock dei campi di prova;
-            this.mock();
+            //this.mock();
+            this.PIVAField.Enabled =
+            this.TelefonoField.Enabled =
+            this.CognomeField.Enabled =
+            this.IndirizzoField.Enabled =
+            this.NomeField.Enabled =
+            this.CFField.Enabled =
+            this.PersonaFisicaRadio.Enabled =
+            this.EliminaVociBtn.Enabled = 
+            this.PersonaGiuridicaRadio.Enabled = false;
         }
 
 
@@ -402,7 +411,8 @@ namespace IngegneriaDelSoftware.View {
         /// <param name="Indirizzo">L'indirizzo del destinatario</param>
         /// <param name="tipo">Il tipo di persona a cui fa riferimento</param>
         public void InserisciDatiDestinatario(string Anno, string Numero, string Data, string Nome, string Cognome, string Indirizzo,
-            string CF, string PIVA, string Telefono, bool ConPartitaIva, TipoPersona tipo) {
+            string CF, string PIVA, string Telefono, bool ConPartitaIva, TipoPersona tipo, string key = "") {
+            this.Key= key;
             this.AnnoField.Text = Anno ?? "N/D";
             this.NumeroField.Text = Numero ?? "N/D";
             this.NomeField.Text = Nome ?? "N/D";
@@ -430,8 +440,8 @@ namespace IngegneriaDelSoftware.View {
 
         #region Gestione barra laterale 
 
-        public void AggiungiBarraLaterale(string identificativo) {
-            this.Inserite.Items.Add(identificativo);
+        public void AggiungiBarraLaterale(object identificativo) {
+            this.Inserite.Items.Add(identificativo.ToString());
         }
 
         #endregion
@@ -512,7 +522,7 @@ namespace IngegneriaDelSoftware.View {
         /// <summary>
         /// Recupera i dati dall'elenco voci per trasmetterli al controller
         /// </summary>
-        private List<Voce> GetVoci() {
+        public List<Voce> GetVoci() {
             //Numero della colonna che si sta parsando;
             int column = 0;
             //Il controllo corrente;
@@ -593,19 +603,25 @@ namespace IngegneriaDelSoftware.View {
         public bool InfoPanelEditable {
             set {
                 this.AnnoField.Enabled =
-                    this.CFField.Enabled =
+                    /*this.CFField.Enabled =*/
                     this.DataField.Enabled =
-                    this.IndirizzoField.Enabled =
-                    this.NomeField.Enabled =
+                   /* this.IndirizzoField.Enabled =
+                    this.NomeField.Enabled =*/
                     this.NumeroField.Enabled =
-                    this.PIVAField.Enabled =
+                   /* this.PIVAField.Enabled =
                     this.TelefonoField.Enabled = value;
-                this.CognomeField.Enabled = value && this.PersonaFisicaRadio.Checked;
+                this.CognomeField.Enabled =*/ value && this.PersonaFisicaRadio.Checked;
             }
             ///Questo metodo non è affidabile
             get {
                 return this.AnnoField.Enabled;
             }
+        }
+
+        public string Key { get; set; } = null;
+        public void CleanAll() {
+            this.HideInfo();
+            this.HideVoci();
         }
 
         #endregion
@@ -626,7 +642,7 @@ namespace IngegneriaDelSoftware.View {
         //Crea la;
         private void materialRaisedButton1_Click(object sender, EventArgs e) {
             // Deve seguire elaborazione;
-            this.OnCreaClick?.Invoke(this.GetVoci(), e);
+            this.OnCreaClick?.Invoke(this, e);
 
         }
         
@@ -639,7 +655,7 @@ namespace IngegneriaDelSoftware.View {
             }
 
             //TODO implement the actual method
-            this.InserisciDatiDestinatario(
+            /*this.InserisciDatiDestinatario(
                 "PLACEHOLDER", 
                 "PLACEHOLDER",
                 "PLACEHOLDER", 
@@ -651,18 +667,18 @@ namespace IngegneriaDelSoftware.View {
                 "PLACEHOLDER", 
                 false, 
                 TipoPersona.FISICA
-            );
-            this.ShowVoci();
+            );*/
+            this.ShowVoci();/*
             this.AggiungiRigaCampi(
                 "VENDITA",
                 "2Mt di corda robusta",
                 150,
                 3,
                 1
-            );
+            );*/
             //Se non è null invoca il delegato;
-            this.OnPannelloLateraleClick?.Invoke(sender, e);
-            System.Diagnostics.Debug.WriteLine((sender as MaterialSkin.Controls.MaterialListView).SelectedItems.Count);
+            this.OnPannelloLateraleClick?.Invoke(sender as MaterialSkin.Controls.MaterialListView, e);
+            //System.Diagnostics.Debug.WriteLine((sender as MaterialSkin.Controls.MaterialListView).SelectedItems.Count);
         }
         
         //Evento generato del cambio di tipo di persona;

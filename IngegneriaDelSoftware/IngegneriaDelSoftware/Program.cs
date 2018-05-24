@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using IngegneriaDelSoftware.View;
 using IngegneriaDelSoftware.Controller;
+using IngegneriaDelSoftware.Model;
 
 namespace IngegneriaDelSoftware
 {
@@ -20,7 +21,7 @@ namespace IngegneriaDelSoftware
             ControllerClienti controller = new ControllerClienti();
 
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetCompatibleTextRenderingDefault(false);/*
             var g = new View.GenericForm(View.GenericForm.TipoForm.FATTURE);
             g.OnCreaClick += (result, e) => {
                 result.ForEach((el) => {
@@ -32,15 +33,26 @@ namespace IngegneriaDelSoftware
                 });
             };
             g.InfoPanelEditable = false;
-            //Application.Run(g);
-
+            Application.Run(g);
+            /*
             //Application.Run(new FormAppuntamenti());
             Application.Run(new FormClienti(controller));
             Application.Run(new FormEmail(controller));
             Application.Run(new Login());
             Application.Run(new VisualizzaCalendario());
             if (FormConfim.Show("Titolo", "Messaggio") == DialogResult.OK)
-                MessageBox.Show("Premuto OK");
+                MessageBox.Show("Premuto OK");*/
+            var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
+            var cliente = new Cliente(persona, "1");
+            var vendita = new Vendita(1, cliente);
+            var fattura = new Fattura(2018, "2", cliente, vendita);
+            var voce1 = new VoceFattura("Corda", 30, 0.20f);
+            var voce2 = new VoceFattura("Canapa", 20, 0.20f);
+
+            fattura.Add(voce1, voce2);
+            var list = new List<Fattura>();
+            list.Add(fattura);
+            Application.Run(GenericViewLoader.getFatturaForm(list));
         }
     }
 }
