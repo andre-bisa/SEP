@@ -21,7 +21,7 @@
 -- _____________ 
 
 create table APPUNTAMENTICON (
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      IDAPPUNTAMENTO varchar(10) not null,
      IDINTERMEDIARIO varchar(10) not null,
      IDCLIENTE varchar(10) not null,
@@ -29,7 +29,7 @@ create table APPUNTAMENTICON (
      constraint ID_APPUNTAMENTICON_ID primary key (IDUTENTE, IDAPPUNTAMENTO, IDINTERMEDIARIO, IDCLIENTE, IDESTERNO));
 
 create table APPUNTAMENTO (
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      IDAPPUNTAMENTO varchar(10) not null,
      DATA date not null,
      ORA time not null,
@@ -38,10 +38,10 @@ create table APPUNTAMENTO (
      constraint ID_APPUNTAMENTO_ID primary key (IDUTENTE, IDAPPUNTAMENTO));
 
 create table CLIENTE (
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      IDCLIENTE varchar(10) not null,
      TIPO enum('A', 'E', 'P') not null,
-     IDPERSONA varchar(10) not null,
+     IDPERSONA int not null,
 	 NOTE blob,
      constraint ID_CLIENTE_ID primary key (IDUTENTE, IDCLIENTE));
 
@@ -55,11 +55,11 @@ create table DATORE_LAVORO (
      TELEFONO varchar(20) not null,
      INDIRIZZO varchar(100) not null,
      MAIL varchar(50),
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      constraint ID_DATORE_LAVORO_ID primary key (IDDATORELAVORO));
 
 create table ESTERNO (
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      IDESTERNO varchar(10) not null,
      NOME varchar(50) not null,
      COGNOME varchar(50),
@@ -71,7 +71,7 @@ create table ESTERNO (
      constraint ID_ESTERNO_ID primary key (IDUTENTE, IDESTERNO));
 
 create table FATTURA (
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      ANNO int not null,
      NUMERO int not null,
      DATA date not null,
@@ -84,31 +84,31 @@ create table FATTURA (
      constraint ID_FATTURA_ID primary key (IDUTENTE, ANNO, NUMERO));
 
 create table INTERMEDIARIO (
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      IDINTERMEDIARIO varchar(10) not null,
-     IDPERSONA varchar(10) not null,
+     IDPERSONA int not null,
      constraint ID_INTERMEDIARIO_ID primary key (IDUTENTE, IDINTERMEDIARIO));
 
 create table MAIL (
-     IDUTENTE varchar(10) not null,
-     IDPERSONA varchar(10) not null,
+     IDUTENTE int not null,
+     IDPERSONA int not null,
      MAIL varchar(50) not null,
      NOTA blob,
      constraint ID_MAIL_ID primary key (MAIL, IDUTENTE, IDPERSONA));
 
 create table MAILINVIATA (
-     IDUTENTE varchar(10) not null,
-     IDMAIL varchar(10) not null,
+     IDUTENTE int not null,
+     IDMAIL int not null,
      MAIL varchar(50) not null,
      DATA date not null,
      OGGETTO varchar(100) not null,
      CORPO blob not null,
-     IDPERSONA varchar(10) not null,
+     IDPERSONA int not null,
      constraint ID_MAIL_INVIATA_ID primary key (IDUTENTE, IDMAIL));
 
 create table PERSONA (
-     IDUTENTE varchar(10) not null,
-     IDPERSONA varchar(10) not null,
+     IDUTENTE int not null,
+     IDPERSONA int not null,
      CF varchar(20) not null,
      INDIRIZZO varchar(100) not null,
      TIPO enum('F','G') not null,
@@ -121,7 +121,7 @@ create table PERSONA (
      constraint ID_PERSONA_ID primary key (IDUTENTE, IDPERSONA));
 
 create table PREVENTIVO (
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      IDPREVENTIVO varchar(10) not null,
      DATA date not null,
      TOTALE decimal(9,2) not null,
@@ -130,21 +130,21 @@ create table PREVENTIVO (
      constraint ID_PREVENTIVO_ID primary key (IDUTENTE, IDPREVENTIVO));
 
 create table REFERENTE (
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      IDCLIENTE varchar(10) not null,
      NOME varchar(50) not null,
      NOTA blob,
      constraint ID_REFERENTE_ID primary key (NOME, IDUTENTE, IDCLIENTE));
 
 create table TELEFONO (
-     IDUTENTE varchar(10) not null,
-     IDPERSONA varchar(10) not null,
+     IDUTENTE int not null,
+     IDPERSONA int not null,
      TELEFONO varchar(50) not null,
      NOTA blob,
      constraint ID_TELEFONO_ID primary key (TELEFONO, IDUTENTE, IDPERSONA));
 
 create table UTENTE (
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null auto_increment,
      USERNAME varchar(50) not null,
      PASSWORD varchar(50) not null,
      PIVA varchar(20) not null,
@@ -162,7 +162,7 @@ create table UTENTE (
      constraint ID_UTENTE_ID primary key (IDUTENTE));
 
 create table VENDITA (
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      IDVENDITA varchar(100) not null,
      IDPREVENTIVO varchar(10),
      TOTALE decimal(9,2) not null,
@@ -174,12 +174,12 @@ create table VENDITA (
 create table VENDITEFATTURA (
      ANNO int not null,
      NUMERO int not null,
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      IDVENDITA varchar(10) not null,
      constraint ID_VENDITEFATTURA_ID primary key (ANNO, NUMERO, IDUTENTE, IDVENDITA));
 
 create table VOCEFATTURA (
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      ANNO int not null,
      NUMEROFATTURA int not null,
      NUMEROVOCE int not null,
@@ -191,7 +191,7 @@ create table VOCEFATTURA (
      constraint ID_VOCEFATTURA_ID primary key (NUMEROVOCE, IDUTENTE, ANNO, NUMEROFATTURA));
 
 create table VOCEVENDITA (
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      IDVENDITA varchar(10) not null,
      NUMERO int not null,
      DESCRIZIONE varchar(100) not null,
@@ -202,7 +202,7 @@ create table VOCEVENDITA (
      constraint ID_VOCEVENDITA_ID primary key (NUMERO, IDUTENTE, IDVENDITA));
 
 create table VOCIPREVENTIVO (
-     IDUTENTE varchar(10) not null,
+     IDUTENTE int not null,
      IDPREVENTIVO varchar(10) not null,
      NUMERO int not null,
      DESCRIZIONE varchar(100) not null,
