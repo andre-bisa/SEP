@@ -5,15 +5,20 @@
 --Esistenza preventivo se la vendita è con preventivo
 
 create trigger INSERISCI_VENDITA_CON_PREVENTIVO
-after insert on VENDITA
-referencing new as n
+before insert on VENDITA
 for each row
-when (n.IDPREVENTIVO is not null and not exists (
-	select * 
-	from PREVENTIVO p
-	where n.IDUTENTE = p.IDUTENTE
-	and n.IDPREVENTIVO = p.IDPREVENTIVO))
-signal sqlstate '70002'('Non è possibile inserire una vendita che ha un preventivo se questo non esiste!')@
+begin 
+
+	if (NEW.IDPREVENTIVO is not null and not exists (
+		select * 
+		from PREVENTIVO p
+		where NEW.IDUTENTE = p.IDUTENTE
+		and NEW.IDPREVENTIVO = p.IDPREVENTIVO))
+		then
+			signal sqlstate '70001'
+			set message_text = 'Non è possibile inserire una vendita che ha un preventivo se questo non esiste!';
+	end if;
+end;
 
 /*
 * Fattura
@@ -22,14 +27,20 @@ signal sqlstate '70002'('Non è possibile inserire una vendita che ha un preventi
 --Almeno una vendita presente, prima di fare la fattura
 
 create trigger INSERISCI_FATTURA
-after insert on FATTURA
-referencing new as n
+before insert on FATTURA
 for each row
-when (n.NUMERO is not null and not exists (
-	select * 
-	from VENDITEFATTURA vf
-	where n.NUMERO = vf.NUMERO))
-signal sqlstate '70002'('Non è possibile inserire una fattura prima che ci sia una vendita associata!')@
+begin
+	if (NEW.NUMERO is not null and not exists (
+		select * 
+		from VENDITEFATTURA vf
+		where NEW.NUMERO = vf.NUMERO
+		and NEW.ANNO = vf.ANNO
+		and NEW.IDUTENTE = vf.IDUTENTE))
+		then
+			signal sqlstate '70002'
+			set message_text = 'Non è possibile inserire una fattura prima che ci sia una vendita associata o con un agente non S!';
+	end if;
+end;
 
 /*
 * Utente
@@ -38,34 +49,44 @@ signal sqlstate '70002'('Non è possibile inserire una fattura prima che ci sia u
 --Utente Azienda con ragione sociale e sede legale
 
 create trigger INSERISCI_UTENTE_AZIENDA
-after insert on UTENTE
-referencing new as n
+before insert on UTENTE
 for each row
-when (n.TIPO = 'azienda' and (n.nome is not null or n.cognome is not null or n.ragone_sociale is null or n.sede_legale is null or n.provvigione_default is not null))
-signal sqlstate '70002'('Non è possibile inserire un utente azienda senza ragione sociale e sede legale!')@
+begin
+	if (NEW.TIPO = 'AZ' and (NEW.NOME is not null or NEW.COGNOME is not null or NEW.RAGIONE_SOCIALE is null or NEW.SEDE_LEGALE is null or NEW.PROVVIGIONE_DEFAULT is not null))
+	then signal sqlstate '70003'
+	set message_text = 'Non è possibile inserire un utente azienda senza ragione sociale e sede legale!';
+	end if;
+end;
 
 --Utente Azienda con ragione sociale e sede legale
 
-create trigger INSERISCI_UTENTE_AZIENDA
-after insert on UTENTE
-referencing new as n
+create trigger INSERISCI_UTENTE_LIBERO_PROFESSIONISTA
+before insert on UTENTE
 for each row
-when (n.TIPO = 'azienda' and (n.nome is null or n.cognome is null or n.ragone_sociale is not null or n.sede_legale is not null or n.provvigione_default is not null))
-signal sqlstate '70002'('Non è possibile inserire un utente libero professionista senza nome e cognome!')@
+begin
+	if (NEW.TIPO = 'LP' and (NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is not null))
+	then signal sqlstate '70004'
+	set message_text = 'Non è possibile inserire un utente libero professionista senza nome e cognome!';
+	end if;
+end;
 
 --Almeno un datore di lavoro per un utente Agente
 
 create trigger INSERISCI_UTENTEAGENTE
-after insert on UTENTE
-referencing new as n
+before insert on UTENTE
 for each row
-when (n.IDUTENTE is not null and (not exists (
-	select * 
-	from DATORE_LAVORO dl
-	where n.IDUTENTE = dl.IDUTENTE
-	and n.TIPO = 'agente') 
-	or n.nome is null or n.cognome is null or n.ragone_sociale is not null or n.sede_legale is not null or n.provvigione_default is null))
-signal sqlstate '70002'('Non è possibile inserire un utente agente prima che ci sia un datore di lavoro associato o senza nome, cognome e provvigione default!')@
+begin
+	if (NEW.IDUTENTE is not null and (not exists (
+		select * 
+		from DATORE_LAVORO dl
+		where NEW.IDUTENTE = dl.IDUTENTE
+		and NEW.TIPO = 'AG') 
+		or NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is null))
+		then
+			signal sqlstate '70005'
+			set message_text = 'Non è possibile inserire un utente agente prima che ci sia un datore di lavoro associato o senza nome, cognome e provvigione default!';
+	end if;
+end;
 
 /*
 * Persona
@@ -74,18 +95,24 @@ signal sqlstate '70002'('Non è possibile inserire un utente agente prima che ci 
 --Persona giuridica con ragione sociale, sede legale e iva
 
 create trigger INSERISCI_PERSONA_GIURIDICA
-after insert on PERSONA
-referencing new as n
+before insert on PERSONA
 for each row
-when (n.TIPO = 'persona giuridica' and (n.piva is null or n.ragione_sociale is null or n.sede_legale is null or n.nome is not null or n.cognome is not null))
-signal sqlstate '70002'('Non è possibile inserire una persona giuridica senza iva, rag. sociale e sede!')@
+begin
+	if (NEW.TIPO = 'G' and (NEW.PIVA is null or NEW.RAGIONE_SOCIALE is null or NEW.SEDE_LEGALE is null or NEW.NOME is not null or NEW.COGNOME is not null))
+	then signal sqlstate '70006'
+	set message_text = 'Non è possibile inserire una persona giuridica senza iva, rag. sociale e sede!';
+	end if;
+end;
 
 
 --Persona fisica con nome e cognome
 
 create trigger INSERISCI_PERSONA_FISICA
-after insert on PERSONA
-referencing new as n
+before insert on PERSONA
 for each row
-when (n.TIPO = 'persona fisica' and (n.nome is null or n.cognome is null or n.ragone_sociale is not null or n.sede_legale is not null))
-signal sqlstate '70002'('Non è possibile inserire una persona fisica senza nome e cognome!')@
+begin
+	if (NEW.TIPO = 'F' and (NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null))
+	then signal sqlstate '70007'
+	set message_text = 'Non è possibile inserire una persona fisica senza nome e cognome!';
+	end if;
+end;
