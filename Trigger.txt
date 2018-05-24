@@ -3,17 +3,21 @@
 */
 
 /*Esistenza preventivo se la vendita è con preventivo*/
+/*Se c'e' l'agente deve pure esserci la provvigione*/
 
-create trigger INSERISCI_VENDITA_CON_PREVENTIVO
+create trigger INSERISCI_VENDITA
 before insert on VENDITA
 for each row
 begin 
-
-	if (NEW.IDPREVENTIVO is not null and not exists (
+	if ((NEW.IDPREVENTIVO is not null and not exists (
 		select * 
 		from PREVENTIVO p
 		where NEW.IDUTENTE = p.IDUTENTE
 		and NEW.IDPREVENTIVO = p.IDPREVENTIVO))
+	OR
+	((TIPOAGENTE is not null and PROVVIGIONE is null)
+           or (TIPOAGENTE is null and PROVVIGIONE is not null))
+	)
 		then
 			signal sqlstate '70001'
 			set message_text = 'Non è possibile inserire una vendita che ha un preventivo se questo non esiste!';
@@ -25,20 +29,27 @@ end:
 */
 
 /*Almeno una vendita presente, prima di fare la fattura*/
+/*Check su id_agente e id_datore_lavoro (in XOR non vanno bene)*/
 
 create trigger INSERISCI_FATTURA
 before insert on FATTURA
 for each row
 begin
-	if (NEW.NUMERO is not null and not exists (
+	if ((NEW.NUMERO is not null and not exists (
 		select * 
 		from VENDITEFATTURA vf
 		where NEW.NUMERO = vf.NUMERO
 		and NEW.ANNO = vf.ANNO
 		and NEW.IDUTENTE = vf.IDUTENTE))
+	OR
+	((NEW.TIPOAGENTE is null and NEW.IDDATORELAVORO is not null)
+           or (NEW.TIPOAGENTE is not null and NEW.IDDATORELAVORO is null))
+	OR
+	(NEW.TIPOAGENTE is not null and NEW.IDCLIENTE is not null)
+	)
 		then
 			signal sqlstate '70002'
-			set message_text = 'Non è possibile inserire una fattura prima che ci sia una vendita associata o con un agente non S!';
+			set message_text = 'Errore inserimento fattura, trigger FAILED!';
 	end if;
 end:
 
@@ -46,21 +57,25 @@ end:
 * Utente
 */
 
+/*Se sei di un tipo i tuoi campi devono esserci, gli altri no (XOR)*/
+
 create trigger INSERISCI_UTENTE
 before insert on UTENTE
 for each row
 begin
 	if (
+	NEW.TIPO is null
+	OR
 	(NEW.TIPO = 'AZ' and (NEW.NOME is not null or NEW.COGNOME is not null or NEW.RAGIONE_SOCIALE is null or NEW.SEDE_LEGALE is null or NEW.PROVVIGIONE_DEFAULT is not null))
 	OR
 	(NEW.TIPO = 'LP' and (NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is not null))
 	OR
-	(NEW.IDUTENTE is not null and (not exists (
+	(NEW.TIPO = 'AG' and (NEW.IDUTENTE is not null and (not exists (
 		select * 
 		from DATORE_LAVORO dl
 		where NEW.IDUTENTE = dl.IDUTENTE
 		and NEW.TIPO = 'AG') 
-		or NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is null))
+		or NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is null)))
 	)
 	then signal sqlstate '70003'
 	set message_text = 'Errore inserimento utente, trigger FAILED!';
@@ -71,11 +86,15 @@ end:
 * Persona
 */
 
+/*Se sei di un tipo i tuoi campi devono esserci, gli altri no (XOR)*/
+
 create trigger INSERISCI_PERSONA
 before insert on PERSONA
 for each row
 begin
 	if (
+	NEW.TIPO is null
+	OR
 	(NEW.TIPO = 'G' and (NEW.PIVA is null or NEW.RAGIONE_SOCIALE is null or NEW.SEDE_LEGALE is null or NEW.NOME is not null or NEW.COGNOME is not null))
 	OR
 	(NEW.TIPO = 'F' and (NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null))
