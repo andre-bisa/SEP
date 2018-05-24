@@ -270,6 +270,7 @@ namespace ScriptInCSharp {
         }
         public void clearVariables() {
             this.variables.Clear();
+	    this.important.Clear();
         }
         //Get the variable value;
         public string getVariableValue(string name) {
