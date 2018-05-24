@@ -52,6 +52,7 @@ namespace IngegneriaDelSoftware
             fattura.Add(voce1, voce2);
             var list = new List<Fattura>();
             list.Add(fattura);
+            CollezioneClienti.GetInstance().Add(cliente);
             Application.Run(GenericViewLoader.getFatturaForm(list));
         }
     }

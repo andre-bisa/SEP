@@ -111,12 +111,8 @@ namespace IngegneriaDelSoftware.View {
             result.OnNuovaClick += (o, e) => {
                 o.Key = null;
                 o.Enabled = false;
-                var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
-                var cliente = new Cliente(persona, "1");
-                var list = new List<Cliente>();
-                list.Add(cliente);
                 Cliente c = null;
-                if((c = GetClienteForm.Get(list)) == null) {
+                if((c = GetClienteForm.Get(CollezioneClienti.GetInstance().ToList())) == null) {
                     o.CleanAll();
                 } else {
                     CaricaCliente(result, c);
@@ -218,7 +214,6 @@ namespace IngegneriaDelSoftware.View {
             result.OnCreaClick += (o, e) => {
                 if(String.IsNullOrEmpty(o.Key)) {
                     //TODO what do i do with this?;
-                    //XXX add scelta vendita;
                     new Fattura(Convert.ToInt32(o.Anno), o.Numero, tmpCliente, vendite, DateTime.Parse(o.Data), 0, o.GetVoci().Select((el) => {
                         return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale),el.Tipologia, el.Numero);
                     }).ToList());
@@ -265,7 +260,28 @@ namespace IngegneriaDelSoftware.View {
                 }
             };
             result.OnNuovaClick += (o, e) => {
-                //TODO Registrare il cliente
+                o.Key = null;
+                o.Enabled = false;
+                Cliente c = null;
+                if((c = GetClienteForm.Get(CollezioneClienti.GetInstance().ToList())) == null) {
+                    o.CleanAll();
+                } else {
+                    CaricaCliente(result, c);
+                    tmpCliente = c;
+                }
+                //TODO
+                Vendita[] v = null;
+                var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
+                var cliente = new Cliente(persona, "1");
+                var vendita = new Vendita(1, cliente);
+                if((v = GetVenditaForm.Get((new Vendita[] { vendita }).ToList())) == null) {
+                    o.CleanAll();
+                    tmpCliente = null;
+                } else {
+                    vendite = new List<Vendita>();
+                    vendite.AddRange(v);
+                }
+                o.Enabled = true;
             };
             return result;
         }
