@@ -342,7 +342,7 @@ alter table VENDITEFATTURA add constraint REF_VENDI_FATTU
 
 alter table VOCEFATTURA add constraint REF_VOCEF_FATTU_FK
      foreign key (IDUTENTE, ANNO, NUMEROFATTURA)
-     references FATTURA(IDUTENTE, ANNO, NUMEROFATTURA);
+     references FATTURA(IDUTENTE, ANNO, NUMERO);
 
 alter table VOCEVENDITA add constraint REF_VOCEV_VENDI_FK
      foreign key (IDUTENTE, IDVENDITA)
