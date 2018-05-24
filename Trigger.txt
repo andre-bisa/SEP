@@ -66,7 +66,7 @@ begin
 	if (
 	NEW.TIPO is null
 	OR
-	(NEW.TIPO = 'AZ' and (NEW.NOME is not null or NEW.COGNOME is not null or NEW.RAGIONE_SOCIALE is null or NEW.SEDE_LEGALE is null))
+	(NEW.TIPO = 'AZ' and (NEW.NOME is not null or NEW.COGNOME is not null or NEW.RAGIONE_SOCIALE is null or NEW.SEDE_LEGALE is null or NEW.PROVVIGIONE_DEFAULT is null))
 	OR
 	(NEW.TIPO = 'LP' and (NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is not null))
 	OR
