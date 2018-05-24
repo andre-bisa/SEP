@@ -2,7 +2,7 @@
 * Vendita
 */
 
---Esistenza preventivo se la vendita è con preventivo
+/*Esistenza preventivo se la vendita è con preventivo*/
 
 create trigger INSERISCI_VENDITA_CON_PREVENTIVO
 before insert on VENDITA
@@ -18,13 +18,13 @@ begin
 			signal sqlstate '70001'
 			set message_text = 'Non è possibile inserire una vendita che ha un preventivo se questo non esiste!';
 	end if;
-end;
+end:
 
 /*
 * Fattura
 */
 
---Almeno una vendita presente, prima di fare la fattura
+/*Almeno una vendita presente, prima di fare la fattura*/
 
 create trigger INSERISCI_FATTURA
 before insert on FATTURA
@@ -40,79 +40,47 @@ begin
 			signal sqlstate '70002'
 			set message_text = 'Non è possibile inserire una fattura prima che ci sia una vendita associata o con un agente non S!';
 	end if;
-end;
+end:
 
 /*
 * Utente
 */
 
---Utente Azienda con ragione sociale e sede legale
-
-create trigger INSERISCI_UTENTE_AZIENDA
+create trigger INSERISCI_UTENTE
 before insert on UTENTE
 for each row
 begin
-	if (NEW.TIPO = 'AZ' and (NEW.NOME is not null or NEW.COGNOME is not null or NEW.RAGIONE_SOCIALE is null or NEW.SEDE_LEGALE is null or NEW.PROVVIGIONE_DEFAULT is not null))
-	then signal sqlstate '70003'
-	set message_text = 'Non è possibile inserire un utente azienda senza ragione sociale e sede legale!';
-	end if;
-end;
-
---Utente Azienda con ragione sociale e sede legale
-
-create trigger INSERISCI_UTENTE_LIBERO_PROFESSIONISTA
-before insert on UTENTE
-for each row
-begin
-	if (NEW.TIPO = 'LP' and (NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is not null))
-	then signal sqlstate '70004'
-	set message_text = 'Non è possibile inserire un utente libero professionista senza nome e cognome!';
-	end if;
-end;
-
---Almeno un datore di lavoro per un utente Agente
-
-create trigger INSERISCI_UTENTEAGENTE
-before insert on UTENTE
-for each row
-begin
-	if (NEW.IDUTENTE is not null and (not exists (
+	if (
+	(NEW.TIPO = 'AZ' and (NEW.NOME is not null or NEW.COGNOME is not null or NEW.RAGIONE_SOCIALE is null or NEW.SEDE_LEGALE is null or NEW.PROVVIGIONE_DEFAULT is not null))
+	OR
+	(NEW.TIPO = 'LP' and (NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is not null))
+	OR
+	(NEW.IDUTENTE is not null and (not exists (
 		select * 
 		from DATORE_LAVORO dl
 		where NEW.IDUTENTE = dl.IDUTENTE
 		and NEW.TIPO = 'AG') 
 		or NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is null))
-		then
-			signal sqlstate '70005'
-			set message_text = 'Non è possibile inserire un utente agente prima che ci sia un datore di lavoro associato o senza nome, cognome e provvigione default!';
+	)
+	then signal sqlstate '70003'
+	set message_text = 'Errore inserimento utente, trigger FAILED!';
 	end if;
-end;
+end:
 
 /*
 * Persona
 */
 
---Persona giuridica con ragione sociale, sede legale e iva
-
-create trigger INSERISCI_PERSONA_GIURIDICA
+create trigger INSERISCI_PERSONA
 before insert on PERSONA
 for each row
 begin
-	if (NEW.TIPO = 'G' and (NEW.PIVA is null or NEW.RAGIONE_SOCIALE is null or NEW.SEDE_LEGALE is null or NEW.NOME is not null or NEW.COGNOME is not null))
+	if (
+	(NEW.TIPO = 'G' and (NEW.PIVA is null or NEW.RAGIONE_SOCIALE is null or NEW.SEDE_LEGALE is null or NEW.NOME is not null or NEW.COGNOME is not null))
+	OR
+	(NEW.TIPO = 'F' and (NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null))
+	)
 	then signal sqlstate '70006'
-	set message_text = 'Non è possibile inserire una persona giuridica senza iva, rag. sociale e sede!';
+	set message_text = 'Errore inserimento persona, trigger FAILED!';
 	end if;
-end;
-
-
---Persona fisica con nome e cognome
-
-create trigger INSERISCI_PERSONA_FISICA
-before insert on PERSONA
-for each row
-begin
-	if (NEW.TIPO = 'F' and (NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null))
-	then signal sqlstate '70007'
-	set message_text = 'Non è possibile inserire una persona fisica senza nome e cognome!';
-	end if;
-end;
+end:
