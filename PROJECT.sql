@@ -217,11 +217,13 @@ create table VOCIPREVENTIVO (
 
 alter table APPUNTAMENTICON add constraint REF_APPUN_APPUN
      foreign key (IDUTENTE, IDAPPUNTAMENTO)
-     references APPUNTAMENTO(IDUTENTE, IDAPPUNTAMENTO);
+     references APPUNTAMENTO(IDUTENTE, IDAPPUNTAMENTO)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table APPUNTAMENTICON add constraint REF_APPUN_INTER_FK
      foreign key (IDUTENTE, IDINTERMEDIARIO)
-     references INTERMEDIARIO(IDUTENTE, IDINTERMEDIARIO);
+     references INTERMEDIARIO(IDUTENTE, IDINTERMEDIARIO)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table APPUNTAMENTICON add constraint REF_APPUN_CLIEN_FK
      foreign key (IDUTENTE, IDCLIENTE)
@@ -229,93 +231,110 @@ alter table APPUNTAMENTICON add constraint REF_APPUN_CLIEN_FK
 
 alter table APPUNTAMENTICON add constraint REF_APPUN_ESTER_FK
      foreign key (IDUTENTE, IDESTERNO)
-     references ESTERNO(IDUTENTE, IDESTERNO);
+     references ESTERNO(IDUTENTE, IDESTERNO)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table APPUNTAMENTO add constraint REF_APPUN_UTENT
      foreign key (IDUTENTE)
-     references UTENTE(IDUTENTE);
+     references UTENTE(IDUTENTE)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table CLIENTE add constraint REF_CLIEN_UTENT
      foreign key (IDUTENTE)
-     references UTENTE(IDUTENTE);
+     references UTENTE(IDUTENTE)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table CLIENTE add constraint REF_CLIEN_PERSO_FK
      foreign key (IDUTENTE, IDPERSONA)
-     references PERSONA (IDUTENTE, IDPERSONA);
+     references PERSONA (IDUTENTE, IDPERSONA)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table DATORE_LAVORO add constraint EQU_DATOR_UTENT_FK
      foreign key (IDUTENTE)
-     references UTENTE(IDUTENTE);
+     references UTENTE(IDUTENTE)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table ESTERNO add constraint REF_ESTER_UTENT
      foreign key (IDUTENTE)
-     references UTENTE(IDUTENTE);
+     references UTENTE(IDUTENTE)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table FATTURA add constraint REF_FATTU_DATOR_FK
      foreign key (IDDATORELAVORO)
-     references DATORE_LAVORO(IDDATORELAVORO);
+     references DATORE_LAVORO(IDDATORELAVORO)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
-alter table FATTURA add constraint COEX_FATTURA
+/*alter table FATTURA add constraint COEX_FATTURA
      check((TIPOAGENTE is not null and IDDATORELAVORO is not null)
-           or (TIPOAGENTE is null and IDDATORELAVORO is null)); 
+           or (TIPOAGENTE is null and IDDATORELAVORO is null));*/
 
 alter table FATTURA add constraint REF_FATTU_UTENT
      foreign key (IDUTENTE)
-     references UTENTE(IDUTENTE);
+     references UTENTE(IDUTENTE)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
-alter table FATTURA add constraint EXCL_FATTURA
+/*alter table FATTURA add constraint EXCL_FATTURA
      check((TIPOAGENTE is not null and IDCLIENTE is null)
            or (TIPOAGENTE is null and IDCLIENTE is not null)
-           or (TIPOAGENTE is null and IDCLIENTE is null)); 
+           or (TIPOAGENTE is null and IDCLIENTE is null));*/
 
 alter table INTERMEDIARIO add constraint REF_INTER_PERSO_FK
      foreign key (IDUTENTE, IDPERSONA)
-     references PERSONA (IDUTENTE, IDPERSONA);
+     references PERSONA (IDUTENTE, IDPERSONA)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table MAIL add constraint REF_MAIL_PERSO_FK
      foreign key (IDUTENTE, IDPERSONA)
-     references PERSONA(IDUTENTE, IDPERSONA);
+     references PERSONA(IDUTENTE, IDPERSONA)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table MAILINVIATA add constraint REF_MAIL__UTENT
      foreign key (IDUTENTE)
-     references UTENTE(IDUTENTE);
+     references UTENTE(IDUTENTE)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table MAILINVIATA add constraint REF_MAIL__PERSO_FK
      foreign key (IDUTENTE, IDPERSONA)
-     references PERSONA (IDUTENTE, IDPERSONA);
+     references PERSONA (IDUTENTE, IDPERSONA)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table PERSONA add constraint REF_PERSO_UTENT
      foreign key (IDUTENTE)
-     references UTENTE(IDUTENTE);
+     references UTENTE(IDUTENTE)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table PREVENTIVO add constraint REF_PREVE_UTENT
      foreign key (IDUTENTE)
-     references UTENTE(IDUTENTE);
+     references UTENTE(IDUTENTE)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table PREVENTIVO add constraint REF_PREVE_CLIEN_FK
      foreign key (IDUTENTE, IDCLIENTE)
-     references CLIENTE(IDUTENTE, IDCLIENTE);
+     references CLIENTE(IDUTENTE, IDCLIENTE)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table REFERENTE add constraint REF_REFER_CLIEN_FK
      foreign key (IDUTENTE, IDCLIENTE)
-     references CLIENTE(IDUTENTE, IDCLIENTE);
+     references CLIENTE(IDUTENTE, IDCLIENTE)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table TELEFONO add constraint REF_TELEF_PERSO_FK
      foreign key (IDUTENTE, IDPERSONA)
-     references PERSONA(IDUTENTE, IDPERSONA);
+     references PERSONA(IDUTENTE, IDPERSONA)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
-alter table PERSONA add constraint CHECK_PERSONA_TIPI
+/*alter table PERSONA add constraint CHECK_PERSONA_TIPI
 	check(
 	(TIPO = "F" AND NOME IS NOT NULL AND COGNOME IS NOT NULL AND RAGIONE_SOCIALE IS NULL AND SEDE_LEGALE IS NULL)
 	OR 
 	(TIPO = "G" AND NOME IS NULL AND COGNOME IS NULL AND RAGIONE_SOCIALE IS NOT NULL AND SEDE_LEGALE IS NOT NULL AND PIVA IS NOT NULL)
-	);
+	);*/
 
-alter table UTENTE add constraint ID_UTENTE_CHK
+/*alter table UTENTE add constraint ID_UTENTE_CHK
      check(exists(select * from DATORE_LAVORO
-                  where DATORE_LAVORO.IDUTENTE = IDUTENTE)); 
+                  where DATORE_LAVORO.IDUTENTE = IDUTENTE));*/
 
-alter table UTENTE add constraint COEX_UTENTE_2
+/*alter table UTENTE add constraint COEX_UTENTE_2
      check((NOME is not null and COGNOME is not null)
            or (NOME is null and COGNOME is null)); 
 
@@ -325,37 +344,46 @@ alter table UTENTE add constraint COEX_UTENTE_1
 
 alter table UTENTE add constraint COEX_UTENTE
      check((RAGIONE_SOCIALE is not null and SEDE_LEGALE is not null)
-           or (RAGIONE_SOCIALE is null and SEDE_LEGALE is null)); 
+           or (RAGIONE_SOCIALE is null and SEDE_LEGALE is null));*/
 
-alter table VENDITA add constraint COEX_VENDITA
+/*alter table VENDITA add constraint COEX_VENDITA
      check((TIPOAGENTE is not null and PROVVIGIONE is not null)
-           or (TIPOAGENTE is null and PROVVIGIONE is null)); 
+           or (TIPOAGENTE is null and PROVVIGIONE is null));*/
 
 alter table VENDITA add constraint REF_VENDI_UTENT
      foreign key (IDUTENTE)
-     references UTENTE(IDUTENTE);
+     references UTENTE(IDUTENTE)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table VENDITA add constraint REF_VENDI_CLIEN_FK
      foreign key (IDUTENTE, IDCLIENTE)
-     references CLIENTE(IDUTENTE, IDCLIENTE);
+     references CLIENTE(IDUTENTE, IDCLIENTE)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table VENDITEFATTURA add constraint REF_VENDI_VENDI_FK
      foreign key (IDUTENTE, IDVENDITA)
-     references VENDITA(IDUTENTE, IDVENDITA);
+     references VENDITA(IDUTENTE, IDVENDITA)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
-alter table VENDITEFATTURA add constraint REF_VENDI_FATTU foreign key (IDUTENTE, ANNO, NUMERO) references FATTURA(IDUTENTE, ANNO, NUMERO);
+alter table VENDITEFATTURA add constraint REF_VENDI_FATTU 
+     foreign key (IDUTENTE, ANNO, NUMERO)
+     references FATTURA(IDUTENTE, ANNO, NUMERO)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table VOCEFATTURA add constraint REF_VOCEF_FATTU_FK
      foreign key (IDUTENTE, ANNO, NUMEROFATTURA)
-     references FATTURA(IDUTENTE, ANNO, NUMERO);
+     references FATTURA(IDUTENTE, ANNO, NUMERO)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table VOCEVENDITA add constraint REF_VOCEV_VENDI_FK
      foreign key (IDUTENTE, IDVENDITA)
-     references VENDITA(IDUTENTE, IDVENDITA);
+     references VENDITA(IDUTENTE, IDVENDITA)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 alter table VOCIPREVENTIVO add constraint REF_VOCIP_PREVE_FK
      foreign key (IDUTENTE, IDPREVENTIVO)
-     references PREVENTIVO(IDUTENTE, IDPREVENTIVO);
+     references PREVENTIVO(IDUTENTE, IDPREVENTIVO)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 
 -- Index Section
