@@ -202,6 +202,21 @@ namespace IngegneriaDelSoftware.View.Overlay
             {
                 checkEx.Enabled = true;
             }
+            switch (Cliente.TipoCliente)
+            {
+                case EnumTipoCliente.Attivo:
+                    checkEx.Enabled = true;
+                    checkPotenziale.Enabled = false;
+                    break;
+                case EnumTipoCliente.Ex:
+                    checkPotenziale.Enabled = false;
+                    checkEx.Enabled = true;
+                    break;
+                case EnumTipoCliente.Potenziale:
+                    checkEx.Enabled = false;
+                    checkPotenziale.Enabled = true;
+                    break;
+            }
         }
 
         private void checkEx_CheckedChanged(object sender, EventArgs e)
@@ -214,6 +229,21 @@ namespace IngegneriaDelSoftware.View.Overlay
             else
             {
                 checkPotenziale.Enabled = true;
+            }
+            switch (Cliente.TipoCliente)
+            {
+                case EnumTipoCliente.Attivo:
+                    checkEx.Enabled = true;
+                    checkPotenziale.Enabled = false;
+                    break;
+                case EnumTipoCliente.Ex:
+                    checkPotenziale.Enabled = false;
+                    checkEx.Enabled = true;
+                    break;
+                case EnumTipoCliente.Potenziale:
+                    checkEx.Enabled = false;
+                    checkPotenziale.Enabled = true;
+                    break;
             }
         }
     }
