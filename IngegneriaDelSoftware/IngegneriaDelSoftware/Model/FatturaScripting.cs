@@ -79,7 +79,7 @@ namespace IngegneriaDelSoftware.Model {
                 //Per ogni tipologia esegue la somma dell'importo;
                 //FIXME inserire l'algoritmo corretto;
                 tmp = tipologia.ToArray().Select((i) => {
-                    return i.Importo;
+                    return (i.Importo * i.Quantita) * (i.Iva + 1);
                 }).ToArray();
                 //Aggiunge al valutatore i dati appena creati;
                 scriptEngine.AddArrayVariable(tipologia.Key.Replace(" ", ""), tmp);
