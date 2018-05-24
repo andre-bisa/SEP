@@ -184,7 +184,7 @@ create table VOCEFATTURA (
      NUMEROFATTURA int not null,
      NUMEROVOCE int not null,
      DESCRIZIONE varchar(100) not null,
-     TIPOLOGIA varchar(20) not null, ---------------------------------------------<<<<< CHECK
+     TIPOLOGIA varchar(20) not null,
      PERCENTUALE_IVA decimal(3,2) not null,
      QUANTITA int not null,
      IMPORTO decimal(9,2) not null,
@@ -195,7 +195,7 @@ create table VOCEVENDITA (
      IDVENDITA varchar(10) not null,
      NUMERO int not null,
      DESCRIZIONE varchar(100) not null,
-     TIPOLOGIA varchar(20) not null, ---------------------------------------------<<<<< CHECK
+     TIPOLOGIA varchar(20) not null,
      QUANTITA int not null,
      PROVVIGIONE decimal(3,2),
      IMPORTO decimal(9,2) not null,
@@ -206,7 +206,7 @@ create table VOCIPREVENTIVO (
      IDPREVENTIVO varchar(10) not null,
      NUMERO int not null,
      DESCRIZIONE varchar(100) not null,
-     TIPOLOGIA varchar(20) not null, ---------------------------------------------<<<<< CHECK
+     TIPOLOGIA varchar(20) not null,
      QUANTITA int not null,
      IMPORTO decimal(9,2) not null,
      constraint ID_VOCIPREVENTIVO_ID primary key (NUMERO, IDUTENTE, IDPREVENTIVO));
