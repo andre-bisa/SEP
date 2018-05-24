@@ -241,7 +241,7 @@ alter table CLIENTE add constraint REF_CLIEN_UTENT
 
 alter table CLIENTE add constraint REF_CLIEN_PERSO_FK
      foreign key (IDUTENTE, IDPERSONA)
-     references PERSONA (IDUTENTE, CF);
+     references PERSONA (IDUTENTE, IDPERSONA);
 
 alter table DATORE_LAVORO add constraint EQU_DATOR_UTENT_FK
      foreign key (IDUTENTE)
@@ -270,7 +270,7 @@ alter table FATTURA add constraint EXCL_FATTURA
 
 alter table INTERMEDIARIO add constraint REF_INTER_PERSO_FK
      foreign key (IDUTENTE, IDPERSONA)
-     references PERSONA (IDUTENTE, CF);
+     references PERSONA (IDUTENTE, IDPERSONA);
 
 alter table MAIL add constraint REF_MAIL_PERSO_FK
      foreign key (IDUTENTE, IDPERSONA)
@@ -282,7 +282,7 @@ alter table MAILINVIATA add constraint REF_MAIL__UTENT
 
 alter table MAILINVIATA add constraint REF_MAIL__PERSO_FK
      foreign key (IDUTENTE, IDPERSONA)
-     references PERSONA (IDUTENTE, CF);
+     references PERSONA (IDUTENTE, IDPERSONA);
 
 alter table PERSONA add constraint REF_PERSO_UTENT
      foreign key (IDUTENTE)
@@ -336,9 +336,7 @@ alter table VENDITEFATTURA add constraint REF_VENDI_VENDI_FK
      foreign key (IDUTENTE, IDVENDITA)
      references VENDITA(IDUTENTE, IDVENDITA);
 
-alter table VENDITEFATTURA add constraint REF_VENDI_FATTU
-     foreign key (ANNO, NUMERO, IDUTENTE)
-     references FATTURA(ANNO, NUMERO, IDUTENTE);
+alter table VENDITEFATTURA add constraint REF_VENDI_FATTU foreign key (IDUTENTE, ANNO, NUMERO) references FATTURA(IDUTENTE, ANNO, NUMERO);
 
 alter table VOCEFATTURA add constraint REF_VOCEF_FATTU_FK
      foreign key (IDUTENTE, ANNO, NUMEROFATTURA)
