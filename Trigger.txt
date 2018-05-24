@@ -70,12 +70,12 @@ begin
 	OR
 	(NEW.TIPO = 'LP' and (NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is not null))
 	OR
-	(NEW.IDUTENTE is not null and (not exists (
+	(NEW.TIPO = 'AG' and (NEW.IDUTENTE is not null and (not exists (
 		select * 
 		from DATORE_LAVORO dl
 		where NEW.IDUTENTE = dl.IDUTENTE
 		and NEW.TIPO = 'AG') 
-		or NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is null))
+		or NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is null)))
 	)
 	then signal sqlstate '70003'
 	set message_text = 'Errore inserimento utente, trigger FAILED!';
