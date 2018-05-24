@@ -184,7 +184,7 @@ create table VOCEFATTURA (
      NUMEROFATTURA int not null,
      NUMEROVOCE int not null,
      DESCRIZIONE varchar(100) not null,
-     TIPOLOGIA varchar(20) not null, ---------------------------------------------<<<<< CHECK
+     TIPOLOGIA varchar(20) not null,
      PERCENTUALE_IVA decimal(3,2) not null,
      QUANTITA int not null,
      IMPORTO decimal(9,2) not null,
@@ -195,7 +195,7 @@ create table VOCEVENDITA (
      IDVENDITA varchar(10) not null,
      NUMERO int not null,
      DESCRIZIONE varchar(100) not null,
-     TIPOLOGIA varchar(20) not null, ---------------------------------------------<<<<< CHECK
+     TIPOLOGIA varchar(20) not null,
      QUANTITA int not null,
      PROVVIGIONE decimal(3,2),
      IMPORTO decimal(9,2) not null,
@@ -206,7 +206,7 @@ create table VOCIPREVENTIVO (
      IDPREVENTIVO varchar(10) not null,
      NUMERO int not null,
      DESCRIZIONE varchar(100) not null,
-     TIPOLOGIA varchar(20) not null, ---------------------------------------------<<<<< CHECK
+     TIPOLOGIA varchar(20) not null,
      QUANTITA int not null,
      IMPORTO decimal(9,2) not null,
      constraint ID_VOCIPREVENTIVO_ID primary key (NUMERO, IDUTENTE, IDPREVENTIVO));
@@ -217,27 +217,27 @@ create table VOCIPREVENTIVO (
 
 alter table APPUNTAMENTICON add constraint REF_APPUN_APPUN
      foreign key (IDUTENTE, IDAPPUNTAMENTO)
-     references APPUNTAMENTO;
+     references APPUNTAMENTO(IDUTENTE, IDAPPUNTAMENTO);
 
 alter table APPUNTAMENTICON add constraint REF_APPUN_INTER_FK
      foreign key (IDUTENTE, IDINTERMEDIARIO)
-     references INTERMEDIARIO;
+     references INTERMEDIARIO(IDUTENTE, IDINTERMEDIARIO);
 
 alter table APPUNTAMENTICON add constraint REF_APPUN_CLIEN_FK
      foreign key (IDUTENTE, IDCLIENTE)
-     references CLIENTE;
+     references CLIENTE(IDUTENTE, IDCLIENTE);
 
 alter table APPUNTAMENTICON add constraint REF_APPUN_ESTER_FK
      foreign key (IDUTENTE, IDESTERNO)
-     references ESTERNO;
+     references ESTERNO(IDUTENTE, IDESTERNO);
 
 alter table APPUNTAMENTO add constraint REF_APPUN_UTENT
      foreign key (IDUTENTE)
-     references UTENTE;
+     references UTENTE(IDUTENTE);
 
 alter table CLIENTE add constraint REF_CLIEN_UTENT
      foreign key (IDUTENTE)
-     references UTENTE;
+     references UTENTE(IDUTENTE);
 
 alter table CLIENTE add constraint REF_CLIEN_PERSO_FK
      foreign key (IDUTENTE, IDPERSONA)
@@ -245,15 +245,15 @@ alter table CLIENTE add constraint REF_CLIEN_PERSO_FK
 
 alter table DATORE_LAVORO add constraint EQU_DATOR_UTENT_FK
      foreign key (IDUTENTE)
-     references UTENTE;
+     references UTENTE(IDUTENTE);
 
 alter table ESTERNO add constraint REF_ESTER_UTENT
      foreign key (IDUTENTE)
-     references UTENTE;
+     references UTENTE(IDUTENTE);
 
 alter table FATTURA add constraint REF_FATTU_DATOR_FK
      foreign key (IDDATORELAVORO)
-     references DATORE_LAVORO;
+     references DATORE_LAVORO(IDDATORELAVORO);
 
 alter table FATTURA add constraint COEX_FATTURA
      check((TIPOAGENTE is not null and IDDATORELAVORO is not null)
@@ -261,7 +261,7 @@ alter table FATTURA add constraint COEX_FATTURA
 
 alter table FATTURA add constraint REF_FATTU_UTENT
      foreign key (IDUTENTE)
-     references UTENTE;
+     references UTENTE(IDUTENTE);
 
 alter table FATTURA add constraint EXCL_FATTURA
      check((TIPOAGENTE is not null and IDCLIENTE is null)
@@ -274,11 +274,11 @@ alter table INTERMEDIARIO add constraint REF_INTER_PERSO_FK
 
 alter table MAIL add constraint REF_MAIL_PERSO_FK
      foreign key (IDUTENTE, IDPERSONA)
-     references PERSONA;
+     references PERSONA(IDUTENTE, IDPERSONA);
 
 alter table MAILINVIATA add constraint REF_MAIL__UTENT
      foreign key (IDUTENTE)
-     references UTENTE;
+     references UTENTE(IDUTENTE);
 
 alter table MAILINVIATA add constraint REF_MAIL__PERSO_FK
      foreign key (IDUTENTE, IDPERSONA)
@@ -286,23 +286,23 @@ alter table MAILINVIATA add constraint REF_MAIL__PERSO_FK
 
 alter table PERSONA add constraint REF_PERSO_UTENT
      foreign key (IDUTENTE)
-     references UTENTE;
+     references UTENTE(IDUTENTE);
 
 alter table PREVENTIVO add constraint REF_PREVE_UTENT
      foreign key (IDUTENTE)
-     references UTENTE;
+     references UTENTE(IDUTENTE);
 
 alter table PREVENTIVO add constraint REF_PREVE_CLIEN_FK
      foreign key (IDUTENTE, IDCLIENTE)
-     references CLIENTE;
+     references CLIENTE(IDUTENTE, IDCLIENTE);
 
 alter table REFERENTE add constraint REF_REFER_CLIEN_FK
      foreign key (IDUTENTE, IDCLIENTE)
-     references CLIENTE;
+     references CLIENTE(IDUTENTE, IDCLIENTE);
 
 alter table TELEFONO add constraint REF_TELEF_PERSO_FK
      foreign key (IDUTENTE, IDPERSONA)
-     references PERSONA;
+     references PERSONA(IDUTENTE, IDPERSONA);
 
 alter table UTENTE add constraint ID_UTENTE_CHK
      check(exists(select * from DATORE_LAVORO
@@ -326,31 +326,31 @@ alter table VENDITA add constraint COEX_VENDITA
 
 alter table VENDITA add constraint REF_VENDI_UTENT
      foreign key (IDUTENTE)
-     references UTENTE;
+     references UTENTE(IDUTENTE);
 
 alter table VENDITA add constraint REF_VENDI_CLIEN_FK
      foreign key (IDUTENTE, IDCLIENTE)
-     references CLIENTE;
+     references CLIENTE(IDUTENTE, IDCLIENTE);
 
 alter table VENDITEFATTURA add constraint REF_VENDI_VENDI_FK
      foreign key (IDUTENTE, IDVENDITA)
-     references VENDITA;
+     references VENDITA(IDUTENTE, IDVENDITA);
 
 alter table VENDITEFATTURA add constraint REF_VENDI_FATTU
      foreign key (ANNO, NUMERO, IDUTENTE)
-     references FATTURA;
+     references FATTURA(ANNO, NUMERO, IDUTENTE);
 
 alter table VOCEFATTURA add constraint REF_VOCEF_FATTU_FK
      foreign key (IDUTENTE, ANNO, NUMEROFATTURA)
-     references FATTURA;
+     references FATTURA(IDUTENTE, ANNO, NUMERO);
 
 alter table VOCEVENDITA add constraint REF_VOCEV_VENDI_FK
      foreign key (IDUTENTE, IDVENDITA)
-     references VENDITA;
+     references VENDITA(IDUTENTE, IDVENDITA);
 
 alter table VOCIPREVENTIVO add constraint REF_VOCIP_PREVE_FK
      foreign key (IDUTENTE, IDPREVENTIVO)
-     references PREVENTIVO;
+     references PREVENTIVO(IDUTENTE, IDPREVENTIVO);
 
 
 -- Index Section
