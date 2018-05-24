@@ -169,22 +169,7 @@ namespace IngegneriaDelSoftware.View.Overlay
             else if (Cliente.TipoCliente == EnumTipoCliente.Potenziale)
                 checkPotenziale.Checked = true;
 
-            // Disattivo scelte non valide
-            switch (Cliente.TipoCliente)
-            {
-                case EnumTipoCliente.Attivo:
-                    checkEx.Enabled = true;
-                    checkPotenziale.Enabled = false;
-                    break;
-                case EnumTipoCliente.Ex:
-                    checkPotenziale.Enabled = false;
-                    checkEx.Enabled = true;
-                    break;
-                case EnumTipoCliente.Potenziale:
-                    checkEx.Enabled = false;
-                    checkPotenziale.Enabled = true;
-                    break;
-            }
+            AbilitaCheckPerTipologiaCliente();
 
             // Colore di sfondo
             base.ColoreSfondo = this._impostazioni.ColoreCliente(Cliente.TipoCliente);
@@ -202,6 +187,15 @@ namespace IngegneriaDelSoftware.View.Overlay
             {
                 checkEx.Enabled = true;
             }
+            AbilitaCheckPerTipologiaCliente();
+        }
+
+        private void AbilitaCheckPerTipologiaCliente()
+        {
+            if (Cliente == null)
+                return;
+
+            // Disattivo scelte non valide
             switch (Cliente.TipoCliente)
             {
                 case EnumTipoCliente.Attivo:
@@ -230,21 +224,7 @@ namespace IngegneriaDelSoftware.View.Overlay
             {
                 checkPotenziale.Enabled = true;
             }
-            switch (Cliente.TipoCliente)
-            {
-                case EnumTipoCliente.Attivo:
-                    checkEx.Enabled = true;
-                    checkPotenziale.Enabled = false;
-                    break;
-                case EnumTipoCliente.Ex:
-                    checkPotenziale.Enabled = false;
-                    checkEx.Enabled = true;
-                    break;
-                case EnumTipoCliente.Potenziale:
-                    checkEx.Enabled = false;
-                    checkPotenziale.Enabled = true;
-                    break;
-            }
+            AbilitaCheckPerTipologiaCliente();
         }
     }
 }
