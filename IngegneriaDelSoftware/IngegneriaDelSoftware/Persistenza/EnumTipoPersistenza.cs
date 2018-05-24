@@ -8,6 +8,6 @@ namespace IngegneriaDelSoftware.Persistenza
 {
     public enum EnumTipoPersistenza
     {
-        MySQL, XML
+        NONE, MySQL, XML
     }
 }

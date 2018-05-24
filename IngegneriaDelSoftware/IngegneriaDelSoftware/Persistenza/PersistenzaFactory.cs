@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IngegneriaDelSoftware.Persistenza.Dao;
 using IngegneriaDelSoftware.Persistenza.MySQL;
+using IngegneriaDelSoftware.Persistenza.None;
 
 namespace IngegneriaDelSoftware.Persistenza
 {
@@ -15,6 +16,8 @@ namespace IngegneriaDelSoftware.Persistenza
         {
             switch (tipoPersistenza)
             {
+                case EnumTipoPersistenza.NONE:
+                    return NONEDaoFactory.GetInstance();
                 case EnumTipoPersistenza.MySQL:
                     return MySQLDaoFactory.GetInstance();
                 case EnumTipoPersistenza.XML:

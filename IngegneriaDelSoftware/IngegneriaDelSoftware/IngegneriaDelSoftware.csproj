@@ -136,6 +136,8 @@
     <Compile Include="Persistenza\MySQL\MySQLPreventivoDAO.cs" />
     <Compile Include="Persistenza\MySQL\MySQLUtenteDAO.cs" />
     <Compile Include="Persistenza\MySQL\MySQLVenditaDAO.cs" />
+    <Compile Include="Persistenza\None\NONEDaoFactory.cs" />
+    <Compile Include="Persistenza\None\NoneGenericoDao.cs" />
     <Compile Include="Persistenza\PersistenzaFactory.cs" />
     <Compile Include="Persistenza\XML\XMLClienteDao.cs" />
     <Compile Include="Persistenza\XML\XMLDaoFactory.cs" />
