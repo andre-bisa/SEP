@@ -30,10 +30,10 @@ namespace IngegneriaDelSoftware.Test {
             var cliente = new Cliente(persona, "1");
             var vendita = new Vendita(1, cliente);
             var fattura = new FatturaScripting(2018, "2", cliente, vendita);
-            var voce1 = new VoceFattura("Corda", 30, 1f, "onorario");
-            var voce2 = new VoceFattura("Canapa", 20, 1f, "onorario");
-            var voce3 = new VoceFattura("Canapa", 20, 1f, "imponibili");
-            var voce4 = new VoceFattura("Canapa", 20, 1f, "non imponibili");
+            var voce1 = new VoceFattura("Corda", 30, 0f, "onorario");
+            var voce2 = new VoceFattura("Canapa", 20, 0f, "onorario");
+            var voce3 = new VoceFattura("Canapa", 20, 0f, "imponibili");
+            var voce4 = new VoceFattura("Canapa", 20, 0f, "non imponibili");
 
             fattura.Add(voce1, voce2, voce3, voce4);
             Assert.AreEqual("Imponibile: 10\nTotale: 60\n", fattura.Calcola());
