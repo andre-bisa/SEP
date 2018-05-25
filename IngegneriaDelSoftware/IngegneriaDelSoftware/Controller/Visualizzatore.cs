@@ -88,7 +88,7 @@ namespace IngegneriaDelSoftware.Controller
                  select coppia
                  );
 
-            foreach (OggettoVisualizzato<T> coppia in new List<OggettoVisualizzato<T>>(queryNonDevonoPiuEssereVisualizzati))
+            foreach (OggettoVisualizzato<T> coppia in queryNonDevonoPiuEssereVisualizzati)
             {
                 coppia.Visualizzato = false;
             }
