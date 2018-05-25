@@ -269,12 +269,8 @@ namespace IngegneriaDelSoftware.View {
                     CaricaCliente(result, c);
                     tmpCliente = c;
                 }
-                //TODO
                 Vendita[] v = null;
-                var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
-                var cliente = new Cliente(persona, "1");
-                var vendita = new Vendita(1, cliente);
-                if((v = GetVenditaForm.Get((new Vendita[] { vendita }).ToList())) == null) {
+                if((v = GetVenditaForm.Get(CollezioneVendite.GetInstance().ToList()))) == null) {
                     o.CleanAll();
                     tmpCliente = null;
                 } else {

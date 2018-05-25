@@ -219,7 +219,12 @@ namespace IngegneriaDelSoftware.View {
                 //Prova a parsare il valore o lancia eccezione;
                 if(Double.TryParse(Result.Text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.CurrentCulture, out value)) {
                     //Se possibile formatta il valore con il format economico corrente;
-                    Result.Text = value.ToString(FormatStyle, System.Globalization.CultureInfo.CurrentCulture);
+		    //XXX check if this works;
+		    try{
+                    	Result.Text = value.ToString(FormatStyle, System.Globalization.CultureInfo.CurrentCulture);
+		    }catch(System.FormatException e){
+			    throw new ArgumentException("The inserted value is not a correct format value");
+		    }
                 }else {
                     throw new ArgumentException("The inserted value must be a number");
                 }
