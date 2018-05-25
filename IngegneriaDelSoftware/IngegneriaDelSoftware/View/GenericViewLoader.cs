@@ -270,7 +270,7 @@ namespace IngegneriaDelSoftware.View {
                     tmpCliente = c;
                 }
                 Vendita[] v = null;
-                if((v = GetVenditaForm.Get(CollezioneVendite.GetInstance().ToList()))) == null) {
+                if((v = GetVenditaForm.Get(CollezioneVendite.GetInstance().ToList())) == null) {
                     o.CleanAll();
                     tmpCliente = null;
                 } else {
