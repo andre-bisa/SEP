@@ -130,7 +130,7 @@ namespace IngegneriaDelSoftware.Model
             bool rimosso = false;
             if (item != null)
             {
-                if (_persistenza.GetFatturaDAO().Elimina(item.IDFattura))
+                if (_persistenza.GetFatturaDAO().Elimina(item.Numero, item.Anno))
                 {
                     rimosso = ((ICollection<Fattura>)_fatture).Remove(item);
                     LanciaEvento(OnRimozione, item);
@@ -157,13 +157,13 @@ namespace IngegneriaDelSoftware.Model
             }
         }
 
-        public Fattura this[string id]
+        public Fattura this[string numero, int anno]
         {
             get
             {
                 foreach (Fattura f in this._fatture)
                 {
-                    if (f.IDFattura == id)
+                    if (f.Numero == numero && f.Anno == anno)
                         return f;
                 }
                 return null;

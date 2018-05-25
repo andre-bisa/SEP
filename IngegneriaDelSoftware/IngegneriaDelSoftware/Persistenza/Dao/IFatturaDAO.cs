@@ -15,7 +15,9 @@ namespace IngegneriaDelSoftware.Persistenza.Dao
 
         bool Aggiorna(Fattura vecchia, Fattura nuova);
 
-        bool Elimina(string ID);
+        bool Elimina(string numero, int anno);
+
+        List<Fattura> LeggiTutteFatture();
 
     }
 }

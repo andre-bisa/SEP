@@ -10,7 +10,7 @@ using IngegneriaDelSoftware.Persistenza;
 //XXX check this one;
 namespace IngegneriaDelSoftware.Model
 {
-    public class CollezioneFatture : IEnumerable<Vendita>, ICollection<Vendita>
+    public class CollezioneVendite : IEnumerable<Vendita>, ICollection<Vendita>
     {
         public event EventHandler<ArgsVendita> OnAggiunta;
         public event EventHandler<ArgsVendita> OnRimozione;
@@ -20,25 +20,25 @@ namespace IngegneriaDelSoftware.Model
         private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
 
         #region Singleton
-        private static CollezioneFatture _listaFatture = null;
+        private static CollezioneVendite _listaFatture = null;
         /// <summary>
         /// Funzioen che dà un'istanza della <see cref="CollezioneFatture"/>
         /// </summary>
         /// <returns>La collezione riempita con tutti i clienti</returns>
         /// <exception cref="ExceptionPersistenza">Se si sono verificati errori nella persistenza</exception>
-        public static CollezioneFatture GetInstance()
+        public static CollezioneVendite GetInstance()
         {
             if (_listaFatture == null)
-                _listaFatture = new CollezioneFatture();
+                _listaFatture = new CollezioneVendite();
             return _listaFatture;
         }
         #endregion
 
-        protected CollezioneFatture()
+        protected CollezioneVendite()
         {
             try
             {
-                foreach (Vendita v in _persistenza.GetVenditaDAO().LeggiTutteFatture())
+                foreach (Vendita v in _persistenza.GetVenditaDAO().LeggiTutteVendite())
                 {
                     _vendite.Add(v);
                 }
@@ -130,7 +130,7 @@ namespace IngegneriaDelSoftware.Model
             bool rimosso = false;
             if (item != null)
             {
-                if (_persistenza.GetVenditaDAO().Elimina(item.IDVendita))
+                if (_persistenza.GetVenditaDAO().Elimina(item.ID))
                 {
                     rimosso = ((ICollection<Vendita>)_vendite).Remove(item);
                     LanciaEvento(OnRimozione, item);
@@ -157,13 +157,13 @@ namespace IngegneriaDelSoftware.Model
             }
         }
 
-        public Vendita this[string id]
+        public Vendita this[ulong id]
         {
             get
             {
                 foreach (Vendita v in this._vendite)
                 {
-                    if (v.IDVendita == id)
+                    if (v.ID == id)
                         return v;
                 }
                 return null;

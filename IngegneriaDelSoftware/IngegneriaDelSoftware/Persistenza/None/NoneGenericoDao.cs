@@ -106,6 +106,21 @@ namespace IngegneriaDelSoftware.Persistenza.None
             return true;
         }
 
+        public bool Elimina(ulong ID)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Elimina(string numero, string anno)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool Elimina(string numero, int anno)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public List<MailInviata> GetListaMailInviate()
         {
             return new List<MailInviata>();
@@ -114,6 +129,16 @@ namespace IngegneriaDelSoftware.Persistenza.None
         public Appuntamento Leggi(string ID)
         {
             return null;
+        }
+
+        public List<Fattura> LeggiTutteFatture()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public List<Vendita> LeggiTutteVendite()
+        {
+            throw new System.NotImplementedException();
         }
 
         public List<Appuntamento> LeggiTuttiAppuntamenti()
@@ -129,6 +154,11 @@ namespace IngegneriaDelSoftware.Persistenza.None
         public List<DatoreLavoro> LeggiTuttiDatoriLavoro()
         {
             return new List<DatoreLavoro>();
+        }
+
+        public List<Preventivo> LeggiTuttiPreventivi()
+        {
+            throw new System.NotImplementedException();
         }
 
         Cliente IClienteDAO.Leggi(string IDCliente)

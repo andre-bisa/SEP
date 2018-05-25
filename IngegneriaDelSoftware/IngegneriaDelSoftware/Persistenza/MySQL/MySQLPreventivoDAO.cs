@@ -20,12 +20,17 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             throw new NotImplementedException();
         }
 
-        public bool Elimina(string ID)
+        public bool Elimina(ulong ID)
         {
             throw new NotImplementedException();
         }
 
         public Preventivo Leggi(string ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Preventivo> LeggiTuttiPreventivi()
         {
             throw new NotImplementedException();
         }

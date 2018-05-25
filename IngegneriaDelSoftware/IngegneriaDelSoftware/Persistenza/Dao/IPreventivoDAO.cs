@@ -15,6 +15,8 @@ namespace IngegneriaDelSoftware.Persistenza.Dao
 
         bool Aggiorna(Preventivo vecchio, Preventivo nuovo);
 
-        bool Elimina(string ID);
+        bool Elimina(ulong ID);
+
+        List<Preventivo> LeggiTuttiPreventivi();
     }
 }

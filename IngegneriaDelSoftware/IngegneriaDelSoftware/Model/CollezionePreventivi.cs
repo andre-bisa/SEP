@@ -29,12 +29,12 @@ namespace IngegneriaDelSoftware.Model
         public static CollezionePreventivi GetInstance()
         {
             if (_listaPreventivi == null)
-                _listaPreventivi = new CollezioneFatture();
+                _listaPreventivi = new CollezionePreventivi();
             return _listaPreventivi;
         }
         #endregion
 
-        protected CollezioneFatture()
+        protected CollezionePreventivi()
         {
             try
             {
@@ -130,7 +130,7 @@ namespace IngegneriaDelSoftware.Model
             bool rimosso = false;
             if (item != null)
             {
-                if (_persistenza.GetPreventivoDAO().Elimina(item.IDPreventivo))
+                if (_persistenza.GetPreventivoDAO().Elimina(item.ID))
                 {
                     rimosso = ((ICollection<Preventivo>)_preventivi).Remove(item);
                     LanciaEvento(OnRimozione, item);
@@ -157,13 +157,13 @@ namespace IngegneriaDelSoftware.Model
             }
         }
 
-        public Preventivo this[string id]
+        public Preventivo this[ulong id]
         {
             get
             {
                 foreach (Preventivo p in this._preventivi)
                 {
-                    if (p.IDPreventivo == id)
+                    if (p.ID == id)
                         return p;
                 }
                 return null;

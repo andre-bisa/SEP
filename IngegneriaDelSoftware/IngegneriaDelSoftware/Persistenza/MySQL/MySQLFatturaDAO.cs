@@ -20,12 +20,17 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             throw new NotImplementedException();
         }
 
-        public bool Elimina(string ID)
+        public bool Elimina(string Inumero, int annoD)
         {
             throw new NotImplementedException();
         }
 
         public Fattura Leggi(string ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Fattura> LeggiTutteFatture()
         {
             throw new NotImplementedException();
         }

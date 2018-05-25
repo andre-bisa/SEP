@@ -15,6 +15,8 @@ namespace IngegneriaDelSoftware.Persistenza.Dao
 
         bool Aggiorna(Vendita vecchia, Vendita nuova);
 
-        bool Elimina(string ID);
+        bool Elimina(ulong ID);
+
+        List<Vendita> LeggiTutteVendite();
     }
 }
