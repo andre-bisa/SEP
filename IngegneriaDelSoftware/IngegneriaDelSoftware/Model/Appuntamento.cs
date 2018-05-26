@@ -12,14 +12,31 @@ namespace IngegneriaDelSoftware.Model
         public event EventHandler<ArgsModifica<Appuntamento>> OnModifica;
         private DatiAppuntamento _datiAppuntamento;
 
-        #region Costruttore
+        #region Costruttori
         /// <summary>
-        /// Costruttore di Appuntamento
+        /// Costruttore di Appuntamento con struct
         /// </summary>
         /// <param name="datiAppuntamento"></param>
         public Appuntamento(DatiAppuntamento datiAppuntamento)
         {
             _datiAppuntamento = datiAppuntamento;
+        }
+
+        /// <summary>
+        /// Costruttore di Appuntamento
+        /// </summary>
+        /// <param name="conChi"></param>
+        /// <param name="oggetto"></param>
+        /// <param name="luogo"></param>
+        /// <param name="dataOra"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public Appuntamento(Persona conChi, string oggetto, string luogo, DateTime dataOra)
+        {
+            if (conChi == null || oggetto == null || dataOra == null || luogo == null)
+            {
+                throw new ArgumentNullException();
+            }
+            this._datiAppuntamento = new DatiAppuntamento(conChi, oggetto, luogo, dataOra);
         }
         #endregion
 

@@ -12,9 +12,9 @@ namespace IngegneriaDelSoftware.Model
         public event EventHandler<ArgsModifica<DatoreLavoro>> OnModifica;
         private DatiDatoreLavoro _datiDatoreLavoro;
 
-        #region Costruttore
+        #region Costruttori
         /// <summary>
-        /// Costruttore di DatoreLavoro
+        /// Costruttore di DatoreLavoro con struct
         /// </summary>
         /// <param name="datiDatoreLavoro"></param>
         public DatoreLavoro(DatiDatoreLavoro datiDatoreLavoro)
@@ -22,7 +22,45 @@ namespace IngegneriaDelSoftware.Model
             _datiDatoreLavoro = datiDatoreLavoro;
         }
 
+        /// <summary>
+        /// Costruttore di DatoreLavoro
+        /// </summary>
+        /// <param name="nome"></param>
+        /// <param name="cognome"></param>
+        /// <param name="pIva"></param>
+        /// <param name="cf"></param>
+        /// <param name="ragioneSociale"></param>
+        /// <param name="indirizzo"></param>
+        /// <param name="telefoni"></param>
+        /// <param name="email"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public DatoreLavoro(string nome, string cognome, string pIva, string cf, string ragioneSociale, string indirizzo, List<Telefono> telefoni = null, Email? email = null)
+        {
+            #region Controlli
+            if (nome == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (cognome == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (pIva == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (indirizzo == null)
+            {
+                throw new ArgumentNullException();
+            }
+            if (ragioneSociale == null)
+            {
+                throw new ArgumentNullException();
+            }
+            #endregion
 
+            this._datiDatoreLavoro = new DatiDatoreLavoro(nome, cognome, pIva, cf, ragioneSociale, indirizzo, telefoni, email);
+        }
         #endregion
 
         #region Properties
