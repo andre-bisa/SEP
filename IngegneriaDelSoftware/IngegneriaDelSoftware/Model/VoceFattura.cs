@@ -39,7 +39,7 @@ namespace IngegneriaDelSoftware.Model {
 
         #region Funzioni pubbliche
         public override string ToString() {
-            return String.Format("{0}\t{1}", base.ToString(), this._iva);
+            return String.Format("{0}, {1}", base.ToString(), this._iva);
         }
 
         public override bool Equals(object obj)

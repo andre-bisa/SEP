@@ -213,6 +213,9 @@ namespace IngegneriaDelSoftware.Model
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(IDCliente);
             return hashCode;
         }
+        public override string ToString() {
+            return String.Format("{0}, {1}, {2}, {3}", this.IDCliente, this.Denominazione, this.Persona.CodiceFiscale, this.TipoCliente);
+        }
         #endregion
 
         #region "Funzioni private"

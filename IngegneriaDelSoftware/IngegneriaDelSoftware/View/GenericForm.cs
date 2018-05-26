@@ -315,7 +315,10 @@ namespace IngegneriaDelSoftware.View {
         /// <param name="Provvigione">L'importo della provvigione espresso come double. e.g. 10% => 10F</param>
         /// <exception cref="Exception">Se il formato e` errato</exception>
         public void AggiungiRigaCampi(string Tipologia, string Causale, double Importo, double Provvigione, int Quantita) {
-
+            if(!this.ValoriPanel.Visible) {
+                this.ValoriPanel.Visible = true;
+                this.AggiungiVoceBtn.Visible = true;
+            }
             //Aumenta il numero delle righe;
             this.ValoriPanel.RowCount += 1;
             //Crea il nuovo stile;

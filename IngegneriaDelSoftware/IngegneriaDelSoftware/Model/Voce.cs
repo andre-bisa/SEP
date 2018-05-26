@@ -74,7 +74,7 @@ namespace IngegneriaDelSoftware.Model {
         }
 
         public override string ToString() {
-            return String.Format("{0}\t{1}\t{2}\t{3}", this._causale, this._tipologia, this._quantita, this._importo);
+            return String.Format("{0}, {1}, {2}, {3}", this._causale, this._tipologia, this._quantita, this._importo);
         }
 
         public virtual int CompareTo(Voce other) {

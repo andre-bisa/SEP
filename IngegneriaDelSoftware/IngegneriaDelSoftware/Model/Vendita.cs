@@ -142,7 +142,7 @@ namespace IngegneriaDelSoftware.Model {
         }
 
         public override string ToString() {
-            return String.Format("Vendita {0}\t{1}\n{2}",
+            return String.Format("{0}, {1}, {2}",
                     this._datiVendita.Data,
                     this._datiVendita.Cliente,
                     String.Join("\n", this._voci)

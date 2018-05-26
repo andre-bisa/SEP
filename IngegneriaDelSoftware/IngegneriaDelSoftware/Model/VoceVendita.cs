@@ -38,7 +38,7 @@ namespace IngegneriaDelSoftware.Model {
 
         #region Funzioni Pubbliche
         public override string ToString() {
-            return String.Format("{0}\t{1}", base.ToString(), this._provvigione);
+            return String.Format("{0}, {1}", base.ToString(), this._provvigione);
         }
         
         /// <summary>
