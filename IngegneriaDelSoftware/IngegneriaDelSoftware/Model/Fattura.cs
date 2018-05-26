@@ -115,6 +115,11 @@ namespace IngegneriaDelSoftware.Model {
                 return _voci;
             }
         }
+
+        public string ID { get {
+                return this._datiFattura.ID;
+            }
+        }
         #endregion
 
         #region Costruttore
@@ -423,7 +428,11 @@ namespace IngegneriaDelSoftware.Model {
             }
             public DatiFattura(DatiFattura old, int? anno = null, string numero = null, Cliente cliente = null, DateTime? data = null, float? sconto = null)
                 : this(anno ?? old.Anno, numero ?? old.Numero, cliente ?? old.Cliente, data ?? old.Data, sconto ?? old.Sconto ) { }
-
+            public string ID {
+                get {
+                    return this.Numero + "/" + this.Anno.ToString();
+                }
+            }
         }
 
         #endregion

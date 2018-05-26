@@ -49,7 +49,9 @@ namespace IngegneriaDelSoftware.Controller {
             this._env.clearVariables();
         }
         public void AddArrayVariable(string name, decimal[] value) {
-            this._env.registerVariable("@" + name.ToUpper(), string.Join(",", value));
+            lock(this._env) {
+                this._env.registerVariable("@" + name.ToUpper(), string.Join(",", value));
+            }
         }
         public void AddVariable(string name, decimal value) {
             this._env.registerVariable("$" + name.ToUpper(), string.Join(",", value));
@@ -89,12 +91,19 @@ namespace IngegneriaDelSoftware.Controller {
                 _instance.Add(tag, new ScriptProvider(tag, lines));
             }
         }
-
-        public static ScriptProvider get(string filename) {
+        internal static void create(string filename) {
             if(!_instance.ContainsKey(filename)) {
                 _instance.Add(filename, new ScriptProvider(filename));
             }
-            return _instance[filename];
+        }
+
+        public static ScriptProvider get(string filename) {
+            if(_instance.ContainsKey(filename)) {
+                return _instance[filename];
+            }else {
+                return null;
+            }
+            
         }
         #endregion
     }

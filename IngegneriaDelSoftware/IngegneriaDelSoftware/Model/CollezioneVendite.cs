@@ -14,10 +14,11 @@ namespace IngegneriaDelSoftware.Model
     {
         public event EventHandler<ArgsVendita> OnAggiunta;
         public event EventHandler<ArgsVendita> OnRimozione;
+        public event EventHandler<ArgsModifica<Vendita>> OnModifica;
 
         private HashSet<Vendita> _vendite = new HashSet<Vendita>();
 
-        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.NONE);
 
         #region Singleton
         private static CollezioneVendite _listaFatture = null;
@@ -41,6 +42,9 @@ namespace IngegneriaDelSoftware.Model
                 foreach (Vendita v in _persistenza.GetVenditaDAO().LeggiTutteVendite())
                 {
                     _vendite.Add(v);
+                    v.OnModifica += (o, e) => {
+                        this.OnModifica?.Invoke(o, e);
+                    };
                 }
             } catch (Exception) { throw new ExceptionPersistenza(); }
 
@@ -86,6 +90,9 @@ namespace IngegneriaDelSoftware.Model
                 if (_persistenza.GetVenditaDAO().Crea(item))
                 {
                     ((ICollection<Vendita>)_vendite).Add(item);
+                    item.OnModifica += (o, e) => {
+                        this.OnModifica?.Invoke(o, e);
+                    };
                     LanciaEvento(OnAggiunta, item);
                 }
                 else

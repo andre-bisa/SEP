@@ -1,4 +1,6 @@
-﻿using IngegneriaDelSoftware.Model;
+﻿using IngegneriaDelSoftware.Controller;
+using IngegneriaDelSoftware.Model;
+using IngegneriaDelSoftware.Model.ArgsEvent;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -10,13 +12,13 @@ using System.Threading.Tasks;
 namespace IngegneriaDelSoftware.View {
     public static class GenericViewLoader {
 
-        private static void CaricaCliente(GenericForm g, Cliente c){
+        private static void CaricaCliente(GenericForm g, Cliente c, string anno, string numero, string data) {
             if(c.Persona.TipoPersona == EnumTipoPersona.Fisica) {
                 var persona = c.Persona as PersonaFisica;
 
-                g.InserisciDatiDestinatario(null,
-                    null,
-                    null,
+                g.InserisciDatiDestinatario(anno,
+                    numero,
+                    data,
                     persona.Nome,
                     persona.Cognome,
                     persona.Indirizzo,
@@ -28,9 +30,9 @@ namespace IngegneriaDelSoftware.View {
             } else if(c.Persona.TipoPersona == EnumTipoPersona.Giuridica) {
                 var persona = c.Persona as PersonaGiuridica;
 
-                g.InserisciDatiDestinatario(null,
-                    null,
-                    null,
+                g.InserisciDatiDestinatario(anno,
+                    numero,
+                    data,
                     persona.RagioneSociale,
                     null,
                     persona.Indirizzo,
@@ -42,19 +44,47 @@ namespace IngegneriaDelSoftware.View {
             }
         }
 
-        public static GenericForm getPreventivoForm(List<Preventivo> preventivi) {
+        public static GenericForm getPreventivoForm(ControllerPreventivi controller) {
             GenericForm result = GenericForm.CreaFormPreventivo();
-            Dictionary<string, Preventivo> prev = new Dictionary<string, Preventivo>();
             Cliente tmpCliente = null;
-            preventivi.ForEach((e) => {
-                prev.Add(e.ID.ToString(), e);
+            CollezionePreventivi.GetInstance().ToList().ForEach((e) => {
                 result.AggiungiBarraLaterale(e.ID);
             });
-            result.OnPannelloLateraleClick += (o, e)=> {
+            EventHandler<ArgsPreventivo> l = async (o, ev) => {
+                var t = Task.Run<CollezionePreventivi>(() => { return CollezionePreventivi.GetInstance(); });
+                result.SvuotaBarraLaterale();
+                CollezionePreventivi col = await t;
+                lock(result) {
+                    col.ToList().ForEach((e) => {
+                        result.AggiungiBarraLaterale(e.ID);
+
+                    });
+                }
+            };
+            CollezionePreventivi.GetInstance().OnAggiunta += l;
+            CollezionePreventivi.GetInstance().OnRimozione += l;
+            CollezionePreventivi.GetInstance().OnModifica += async (o, ev) => {
+                var t = Task.Run<CollezionePreventivi>(() => { return CollezionePreventivi.GetInstance(); });
+                result.SvuotaBarraLaterale();
+                CollezionePreventivi col = await t;
+                col.ToList().ForEach((e) => {
+                    result.AggiungiBarraLaterale(e.ID);
+
+                });
+            };
+
+            result.OnPannelloLateraleClick += async (o, e) => {
                 if(o.SelectedItems.Count == 1) {
-                    var preventivo = prev[o.SelectedItems[0].Text];
+                    CollezionePreventivi col = await Task.Run<CollezionePreventivi>(() => { return CollezionePreventivi.GetInstance(); });
+                    //CollezionePreventivi col =  CollezionePreventivi.GetInstance();
+                    var preventivo = (from preve in col
+                                      where preve.ID == Convert.ToUInt64(o.SelectedItems[0].Text)
+                                      select preve).FirstOrDefault();
+                    if(preventivo == null) {
+                        return;
+                    }
                     var cliente = preventivo.Cliente;
-                    CaricaCliente(result, cliente);
+                    CaricaCliente(result, cliente, null, preventivo.ID.ToString(), preventivo.Data.Date.ToString());
                     foreach(VocePreventivo voce in preventivo) {
                         result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);
                     }
@@ -63,94 +93,145 @@ namespace IngegneriaDelSoftware.View {
             };
             result.OnAccettaClick += (o, e) => {
                 if(o.Key != null) {
-                    prev[o.Key].DatiPreventivoInterni = new Preventivo.DatiPreventivo(prev[o.Key].DatiPreventivoInterni, accettato: true);
+                    controller.AccettaPreventivo(Convert.ToUInt64(o.Key));
                 }
             };
             result.OnRifiutaClick += (o, e) => {
                 if(o.Key != null) {
-                    prev[o.Key].DatiPreventivoInterni = new Preventivo.DatiPreventivo(prev[o.Key].DatiPreventivoInterni, accettato: false);
+                    controller.RifiutaPreventivo(Convert.ToUInt64(o.Key));
+                    //TODO: generare la vendita da qui!
                 }
 
             };
-            result.OnCreaClick += (o, e) => {
-                if(String.IsNullOrEmpty(o.Key)) {
-                    //TODO what do i do with this?;
-                    new Preventivo(Convert.ToUInt64(o.Numero), tmpCliente, null, false, o.GetVoci().Select((el) => {
-                        return new VocePreventivo(el.Descrizione, Convert.ToDecimal(el.Importo), el.Tipologia, el.Numero);
-                    }).ToList());
+            result.OnCreaClick += async (o, e) => {
+                var t = Task.Run<CollezionePreventivi>(() => { return CollezionePreventivi.GetInstance(); });
+                if(string.IsNullOrEmpty(o.Key)) {
+                    controller.AggiungiPreventivo(
+                        new Preventivo.DatiPreventivo(Convert.ToUInt64(o.Numero), tmpCliente, DateTime.Parse(o.Data), false),
+                        o.GetVoci().Select((el) => {
+                            return new VocePreventivo(el.Descrizione, Convert.ToDecimal(el.Importo), el.Tipologia, el.Numero);
+                        }).ToList()
+                    );
                 } else {
-                    var old = prev[o.Key];
+                    CollezionePreventivi col = await t;
+                    //CollezionePreventivi col = CollezionePreventivi.GetInstance();
+                    var old = (from preve in col
+                               where preve.ID == Convert.ToUInt64(o.Key)
+                               select preve).FirstOrDefault();
+                    if(old == null) {
+                        return;
+                    }
                     DateTime? da = DateTime.Parse(o.Data);
-                    ulong? id = Convert.ToUInt64(o.Numero);
+                    ulong id = Convert.ToUInt64(o.Numero);
                     bool mod = false;
-                    if(mod = (da == old.Data)) {
+                    if(da == old.Data) {
                         da = null;
-                    }else {
+                    } else {
                         mod = true;
                     }
                     if(id == old.ID) {
-                        da = null;
-                    }else {
+                        id = old.ID;
+                    } else {
                         mod = true;
                     }
+                    Preventivo.DatiPreventivo? dat = null;
                     if(mod) {
-                        Preventivo.DatiPreventivo dat = new Preventivo.DatiPreventivo(old.DatiPreventivoInterni, id, null, da, null);
-                        old.DatiPreventivoInterni = dat;
+                        dat = new Preventivo.DatiPreventivo(old.DatiPreventivoInterni, id, null, da, null);
                     }
-                    old.Add(
+                    List<VocePreventivo> voci = new List<VocePreventivo>();
+                    voci.AddRange(
                         o.GetVoci().Select((el) => {
                             return new VocePreventivo(el.Descrizione, Convert.ToDecimal(el.Importo), el.Tipologia, el.Numero);
-                        }).ToList().Where((f) => {
-                            return !old.Voci.Any((ff) => {
-                                return f.Equals(ff);
-                            });
-                        }).ToArray()
+                        })
                     );
+                    controller.UpdatePreventivo(Convert.ToUInt64(o.Key), dat, voci);
+                    if(Convert.ToUInt64(o.Key) != id) {
+                        o.Key = id.ToString();
+                    }
                 }
             };
-            result.OnNuovaClick += (o, e) => {
+            result.OnNuovaClick += async (o, e) => {
+                var t = Task.Run<CollezioneClienti>(() => { return CollezioneClienti.GetInstance(); });
                 o.Key = null;
                 o.Enabled = false;
                 Cliente c = null;
-                if((c = GetClienteForm.Get(CollezioneClienti.GetInstance().ToList())) == null) {
+                CollezioneClienti col = await t;
+                //CollezioneClienti col = CollezioneClienti.GetInstance();
+                if((c = GetClienteForm.Get(col.ToList())) == null) {
                     o.CleanAll();
                 } else {
-                    CaricaCliente(result, c);
+                    CaricaCliente(result, c, null, null, null);
                     tmpCliente = c;
                 }
                 o.Enabled = true;
             };
             return result;
         }
-        public static GenericForm getVenditaForm(List<Vendita> vendite) {
+        public static GenericForm getVenditaForm(ControllerVendite controller) {
             GenericForm result = GenericForm.CreaFormVendita();
             Cliente tmpCliente = null;
-            Dictionary<string, Vendita> vend = new Dictionary<string, Vendita>();
-            vendite.ForEach((e) => {
-                vend.Add(e.ID.ToString(), e);
+            CollezioneVendite.GetInstance().ToList().ForEach((e) => {
                 result.AggiungiBarraLaterale(e.ID);
             });
-            result.OnPannelloLateraleClick += (o, e) => {
+            EventHandler<ArgsVendita> l = async (o, ev) => {
+                var t = Task.Run<CollezioneVendite>(() => { return CollezioneVendite.GetInstance(); });
+                result.SvuotaBarraLaterale();
+                CollezioneVendite col = await t;
+                col.ToList().ForEach((e) => {
+                    result.AggiungiBarraLaterale(e.ID);
+                });
+            };
+            CollezioneVendite.GetInstance().OnAggiunta += l;
+            CollezioneVendite.GetInstance().OnRimozione += l;
+            CollezioneVendite.GetInstance().OnModifica += async (o, ev) => {
+                var t = Task.Run<CollezioneVendite>(() => { return CollezioneVendite.GetInstance(); });
+                result.SvuotaBarraLaterale();
+                CollezioneVendite col = await t;
+                lock(result) {
+                    //CollezioneVendite col = CollezioneVendite.GetInstance();
+                    col.ToList().ForEach((e) => {
+                        result.AggiungiBarraLaterale(e.ID);
+                    });
+                }
+            }; ;
+            result.OnPannelloLateraleClick += async (o, e) => {
                 if(o.SelectedItems.Count == 1) {
-                    var vendita = vend[o.SelectedItems[0].Text];
+                    CollezioneVendite col = await Task.Run<CollezioneVendite>(() => { return CollezioneVendite.GetInstance(); });
+                    //CollezioneVendite col =  CollezioneVendite.GetInstance();
+                    var vendita = (from vendi in col
+                                   where vendi.ID == Convert.ToUInt64(o.SelectedItems[0].Text)
+                                   select vendi).FirstOrDefault();
+                    if(vendita == null) {
+                        return;
+                    }
                     var cliente = vendita.Cliente;
-                    CaricaCliente(result, cliente);
+                    CaricaCliente(result, cliente, null, vendita.ID.ToString(), vendita.Data.Date.ToString());
                     foreach(VoceVendita voce in vendita) {
                         result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), voce.Provvigione, voce.Quantita);
                     }
                     result.Key = vendita.ID.ToString();
                 }
             };
-            result.OnCreaClick += (o, e) => {
-                if(String.IsNullOrEmpty(o.Key)) {
-                    //TODO what do i do with this?;
-                    new Preventivo(Convert.ToUInt64(o.Numero), tmpCliente, null, false, o.GetVoci().Select((el) => {
-                        return new VocePreventivo(el.Descrizione, Convert.ToDecimal(el.Importo), el.Tipologia, el.Numero);
-                    }).ToList());
+            result.OnCreaClick += async (o, e) => {
+                var t = Task.Run<CollezioneVendite>(() => { return CollezioneVendite.GetInstance(); });
+                if(string.IsNullOrEmpty(o.Key)) {
+                    controller.AggiungiVendita(
+                        new Vendita.DatiVendita(Convert.ToUInt64(o.Numero), tmpCliente, DateTime.Parse(o.Data), null),
+                        o.GetVoci().Select((el) => {
+                            return new VoceVendita(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale), el.Tipologia, el.Numero);
+                        }).ToList()
+                    );
                 } else {
-                    var old = vend[o.Key];
+                    CollezioneVendite col = await t;
+                    //CollezioneVendite col =  CollezioneVendite.GetInstance();
+                    var old = (from vendi in col
+                               where vendi.ID == Convert.ToUInt64(o.Key)
+                               select vendi).FirstOrDefault();
+                    if(old == null) {
+                        return;
+                    }
                     DateTime? da = DateTime.Parse(o.Data);
-                    ulong? id = Convert.ToUInt64(o.Numero);
+                    ulong id = Convert.ToUInt64(o.Numero);
                     bool mod = false;
                     if(mod = (da == old.Data)) {
                         da = null;
@@ -158,72 +239,123 @@ namespace IngegneriaDelSoftware.View {
                         mod = true;
                     }
                     if(id == old.ID) {
-                        da = null;
+                        id = old.ID;
                     } else {
                         mod = true;
                     }
+                    Vendita.DatiVendita? dat = null;
                     if(mod) {
-                        Vendita.DatiVendita dat = new Vendita.DatiVendita(old.DatiVenditaInterni, id, null, da, null);
-                        old.DatiVenditaInterni = dat;
+                        dat = new Vendita.DatiVendita(old.DatiVenditaInterni, id, tmpCliente, da, null);
                     }
-                    old.Add(
+                    List<VoceVendita> voci = new List<VoceVendita>();
+                    voci.AddRange(
                         o.GetVoci().Select((el) => {
                             return new VoceVendita(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale), el.Tipologia, el.Numero);
-                        }).ToList().Where((f) => {
-                            return !old.Voci.Any((ff) => {
-                                return f.Equals(ff);
-                            });
-                        }).ToArray()
+                        })
                     );
+                    controller.UpdateVendita(Convert.ToUInt64(o.Key), dat, voci);
+                    if(Convert.ToUInt64(o.Key) != id) {
+                        o.Key = id.ToString();
+                    }
                 }
-        };
-            result.OnNuovaClick += (o, e) => {
+            };
+            result.OnNuovaClick += async (o, e) => {
+                var t = Task.Run<CollezioneClienti>(() => { return CollezioneClienti.GetInstance(); });
+                var t2 = Task.Run<CollezionePreventivi>(() => { return CollezionePreventivi.GetInstance(); });
                 o.Key = null;
                 o.Enabled = false;
                 Cliente c = null;
-                if((c = GetClienteForm.Get(CollezioneClienti.GetInstance().ToList())) == null) {
+                Preventivo prop = null;
+                CollezioneClienti col = await t;
+                CollezionePreventivi colp = await t2;
+                //CollezioneClienti col = CollezioneClienti.GetInstance();
+                if((c = GetClienteForm.Get(col.ToList())) == null) {
                     o.CleanAll();
                 } else {
-                    CaricaCliente(result, c);
-                    tmpCliente = c;
+                    if((prop = GetPreventivoForm.Get((from p in colp.ToList()
+                                                      where p.Cliente.Equals(c)
+                                                      select p).ToList())) != null) {
+                        var vendita = Vendita.FromPreventivo(0, prop, null);
+                        CaricaCliente(result, vendita.Cliente, "", null, vendita.Data.Date.ToString());
+                        foreach(VoceVendita voce in vendita) {
+                            result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);
+                        }
+                        tmpCliente = vendita.Cliente;
+                    } else {
+                        CaricaCliente(result, c, null, null, null);
+                        tmpCliente = c;
+                    }
                 }
                 o.Enabled = true;
             };
             return result;
         }
-        public static GenericForm getFatturaForm(List<Fattura> fatture) {
+        public static GenericForm getFatturaForm(ControllerFatture controller) {
             Cliente tmpCliente = null;
             List<Vendita> vendite = null;
             GenericForm result = GenericForm.CreaFormFattura();
-            Dictionary<string, Fattura> fatt = new Dictionary<string, Fattura>();
-            fatture.ForEach((e) => {
-                fatt.Add(e.Numero, e);
-                result.AggiungiBarraLaterale(e.Numero);
+            CollezioneFatture.GetInstance().ToList().ForEach((e) => {
+                result.SvuotaBarraLaterale();
+                result.AggiungiBarraLaterale(e.ID);
             });
-            result.OnPannelloLateraleClick += (o, e) => {
+            EventHandler<ArgsFattura> l = async (o, ev) => {
+                var t = Task.Run<CollezioneFatture>(() => { return CollezioneFatture.GetInstance(); });
+                result.SvuotaBarraLaterale();
+                CollezioneFatture col = await t;
+                col.ToList().ForEach((e) => {
+                    result.AggiungiBarraLaterale(e.ID);
+                });
+            };
+            CollezioneFatture.GetInstance().OnAggiunta += l;
+            CollezioneFatture.GetInstance().OnRimozione += l;
+            CollezioneFatture.GetInstance().OnModifica += async (o, ev) => {
+                var t = Task.Run<CollezioneFatture>(() => { return CollezioneFatture.GetInstance(); });
+                result.SvuotaBarraLaterale();
+                CollezioneFatture col = await t;
+                lock(result) {
+                    col.ToList().ForEach((e) => {
+                        result.AggiungiBarraLaterale(e.ID);
+                    });
+                }
+            };
+            result.OnPannelloLateraleClick += async (o, e) => {
                 if(o.SelectedItems.Count == 1) {
-                    var fattura = fatt[o.SelectedItems[0].Text];
+                    //CollezioneFatture col =  CollezioneFatture.GetInstance();
+                    CollezioneFatture col = await Task.Run<CollezioneFatture>(() => { return CollezioneFatture.GetInstance(); });
+                    var fattura = (from fa in col
+                                   where fa.ID == o.SelectedItems[0].Text
+                                   select fa).FirstOrDefault();
+                    if(fattura == null) {
+                        return;
+                    }
                     var cliente = fattura.Cliente;
-                    CaricaCliente(result, cliente);
+                    CaricaCliente(result, cliente, fattura.Anno.ToString(), fattura.Numero, fattura.Data.Date.ToString());
                     foreach(VoceFattura voce in fattura) {
                         result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);
                     }
-                    result.Key = fattura.Numero;
+                    result.Key = fattura.ID;
                 }
             };
-            result.OnCreaClick += (o, e) => {
+            result.OnCreaClick += async (o, e) => {
+                var t = Task.Run<CollezioneFatture>(() => { return CollezioneFatture.GetInstance(); });
                 if(String.IsNullOrEmpty(o.Key)) {
-                    //TODO what do i do with this?;
-                    new Fattura(Convert.ToInt32(o.Anno), o.Numero, tmpCliente, vendite, DateTime.Parse(o.Data), 0, o.GetVoci().Select((el) => {
-                        return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale),el.Tipologia, el.Numero);
+                    controller.AggiungiFattura(new Fattura.DatiFattura(Convert.ToInt32(o.Anno), o.Numero, tmpCliente, DateTime.Parse(o.Data), 0), vendite, o.GetVoci().Select((el) => {
+                        return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale), el.Tipologia, el.Numero);
                     }).ToList());
                 } else {
-                    var old = fatt[o.Key];
+                    CollezioneFatture col = await t;
+                    //CollezioneFatture col = CollezioneFatture.GetInstance();
+                    var old = (from fa in col
+                               where fa.ID == o.Key
+                               select fa).FirstOrDefault(); ;
+                    if(old == null) {
+                        return;
+                    }
                     DateTime? da = DateTime.Parse(o.Data);
                     string numero = o.Numero;
                     bool mod = false;
                     int anno = Convert.ToInt32(o.Anno);
-                    if(mod = (da == old.Data)) {
+                    if(da == old.Data) {
                         da = old.Data;
                     } else {
                         mod = true;
@@ -238,44 +370,46 @@ namespace IngegneriaDelSoftware.View {
                     } else {
                         mod = true;
                     }
-                    
+                    Fattura.DatiFattura? dat = null;
                     if(mod) {
-                        Fattura.DatiFattura dat = new Fattura.DatiFattura(old.DatiFatturaInterni,
-                            anno, 
-                            numero, 
-                            null, 
+                        dat = new Fattura.DatiFattura(old.DatiFatturaInterni,
+                            anno,
+                            numero,
+                            null,
                             da, null
                         );
-                        old.DatiFatturaInterni = dat;
                     }
-                    old.Add(
+                    List<VoceFattura> voci = new List<VoceFattura>();
+                    voci.AddRange(
                         o.GetVoci().Select((el) => {
                             return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale), el.Tipologia, el.Numero);
-                        }).ToList().Where((f) => {
-                            return !old.Voci.Any((ff) => {
-                                return f.Equals(ff);
-                            });
-                        }).ToArray()
+                        })
                     );
+                    controller.UpdateFattura(o.Key, dat, voci);
+                    if(dat != null && dat.Value.ID.Equals(o.Key)) {
+                        o.Key = dat.Value.ID;
+                    }
                 }
             };
-            result.OnNuovaClick += (o, e) => {
+            result.OnNuovaClick += async (o, e) => {
+                var t = Task.Run<CollezioneVendite>(() => { return CollezioneVendite.GetInstance(); });
                 o.Key = null;
                 o.Enabled = false;
-                Cliente c = null;
-                if((c = GetClienteForm.Get(CollezioneClienti.GetInstance().ToList())) == null) {
-                    o.CleanAll();
-                } else {
-                    CaricaCliente(result, c);
-                    tmpCliente = c;
-                }
                 Vendita[] v = null;
-                if((v = GetVenditaForm.Get(CollezioneVendite.GetInstance().ToList())) == null) {
+                CollezioneVendite col = await t;
+                //CollezioneVendite col =  CollezioneVendite.GetInstance();
+                if((v = GetVenditaForm.Get(col.ToList())) == null) {
                     o.CleanAll();
                     tmpCliente = null;
                 } else {
                     vendite = new List<Vendita>();
                     vendite.AddRange(v);
+                }
+                var fattura = Fattura.FromVendite(DateTime.Now.Year, "", vendite);
+                tmpCliente = fattura.Cliente;
+                CaricaCliente(result, tmpCliente, null, null, null);
+                foreach(VoceFattura voce in fattura) {
+                    result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);
                 }
                 o.Enabled = true;
             };

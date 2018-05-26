@@ -168,6 +168,7 @@ namespace IngegneriaDelSoftware.View {
 
             //I bottoni di accettazione ci vogliono solo se si tratta di un preventivo
             this.RifiutaBtn.Visible = this.AccettaBtn.Visible = this.tipo == TipoForm.PREVENTIVI;
+            this.AnnoField.Enabled = this.tipo == TipoForm.FATTURE;
 
             //Mock dei campi di prova;
             //this.mock();
@@ -215,22 +216,21 @@ namespace IngegneriaDelSoftware.View {
             Result.Size = new System.Drawing.Size(Width, 23);
             //Assegna al suo LostFocusEvent un handler;
             Result.LostFocus += (o, s) => {
-                double value = 0;
+                double dvalue = 0;
                 //Prova a parsare il valore o lancia eccezione;
-                if(Double.TryParse(Result.Text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.CurrentCulture, out value)) {
+                if(double.TryParse(Result.Text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.CurrentCulture, out dvalue)) {
                     //Se possibile formatta il valore con il format economico corrente;
-		    //XXX check if this works;
-		    try{
-                    	Result.Text = value.ToString(FormatStyle, System.Globalization.CultureInfo.CurrentCulture);
-		    }catch(System.FormatException e){
-			    throw new ArgumentException("The inserted value is not a correct format value");
-		    }
+		            Result.Text = dvalue.ToString(FormatStyle, System.Globalization.CultureInfo.CurrentCulture);
                 }else {
                     throw new ArgumentException("The inserted value must be a number");
                 }
             };
             //Restituisce il risultato
             return Result;
+        }
+
+        public void SvuotaBarraLaterale() {
+            this.Inserite.Items.Clear();
         }
 
         /// <summary>
@@ -336,7 +336,7 @@ namespace IngegneriaDelSoftware.View {
             Controlli.Add(Controllo);
             this.ValoriPanel.Controls.Add(Controllo, 3, this._numeroInserimentoRigheVoci);
             //Numero;
-            Controllo = this.CreateValueBox(Quantita.ToString("D", System.Globalization.CultureInfo.CurrentCulture), 50, "D");
+            Controllo = this.CreateValueBox(Quantita.ToString("F0", System.Globalization.CultureInfo.CurrentCulture), 50, "F0");
             this.ValoriPanel.Controls.Add(Controllo, 4, this._numeroInserimentoRigheVoci);
             Controlli.Add(Controllo);
             //Se è di tipo provvigione;

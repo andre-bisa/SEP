@@ -27,6 +27,7 @@
             this.Cliente = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SelezionaBtn = new MaterialSkin.Controls.MaterialRaisedButton();
             this.AnnullaBtn = new MaterialSkin.Controls.MaterialFlatButton();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // ClientiList
@@ -36,7 +37,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ClientiList.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.ClientiList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Cliente});
+            this.Cliente,
+            this.columnHeader1});
             this.ClientiList.Depth = 0;
             this.ClientiList.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
             this.ClientiList.FullRowSelect = true;
@@ -55,7 +57,7 @@
             // Cliente
             // 
             this.Cliente.Text = "Vendita";
-            this.Cliente.Width = 830;
+            this.Cliente.Width = 508;
             // 
             // SelezionaBtn
             // 
@@ -92,6 +94,11 @@
             this.AnnullaBtn.UseVisualStyleBackColor = true;
             this.AnnullaBtn.Click += new System.EventHandler(this.AnnullaBtn_Click);
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Cliente";
+            this.columnHeader1.Width = 388;
+            // 
             // GetVenditaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -113,5 +120,6 @@
         private MaterialSkin.Controls.MaterialRaisedButton SelezionaBtn;
         private MaterialSkin.Controls.MaterialFlatButton AnnullaBtn;
         private System.Windows.Forms.ColumnHeader Cliente;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }

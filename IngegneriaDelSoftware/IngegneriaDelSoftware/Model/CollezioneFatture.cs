@@ -14,10 +14,11 @@ namespace IngegneriaDelSoftware.Model
     {
         public event EventHandler<ArgsFattura> OnAggiunta;
         public event EventHandler<ArgsFattura> OnRimozione;
+        public event EventHandler<ArgsModifica<Fattura>> OnModifica;
 
-        private HashSet<Fattura> _fatture = new HashSet<Fattura>();
+        private volatile HashSet<Fattura> _fatture = new HashSet<Fattura>();
 
-        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.NONE);
 
         #region Singleton
         private static CollezioneFatture _listaFatture = null;
@@ -41,17 +42,12 @@ namespace IngegneriaDelSoftware.Model
                 foreach (Fattura f in _persistenza.GetFatturaDAO().LeggiTutteFatture())
                 {
                     _fatture.Add(f);
+                    f.OnModifica += (o, e) => {
+                        this.OnModifica?.Invoke(o, e);
+                    };
                 }
             } catch (Exception) { throw new ExceptionPersistenza(); }
-
-            // TODO REMOVE! mock
-            /*for (int i = 0; i < 100; i++)
-            {
-                Telefono[] telefoni = { new Telefono( "0510000"+i, "Nota "+i) };
-                Email[] email = { new Email("indirizzo" + i + "@prova.com", "Nota" + i) };
-                Referente[] referenti = { new Referente("Ref" + i, "Nota" + i), new Referente("Ref2" + i, "Nota2" + i) };
-                _fatture.Add(new Fattura(new PersonaFisica("cf", "indirizzo" + i, "nome" + i, "cognome", "PIVA", telefoni, email), "ID" + i, referenti, EnumTipoFattura.Attivo, "Nota"+i));
-            }*/
+            
         }
 
         public int Count
@@ -86,6 +82,9 @@ namespace IngegneriaDelSoftware.Model
                 if (_persistenza.GetFatturaDAO().Crea(item))
                 {
                     ((ICollection<Fattura>)_fatture).Add(item);
+                    item.OnModifica += (o, e) => {
+                        this.OnModifica?.Invoke(o, e);
+                    };
                     LanciaEvento(OnAggiunta, item);
                 }
                 else

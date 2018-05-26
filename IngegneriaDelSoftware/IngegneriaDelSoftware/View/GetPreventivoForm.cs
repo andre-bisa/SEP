@@ -11,23 +11,24 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace IngegneriaDelSoftware.View {
-    public partial class GetClienteForm: MaterialForm {
-        private Dictionary<string, Cliente> _clienti;
-        public Cliente ClienteRitorno { get; set; } = null;
+    public partial class GetPreventivoForm: MaterialForm {
+        private Dictionary<string, Preventivo> _preventivi;
+        public Preventivo PreventivoRitorno { get; set; } = null;
 
-        private GetClienteForm(List<Cliente> clienti) {
-            this._clienti = new Dictionary<string, Model.Cliente>();
-            clienti.ForEach((e) => {
-                this._clienti.Add(e.Denominazione, e);
+        private GetPreventivoForm(List<Preventivo> preventivi) {
+            this._preventivi = new Dictionary<string, Model.Preventivo>();
+            preventivi.ForEach((e) => {
+                this._preventivi.Add(e.ID.ToString(), e);
             });
             InitializeComponent();
-            foreach(var key in this._clienti.Keys) {
-                this.ClientiList.Items.Add(new ListViewItem(new string[] { key, this._clienti[key].Persona.CodiceFiscale }));
+
+            foreach(var key in this._preventivi.Keys) {
+                this.PreventiviList.Items.Add(new ListViewItem(new string[] { key, this._preventivi[key].Cliente.ToString()}));
             }
         }
 
         private void SelezionaBtn_Click(object sender, EventArgs e) {
-            if(this.ClienteRitorno != null) {
+            if(this.PreventivoRitorno != null) {
                 this.DialogResult = DialogResult.OK;
             } else {
                 this.DialogResult = DialogResult.Cancel;
@@ -41,16 +42,16 @@ namespace IngegneriaDelSoftware.View {
         }
 
         private void ClientiList_SelectedIndexChanged(object sender, EventArgs e) {
-            if(this.ClientiList.SelectedItems.Count == 1) {
-                this.ClienteRitorno = this._clienti[this.ClientiList.SelectedItems[0].Text];
+            if(this.PreventiviList.SelectedItems.Count == 1) {
+                this.PreventivoRitorno = this._preventivi[this.PreventiviList.SelectedItems[0].Text];
             }
         }
 
-        public static Cliente Get(List<Cliente> clienti) {
-            using(GetClienteForm g = new GetClienteForm(clienti)) {
+        public static Preventivo Get(List<Preventivo> clienti) {
+            using(GetPreventivoForm g = new GetPreventivoForm(clienti)) {
                 DialogResult dia = g.ShowDialog();
                 if(dia == DialogResult.OK) {
-                    return g.ClienteRitorno;
+                    return g.PreventivoRitorno;
                 } else {
                     return null;
                 }

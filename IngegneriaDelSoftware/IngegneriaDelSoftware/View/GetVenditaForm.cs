@@ -23,7 +23,7 @@ namespace IngegneriaDelSoftware.View {
             InitializeComponent();
 
             foreach(var key in this._clienti.Keys) {
-                this.ClientiList.Items.Add(key);
+                this.ClientiList.Items.Add(new ListViewItem(new string[] { key, this._clienti[key].Cliente.ToString()}));
             }
         }
 

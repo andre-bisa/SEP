@@ -73,27 +73,36 @@ namespace IngegneriaDelSoftware.Model {
             });
             //Recupera il valutatore;
             var scriptEngine = ScriptProvider.get("Test");
-
-            decimal[] tmp = null;
-            foreach(IGrouping<string, VoceFattura> tipologia in tipologie) {
-                //Per ogni tipologia esegue la somma dell'importo;
-                //FIXME inserire l'algoritmo corretto;
-                tmp = tipologia.ToArray().Select((i) => {
-                    return (i.Importo * i.Quantita) * new decimal(i.Iva + 1);
-                }).ToArray();
-                //Aggiunge al valutatore i dati appena creati;
-                scriptEngine.AddArrayVariable(tipologia.Key.Replace(" ", ""), tmp);
+            if(scriptEngine != null) {
+                decimal[] tmp = null;
+                tipologie.AsParallel().ForAll((t) => {
+                    tmp = t.ToArray().Select((i) => {
+                        return (i.Importo * i.Quantita) * new decimal(i.Iva + 1);
+                    }).ToArray();
+                    scriptEngine.AddArrayVariable(t.Key.Replace(" ", ""), tmp);
+                });/*
+                foreach(IGrouping<string, VoceFattura> tipologia in tipologie) {
+                    //Per ogni tipologia esegue la somma dell'importo;
+                    //FIXME inserire l'algoritmo corretto;
+                    tmp = tipologia.ToArray().Select((i) => {
+                        return (i.Importo * i.Quantita) * new decimal(i.Iva + 1);
+                    }).ToArray();
+                    //Aggiunge al valutatore i dati appena creati;
+                    scriptEngine.AddArrayVariable(tipologia.Key.Replace(" ", ""), tmp);
+                }*/
+                scriptEngine.Calculate();
+                //Recupera tutte le label e le variabili marcate important;
+                StringBuilder result = new StringBuilder();
+                foreach(string vari in scriptEngine.GetSaved()) {
+                    result.Append((scriptEngine.GetLabel(vari) ?? "") + scriptEngine.GetVariable(vari) + "\n");
+                }
+                //Svuota il valutatore;
+                scriptEngine.Clear();
+                //restituisce il risultato;
+                return result.ToString();
+            }else {
+                return base.Calcola();
             }
-            scriptEngine.Calculate();
-            //Recupera tutte le label e le variabili marcate important;
-            StringBuilder result = new StringBuilder();
-            foreach ( string vari in scriptEngine.GetSaved()) {
-                result.Append((scriptEngine.GetLabel(vari) ?? "") + scriptEngine.GetVariable(vari) + "\n");
-            }
-            //Svuota il valutatore;
-            scriptEngine.Clear();
-            //restituisce il risultato;
-            return result.ToString();
         }
     }
 }

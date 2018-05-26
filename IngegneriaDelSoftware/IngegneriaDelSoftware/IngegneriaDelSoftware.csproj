@@ -66,7 +66,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\ControllerClienti.cs" />
+    <Compile Include="Controller\ControllerFatture.cs" />
     <Compile Include="Controller\ControllerInviaMail.cs" />
+    <Compile Include="Controller\ControllerPreventivi.cs" />
+    <Compile Include="Controller\ControllerVendite.cs" />
     <Compile Include="Controller\OggettoVisualizzato.cs" />
     <Compile Include="Controller\ScriptProvider.cs" />
     <Compile Include="Controller\Visualizzatore.cs" />
@@ -208,6 +211,12 @@
       <DependentUpon>FormEmail.cs</DependentUpon>
     </Compile>
     <Compile Include="View\GenericViewLoader.cs" />
+    <Compile Include="View\GetPreventivoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\GetPreventivoForm.Designer.cs">
+      <DependentUpon>GetPreventivoForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\GetVenditaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -276,6 +285,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\FormEmail.resx">
       <DependentUpon>FormEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\GetPreventivoForm.resx">
+      <DependentUpon>GetPreventivoForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\GetVenditaForm.resx">
       <DependentUpon>GetVenditaForm.cs</DependentUpon>

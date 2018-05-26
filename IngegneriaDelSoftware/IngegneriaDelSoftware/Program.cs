@@ -48,12 +48,22 @@ namespace IngegneriaDelSoftware
             var fattura = new Fattura(2018, "2", cliente, vendita);
             var voce1 = new VoceFattura("Corda", 30, 0.20f);
             var voce2 = new VoceFattura("Canapa", 20, 0.20f);
+            var preventivo = new Preventivo(1, cliente, accettato: true);
+            var voce3 = new VocePreventivo("Corda", 30);
+            var voce4 = new VocePreventivo("Canapa", 20);
+
+            preventivo.Add(voce3, voce4);
 
             fattura.Add(voce1, voce2);
             var list = new List<Fattura>();
             list.Add(fattura);
             CollezioneClienti.GetInstance().Add(cliente);
-            Application.Run(GenericViewLoader.getFatturaForm(list));
+            CollezioneVendite.GetInstance().Add(vendita);
+            CollezionePreventivi.GetInstance().Add(preventivo);
+            //Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
+            //Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
+            //Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
+
         }
     }
 }

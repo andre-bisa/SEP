@@ -133,12 +133,14 @@ namespace IngegneriaDelSoftware.Persistenza.None
 
         public List<Fattura> LeggiTutteFatture()
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
+            return new List<Fattura>();
         }
 
         public List<Vendita> LeggiTutteVendite()
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
+            return new List<Vendita>();
         }
 
         public List<Appuntamento> LeggiTuttiAppuntamenti()
@@ -158,7 +160,8 @@ namespace IngegneriaDelSoftware.Persistenza.None
 
         public List<Preventivo> LeggiTuttiPreventivi()
         {
-            throw new System.NotImplementedException();
+            //throw new System.NotImplementedException();
+            return new List<Preventivo>();
         }
 
         Cliente IClienteDAO.Leggi(string IDCliente)
