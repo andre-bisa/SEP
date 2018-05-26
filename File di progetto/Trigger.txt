@@ -20,7 +20,27 @@ begin
 	)
 		then
 			signal sqlstate '70001'
-			set message_text = 'Non è possibile inserire una vendita che ha un preventivo se questo non esiste!';
+			set message_text = 'Errore inserimento vendita trigger FAILED!;
+	end if;
+end:
+
+
+create trigger AGGIORNA_VENDITA
+before update on VENDITA
+for each row
+begin 
+	if ((NEW.IDPREVENTIVO is not null and not exists (
+		select * 
+		from PREVENTIVO p
+		where NEW.IDUTENTE = p.IDUTENTE
+		and NEW.IDPREVENTIVO = p.IDPREVENTIVO))
+	OR
+	((TIPOAGENTE is not null and PROVVIGIONE is null)
+           or (TIPOAGENTE is null and PROVVIGIONE is not null))
+	)
+		then
+			signal sqlstate '71001'
+			set message_text = 'Errore aggiornamento vendita trigger FAILED!;
 	end if;
 end:
 
@@ -53,6 +73,28 @@ begin
 	end if;
 end:
 
+create trigger AGGIORNA_FATTURA
+before update on FATTURA
+for each row
+begin
+	if ((NEW.NUMERO is not null and not exists (
+		select * 
+		from VENDITEFATTURA vf
+		where NEW.NUMERO = vf.NUMERO
+		and NEW.ANNO = vf.ANNO
+		and NEW.IDUTENTE = vf.IDUTENTE))
+	OR
+	((NEW.TIPOAGENTE is null and NEW.IDDATORELAVORO is not null)
+           or (NEW.TIPOAGENTE is not null and NEW.IDDATORELAVORO is null))
+	OR
+	(NEW.TIPOAGENTE is not null and NEW.IDCLIENTE is not null)
+	)
+		then
+			signal sqlstate '71002'
+			set message_text = 'Errore aggiornamento fattura, trigger FAILED!';
+	end if;
+end:
+
 /*
 * Utente
 */
@@ -82,6 +124,29 @@ begin
 	end if;
 end:
 
+create trigger AGGIORNA_UTENTE
+before update on UTENTE
+for each row
+begin
+	if (
+	NEW.TIPO is null
+	OR
+	(NEW.TIPO = 'AZ' and (NEW.NOME is not null or NEW.COGNOME is not null or NEW.RAGIONE_SOCIALE is null or NEW.SEDE_LEGALE is null or NEW.PROVVIGIONE_DEFAULT is not null))
+	OR
+	(NEW.TIPO = 'LP' and (NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is not null))
+	OR
+	(NEW.TIPO = 'AG' and (NEW.IDUTENTE is not null and (not exists (
+		select * 
+		from DATORE_LAVORO dl
+		where NEW.IDUTENTE = dl.IDUTENTE
+		and NEW.TIPO = 'AG') 
+		or NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null or NEW.PROVVIGIONE_DEFAULT is null)))
+	)
+	then signal sqlstate '71003'
+	set message_text = 'Errore aggiornamento utente, trigger FAILED!';
+	end if;
+end:
+
 /*
 * Persona
 */
@@ -101,5 +166,21 @@ begin
 	)
 	then signal sqlstate '70006'
 	set message_text = 'Errore inserimento persona, trigger FAILED!';
+	end if;
+end:
+
+create trigger AGGIORNA_PERSONA
+before update on PERSONA
+for each row
+begin
+	if (
+	NEW.TIPO is null
+	OR
+	(NEW.TIPO = 'G' and (NEW.PIVA is null or NEW.RAGIONE_SOCIALE is null or NEW.SEDE_LEGALE is null or NEW.NOME is not null or NEW.COGNOME is not null))
+	OR
+	(NEW.TIPO = 'F' and (NEW.NOME is null or NEW.COGNOME is null or NEW.RAGIONE_SOCIALE is not null or NEW.SEDE_LEGALE is not null))
+	)
+	then signal sqlstate '71006'
+	set message_text = 'Errore aggiornamento persona, trigger FAILED!';
 	end if;
 end:

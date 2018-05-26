@@ -124,7 +124,7 @@ create table PREVENTIVO (
      IDUTENTE int not null,
      IDPREVENTIVO varchar(10) not null,
      DATA date not null,
-     TOTALE decimal(9,2) not null,
+     /*TOTALE decimal(9,2) not null,*/
      ACCETTATO bool not null,
      IDCLIENTE varchar(10) not null,
      constraint ID_PREVENTIVO_ID primary key (IDUTENTE, IDPREVENTIVO));
@@ -165,7 +165,7 @@ create table VENDITA (
      IDUTENTE int not null,
      IDVENDITA varchar(100) not null,
      IDPREVENTIVO varchar(10),
-     TOTALE decimal(9,2) not null,
+     /*TOTALE decimal(9,2) not null,*/
      TIPOAGENTE enum('S'),
      PROVVIGIONE decimal(3,2),
      IDCLIENTE varchar(10) not null,
