@@ -264,6 +264,11 @@ alter table FATTURA add constraint REF_FATTU_DATOR_FK
      foreign key (IDDATORELAVORO)
      references DATORE_LAVORO(IDDATORELAVORO)
      ON DELETE CASCADE ON UPDATE CASCADE;
+	 
+alter table FATTURA add constraint REF_FATTU_CLIENTE_FK
+     foreign key (IDCLIENTE)
+     references CLIENTE(IDCLIENTE)
+     ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*alter table FATTURA add constraint COEX_FATTURA
      check((TIPOAGENTE is not null and IDDATORELAVORO is not null)

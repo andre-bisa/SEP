@@ -75,11 +75,6 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             throw new NotImplementedException();
         }
 
-        public Vendita Leggi(string ID)
-        {
-            throw new NotImplementedException();
-        }
-
         public List<Vendita> LeggiTutteVendite()
         {
             List<Vendita> listaVendite = new List<Vendita>();

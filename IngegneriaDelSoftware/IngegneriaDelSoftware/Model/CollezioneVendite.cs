@@ -116,6 +116,16 @@ namespace IngegneriaDelSoftware.Model
             return ((ICollection<Vendita>)_vendite).Contains(item);
         }
 
+        public Vendita Get(uint idVendita)
+        {
+            foreach (Vendita v in this._vendite)
+            {
+                if (v.ID == idVendita)
+                    return v;
+            }
+            return null;
+        }
+
         public void CopyTo(Vendita[] array, int arrayIndex)
         {
             ((ICollection<Vendita>)_vendite).CopyTo(array, arrayIndex);
