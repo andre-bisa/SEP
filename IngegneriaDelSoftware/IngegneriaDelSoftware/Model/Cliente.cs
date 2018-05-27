@@ -138,7 +138,8 @@ namespace IngegneriaDelSoftware.Model
             }
         }
 
-        /*public void CambiaPersona(DatiPersona datiPersona)
+        /* Non più supportato il cambio di una persona, ad esempio se un cliente è associato ad una persona fisica deve rimanere associato ad una persona fisica, non può "trasformarsi" in una persona giuridica
+        public void CambiaPersona(DatiPersona datiPersona)
         {
             switch (datiPersona.TipoDatiPersona())
             {
