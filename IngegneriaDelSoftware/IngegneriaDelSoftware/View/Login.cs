@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
+using IngegneriaDelSoftware.Controller;
 
 namespace IngegneriaDelSoftware
 {
@@ -18,5 +19,13 @@ namespace IngegneriaDelSoftware
             InitializeComponent();
         }
 
+        private void BtnLogin_Click(object sender, EventArgs e)
+        {
+            bool accesso = ControllerLogin.GetInstance().ControllaCredenziali(txtUsername.Text.Trim(), txtPassword.Text.Trim());
+            if (!accesso)
+                MessageBox.Show("Errore, username e/o password errati.");
+            else
+                this.Close();
+        }
     }
 }

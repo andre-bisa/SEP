@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 namespace IngegneriaDelSoftware.Persistenza.Dao
 {
     public interface IUtenteDAO
-    {
-        bool Crea(Utente nuova);
+    { 
 
-        Utente Leggi(string ID);
+        int Accesso(string username, string password);
 
         bool Aggiorna(Utente vecchia, Utente nuova);
 

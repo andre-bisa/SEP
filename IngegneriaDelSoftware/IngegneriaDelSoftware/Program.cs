@@ -18,6 +18,9 @@ namespace IngegneriaDelSoftware
         [STAThread]
         static void Main()
         {
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Login());
+
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = EnumTipoPersistenza.MySQL;
             impostazioni.IDUtente = 1;
@@ -25,7 +28,7 @@ namespace IngegneriaDelSoftware
             ControllerClienti controller = new ControllerClienti();
 
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);/*
+            /*
             var g = new View.GenericForm(View.GenericForm.TipoForm.FATTURE);
             g.OnCreaClick += (result, e) => {
                 result.ForEach((el) => {
