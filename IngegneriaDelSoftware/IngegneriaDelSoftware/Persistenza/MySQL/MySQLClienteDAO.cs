@@ -175,7 +175,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_ULTIMO_ID_PERSONA;
-            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+            cmd.Parameters.AddWithValue("@idutente", "1");   // <-------------- TODO inserire IDUTENTE
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
@@ -210,7 +210,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText += "COMMIT;";
 
-            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
 
             int modifiche = cmd.ExecuteNonQuery();
 
@@ -235,7 +235,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText = SELEZIONA_TUTTI_CLIENTI;
 
-            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+            cmd.Parameters.AddWithValue("@idutente", "1");
 
             MySqlDataReader reader = cmd.ExecuteReader();
 
