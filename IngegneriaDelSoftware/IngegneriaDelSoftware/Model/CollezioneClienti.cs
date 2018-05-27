@@ -94,6 +94,16 @@ namespace IngegneriaDelSoftware.Model
             }
         }
 
+        public Cliente Get(string IDCliente)
+        {
+            foreach (Cliente c in this._clienti)
+            {
+                if (c.IDCliente == IDCliente)
+                    return c;
+            }
+            return null;
+        }
+
         /// <summary>
         /// Funzione non supportata. Lancia SEMPRE eccezione
         /// </summary>

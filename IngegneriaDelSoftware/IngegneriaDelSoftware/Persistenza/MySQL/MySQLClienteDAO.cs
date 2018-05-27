@@ -227,9 +227,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             if (cmd == null)
                 return listaClienti;
 
-            cmd.CommandText = "START TRANSACTION;";
-
-            cmd.CommandText += SELEZIONA_TUTTI_CLIENTI;
+            cmd.CommandText = SELEZIONA_TUTTI_CLIENTI;
 
             cmd.Parameters.AddWithValue("@idutente", "1");
 
