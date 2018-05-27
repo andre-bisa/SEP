@@ -20,6 +20,7 @@ namespace IngegneriaDelSoftware
         {
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = EnumTipoPersistenza.MySQL;
+            impostazioni.IDUtente = 1;
 
             ControllerClienti controller = new ControllerClienti();
 

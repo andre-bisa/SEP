@@ -40,7 +40,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             InserisciParametriVendita(nuova, cmd);
 
             cmd.Parameters.AddWithValue("@oldidvendita", vecchia.ID);
-            cmd.Parameters.AddWithValue("@idutente", "1");
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
 
@@ -75,7 +75,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             }
 
             cmd.CommandText += "COMMIT;";
-            cmd.Parameters.AddWithValue("@idutente", "1");
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
 
@@ -115,7 +115,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText = SELEZIONA_TUTTE_VENDITE;
 
-            cmd.Parameters.AddWithValue("@idutente", "1");   // TODO AGGIUNSTARE!!
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -154,7 +154,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_TUTTE_VOCI_VENDITA;
-            cmd.Parameters.AddWithValue("@idutente", "1");     // TODO AGGIUNSTARE!!
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
             cmd.Parameters.AddWithValue("@idvendita", idVendita);
 
             MySqlDataReader reader = cmd.ExecuteReader();

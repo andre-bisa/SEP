@@ -32,7 +32,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             InserisciParametriPersona(nuovaPersona, cmd);
 
             cmd.Parameters.AddWithValue("@oldCF", vecchiaPersona.CodiceFiscale);
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
 

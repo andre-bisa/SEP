@@ -24,7 +24,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL {
             MySqlCommand cmd = connessione.CreateCommand();
 
             cmd.CommandText = SELEZIONA_ULTIMO_ID_APPUNTAMENTO;
-            cmd.Parameters.AddWithValue("@idutente", "1");   // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
             MySqlDataReader reader = cmd.ExecuteReader();
             if(reader.HasRows) {
                 reader.Read();
@@ -59,7 +59,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL {
 
              cmd.CommandText += "COMMIT;";
 
-             cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
              int modifiche = cmd.ExecuteNonQuery();
 
@@ -96,7 +96,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL {
 
              cmd.CommandText += "COMMIT;";
 
-             cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
              cmd.Parameters.AddWithValue("@idpersona", "" + IDAppuntamento);
 
              int modifiche = cmd.ExecuteNonQuery();
