@@ -29,12 +29,12 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
-                return false;
+                throw new ExceptionPersistenza();
 
             MySqlCommand cmd = connessione.CreateCommand();
 
             if (cmd == null)
-                return false;
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = "START TRANSACTION;";
 
@@ -78,12 +78,12 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
-                return listaPreventivo;
+                throw new ExceptionPersistenza();
 
             MySqlCommand cmd = connessione.CreateCommand();
 
             if (cmd == null)
-                return listaPreventivo;
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_TUTTI_PREVENTIVI;
 
@@ -110,12 +110,12 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
-                return vociPreventivo;
+                throw new ExceptionPersistenza();
 
             MySqlCommand cmd = connessione.CreateCommand();
 
             if (cmd == null)
-                return vociPreventivo;
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_TUTTE_VOCI_PREVENTIVO;
             cmd.Parameters.AddWithValue("@idutente", "1");     // TODO AGGIUNSTARE!!

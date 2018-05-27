@@ -45,12 +45,12 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
-                return listaFatture;
+                throw new ExceptionPersistenza();
 
             MySqlCommand cmd = connessione.CreateCommand();
 
             if (cmd == null)
-                return listaFatture;
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_TUTTE_FATTURE;
 
@@ -90,12 +90,12 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
-                return venditeDiProvenienza;
+                throw new ExceptionPersistenza();
 
             MySqlCommand cmd = connessione.CreateCommand();
 
             if (cmd == null)
-                return venditeDiProvenienza;
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_VENDITE_PROVENIENZA;
 
@@ -123,12 +123,12 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
-                return vociFattura;
+                throw new ExceptionPersistenza();
 
             MySqlCommand cmd = connessione.CreateCommand();
 
             if (cmd == null)
-                return vociFattura;
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_TUTTE_VOCI_FATTURA;
             cmd.Parameters.AddWithValue("@idutente", "1");     // TODO AGGIUNSTARE!!
