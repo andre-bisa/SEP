@@ -196,10 +196,5 @@ namespace IngegneriaDelSoftware.Persistenza.None
         {
             return null;
         }
-
-        Vendita IVenditaDAO.Leggi(string ID)
-        {
-            return null;
-        }
     }
 }
