@@ -129,6 +129,7 @@
     <Compile Include="Persistenza\Dao\IFatturaDAO.cs" />
     <Compile Include="Persistenza\Dao\IIntermediarioDAO.cs" />
     <Compile Include="Persistenza\Dao\IMailInviataDAO.cs" />
+    <Compile Include="Persistenza\Dao\IPersonaDAO.cs" />
     <Compile Include="Persistenza\Dao\IPreventivoDAO.cs" />
     <Compile Include="Persistenza\Dao\IUtenteDAO.cs" />
     <Compile Include="Persistenza\Dao\IVenditaDAO.cs" />
@@ -142,6 +143,7 @@
     <Compile Include="Persistenza\MySQL\MySQLFatturaDAO.cs" />
     <Compile Include="Persistenza\MySQL\MySQLIntermediarioDAO.cs" />
     <Compile Include="Persistenza\MySQL\MySQLMailInviataDAO.cs" />
+    <Compile Include="Persistenza\MySQL\MySQLPersonaDAO.cs" />
     <Compile Include="Persistenza\MySQL\MySQLPreventivoDAO.cs" />
     <Compile Include="Persistenza\MySQL\MySQLUtenteDAO.cs" />
     <Compile Include="Persistenza\MySQL\MySQLVenditaDAO.cs" />

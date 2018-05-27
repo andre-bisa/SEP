@@ -44,13 +44,13 @@ namespace IngegneriaDelSoftware.Model
             } catch (Exception) { throw new ExceptionPersistenza(); }
 
             // TODO REMOVE! mock
-            for (int i = 0; i < 100; i++)
+            /*for (int i = 0; i < 100; i++)
             {
                 Telefono[] telefoni = { new Telefono( "0510000"+i, "Nota "+i) };
                 Email[] email = { new Email("indirizzo" + i + "@prova.com", "Nota" + i) };
                 Referente[] referenti = { new Referente("Ref" + i, "Nota" + i), new Referente("Ref2" + i, "Nota2" + i) };
                 _clienti.Add(new Cliente(new PersonaFisica("cf", "indirizzo" + i, "nome" + i, "cognome", "PIVA", telefoni, email), "ID" + i, referenti, EnumTipoCliente.Attivo, "Nota"+i));
-            }
+            }*/
         }
 
         public int Count

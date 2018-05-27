@@ -82,5 +82,10 @@ namespace IngegneriaDelSoftware.Persistenza.XML {
         public override IVenditaDAO GetVenditaDAO() {
             throw new NotImplementedException();
         }
+
+        public override IPersonaDAO GetPersonaDAO()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

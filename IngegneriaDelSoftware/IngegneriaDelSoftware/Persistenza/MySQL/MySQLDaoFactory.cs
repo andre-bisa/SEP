@@ -29,7 +29,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         {
             try
             {
-                connessione = new MySqlConnection("SERVER=andre-bisa.ddns.net;database=SEP;uid=SEP;password=password");
+                connessione = new MySqlConnection("SERVER=10.0.250.13;database=SEP;uid=SEP;pwd=password;SslMode=None");
                 if (connessione != null)
                     connessione.Open();
             } catch (MySqlException e)
@@ -94,6 +94,11 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         public override IVenditaDAO GetVenditaDAO()
         {
             return new MySQLVenditaDAO();
+        }
+
+        public override IPersonaDAO GetPersonaDAO()
+        {
+            return new MySQLPersonaDAO();
         }
         #endregion
     }

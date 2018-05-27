@@ -69,14 +69,14 @@ namespace IngegneriaDelSoftware.Controller
             if (clienteDaModificare == null)
                 throw new ArgumentNullException("Errore, il cliente è nullo.");
 
-            if (clienteDaModificare.Persona.TipoPersona == nuoviDatiPersona.TipoDatiPersona())
-            {
+            //if (clienteDaModificare.Persona.TipoPersona == nuoviDatiPersona.TipoDatiPersona())
+            //{
                 clienteDaModificare.Persona.CambiaDatiPersona(nuoviDatiPersona);
-            }
-            else
+            //}
+            /*else
             {
                 clienteDaModificare.CambiaPersona(nuoviDatiPersona);
-            }
+            }*/
             
             clienteDaModificare.CambiaDatiCliente(nuoviDatiCliente);
         }

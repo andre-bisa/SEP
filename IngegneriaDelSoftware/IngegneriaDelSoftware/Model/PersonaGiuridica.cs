@@ -1,4 +1,5 @@
 ﻿using IngegneriaDelSoftware.Model;
+using IngegneriaDelSoftware.Persistenza;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace IngegneriaDelSoftware.Model {
 
         #region Campi privati
         private DatiPersonaGiuridica _datiPersona;
+
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
         #endregion
 
         #region Proprietà
@@ -125,6 +128,12 @@ namespace IngegneriaDelSoftware.Model {
             {
                 Persona vecchio = this.Clone();
                 this._datiPersona = (DatiPersonaGiuridica)datiPersona;
+
+                if (! _persistenza.GetPersonaDAO().Aggiorna(vecchio, this))
+                {
+                    this._datiPersona = ((PersonaGiuridica)vecchio)._datiPersona; // Recupero i vecchi dati
+                    throw new ExceptionPersistenza();
+                }
                 base.LanciaEvento(vecchio);
             }
             else

@@ -57,6 +57,11 @@ namespace IngegneriaDelSoftware.Persistenza.None
             return new NoneGenericoDao();
         }
 
+        public override IPersonaDAO GetPersonaDAO()
+        {
+            return new NoneGenericoDao();
+        }
+
         public override IPreventivoDAO GetPreventivoDAO()
         {
             return new NoneGenericoDao();

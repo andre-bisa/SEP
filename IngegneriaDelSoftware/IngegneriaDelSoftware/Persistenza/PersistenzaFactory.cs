@@ -46,5 +46,7 @@ namespace IngegneriaDelSoftware.Persistenza
 
         public abstract IVenditaDAO GetVenditaDAO();
 
+        public abstract IPersonaDAO GetPersonaDAO();
+
     }
 }

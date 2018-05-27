@@ -4,7 +4,7 @@ using IngegneriaDelSoftware.Persistenza.Dao;
 
 namespace IngegneriaDelSoftware.Persistenza.None
 {
-    public class NoneGenericoDao : IAppuntamentoDAO, IClienteDAO, IDatoreLavoroDAO, IEsternoDAO, IFatturaDAO, IMailInviataDAO, IIntermediarioDAO, IPreventivoDAO, IUtenteDAO, IVenditaDAO
+    public class NoneGenericoDao : IAppuntamentoDAO, IClienteDAO, IDatoreLavoroDAO, IEsternoDAO, IFatturaDAO, IMailInviataDAO, IIntermediarioDAO, IPreventivoDAO, IUtenteDAO, IVenditaDAO, IPersonaDAO
     {
         public bool Aggiorna(Appuntamento appuntamentoVecchio, Appuntamento nuovoAppuntamento)
         {
@@ -47,6 +47,11 @@ namespace IngegneriaDelSoftware.Persistenza.None
         }
 
         public bool Aggiorna(Vendita vecchia, Vendita nuova)
+        {
+            return true;
+        }
+
+        public bool Aggiorna(Persona vecchiaPersona, Persona nuovaPersona)
         {
             return true;
         }
@@ -108,17 +113,17 @@ namespace IngegneriaDelSoftware.Persistenza.None
 
         public bool Elimina(ulong ID)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public bool Elimina(string numero, string anno)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public bool Elimina(string numero, int anno)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public List<MailInviata> GetListaMailInviate()
@@ -133,13 +138,12 @@ namespace IngegneriaDelSoftware.Persistenza.None
 
         public List<Fattura> LeggiTutteFatture()
         {
-            //throw new System.NotImplementedException();
             return new List<Fattura>();
         }
 
         public List<Vendita> LeggiTutteVendite()
         {
-            //throw new System.NotImplementedException();
+
             return new List<Vendita>();
         }
 
@@ -160,13 +164,7 @@ namespace IngegneriaDelSoftware.Persistenza.None
 
         public List<Preventivo> LeggiTuttiPreventivi()
         {
-            //throw new System.NotImplementedException();
             return new List<Preventivo>();
-        }
-
-        Cliente IClienteDAO.Leggi(string IDCliente)
-        {
-            return null;
         }
 
         DatoreLavoro IDatoreLavoroDAO.Leggi(string ID)

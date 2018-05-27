@@ -138,7 +138,7 @@ namespace IngegneriaDelSoftware.Model
             }
         }
 
-        public void CambiaPersona(DatiPersona datiPersona)
+        /*public void CambiaPersona(DatiPersona datiPersona)
         {
             switch (datiPersona.TipoDatiPersona())
             {
@@ -157,11 +157,15 @@ namespace IngegneriaDelSoftware.Model
             if (_persona != persona)
             {
                 Cliente vecchioCliente = this.Clone();
+                if (! _persistenza.GetPersonaDAO().CambiaPersona(vecchioCliente, persona))
+                {
+                    throw new ExceptionPersistenza();
+                }
                 this._persona = persona;
                 persona.OnModifica += this.PersonaModificata;
                 LanciaEvento(vecchioCliente);
             }
-        }
+        }*/
 
         /// <summary>
         /// Funzione che permette di promuovere il Cliente. Ci sono alcuni vincoli:
@@ -229,7 +233,8 @@ namespace IngegneriaDelSoftware.Model
 
         private void PersonaModificata(object sender, ArgsModifica<Persona> p)
         {
-            Cliente clienteVecchio = new Cliente(p.Vecchio, this.IDCliente, this.Referenti.ToList<Referente>(), this.TipoCliente, this.Nota);
+            Cliente clienteVecchio = this.Clone();
+            this._persona = p.Nuovo;
             LanciaEvento(clienteVecchio);
         }
 

@@ -155,6 +155,7 @@ namespace IngegneriaDelSoftware.View.Overlay
                 txtPartitaIVA.Text = personaFisica.PartitaIVA;
 
                 radioFisica.Checked = true;
+                radioGiuridica.Enabled = false;
             }
             else
             {
@@ -163,6 +164,7 @@ namespace IngegneriaDelSoftware.View.Overlay
                 txtPartitaIVA.Text = personaGiuridica.PartitaIVA;
 
                 radioGiuridica.Checked = true;
+                radioFisica.Enabled = false;
             }
             if (Cliente.TipoCliente == EnumTipoCliente.Ex)
                 checkEx.Checked = true;

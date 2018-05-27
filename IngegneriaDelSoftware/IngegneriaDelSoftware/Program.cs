@@ -34,14 +34,14 @@ namespace IngegneriaDelSoftware
             };
             g.InfoPanelEditable = false;
             Application.Run(g);
-            /*
+            */
             //Application.Run(new FormAppuntamenti());
             Application.Run(new FormClienti(controller));
             Application.Run(new FormEmail(controller));
             Application.Run(new Login());
             Application.Run(new VisualizzaCalendario());
             if (FormConfim.Show("Titolo", "Messaggio") == DialogResult.OK)
-                MessageBox.Show("Premuto OK");*/
+                MessageBox.Show("Premuto OK");
             var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
             var cliente = new Cliente(persona, "1");
             var vendita = new Vendita(1, cliente);
@@ -60,9 +60,9 @@ namespace IngegneriaDelSoftware
             CollezioneClienti.GetInstance().Add(cliente);
             CollezioneVendite.GetInstance().Add(vendita);
             CollezionePreventivi.GetInstance().Add(preventivo);
-            //Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
-            //Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
-            //Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
+            Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
+            Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
+            Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
 
         }
     }

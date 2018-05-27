@@ -11,8 +11,6 @@ namespace IngegneriaDelSoftware.Persistenza.Dao
     {
         bool Crea(Cliente cliente);
 
-        Cliente Leggi(string IDCliente);
-
         bool Aggiorna(Cliente clienteVecchio, Cliente clienteNuovo);
 
         bool Elimina(string IDCliente);

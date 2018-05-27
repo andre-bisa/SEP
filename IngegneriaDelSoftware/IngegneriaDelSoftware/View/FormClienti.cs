@@ -183,6 +183,7 @@ namespace IngegneriaDelSoftware.View
         private void MaterialFloatingActionButton1_Click(object sender, EventArgs e)
         {
             OverlayCliente overlayCliente = new OverlayCliente(_controller, this.panelForm);
+            overlayCliente.OverlayChiuso += (s, ee) => CaricaClientiMancanti();
             overlayCliente.Open();
         }
         #endregion
