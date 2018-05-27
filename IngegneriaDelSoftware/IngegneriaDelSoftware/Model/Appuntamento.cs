@@ -30,20 +30,21 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="luogo"></param>
         /// <param name="dataOra"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public Appuntamento(Persona conChi, string oggetto, string luogo, DateTime dataOra)
+        public Appuntamento(int idAppuntamento, Persona conChi, string note, string luogo, DateTime dataOra)
         {
-            if (conChi == null || oggetto == null || dataOra == null || luogo == null)
+            if (idAppuntamento < 0 || conChi == null || note == null || dataOra == null || luogo == null)
             {
                 throw new ArgumentNullException();
             }
-            this._datiAppuntamento = new DatiAppuntamento(conChi, oggetto, luogo, dataOra);
+
+            this._datiAppuntamento = new DatiAppuntamento(idAppuntamento, conChi, note, luogo, dataOra);
         }
         #endregion
 
         #region Properties
-        public string Oggetto
+        public string Note
         {
-            get { return _datiAppuntamento.Oggetto; }
+            get { return _datiAppuntamento.Note; }
         }
 
         public Persona ConChi
@@ -60,12 +61,16 @@ namespace IngegneriaDelSoftware.Model
         {
             get { return _datiAppuntamento.DataOra; }
         }
+        public int IDAppuntamento
+        {
+            get { return _datiAppuntamento.IDAppuntamento; }
+        }
         #endregion
 
         #region ToString()
         public override string ToString()
         {
-            return String.Format("{0} {1} {2} {3}", DataOra.ToString(), Luogo, Oggetto, ConChi.getDenominazione());
+            return String.Format("{0} {1} {2} {3}", DataOra.ToString(), Luogo, Note, ConChi.getDenominazione());
         }
         #endregion
 
@@ -74,7 +79,7 @@ namespace IngegneriaDelSoftware.Model
         {
             var appuntamento = obj as Appuntamento;
             return appuntamento != null &&
-                   Oggetto == appuntamento.Oggetto &&
+                   Note == appuntamento.Note &&
                    Luogo == appuntamento.Luogo &&
                    DataOra == appuntamento.DataOra;
         }
@@ -82,7 +87,7 @@ namespace IngegneriaDelSoftware.Model
         public override int GetHashCode()
         {
             var hashCode = -1334492624;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Oggetto);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Note);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Luogo);
             hashCode = hashCode * -1521134295 + DataOra.GetHashCode();
             return hashCode;
@@ -106,9 +111,10 @@ namespace IngegneriaDelSoftware.Model
     public struct DatiAppuntamento
     {
         public Persona ConChi { get; private set; }
-        public string Oggetto { get; private set; }
+        public string Note { get; private set; }
         public string Luogo { get; private set; }
         public DateTime DataOra { get; private set; }
+        public int IDAppuntamento { get; private set; }
 
         #region Costruttore
         /// <summary>
@@ -116,18 +122,19 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="luogo">Luogo dove si tiene l'appuntamento</param>
         /// <param name="conChi">Con chi viene tenuto l'appuntamento</param>
-        /// <param name="oggetto">Il motivo dell'appuntamento o una nota semplificativa</param>
+        /// <param name="note">Il motivo dell'appuntamento o una nota semplificativa</param>
         /// <param name="dataOra">Data e ora dell'appuntamento</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public DatiAppuntamento(Persona conChi, string oggetto, string luogo, DateTime dataOra)
+        public DatiAppuntamento(int idAppuntamento, Persona conChi, string note, string luogo, DateTime dataOra)
         {
-            if (conChi == null || oggetto == null || dataOra == null || luogo == null)
+            if (idAppuntamento < 0 || conChi == null || note == null || dataOra == null || luogo == null)
             {
                 throw new ArgumentNullException();
             }
 
+            IDAppuntamento = idAppuntamento;
             ConChi = conChi;
-            Oggetto = oggetto;
+            Note = note;
             DataOra = dataOra;
             Luogo = luogo;
         }
