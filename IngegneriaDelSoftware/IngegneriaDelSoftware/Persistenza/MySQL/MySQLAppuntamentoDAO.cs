@@ -64,7 +64,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@luogo", nuovoAppuntamento.Luogo);
             cmd.Parameters.AddWithValue("@note", nuovoAppuntamento.Note);
 
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             cmd.Parameters.AddWithValue("@old_idappuntamento", appuntamentoVecchio.IDAppuntamento);
 
@@ -107,7 +107,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText += "COMMIT;";
 
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
 
@@ -135,7 +135,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText += "COMMIT;";
 
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
 
@@ -163,7 +163,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText += "COMMIT;";
 
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             MySqlDataReader reader = cmd.ExecuteReader();
 
