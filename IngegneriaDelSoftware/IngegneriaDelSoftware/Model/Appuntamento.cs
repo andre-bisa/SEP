@@ -60,6 +60,8 @@ namespace IngegneriaDelSoftware.Model
         {
             get { return _datiAppuntamento.DataOra; }
         }
+
+        public string ID { get; internal set; }
         #endregion
 
         #region ToString()

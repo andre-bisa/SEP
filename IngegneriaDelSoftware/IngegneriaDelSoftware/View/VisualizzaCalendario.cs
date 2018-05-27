@@ -9,14 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using IngegneriaDelSoftware.Model;
 using MaterialSkin.Controls;
+using IngegneriaDelSoftware.Controller;
 
 namespace IngegneriaDelSoftware.View
 {
     public partial class VisualizzaCalendario : MaterialForm
     {
-        private Appuntamento _a1, _a2;
+        //private Appuntamento _a1, _a2;
 
-        public VisualizzaCalendario()
+        public VisualizzaCalendario(ControllerCalendario c)
         {
             InitializeComponent();
 
@@ -24,7 +25,7 @@ namespace IngegneriaDelSoftware.View
             this.dateTimePickerA.ValueChanged += new System.EventHandler(this.DataCambiata);
 
             //Righe di prova
-
+            /*
             Persona p1 = new PersonaFisica("cf", "indirizzo", "Nome", "Cognome");
 
             DatiAppuntamento d1 = new DatiAppuntamento(p1, "Riunione", "Bologna", DateTime.Now);
@@ -37,7 +38,11 @@ namespace IngegneriaDelSoftware.View
             ListViewItem item2 = new ListViewItem(_a2.ToString().Split(' '));
 
             listCalendario.Items.Add(item1);
-            listCalendario.Items.Add(item2);
+            listCalendario.Items.Add(item2);*/
+            c.GetAppuntamenti().ForEach((el) => {
+                // this method is bad and evil;
+                listCalendario.Items.Add(new ListViewItem(el.ToString().Split(' ')));
+            });
         }
 
         private void DataCambiata(object sender, EventArgs e)
