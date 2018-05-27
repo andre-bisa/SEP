@@ -36,21 +36,12 @@ namespace IngegneriaDelSoftware
             Application.Run(g);
             */
             //Application.Run(new FormAppuntamenti());
-            //Application.Run(new FormClienti(controller));
-            //Application.Run(new FormEmail(controller));
-            //Application.Run(new Login());
-            Persona p1 = new PersonaFisica("cf", "indirizzo", "Nome", "Cognome");
-
-            DatiAppuntamento d1 = new DatiAppuntamento(p1, "Riunione", "Bologna", DateTime.Now);
-            DatiAppuntamento d2 = new DatiAppuntamento(p1, "Riunione", "Napoli", DateTime.MaxValue);
-
-            Appuntamento _a1 = new Appuntamento(d1);
-            Appuntamento _a2 = new Appuntamento(d2);
-            CollezioneAppuntamenti.GetInstance().Add(_a1);
-            CollezioneAppuntamenti.GetInstance().Add(_a2);
-            Application.Run(new VisualizzaCalendario(new ControllerCalendario()));/*
+            /*Application.Run(new FormClienti(controller));
+            Application.Run(new FormEmail(controller));
+            Application.Run(new Login());
+            Application.Run(new VisualizzaCalendario());
             if (FormConfim.Show("Titolo", "Messaggio") == DialogResult.OK)
-                MessageBox.Show("Premuto OK");
+                MessageBox.Show("Premuto OK");*/
             var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
             var cliente = new Cliente(persona, "1");
             var vendita = new Vendita(1, cliente);
@@ -69,9 +60,9 @@ namespace IngegneriaDelSoftware
             CollezioneClienti.GetInstance().Add(cliente);
             CollezioneVendite.GetInstance().Add(vendita);
             CollezionePreventivi.GetInstance().Add(preventivo);
-            Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
+            //Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
             Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
-            Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));*/
+            //Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
 
         }
     }

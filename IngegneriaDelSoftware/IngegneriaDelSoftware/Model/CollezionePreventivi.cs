@@ -18,7 +18,7 @@ namespace IngegneriaDelSoftware.Model
 
         private HashSet<Preventivo> _preventivi = new HashSet<Preventivo>();
 
-        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.NONE);
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
 
         #region Singleton
         private static CollezionePreventivi _listaPreventivi = null;
@@ -64,6 +64,16 @@ namespace IngegneriaDelSoftware.Model
             {
                 return ((ICollection<Preventivo>)_preventivi).IsReadOnly;
             }
+        }
+
+        public Preventivo Get(ulong IDPreventivo)
+        {
+            foreach (Preventivo p in this._preventivi)
+            {
+                if (p.ID == IDPreventivo)
+                    return p;
+            }
+            return null;
         }
 
         /// <summary>

@@ -192,11 +192,6 @@ namespace IngegneriaDelSoftware.Persistenza.None
             return null;
         }
 
-        Preventivo IPreventivoDAO.Leggi(string ID)
-        {
-            return null;
-        }
-
         Utente IUtenteDAO.Leggi(string ID)
         {
             return null;

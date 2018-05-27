@@ -22,7 +22,7 @@
 
 create table APPUNTAMENTICON (
      IDUTENTE int not null,
-     IDAPPUNTAMENTO varchar(10) not null,
+     IDAPPUNTAMENTO int not null,
      IDINTERMEDIARIO varchar(10) not null,
      IDCLIENTE varchar(10) not null,
      IDESTERNO varchar(10) not null,
@@ -30,7 +30,7 @@ create table APPUNTAMENTICON (
 
 create table APPUNTAMENTO (
      IDUTENTE int not null,
-     IDAPPUNTAMENTO varchar(10) not null,
+     IDAPPUNTAMENTO int not null,
      DATA date not null,
      ORA time not null,
      LUOGO varchar(100) not null,
@@ -122,7 +122,7 @@ create table PERSONA (
 
 create table PREVENTIVO (
      IDUTENTE int not null,
-     IDPREVENTIVO varchar(10) not null,
+     IDPREVENTIVO int not null,
      DATA date not null,
      /*TOTALE decimal(9,2) not null,*/
      ACCETTATO bool not null,
@@ -163,8 +163,9 @@ create table UTENTE (
 
 create table VENDITA (
      IDUTENTE int not null,
-     IDVENDITA varchar(100) not null,
-     IDPREVENTIVO varchar(10),
+     IDVENDITA int not null,
+     IDPREVENTIVO int,
+	 DATA date not null,
      /*TOTALE decimal(9,2) not null,*/
      TIPOAGENTE enum('S'),
      PROVVIGIONE decimal(3,2),
@@ -175,7 +176,7 @@ create table VENDITEFATTURA (
      ANNO int not null,
      NUMERO int not null,
      IDUTENTE int not null,
-     IDVENDITA varchar(10) not null,
+     IDVENDITA int not null,
      constraint ID_VENDITEFATTURA_ID primary key (ANNO, NUMERO, IDUTENTE, IDVENDITA));
 
 create table VOCEFATTURA (
@@ -192,7 +193,7 @@ create table VOCEFATTURA (
 
 create table VOCEVENDITA (
      IDUTENTE int not null,
-     IDVENDITA varchar(10) not null,
+     IDVENDITA int not null,
      NUMERO int not null,
      DESCRIZIONE varchar(100) not null,
      TIPOLOGIA varchar(20) not null,
@@ -201,15 +202,15 @@ create table VOCEVENDITA (
      IMPORTO decimal(9,2) not null,
      constraint ID_VOCEVENDITA_ID primary key (NUMERO, IDUTENTE, IDVENDITA));
 
-create table VOCIPREVENTIVO (
+create table VOCEPREVENTIVO (
      IDUTENTE int not null,
-     IDPREVENTIVO varchar(10) not null,
+     IDPREVENTIVO int not null,
      NUMERO int not null,
      DESCRIZIONE varchar(100) not null,
      TIPOLOGIA varchar(20) not null,
      QUANTITA int not null,
      IMPORTO decimal(9,2) not null,
-     constraint ID_VOCIPREVENTIVO_ID primary key (NUMERO, IDUTENTE, IDPREVENTIVO));
+     constraint ID_VOCEPREVENTIVO_ID primary key (NUMERO, IDUTENTE, IDPREVENTIVO));
 
 
 -- Constraints Section
@@ -380,7 +381,7 @@ alter table VOCEVENDITA add constraint REF_VOCEV_VENDI_FK
      references VENDITA(IDUTENTE, IDVENDITA)
      ON DELETE CASCADE ON UPDATE CASCADE;
 
-alter table VOCIPREVENTIVO add constraint REF_VOCIP_PREVE_FK
+alter table VOCEPREVENTIVO add constraint REF_VOCEP_PREVE_FK
      foreign key (IDUTENTE, IDPREVENTIVO)
      references PREVENTIVO(IDUTENTE, IDPREVENTIVO)
      ON DELETE CASCADE ON UPDATE CASCADE;
@@ -497,9 +498,9 @@ create unique index ID_VOCEVENDITA_IND
 create index REF_VOCEV_VENDI_IND
      on VOCEVENDITA (IDUTENTE, IDVENDITA);
 
-create unique index ID_VOCIPREVENTIVO_IND
-     on VOCIPREVENTIVO (NUMERO, IDUTENTE, IDPREVENTIVO);
+create unique index ID_VOCEPREVENTIVO_IND
+     on VOCEPREVENTIVO (NUMERO, IDUTENTE, IDPREVENTIVO);
 
-create index REF_VOCIP_PREVE_IND
-     on VOCIPREVENTIVO (IDUTENTE, IDPREVENTIVO);
+create index REF_VOCEP_PREVE_IND
+     on VOCEPREVENTIVO (IDUTENTE, IDPREVENTIVO);
 

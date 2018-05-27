@@ -18,7 +18,7 @@ namespace IngegneriaDelSoftware.Model
 
         private HashSet<Vendita> _vendite = new HashSet<Vendita>();
 
-        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.NONE);
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
 
         #region Singleton
         private static CollezioneVendite _listaFatture = null;
