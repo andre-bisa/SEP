@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\ControllerLogin.cs" />
     <Compile Include="Model\ArgsEvent\ArgsAppuntamento.cs" />
     <Compile Include="Model\CollezioneAppuntamenti.cs" />
     <Compile Include="Controller\ControllerCalendario.cs" />

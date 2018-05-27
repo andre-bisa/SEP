@@ -21,17 +21,19 @@ namespace IngegneriaDelSoftware.View {
         private GetForm(List<T> inList, bool multiple) {
             this._storage = new Dictionary<string, T>();
             this._multiple = multiple;
-            inList.ForEach((e) => {
-                this._storage.Add((e.GetType().GetProperties()?.Where((i) => {
-                    return i.Name.Contains("ID");
-                }).FirstOrDefault<PropertyInfo>()?.GetValue(e).ToString() ?? e.ToString()), e);
-
-                //this._storage.Add(e.ToString(), e);
-            });
             InitializeComponent();
+            string tmp = "";
+            inList.ForEach((e) => {
+                tmp = (e.GetType().GetProperties()?.Where((i) => {
+                    return i.Name.Contains("ID");
+                }).FirstOrDefault<PropertyInfo>()?.GetValue(e).ToString() ?? e.ToString());
+                this._storage.Add(tmp, e);
+                this.ClientiList.Items.Add(new ListViewItem(new string[] { tmp, e.ToString() }));
+                //this._storage.Add(e.ToString(), e);
+            });/*
             foreach(var key in this._storage.Keys) {
                 this.ClientiList.Items.Add(new ListViewItem(new string[] { key, this._storage[key].ToString() }));
-            }
+            }*/
         }
 
         private void SelezionaBtn_Click(object sender, EventArgs e) {

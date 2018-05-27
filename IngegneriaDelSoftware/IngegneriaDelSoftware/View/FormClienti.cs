@@ -159,6 +159,8 @@ namespace IngegneriaDelSoftware.View
         {
             if (FormConfim.Show("Eliminare clienti?", "Confermi l'eliminazione dei clienti?") == DialogResult.OK)
             {
+                //Considerare  questa e una lock sul controller per migliorare le prestazioni;
+                //this._clientiCaricati.FindAll(t => t.Selezionato).Select(t => t.Cliente).AsParallel().ForAll((c) => { this._controller.RimuoviCliente(c); });
                 foreach (Cliente c in this._clientiCaricati.FindAll(t => t.Selezionato).Select(t => t.Cliente))
                 {
                     this._controller.RimuoviCliente(c);

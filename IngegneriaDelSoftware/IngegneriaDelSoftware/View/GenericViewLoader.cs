@@ -398,7 +398,7 @@ namespace IngegneriaDelSoftware.View {
                 Vendita[] v = null;
                 CollezioneVendite col = await t;
                 //CollezioneVendite col =  CollezioneVendite.GetInstance();
-                if((v = GetForm<Vendita>.Gets(col.ToList())) == null && v.Length > 0) {
+                if((v = GetForm<Vendita>.Gets(col.ToList())) == null || v.Length == 0) {
                     o.CleanAll();
                     tmpCliente = null;
                 } else {
