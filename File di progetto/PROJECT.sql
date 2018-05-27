@@ -22,7 +22,7 @@
 
 create table APPUNTAMENTICON (
      IDUTENTE int not null,
-     IDAPPUNTAMENTO varchar(10) not null,
+     IDAPPUNTAMENTO int not null,
      IDINTERMEDIARIO varchar(10) not null,
      IDCLIENTE varchar(10) not null,
      IDESTERNO varchar(10) not null,
@@ -30,7 +30,7 @@ create table APPUNTAMENTICON (
 
 create table APPUNTAMENTO (
      IDUTENTE int not null,
-     IDAPPUNTAMENTO varchar(10) not null,
+     IDAPPUNTAMENTO int not null,
      DATA date not null,
      ORA time not null,
      LUOGO varchar(100) not null,
@@ -163,8 +163,9 @@ create table UTENTE (
 
 create table VENDITA (
      IDUTENTE int not null,
-     IDVENDITA varchar(100) not null,
+     IDVENDITA int not null,
      IDPREVENTIVO int,
+	 DATA date not null,
      /*TOTALE decimal(9,2) not null,*/
      TIPOAGENTE enum('S'),
      PROVVIGIONE decimal(3,2),
@@ -175,7 +176,7 @@ create table VENDITEFATTURA (
      ANNO int not null,
      NUMERO int not null,
      IDUTENTE int not null,
-     IDVENDITA varchar(10) not null,
+     IDVENDITA int not null,
      constraint ID_VENDITEFATTURA_ID primary key (ANNO, NUMERO, IDUTENTE, IDVENDITA));
 
 create table VOCEFATTURA (
@@ -192,7 +193,7 @@ create table VOCEFATTURA (
 
 create table VOCEVENDITA (
      IDUTENTE int not null,
-     IDVENDITA varchar(10) not null,
+     IDVENDITA int not null,
      NUMERO int not null,
      DESCRIZIONE varchar(100) not null,
      TIPOLOGIA varchar(20) not null,

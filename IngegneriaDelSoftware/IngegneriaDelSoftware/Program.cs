@@ -60,8 +60,8 @@ namespace IngegneriaDelSoftware
             CollezioneClienti.GetInstance().Add(cliente);
             CollezioneVendite.GetInstance().Add(vendita);
             CollezionePreventivi.GetInstance().Add(preventivo);
-            Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
-            //Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
+            //Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
+            Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
             //Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
 
         }

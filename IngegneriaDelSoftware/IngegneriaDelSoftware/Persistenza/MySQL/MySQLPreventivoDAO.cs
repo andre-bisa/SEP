@@ -94,8 +94,8 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             while (reader.Read())
             {
                 Cliente cliente = CollezioneClienti.GetInstance().Get(reader.GetString("IDCLIENTE"));
-                List<VocePreventivo> voci = OttieniVociPreventivo((ulong)reader.GetInt64("IDPREVENTIVO"));
-                Preventivo preventivo = new Preventivo((ulong) reader.GetInt64("IDPREVENTIVO"), cliente, reader.GetDateTime("DATA"), reader.GetBoolean("ACCETTATO"), voci);
+                List<VocePreventivo> voci = OttieniVociPreventivo(reader.GetUInt64("IDPREVENTIVO"));
+                Preventivo preventivo = new Preventivo(reader.GetUInt64("IDPREVENTIVO"), cliente, reader.GetDateTime("DATA"), reader.GetBoolean("ACCETTATO"), voci);
                 listaPreventivo.Add(preventivo);
             }
 

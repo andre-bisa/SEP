@@ -66,6 +66,16 @@ namespace IngegneriaDelSoftware.Model
             }
         }
 
+        public Preventivo Get(ulong IDPreventivo)
+        {
+            foreach (Preventivo p in this._preventivi)
+            {
+                if (p.ID == IDPreventivo)
+                    return p;
+            }
+            return null;
+        }
+
         /// <summary>
         /// Aggiunge un <see cref="Preventivo"/> alla collezione
         /// </summary>
