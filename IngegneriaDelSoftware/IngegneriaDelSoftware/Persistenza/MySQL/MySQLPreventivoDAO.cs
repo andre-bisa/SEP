@@ -37,7 +37,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             InserisciParametriPreventivo(nuovo, cmd);
 
-            cmd.Parameters.AddWithValue("@idutente", "1");
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
 
@@ -71,7 +71,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             }
 
             cmd.CommandText += "COMMIT;";
-            cmd.Parameters.AddWithValue("@idutente", "1");
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
 
@@ -109,7 +109,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText = SELEZIONA_TUTTI_PREVENTIVI;
 
-            cmd.Parameters.AddWithValue("@idutente", "1");   // TODO AGGIUNSTARE!!
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -140,7 +140,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_TUTTE_VOCI_PREVENTIVO;
-            cmd.Parameters.AddWithValue("@idutente", "1");     // TODO AGGIUNSTARE!!
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
             cmd.Parameters.AddWithValue("@idpreventivo", idPreventivo);
 
             MySqlDataReader reader = cmd.ExecuteReader();

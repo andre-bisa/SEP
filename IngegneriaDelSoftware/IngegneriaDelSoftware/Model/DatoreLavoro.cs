@@ -34,9 +34,13 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="telefoni"></param>
         /// <param name="email"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public DatoreLavoro(string nome, string cognome, string pIva, string cf, string ragioneSociale, string indirizzo, List<Telefono> telefoni = null, Email? email = null)
+        public DatoreLavoro(string idDatoreLavoro, string nome, string cognome, string pIva, string cf, string ragioneSociale, string indirizzo, List<Telefono> telefoni = null, Email? email = null)
         {
             #region Controlli
+            if (idDatoreLavoro == null)
+            {
+                throw new ArgumentNullException();
+            }
             if (nome == null)
             {
                 throw new ArgumentNullException();
@@ -59,7 +63,7 @@ namespace IngegneriaDelSoftware.Model
             }
             #endregion
 
-            this._datiDatoreLavoro = new DatiDatoreLavoro(nome, cognome, pIva, cf, ragioneSociale, indirizzo, telefoni, email);
+            this._datiDatoreLavoro = new DatiDatoreLavoro(idDatoreLavoro, nome, cognome, pIva, cf, ragioneSociale, indirizzo, telefoni, email);
         }
         #endregion
 
@@ -120,6 +124,10 @@ namespace IngegneriaDelSoftware.Model
         {
             get { return _datiDatoreLavoro.Email; }
         }
+        public string IDDatoreLavoro
+        {
+            get { return _datiDatoreLavoro.IDDatoreLavoro; }
+        }
         #endregion
 
         #region ToString()
@@ -144,10 +152,15 @@ namespace IngegneriaDelSoftware.Model
         public CollezioneTelefoni Telefoni { get; private set; }
         //Email? siccome e' una struct che puo' essere nulla
         public Email? Email { get; private set; }
-        
-        public DatiDatoreLavoro(string nome, string cognome, string pIva, string cf, string ragioneSociale, string indirizzo, List<Telefono> telefoni = null, Email? email = null)
+        public string IDDatoreLavoro { get; private set; }
+
+        public DatiDatoreLavoro(string idDatoreLavoro, string nome, string cognome, string pIva, string cf, string ragioneSociale, string indirizzo, List<Telefono> telefoni = null, Email? email = null)
         {
             #region Controlli
+            if (idDatoreLavoro == null)
+            {
+                throw new ArgumentNullException();
+            }
             if (nome == null)
             {
                 throw new ArgumentNullException();
@@ -170,6 +183,7 @@ namespace IngegneriaDelSoftware.Model
             }
             #endregion
 
+            IDDatoreLavoro = idDatoreLavoro;
             Nome = nome;
             Cognome = cognome;
             PartitaIva = pIva;

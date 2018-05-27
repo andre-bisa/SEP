@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IngegneriaDelSoftware.Persistenza;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,43 @@ namespace IngegneriaDelSoftware.Model
 {
     public class Calendario : IEnumerable<Appuntamento>, ICollection<Appuntamento>
     {
-        private List<Appuntamento> _appuntamenti;
+        private HashSet<Appuntamento> _appuntamenti;
+        private static Calendario _calendario;
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
 
         /// <summary>
         /// Costruttore di Calendario
         /// </summary>
+        /// <exception cref="ExceptionPersistenza"></exception>
         public Calendario()
         {
-            _appuntamenti = new List<Appuntamento>();
+            _appuntamenti = new HashSet<Appuntamento>();
+
+            try
+            {
+                foreach (Appuntamento a in _persistenza.GetAppuntamentoDAO().LeggiTuttiAppuntamenti())
+                {
+                    _appuntamenti.Add(a);
+                }
+            }
+            catch (Exception)
+            {
+                throw new ExceptionPersistenza();
+            }
         }
+
+        #region Singleton
+        /// <summary>
+        /// Funzione che dà un'istanza della classe <see cref="Calendario"/>
+        /// </summary>
+        /// <returns>Il calendario degli appuntamenti</returns>
+        public static Calendario GetInstance()
+        {
+            if (_calendario == null)
+                _calendario = new Calendario();
+            return _calendario;
+        }
+        #endregion
 
         /// <summary>
         /// Ritorna la lista di appuntamenti rientranti in un range di date
@@ -54,7 +83,7 @@ namespace IngegneriaDelSoftware.Model
         /// <summary>
         /// Ritorna la lista di appuntamenti correnti
         /// </summary>
-        public List<Appuntamento> AppuntamentiCalendario
+        public HashSet<Appuntamento> AppuntamentiCalendario
         {
             get { return this._appuntamenti; }
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IngegneriaDelSoftware.Model;
 using IngegneriaDelSoftware.Model.ArgsEvent;
+using IngegneriaDelSoftware.Persistenza;
 
 namespace IngegneriaDelSoftware.Controller
 {
@@ -30,6 +31,7 @@ namespace IngegneriaDelSoftware.Controller
         /// <param name="cliente">I dati del <see cref="Cliente"/> da aggiungere</param>
         /// <param name="datiPersonaGenerica">I dati della <see cref="Persona"/> associati al <see cref="Cliente"/></param>
         /// <returns>Il <see cref="Cliente"/> appena inserito, <c>null</c> in caso di errori</returns>
+        /// <exception cref="ExceptionPersistenza">Eccezione lanciata in caso di insuccesso nelle comunicazioni con il DB</exception>
         public Cliente AggiungiCliente(DatiCliente cliente, DatiPersona datiPersonaGenerica)
         {
             Persona persona;
@@ -64,6 +66,7 @@ namespace IngegneriaDelSoftware.Controller
         /// <param name="nuoviDatiCliente">I nuovi dati del <see cref="Cliente"/></param>
         /// <param name="nuoviDatiPersona">I nuovi dati della <see cref="Persona"/></param>
         /// <exception cref="ArgumentNullException">Se il <paramref name="clienteDaModificare"/> è nullo</exception>
+        /// <exception cref="ExceptionPersistenza">Eccezione lanciata in caso di insuccesso nelle comunicazioni con il DB</exception>
         public void ModificaCliente(Cliente clienteDaModificare, DatiCliente nuoviDatiCliente, DatiPersona nuoviDatiPersona)
         {
             if (clienteDaModificare == null)

@@ -65,7 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controller\ControllerLogin.cs" />
+    <Compile Include="Login\ControllerLogin.cs" />
     <Compile Include="Model\ArgsEvent\ArgsAppuntamento.cs" />
     <Compile Include="Model\CollezioneAppuntamenti.cs" />
     <Compile Include="Controller\ControllerCalendario.cs" />
@@ -100,10 +100,8 @@
     <Compile Include="Model\Esterno.cs" />
     <Compile Include="Model\Fattura.cs" />
     <Compile Include="Model\FatturaAgente.cs" />
-    <Compile Include="Model\FatturaAzienda.cs" />
-    <Compile Include="Model\FatturaLiberoProfessionista.cs" />
     <Compile Include="Model\FatturaScripting.cs" />
-    <Compile Include="Model\Impostazioni.cs" />
+    <Compile Include="Login\Impostazioni.cs" />
     <Compile Include="Model\Intermediario.cs" />
     <Compile Include="Model\IObservable.cs" />
     <Compile Include="Model\CollezioneClienti.cs" />

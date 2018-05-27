@@ -46,7 +46,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText += "COMMIT;";
 
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
 
@@ -85,7 +85,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText += "COMMIT;";
 
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
             cmd.Parameters.AddWithValue("@idpersona", "" + IDPersona);
 
             int modifiche = cmd.ExecuteNonQuery();

@@ -41,7 +41,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.Parameters.AddWithValue("@oldAnno", vecchia.Anno);
             cmd.Parameters.AddWithValue("@oldNumero", vecchia.Numero);
-            cmd.Parameters.AddWithValue("@idutente", "1");   // TODO AGGIUNSTARE!!
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
             connessione.Close();
@@ -77,7 +77,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             InserisciParametriFattura(nuova, cmd);
 
-            cmd.Parameters.AddWithValue("@idutente", "1");   // TODO AGGIUNSTARE!!
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
             connessione.Close();
@@ -110,7 +110,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText = SELEZIONA_TUTTE_FATTURE;
 
-            cmd.Parameters.AddWithValue("@idutente", "1");   // TODO AGGIUNSTARE!!
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -156,7 +156,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.CommandText = SELEZIONA_VENDITE_PROVENIENZA;
 
 
-            cmd.Parameters.AddWithValue("@idutente", "1");     // TODO AGGIUNSTARE!!
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
             cmd.Parameters.AddWithValue("@numerofattura", numero);
             cmd.Parameters.AddWithValue("@annofattura", anno);
 
@@ -187,7 +187,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_TUTTE_VOCI_FATTURA;
-            cmd.Parameters.AddWithValue("@idutente", "1");     // TODO AGGIUNSTARE!!
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
             cmd.Parameters.AddWithValue("@numerofattura", numero);
             cmd.Parameters.AddWithValue("@annofattura", anno);
 

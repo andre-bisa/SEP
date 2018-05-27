@@ -30,11 +30,12 @@
         {
             MaterialSkin.Controls.MaterialLabel materialLabel1;
             MaterialSkin.Controls.MaterialLabel materialLabel2;
-            this.materialRaisedButton1 = new MaterialSkin.Controls.MaterialRaisedButton();
+            MaterialSkin.Controls.MaterialRaisedButton BtnLogin;
             this.txtUsername = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.txtPassword = new MaterialSkin.Controls.MaterialSingleLineTextField();
             materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            BtnLogin = new MaterialSkin.Controls.MaterialRaisedButton();
             this.SuspendLayout();
             // 
             // materialLabel1
@@ -63,21 +64,21 @@
             materialLabel2.TabIndex = 1;
             materialLabel2.Text = "Password";
             // 
-            // materialRaisedButton1
+            // BtnLogin
             // 
-            this.materialRaisedButton1.AutoSize = true;
-            this.materialRaisedButton1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.materialRaisedButton1.Depth = 0;
-            this.materialRaisedButton1.Icon = null;
-            this.materialRaisedButton1.Location = new System.Drawing.Point(117, 162);
-            this.materialRaisedButton1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialRaisedButton1.Name = "materialRaisedButton1";
-            this.materialRaisedButton1.Primary = true;
-            this.materialRaisedButton1.Size = new System.Drawing.Size(61, 36);
-            this.materialRaisedButton1.TabIndex = 5;
-            this.materialRaisedButton1.Text = "Login";
-            this.materialRaisedButton1.UseVisualStyleBackColor = true;
-            this.materialRaisedButton1.Click += new System.EventHandler(this.materialRaisedButton1_Click);
+            BtnLogin.AutoSize = true;
+            BtnLogin.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            BtnLogin.Depth = 0;
+            BtnLogin.Icon = null;
+            BtnLogin.Location = new System.Drawing.Point(117, 162);
+            BtnLogin.MouseState = MaterialSkin.MouseState.HOVER;
+            BtnLogin.Name = "BtnLogin";
+            BtnLogin.Primary = true;
+            BtnLogin.Size = new System.Drawing.Size(61, 36);
+            BtnLogin.TabIndex = 5;
+            BtnLogin.Text = "Login";
+            BtnLogin.UseVisualStyleBackColor = true;
+            BtnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
             // 
             // txtUsername
             // 
@@ -125,18 +126,19 @@
             this.ClientSize = new System.Drawing.Size(256, 233);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);
-            this.Controls.Add(this.materialRaisedButton1);
+            this.Controls.Add(BtnLogin);
             this.Controls.Add(materialLabel2);
             this.Controls.Add(materialLabel1);
             this.Name = "Login";
+            this.Sizable = false;
             this.Text = "Login";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private MaterialSkin.Controls.MaterialRaisedButton materialRaisedButton1;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtUsername;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtPassword;
     }

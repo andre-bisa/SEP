@@ -4,7 +4,7 @@ using IngegneriaDelSoftware.Persistenza.Dao;
 
 namespace IngegneriaDelSoftware.Persistenza.None
 {
-    public class NoneGenericoDao : IAppuntamentoDAO, IClienteDAO, IDatoreLavoroDAO, IEsternoDAO, IFatturaDAO, IMailInviataDAO, IIntermediarioDAO, IPreventivoDAO, IUtenteDAO, IVenditaDAO, IPersonaDAO
+    public class NoneGenericoDao : IAppuntamentoDAO, IClienteDAO, IDatoreLavoroDAO, IEsternoDAO, IFatturaDAO, IMailInviataDAO, IIntermediarioDAO, IPreventivoDAO, IVenditaDAO, IPersonaDAO
     {
         public bool Aggiorna(Appuntamento appuntamentoVecchio, Appuntamento nuovoAppuntamento)
         {
@@ -192,9 +192,5 @@ namespace IngegneriaDelSoftware.Persistenza.None
             return null;
         }
 
-        Utente IUtenteDAO.Leggi(string ID)
-        {
-            return null;
-        }
     }
 }

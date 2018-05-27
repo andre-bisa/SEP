@@ -49,7 +49,8 @@ namespace IngegneriaDelSoftware.Model
         #endregion
 
         #region Dati pubblici
-        public int IDUtente { get; set; } // TODO togliere il set e far sì che venga letto da file
+        public int IDUtente { get; internal set; }
+        public Utente UtenteLoggato { get; internal set; } 
         #endregion
 
     }

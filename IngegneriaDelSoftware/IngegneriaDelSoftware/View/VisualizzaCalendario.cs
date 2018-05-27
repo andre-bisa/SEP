@@ -28,8 +28,8 @@ namespace IngegneriaDelSoftware.View
             /*
             Persona p1 = new PersonaFisica("cf", "indirizzo", "Nome", "Cognome");
 
-            DatiAppuntamento d1 = new DatiAppuntamento(p1, "Riunione", "Bologna", DateTime.Now);
-            DatiAppuntamento d2 = new DatiAppuntamento(p1, "Riunione", "Napoli", DateTime.MaxValue);
+            DatiAppuntamento d1 = new DatiAppuntamento(1, p1, "Riunione", "Bologna", DateTime.Now);
+            DatiAppuntamento d2 = new DatiAppuntamento(1, p1, "Riunione", "Napoli", DateTime.MaxValue);
 
             _a1 = new Appuntamento(d1);
             _a2 = new Appuntamento(d2);
