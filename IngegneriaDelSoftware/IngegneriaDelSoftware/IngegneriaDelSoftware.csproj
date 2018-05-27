@@ -99,8 +99,6 @@
     <Compile Include="Model\Esterno.cs" />
     <Compile Include="Model\Fattura.cs" />
     <Compile Include="Model\FatturaAgente.cs" />
-    <Compile Include="Model\FatturaAzienda.cs" />
-    <Compile Include="Model\FatturaLiberoProfessionista.cs" />
     <Compile Include="Model\FatturaScripting.cs" />
     <Compile Include="Model\Impostazioni.cs" />
     <Compile Include="Model\Intermediario.cs" />
