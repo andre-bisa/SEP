@@ -12,6 +12,9 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
     public class MySQLVenditaDAO : IVenditaDAO
     {
 
+        // Aggiorna
+        private static string AGGIORNA_VENDITA = "UPDATE VENDITA SET IDPREVENTIVO=@idpreventivo,DATA=@data,TIPOAGENTE=@tipoagente,PROVVIGIONE=@provvigione,IDCLIENTE=@idcliente WHERE IDUTENTE=@idutente AND IDVENDITA=@oldidvendita;";
+
         // Inserisci
         private static string INSERISCI_VENDITA = "INSERT INTO VENDITA(IDUTENTE, IDVENDITA, IDPREVENTIVO, DATA, TIPOAGENTE, PROVVIGIONE, IDCLIENTE) VALUES (@idutente,@idvendita,@idpreventivo,@data,@tipoagente,@provvigione,@idcliente);";
 
@@ -21,8 +24,29 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
 
         public bool Aggiorna(Vendita vecchia, Vendita nuova)
-        {
-            throw new NotImplementedException();
+        { // NOT TESTED
+            MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
+
+            if (connessione == null)
+                throw new ExceptionPersistenza();
+
+            MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                throw new ExceptionPersistenza();
+
+            cmd.CommandText = AGGIORNA_VENDITA;
+
+            InserisciParametriVendita(nuova, cmd);
+
+            cmd.Parameters.AddWithValue("@oldidvendita", vecchia.ID);
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+
+            int modifiche = cmd.ExecuteNonQuery();
+
+            connessione.Close();
+
+            return (modifiche >= 1);
         }
 
         public bool Crea(Vendita vendita)
@@ -30,12 +54,12 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
-                return false;
+                throw new ExceptionPersistenza();
 
             MySqlCommand cmd = connessione.CreateCommand();
 
             if (cmd == null)
-                return false;
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = "START TRANSACTION;";
 
@@ -51,7 +75,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             }
 
             cmd.CommandText += "COMMIT;";
-            cmd.Parameters.AddWithValue("@idutente", "1");
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
 
@@ -65,17 +89,12 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@idvendita", vendita.ID);
             cmd.Parameters.AddWithValue("@data", vendita.Data);
             cmd.Parameters.AddWithValue("@idpreventivo", vendita.PreventivoDiProvenienza);
-            cmd.Parameters.AddWithValue("@tipoagente", null);
-            cmd.Parameters.AddWithValue("@provvigione", null);
+            cmd.Parameters.AddWithValue("@tipoagente", DBNull.Value); // TODO da aggiustare qui a seconda del tipo di utente
+            cmd.Parameters.AddWithValue("@provvigione", DBNull.Value); // TODO da aggiustare se utente agente => mettere il suo valore
             cmd.Parameters.AddWithValue("@idcliente", vendita.Cliente.IDCliente);
         }
 
         public bool Elimina(ulong ID)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Vendita Leggi(string ID)
         {
             throw new NotImplementedException();
         }
@@ -87,16 +106,16 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
-                return listaVendite;
+                throw new ExceptionPersistenza();
 
             MySqlCommand cmd = connessione.CreateCommand();
 
             if (cmd == null)
-                return listaVendite;
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_TUTTE_VENDITE;
 
-            cmd.Parameters.AddWithValue("@idutente", "1");   // TODO AGGIUNSTARE!!
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -127,15 +146,15 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
-                return vociVendita;
+                throw new ExceptionPersistenza();
 
             MySqlCommand cmd = connessione.CreateCommand();
 
             if (cmd == null)
-                return vociVendita;
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_TUTTE_VOCI_VENDITA;
-            cmd.Parameters.AddWithValue("@idutente", "1");     // TODO AGGIUNSTARE!!
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
             cmd.Parameters.AddWithValue("@idvendita", idVendita);
 
             MySqlDataReader reader = cmd.ExecuteReader();

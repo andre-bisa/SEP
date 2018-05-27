@@ -31,12 +31,12 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
-                return false;
+                throw new ExceptionPersistenza();
 
             MySqlCommand cmd = connessione.CreateCommand();
 
             if (cmd == null)
-                return false;
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = "START TRANSACTION;";
 
@@ -46,7 +46,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText += "COMMIT;";
 
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
 
@@ -60,19 +60,16 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
-                return false;
+                throw new ExceptionPersistenza();
 
             MySqlCommand cmd = connessione.CreateCommand();
 
             if (cmd == null)
-                return false;
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = "START TRANSACTION;";
 
             int IDPersona = NuovoNumeroPersonaLibero();
-
-            cmd.CommandText += INSERISCI_PERSONA;
-            InserisciParametriPersona(cliente.Persona, cmd);
 
             if (IDPersona <= 0)
             {
@@ -80,12 +77,15 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 return false;
             }
 
+            cmd.CommandText += INSERISCI_PERSONA;
+            InserisciParametriPersona(cliente.Persona, cmd);
+
             cmd.CommandText += INSERISCI_CLIENTE;
             InserisciParametriCliente(cliente, cmd);
 
             cmd.CommandText += "COMMIT;";
 
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
             cmd.Parameters.AddWithValue("@idpersona", "" + IDPersona);
 
             int modifiche = cmd.ExecuteNonQuery();
@@ -166,7 +166,13 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             int ultimoID = -2;
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
+            if (connessione == null)
+                throw new ExceptionPersistenza();
+
             MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_ULTIMO_ID_PERSONA;
             cmd.Parameters.AddWithValue("@idutente", "1");   // <-------------- TODO inserire IDUTENTE
@@ -190,12 +196,12 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
-                return false;
+                throw new ExceptionPersistenza();
 
             MySqlCommand cmd = connessione.CreateCommand();
 
             if (cmd == null)
-                return false;
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = "START TRANSACTION;";
 
@@ -220,12 +226,12 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
-                return listaClienti;
+                throw new ExceptionPersistenza();
 
             MySqlCommand cmd = connessione.CreateCommand();
 
             if (cmd == null)
-                return listaClienti;
+                throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_TUTTI_CLIENTI;
 

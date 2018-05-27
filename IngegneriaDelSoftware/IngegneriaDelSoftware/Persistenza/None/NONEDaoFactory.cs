@@ -69,7 +69,7 @@ namespace IngegneriaDelSoftware.Persistenza.None
 
         public override IUtenteDAO GetUtenteDAO()
         {
-            return new NoneGenericoDao();
+            throw new NotImplementedException();
         }
 
         public override IVenditaDAO GetVenditaDAO()

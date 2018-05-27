@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using IngegneriaDelSoftware.View;
 using IngegneriaDelSoftware.Controller;
 using IngegneriaDelSoftware.Model;
+using IngegneriaDelSoftware.Persistenza;
 
 namespace IngegneriaDelSoftware
 {
@@ -17,11 +18,17 @@ namespace IngegneriaDelSoftware
         [STAThread]
         static void Main()
         {
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new Login());
+
+            Impostazioni impostazioni = Impostazioni.GetInstance();
+            impostazioni.TipoPersistenza = EnumTipoPersistenza.MySQL;
+            impostazioni.IDUtente = 1;
 
             ControllerClienti controller = new ControllerClienti();
 
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);/*
+            /*
             var g = new View.GenericForm(View.GenericForm.TipoForm.FATTURE);
             g.OnCreaClick += (result, e) => {
                 result.ForEach((el) => {
@@ -61,8 +68,8 @@ namespace IngegneriaDelSoftware
             CollezioneVendite.GetInstance().Add(vendita);
             CollezionePreventivi.GetInstance().Add(preventivo);
             //Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
-            Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
-            //Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
+            //Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
+            Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
 
         }
     }

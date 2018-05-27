@@ -4,13 +4,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IngegneriaDelSoftware.Persistenza;
 
 namespace IngegneriaDelSoftware.Controller {
     public class ControllerPreventivi {
+        /// <summary>
+        /// Funzione che permette di aggiungere un preventivo all'elenco
+        /// </summary>
+        /// <param name="datiPreventivo">Dati del preventivo da creare</param>
+        /// <param name="voci">Voci del preventivo da creare</param>
+        /// <exception cref="ExceptionPersistenza">Eccezione lanciata in caso di insuccesso nelle comunicazioni con il DB</exception>
         public async void AggiungiPreventivo(Preventivo.DatiPreventivo datiPreventivo, List<VocePreventivo> voci) {
             CollezionePreventivi col = await Task.Run<CollezionePreventivi>(() => { return CollezionePreventivi.GetInstance(); });
             col.Add(new Model.Preventivo(datiPreventivo, voci));
         }
+        /// <summary>
+        /// Funzione che permette di aggiornare un preventivo
+        /// </summary>
+        /// <param name="id">ID del preventivo da aggiornare</param>
+        /// <param name="datiPreventivo">Nuovi dati</param>
+        /// <param name="voci">Nuove voci</param>
+        /// <exception cref="ExceptionPersistenza">Eccezione lanciata in caso di insuccesso nelle comunicazioni con il DB</exception>
         public async void UpdatePreventivo(ulong id, Preventivo.DatiPreventivo? datiPreventivo = null, List<VocePreventivo> voci = null) {
             var preventivoCercato = await Task.Run<Preventivo>(() => {
                 return (from fattura in CollezionePreventivi.GetInstance()
@@ -25,6 +39,11 @@ namespace IngegneriaDelSoftware.Controller {
                 preventivoCercato.Add(voci.ToArray());
             }
         }
+        /// <summary>
+        /// Funzione che permette di accettare un preventivo
+        /// </summary>
+        /// <param name="id">ID del preventivo</param>
+        /// <exception cref="ExceptionPersistenza">Eccezione lanciata in caso di insuccesso nelle comunicazioni con il DB</exception>
         public async void AccettaPreventivo(ulong id) {
             var preventivoCercato = await Task.Run<Preventivo>(() => {
                 return (from fattura in CollezionePreventivi.GetInstance()
@@ -36,6 +55,11 @@ namespace IngegneriaDelSoftware.Controller {
                 Vendita.FromPreventivo(0, preventivoCercato);
             });*/
         }
+        /// <summary>
+        /// Funzione che permette di rifiutare un preventivo
+        /// </summary>
+        /// <param name="id">ID del preventivo</param>
+        /// <exception cref="ExceptionPersistenza">Eccezione lanciata in caso di insuccesso nelle comunicazioni con il DB</exception>
         public async void RifiutaPreventivo(ulong id) {
             var preventivoCercato = await Task.Run<Preventivo>(() => {
                 return (from fattura in CollezionePreventivi.GetInstance()
@@ -44,6 +68,11 @@ namespace IngegneriaDelSoftware.Controller {
             });
             preventivoCercato.DatiPreventivoInterni = new Preventivo.DatiPreventivo(preventivoCercato.DatiPreventivoInterni, accettato: false);
         }
+        /// <summary>
+        /// Funzione che elimina un preventivo
+        /// </summary>
+        /// <param name="id">ID del preventivo da rimuovere</param>
+        /// <exception cref="ExceptionPersistenza">Eccezione lanciata in caso di insuccesso nelle comunicazioni con il DB</exception>
         public async void RimuoviPreventivo(ulong id) {
             var preventivoCercato = await Task.Run<Preventivo>(() => {
                 return (from fattura in CollezionePreventivi.GetInstance()

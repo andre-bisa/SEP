@@ -18,7 +18,7 @@ namespace IngegneriaDelSoftware.Model
 
         private volatile HashSet<Fattura> _fatture = new HashSet<Fattura>();
 
-        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.NONE);
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza);
 
         #region Singleton
         private static CollezioneFatture _listaFatture = null;

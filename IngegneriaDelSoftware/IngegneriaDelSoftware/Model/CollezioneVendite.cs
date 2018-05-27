@@ -18,7 +18,7 @@ namespace IngegneriaDelSoftware.Model
 
         private HashSet<Vendita> _vendite = new HashSet<Vendita>();
 
-        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza);
 
         #region Singleton
         private static CollezioneVendite _listaFatture = null;
@@ -114,6 +114,16 @@ namespace IngegneriaDelSoftware.Model
         public bool Contains(Vendita item)
         {
             return ((ICollection<Vendita>)_vendite).Contains(item);
+        }
+
+        public Vendita Get(uint idVendita)
+        {
+            foreach (Vendita v in this._vendite)
+            {
+                if (v.ID == idVendita)
+                    return v;
+            }
+            return null;
         }
 
         public void CopyTo(Vendita[] array, int arrayIndex)

@@ -12,7 +12,7 @@ namespace IngegneriaDelSoftware.Model {
         #region Campi privati
         private DatiPersonaGiuridica _datiPersona;
 
-        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza);
         #endregion
 
         #region Proprietà
