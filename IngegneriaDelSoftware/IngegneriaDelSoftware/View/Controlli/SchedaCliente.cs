@@ -31,7 +31,7 @@ namespace IngegneriaDelSoftware.View.Controlli
 
         private Cliente _cliente;
         private bool _selected = false;
-        private Impostazioni _impostazioni = new Impostazioni();
+        private Impostazioni _impostazioni = Impostazioni.GetInstance();
         #endregion
 
         /// <summary>

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using IngegneriaDelSoftware.View;
 using IngegneriaDelSoftware.Controller;
 using IngegneriaDelSoftware.Model;
+using IngegneriaDelSoftware.Persistenza;
 
 namespace IngegneriaDelSoftware
 {
@@ -17,6 +18,8 @@ namespace IngegneriaDelSoftware
         [STAThread]
         static void Main()
         {
+            Impostazioni impostazioni = Impostazioni.GetInstance();
+            impostazioni.TipoPersistenza = EnumTipoPersistenza.MySQL;
 
             ControllerClienti controller = new ControllerClienti();
 
@@ -61,8 +64,8 @@ namespace IngegneriaDelSoftware
             CollezioneVendite.GetInstance().Add(vendita);
             CollezionePreventivi.GetInstance().Add(preventivo);
             //Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
-            Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
-            //Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
+            //Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
+            Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
 
         }
     }

@@ -13,7 +13,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
     {
 
         // Seleziona
-        private static string SELEZIONA_TUTTE_FATTURE = "SELECT F.ANNO AS ANNO, F.NUMERO AS NUMERO, F.DATA AS DATA, F.BASE_IMPONIBILE AS BASE_IMPONIBILE, F.SCONTO AS SCONTO, F.TOTALE AS TOTALE, F.TIPOAGENTE AS TIPOAGENTE, F.IDDATORELAVORO AS IDDATORELAVORO, F.IDCLIENTE AS IDCLIENTE FROM FATTURA AS F WHERE IDUTENTE=@idutente;";
+        private static string SELEZIONA_TUTTE_FATTURE = "SELECT F.IDCLIENTE AS IDCLIENTE, F.ANNO AS ANNO, F.NUMERO AS NUMERO, F.DATA AS DATA, F.BASE_IMPONIBILE AS BASE_IMPONIBILE, F.SCONTO AS SCONTO, F.TOTALE AS TOTALE, F.TIPOAGENTE AS TIPOAGENTE, F.IDDATORELAVORO AS IDDATORELAVORO FROM FATTURA AS F WHERE IDUTENTE=@idutente;";
         private static string SELEZIONA_TUTTE_VOCI_FATTURA = "SELECT V.ANNO AS ANNO, V.NUMEROFATTURA AS NUMEROFATTURA, V.NUMEROVOCE AS NUMEROVOCE, V.DESCRIZIONE AS DESCRIZIONE, V.TIPOLOGIA AS TIPOLOGIA, V.PERCENTUALE_IVA AS PERCENTUALE_IVA, V.QUANTITA AS QUANTITA, V.IMPORTO AS IMPORTO FROM VOCEFATTURA AS V WHERE IDUTENTE=@idutente AND NUMEROFATTURA=@numerofattura AND ANNO=@annofattura;";
         private static string SELEZIONA_VENDITE_PROVENIENZA = "SELECT VF.IDVENDITA AS IDVENDITA FROM VENDITEFATTURA AS VF WHERE IDUTENTE=@idutente AND NUMERO=@numerofattura AND ANNO=@annofattura;";
 
@@ -60,12 +60,22 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             while (reader.Read())
             {
-                // TODO NON GESTITO IL DATORE DI LAVORO
-                Cliente cliente = CollezioneClienti.GetInstance().Get(reader.GetString("IDCLIENTE"));
-                List<VoceFattura> voci = OttieniVociFattura(reader.GetUInt64("ANNO"), reader.GetInt32("NUMERO"));
+                Fattura fattura;
 
+                List<VoceFattura> voci = OttieniVociFattura(reader.GetUInt64("ANNO"), reader.GetInt32("NUMERO"));
                 List<Vendita> venditeFattura = OttieniVenditeDiProvenienza(reader.GetUInt64("ANNO"), reader.GetInt32("NUMERO"));
-                Fattura fattura = new Fattura(reader.GetInt32("ANNO"), reader.GetString("NUMERO"), cliente, venditeFattura, reader.GetDateTime("DATA"), reader.GetFloat("SCONTO"), voci, false); // TODO aggiustare
+
+                if (reader.IsDBNull(0)) // Se IDCLIENTE è nullo
+                { // Inserisco rivolta a datore lavoro
+                    // datore lavoro
+                    fattura = null;
+                }
+                else
+                { // Inserisco rivolta a cliente
+                    Cliente cliente = CollezioneClienti.GetInstance().Get(reader.GetString("IDCLIENTE"));
+                    fattura = new Fattura(reader.GetInt32("ANNO"), reader.GetString("NUMERO"), cliente, venditeFattura, reader.GetDateTime("DATA"), reader.GetFloat("SCONTO"), voci, false); // TODO aggiustare
+                }
+
                 listaFatture.Add(fattura);
             }
 

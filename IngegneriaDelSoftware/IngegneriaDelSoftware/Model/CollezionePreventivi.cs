@@ -18,7 +18,7 @@ namespace IngegneriaDelSoftware.Model
 
         private HashSet<Preventivo> _preventivi = new HashSet<Preventivo>();
 
-        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza);
 
         #region Singleton
         private static CollezionePreventivi _listaPreventivi = null;

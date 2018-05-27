@@ -16,7 +16,7 @@ namespace IngegneriaDelSoftware.Model
 
         private HashSet<Cliente> _clienti = new HashSet<Cliente>();
 
-        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza);
 
         #region Singleton
         private static CollezioneClienti _listaClienti = null;

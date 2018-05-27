@@ -22,7 +22,7 @@ namespace IngegneriaDelSoftware.View.Overlay
         public Cliente Cliente { get; private set; }
         private ControllerClienti _controller;
 
-        private Impostazioni _impostazioni = new Impostazioni();
+        private Impostazioni _impostazioni = Impostazioni.GetInstance();
 
         #region "Costruttori"
         /// <summary>
