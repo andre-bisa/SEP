@@ -247,14 +247,14 @@ namespace IngegneriaDelSoftware.Model {
         }
 
         public override string ToString() {
-            return String.Format("Fattura {0}\n{1}\\{2}\n{3}\n{4}\n{5}\n{6}",
+            return String.Format("{0}, {1}\\{2}, {3}, {4}, {5}, {6}",
                     this._stato,
                     this._datiFattura.Anno,
                     this._datiFattura.Numero,
                     this._datiFattura.Data.ToString(),
                     this._datiFattura.Cliente,
-                    String.Join("\n", this._venditeDiProvenienza),
-                    String.Join("\n", this._voci)
+                    String.Join(", ", this._venditeDiProvenienza),
+                    String.Join(", ", this._voci)
                 );
         }
         /// <summary>

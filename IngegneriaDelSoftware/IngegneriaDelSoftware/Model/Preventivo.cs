@@ -140,7 +140,7 @@ namespace IngegneriaDelSoftware.Model {
         }
 
         public override string ToString() {
-            return String.Format("Preventivo {0}\t{1}\t{2}\n{3}",
+            return String.Format("{0}, {1}, {2}, {3}",
                     this._datiPreventivo.Data,
                     this._datiPreventivo.Cliente,
                     this._datiPreventivo.Accettato,

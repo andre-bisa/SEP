@@ -157,7 +157,7 @@ namespace IngegneriaDelSoftware.View {
                 Cliente c = null;
                 CollezioneClienti col = await t;
                 //CollezioneClienti col = CollezioneClienti.GetInstance();
-                if((c = GetClienteForm.Get(col.ToList())) == null) {
+                if((c = GetForm<Cliente>.Get(col.ToList())) == null) {
                     o.CleanAll();
                 } else {
                     CaricaCliente(result, c, null, null, null);
@@ -269,10 +269,10 @@ namespace IngegneriaDelSoftware.View {
                 CollezioneClienti col = await t;
                 CollezionePreventivi colp = await t2;
                 //CollezioneClienti col = CollezioneClienti.GetInstance();
-                if((c = GetClienteForm.Get(col.ToList())) == null) {
+                if((c = GetForm<Cliente>.Get(col.ToList())) == null) {
                     o.CleanAll();
                 } else {
-                    if((prop = GetPreventivoForm.Get((from p in colp.ToList()
+                    if((prop = GetForm<Preventivo>.Get((from p in colp.ToList()
                                                       where p.Cliente.Equals(c)
                                                       select p).ToList())) != null) {
                         var vendita = Vendita.FromPreventivo(0, prop, null);
@@ -398,18 +398,18 @@ namespace IngegneriaDelSoftware.View {
                 Vendita[] v = null;
                 CollezioneVendite col = await t;
                 //CollezioneVendite col =  CollezioneVendite.GetInstance();
-                if((v = GetVenditaForm.Get(col.ToList())) == null) {
+                if((v = GetForm<Vendita>.Gets(col.ToList())) == null && v.Length > 0) {
                     o.CleanAll();
                     tmpCliente = null;
                 } else {
                     vendite = new List<Vendita>();
                     vendite.AddRange(v);
-                }
-                var fattura = Fattura.FromVendite(DateTime.Now.Year, "", vendite);
-                tmpCliente = fattura.Cliente;
-                CaricaCliente(result, tmpCliente, null, null, null);
-                foreach(VoceFattura voce in fattura) {
-                    result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);
+                    var fattura = Fattura.FromVendite(DateTime.Now.Year, "", vendite);
+                    tmpCliente = fattura.Cliente;
+                    CaricaCliente(result, tmpCliente, null, null, null);
+                    foreach(VoceFattura voce in fattura) {
+                        result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);
+                    }
                 }
                 o.Enabled = true;
             };
