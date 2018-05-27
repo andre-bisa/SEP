@@ -16,6 +16,9 @@ namespace IngegneriaDelSoftware.Test
 
         public TestControllerClienti()
         {
+            Impostazioni impostazioni = Impostazioni.GetInstance();
+            impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+
             this._controllerClienti = new ControllerClienti();
         }
 
@@ -63,7 +66,7 @@ namespace IngegneriaDelSoftware.Test
             Assert.AreEqual(true, this._controllerClienti.CollezioneClienti.Any(cli => cli.IDCliente == d2.IDCliente));
         }
 
-        [Test]
+        /*[Test]
         public void TestModificaClienteDiversoTipoPersona()
         {
             // Aggiungo
@@ -79,7 +82,7 @@ namespace IngegneriaDelSoftware.Test
             this._controllerClienti.ModificaCliente(c, d2, p2);
 
             Assert.AreEqual(true, this._controllerClienti.CollezioneClienti.Any(cli => cli.IDCliente == d2.IDCliente));
-        }
+        }*/
 
     } // class
 }

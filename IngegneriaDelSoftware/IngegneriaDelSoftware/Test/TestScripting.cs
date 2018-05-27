@@ -14,6 +14,9 @@ namespace IngegneriaDelSoftware.Test {
     class TestScripting {
         [Test]
         public void TestLoad(){
+            Impostazioni impostazioni = Impostazioni.GetInstance();
+            impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+
             ScriptProvider.create("Test", (""
                 + "$ONORARI=( #SUM( @ONORARIO ) )\n"
                 + "$TOTIMPO=( #SUM( @IMPONIBILI ) )\n"

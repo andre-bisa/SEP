@@ -11,7 +11,12 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 {
     public class MySQLFatturaDAO : IFatturaDAO
     {
+        // Inserisci
+        private static string INSERISCI_FATTURA = "INSERT INTO FATTURA(IDUTENTE,ANNO,NUMERO,DATA,BASE_IMPONIBILE,SCONTO,TOTALE,TIPOAGENTE,IDDATORELAVORO,IDCLIENTE) VALUES(@idutente,@anno,@numero,@data,@baseimponibile,@sconto,@totale,@tipoagente,@iddatorelavoto,@idcliente);";
 
+        // Aggiorna
+        private static string AGGIORNA_FATTURA = "UPDATE FATTURA SET ANNO=@anno,NUMERO=@numero,DATA=@data,BASE_IMPONIBILE=@baseimponibile,SCONTO=@sconto,TOTALE=@totale,TIPOAGENTE=@tipoagente,IDDATORELAVORO=@iddatorelavoro,IDCLIENTE=@idcliente WHERE IDUTENTE=@idutente AND ANNO=@oldAnno AND NUMERO=@oldNumero;";
+        
         // Seleziona
         private static string SELEZIONA_TUTTE_FATTURE = "SELECT F.IDCLIENTE AS IDCLIENTE, F.ANNO AS ANNO, F.NUMERO AS NUMERO, F.DATA AS DATA, F.BASE_IMPONIBILE AS BASE_IMPONIBILE, F.SCONTO AS SCONTO, F.TOTALE AS TOTALE, F.TIPOAGENTE AS TIPOAGENTE, F.IDDATORELAVORO AS IDDATORELAVORO FROM FATTURA AS F WHERE IDUTENTE=@idutente;";
         private static string SELEZIONA_TUTTE_VOCI_FATTURA = "SELECT V.ANNO AS ANNO, V.NUMEROFATTURA AS NUMEROFATTURA, V.NUMEROVOCE AS NUMEROVOCE, V.DESCRIZIONE AS DESCRIZIONE, V.TIPOLOGIA AS TIPOLOGIA, V.PERCENTUALE_IVA AS PERCENTUALE_IVA, V.QUANTITA AS QUANTITA, V.IMPORTO AS IMPORTO FROM VOCEFATTURA AS V WHERE IDUTENTE=@idutente AND NUMEROFATTURA=@numerofattura AND ANNO=@annofattura;";
@@ -19,13 +24,64 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
 
         public bool Aggiorna(Fattura vecchia, Fattura nuova)
+        { // NOT TESTED
+            MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
+
+            if (connessione == null)
+                throw new ExceptionPersistenza();
+
+            MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                throw new ExceptionPersistenza();
+
+            cmd.CommandText = AGGIORNA_FATTURA;
+
+            InserisciParametriFattura(nuova, cmd);
+
+            cmd.Parameters.AddWithValue("@oldAnno", vecchia.Anno);
+            cmd.Parameters.AddWithValue("@oldNumero", vecchia.Numero);
+            cmd.Parameters.AddWithValue("@idutente", "1");   // TODO AGGIUNSTARE!!
+
+            int modifiche = cmd.ExecuteNonQuery();
+            connessione.Close();
+            return (modifiche >= 1);
+        }
+
+        private void InserisciParametriFattura(Fattura fattura, MySqlCommand cmd)
         {
-            throw new NotImplementedException();
+            cmd.Parameters.AddWithValue("@anno", fattura.Anno);
+            cmd.Parameters.AddWithValue("@numero", fattura.Numero);
+            cmd.Parameters.AddWithValue("@data", fattura.Data);
+            cmd.Parameters.AddWithValue("@baseimponibile", 0); // TODO AGGIUSTARE
+            cmd.Parameters.AddWithValue("@sconto", fattura.Sconto);
+            cmd.Parameters.AddWithValue("@totale", fattura.Calcola());
+            cmd.Parameters.AddWithValue("@tipoagente", DBNull.Value); // TODO da mettere a seconda del tipo di utente corrente
+            cmd.Parameters.AddWithValue("@iddatorelavoro", DBNull.Value); // TODO da aggiustare quando la fattura sarà ok con il dato di lavoro
+            cmd.Parameters.AddWithValue("@idcliente", fattura.Cliente.IDCliente);
         }
 
         public bool Crea(Fattura nuova)
-        {
-            throw new NotImplementedException();
+        { // NOT TESTED
+            MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
+
+            if (connessione == null)
+                throw new ExceptionPersistenza();
+
+            MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                throw new ExceptionPersistenza();
+
+            cmd.CommandText = INSERISCI_FATTURA;
+
+            InserisciParametriFattura(nuova, cmd);
+
+            cmd.Parameters.AddWithValue("@idutente", "1");   // TODO AGGIUNSTARE!!
+
+            int modifiche = cmd.ExecuteNonQuery();
+            connessione.Close();
+            return (modifiche >= 1);
         }
 
         public bool Elimina(string Inumero, int annoD)

@@ -48,5 +48,9 @@ namespace IngegneriaDelSoftware.Model
         public EnumTipoPersistenza TipoPersistenza { get; set; }
         #endregion
 
+        #region Dati pubblici
+        public int IDUtente { get; set; } // TODO togliere il set e far sì che venga letto da file
+        #endregion
+
     }
 }

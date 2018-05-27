@@ -11,6 +11,8 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 {
     public class MySQLPreventivoDAO : IPreventivoDAO
     {
+        // Aggiorna
+        private static string AGGIORNA_PREVENTIVO = "UPDATE PREVENTIVO SET DATA=@data,ACCETTATO=@accettato,IDCLIENTE=@idcliente WHERE IDUTENTE=@idutente AND IDPREVENTIVO=@idpreventivo;";
 
         // Inserisci
         private static string INSERISCI_PREVENTIVO = "INSERT INTO PREVENTIVO(IDUTENTE, IDPREVENTIVO, DATA, ACCETTATO, IDCLIENTE) VALUES (@idutente,@idpreventivo,@data,@accettato,@idcliente);";
@@ -20,8 +22,28 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         private static string SELEZIONA_TUTTE_VOCI_PREVENTIVO = "SELECT V.NUMERO AS NUMERO, V.DESCRIZIONE AS DESCRIZIONE, V.TIPOLOGIA AS TIPOLOGIA, V.QUANTITA AS QUANTITA, V.IMPORTO AS IMPORTO FROM VOCEPREVENTIVO AS V WHERE IDUTENTE=@idutente AND IDPREVENTIVO=@idpreventivo;";
 
         public bool Aggiorna(Preventivo vecchio, Preventivo nuovo)
-        {
-            throw new NotImplementedException();
+        { // NOT TESTED!
+            MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
+
+            if (connessione == null)
+                throw new ExceptionPersistenza();
+
+            MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                throw new ExceptionPersistenza();
+
+            cmd.CommandText = AGGIORNA_PREVENTIVO;
+
+            InserisciParametriPreventivo(nuovo, cmd);
+
+            cmd.Parameters.AddWithValue("@idutente", "1");
+
+            int modifiche = cmd.ExecuteNonQuery();
+
+            connessione.Close();
+
+            return (modifiche >= 1);
         }
 
         public bool Crea(Preventivo preventivo)

@@ -12,7 +12,7 @@ namespace IngegneriaDelSoftware.Model
     {
         public event EventHandler<ArgsModifica<Cliente>> OnModifica;
 
-        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza);
 
         #region Campi privati
         private DatiCliente _datiCliente;
