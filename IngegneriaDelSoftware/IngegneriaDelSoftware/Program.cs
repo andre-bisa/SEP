@@ -22,12 +22,12 @@ namespace IngegneriaDelSoftware
             //Application.Run(new Login());
             
             Impostazioni impostazioni = Impostazioni.GetInstance();
-            impostazioni.TipoPersistenza = EnumTipoPersistenza.NONE;
+            impostazioni.TipoPersistenza = EnumTipoPersistenza.MySQL;
             impostazioni.IDUtente = 1;
-            /*
+            
             ControllerClienti controller = new ControllerClienti();
 
-            Application.EnableVisualStyles();*/
+            /*Application.EnableVisualStyles();*/
             /*
             var g = new View.GenericForm(View.GenericForm.TipoForm.FATTURE);
             g.OnCreaClick += (result, e) => {
@@ -41,9 +41,10 @@ namespace IngegneriaDelSoftware
             };
             g.InfoPanelEditable = false;
             Application.Run(g);
-            *//*
+            */
             //Application.Run(new FormAppuntamenti());
             Application.Run(new FormClienti(controller));
+            CollezioneClienti.GetInstance().Get("1").Persona.Email.Add(new Email("gne", "buu"));
             /*Application.Run(new FormEmail(controller));
             Application.Run(new Login());
             Application.Run(new VisualizzaCalendario());

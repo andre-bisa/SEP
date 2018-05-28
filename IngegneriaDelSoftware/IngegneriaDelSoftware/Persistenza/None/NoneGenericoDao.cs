@@ -136,6 +136,11 @@ namespace IngegneriaDelSoftware.Persistenza.None
             return new List<MailInviata>();
         }
 
+        public bool InserisciEmail(Email email, Persona persona)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public Appuntamento Leggi(string ID)
         {
             return null;
@@ -170,6 +175,11 @@ namespace IngegneriaDelSoftware.Persistenza.None
         public List<Preventivo> LeggiTuttiPreventivi()
         {
             return new List<Preventivo>();
+        }
+
+        public bool RimuoviEmail(Email email, Persona persona)
+        {
+            throw new System.NotImplementedException();
         }
 
         DatoreLavoro IDatoreLavoroDAO.Leggi(string ID)

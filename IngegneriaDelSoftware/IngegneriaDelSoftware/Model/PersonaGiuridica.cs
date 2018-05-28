@@ -103,11 +103,15 @@ namespace IngegneriaDelSoftware.Model {
         /// <exception cref="ArgumentNullException"></exception>
         public PersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, IEnumerable<Telefono> telefoni = null, IEnumerable<Email> email = null) {
             this._datiPersona = new DatiPersonaGiuridica(codiceFiscale, indirizzo, ragioneSociale, sedeLegale, partitaIVA, telefoni, email);
+            this.Email.OnAggiunta += (o, e) => { _persistenza.GetPersonaDAO().InserisciEmail(e.Email, this); LanciaEvento(this); };
+            this.Email.OnRimozione += (o, e) => { _persistenza.GetPersonaDAO().RimuoviEmail(e.Email, this); LanciaEvento(this); };
         }
 
         public PersonaGiuridica(DatiPersonaGiuridica datiPersonaGiuridica)
         {
             this._datiPersona = datiPersonaGiuridica;
+            this.Email.OnAggiunta += (o, e) => { LanciaEvento(this); };
+            this.Email.OnRimozione += (e, o) => { LanciaEvento(this); };
         }
         #endregion
 

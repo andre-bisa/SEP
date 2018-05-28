@@ -94,11 +94,15 @@ namespace IngegneriaDelSoftware.Model
         public PersonaFisica(string codiceFiscale, string indirizzo, string nome, string cognome, string partitaIVA = "", IEnumerable<Telefono> telefoni = null, IEnumerable<Email> email = null)
         {
             this._datiPersona = new DatiPersonaFisica(codiceFiscale, indirizzo, nome, cognome, partitaIVA, telefoni, email);
+            this.Email.OnAggiunta += (o, e) => { _persistenza.GetPersonaDAO().InserisciEmail(e.Email, this); LanciaEvento(this); };
+            this.Email.OnRimozione += (o, e) => { _persistenza.GetPersonaDAO().RimuoviEmail(e.Email, this); LanciaEvento(this); };
         }
 
         public PersonaFisica(DatiPersonaFisica datiPersonaFisica)
         {
             this._datiPersona = datiPersonaFisica;
+            this.Email.OnAggiunta += (o, e) => { LanciaEvento(this); };
+            this.Email.OnRimozione += (e, o) => { LanciaEvento(this); };
         }
         #endregion
 

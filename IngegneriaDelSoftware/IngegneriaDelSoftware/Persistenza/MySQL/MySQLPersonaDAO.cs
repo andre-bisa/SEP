@@ -11,7 +11,9 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 {
     public class MySQLPersonaDAO : IPersonaDAO
     {
-        public static readonly string AGGIORNA_PERSONA = "UPDATE PERSONA SET CF=@cf,INDIRIZZO=@indirizzo,TIPO=@tipoP,NOME=@nome,COGNOME=@cognome,PIVA=@piva,RAGIONE_SOCIALE=@ragione_sociale,SEDE_LEGALE=@sede_legale WHERE CF=@oldCF AND IDUTENTE=@idutente;";
+        private static readonly string AGGIORNA_PERSONA = "UPDATE PERSONA SET CF=@cf,INDIRIZZO=@indirizzo,TIPO=@tipoP,NOME=@nome,COGNOME=@cognome,PIVA=@piva,RAGIONE_SOCIALE=@ragione_sociale,SEDE_LEGALE=@sede_legale WHERE CF=@oldCF AND IDUTENTE=@idutente;";
+
+        private static readonly string ELIMINA_VECCHIA_EMAIL = "DELETE M.* FROM MAIL AS M INNER JOIN PERSONA AS P ON P.IDPERSONA=M.IDPERSONA WHERE M.IDUTENTE=@idutente AND P.CF=@oldCF AND M.MAIL=@mail;";
 
         public bool Aggiorna(Persona vecchiaPersona, Persona nuovaPersona)
         {
@@ -28,7 +30,9 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             if (cmd == null)
                 return false;
 
+
             cmd.CommandText = AGGIORNA_PERSONA;
+
             InserisciParametriPersona(nuovaPersona, cmd);
 
             cmd.Parameters.AddWithValue("@oldCF", vecchiaPersona.CodiceFiscale);
@@ -39,6 +43,34 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             connessione.Close();
 
             return (modifiche >= 1);
+        }
+
+        private int OttieniIDPersona(string codiceFiscale)
+        {
+            int IDPersona;
+            MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
+
+            if (connessione == null)
+                throw new Persistenza.ExceptionPersistenza();
+
+            MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                throw new Persistenza.ExceptionPersistenza();
+
+            cmd.CommandText = "SELECT IDPERSONA FROM PERSONA WHERE IDUTENTE=@idutente AND CF=@cf;";
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+            cmd.Parameters.AddWithValue("@cf", codiceFiscale);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+                IDPersona = reader.GetInt32(0);
+            else
+                throw new Persistenza.ExceptionPersistenza();
+
+            connessione.Close();
+            return IDPersona;
         }
 
         private void InserisciParametriPersona(Persona persona, MySqlCommand cmd)
@@ -87,5 +119,40 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@sede_legale", sede_legale);
         }
 
+        public bool InserisciEmail(Email email, Persona persona)
+        {
+            MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
+
+            if (connessione == null)
+                throw new Persistenza.ExceptionPersistenza();
+
+            MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                throw new Persistenza.ExceptionPersistenza();
+
+            cmd.CommandText = "START TRANSACTION;";
+
+            int IDPersona = OttieniIDPersona(persona.CodiceFiscale);
+
+            cmd.CommandText += "INSERT INTO MAIL(IDUTENTE, IDPERSONA, MAIL, NOTA) VALUES(@idutente,@idpersona,@email,@nota);";
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+            cmd.Parameters.AddWithValue("@idpersona", IDPersona);
+            cmd.Parameters.AddWithValue("@email", email.Indirizzo);
+            cmd.Parameters.AddWithValue("@nota", email.Nota);
+
+            cmd.CommandText += "COMMIT;";
+
+            int modifiche = cmd.ExecuteNonQuery();
+
+            connessione.Close();
+
+            return (modifiche >= 1);
+        }
+
+        public bool RimuoviEmail(Email email, Persona persona)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -100,6 +100,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         {
             return new MySQLPersonaDAO();
         }
+
         #endregion
     }
 }

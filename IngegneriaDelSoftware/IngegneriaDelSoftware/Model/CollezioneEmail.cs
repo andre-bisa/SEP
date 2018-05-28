@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Model
 {
     public class CollezioneEmail : ICollection<Email>, IEnumerable<Email>
     {
+        public event EventHandler<ArgsEmail> OnAggiunta;
+        public event EventHandler<ArgsEmail> OnRimozione;
+
         //Set poiche' non ha senso aggiungere due o piu' email uguali
         private HashSet<Email> _email;
 
@@ -39,6 +43,11 @@ namespace IngegneriaDelSoftware.Model
         public void Add(Email item)
         {
             ((ICollection<Email>)_email).Add(item);
+            if (OnAggiunta != null)
+            {
+                ArgsEmail args = new ArgsEmail(item);
+                OnAggiunta(this, args);
+            }
         }
 
         /// <summary>
@@ -79,7 +88,13 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public bool Remove(Email item)
         { 
-            return ((ICollection<Email>)_email).Remove(item);
+            bool risultato = ((ICollection<Email>)_email).Remove(item);
+            if (OnRimozione != null)
+            {
+                ArgsEmail args = new ArgsEmail(item);
+                OnRimozione(this, args);
+            }
+            return risultato;
         }
 
         IEnumerator IEnumerable.GetEnumerator()

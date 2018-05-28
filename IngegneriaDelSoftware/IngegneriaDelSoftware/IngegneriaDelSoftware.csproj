@@ -68,6 +68,7 @@
     <Compile Include="Controller\ControllerHome.cs" />
     <Compile Include="Login\ControllerLogin.cs" />
     <Compile Include="Model\ArgsEvent\ArgsAppuntamento.cs" />
+    <Compile Include="Model\ArgsEvent\ArgsEmail.cs" />
     <Compile Include="Model\CollezioneAppuntamenti.cs" />
     <Compile Include="Controller\ControllerCalendario.cs" />
     <Compile Include="Controller\ControllerClienti.cs" />
@@ -128,6 +129,7 @@
     <Compile Include="Persistenza\Dao\IAppuntamentoDAO.cs" />
     <Compile Include="Persistenza\Dao\IClienteDAO.cs" />
     <Compile Include="Persistenza\Dao\IDatoreLavoroDAO.cs" />
+    <Compile Include="Persistenza\Dao\IEmailDAO.cs" />
     <Compile Include="Persistenza\Dao\IEsternoDAO.cs" />
     <Compile Include="Persistenza\Dao\IFatturaDAO.cs" />
     <Compile Include="Persistenza\Dao\IIntermediarioDAO.cs" />

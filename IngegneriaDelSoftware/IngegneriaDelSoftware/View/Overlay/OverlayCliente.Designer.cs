@@ -68,12 +68,15 @@
             this.radioFisica = new MaterialSkin.Controls.MaterialRadioButton();
             this.checkPotenziale = new MaterialSkin.Controls.MaterialCheckBox();
             this.checkEx = new MaterialSkin.Controls.MaterialCheckBox();
+            this.BtnAggiungiEmail = new MaterialSkin.Controls.MaterialFloatingActionButton();
             this.listEmail = new MaterialSkin.Controls.MaterialListView();
             this.EmailEmail = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.EmailNota = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.BtnAggiungiTelefono = new MaterialSkin.Controls.MaterialFloatingActionButton();
             this.listTelefoni = new MaterialSkin.Controls.MaterialListView();
             this.TelefoniTelefono = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TelefoniNota = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnAggiungiReferente = new MaterialSkin.Controls.MaterialFloatingActionButton();
             this.listReferenti = new MaterialSkin.Controls.MaterialListView();
             this.ReferentiReferente = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ReferentiNota = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -81,9 +84,6 @@
             this.btnSalva = new MaterialSkin.Controls.MaterialRaisedButton();
             this.btnAnnulla = new MaterialSkin.Controls.MaterialFlatButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.BtnAggiungiEmail = new MaterialSkin.Controls.MaterialFloatingActionButton();
-            this.BtnAggiungiTelefono = new MaterialSkin.Controls.MaterialFloatingActionButton();
-            this.btnAggiungiReferente = new MaterialSkin.Controls.MaterialFloatingActionButton();
             label1 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
@@ -266,6 +266,8 @@
             // 
             // splitContainer3
             // 
+            splitContainer3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             splitContainer3.Location = new System.Drawing.Point(14, 146);
             splitContainer3.Name = "splitContainer3";
             splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -387,6 +389,8 @@
             // 
             // splitContainer2
             // 
+            splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             splitContainer2.Location = new System.Drawing.Point(14, 65);
             splitContainer2.Name = "splitContainer2";
             // 
@@ -546,6 +550,8 @@
             // 
             // panel2
             // 
+            panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             panel2.Controls.Add(splitContainer1);
             panel2.Location = new System.Drawing.Point(14, 3);
             panel2.Name = "panel2";
@@ -716,6 +722,22 @@
             panel10.Size = new System.Drawing.Size(305, 131);
             panel10.TabIndex = 0;
             // 
+            // BtnAggiungiEmail
+            // 
+            this.BtnAggiungiEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnAggiungiEmail.AnimateIcon = false;
+            this.BtnAggiungiEmail.AnimateShowHideButton = false;
+            this.BtnAggiungiEmail.Depth = 0;
+            this.BtnAggiungiEmail.Icon = global::IngegneriaDelSoftware.Properties.Resources.ic_add_black_18dp;
+            this.BtnAggiungiEmail.Location = new System.Drawing.Point(263, 91);
+            this.BtnAggiungiEmail.Mini = true;
+            this.BtnAggiungiEmail.MouseState = MaterialSkin.MouseState.HOVER;
+            this.BtnAggiungiEmail.Name = "BtnAggiungiEmail";
+            this.BtnAggiungiEmail.Size = new System.Drawing.Size(40, 40);
+            this.BtnAggiungiEmail.TabIndex = 15;
+            this.BtnAggiungiEmail.Text = "materialFloatingActionButton1";
+            this.BtnAggiungiEmail.UseVisualStyleBackColor = true;
+            // 
             // listEmail
             // 
             this.listEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -749,6 +771,22 @@
             // 
             this.EmailNota.Text = "Nota";
             this.EmailNota.Width = 300;
+            // 
+            // BtnAggiungiTelefono
+            // 
+            this.BtnAggiungiTelefono.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.BtnAggiungiTelefono.AnimateIcon = false;
+            this.BtnAggiungiTelefono.AnimateShowHideButton = false;
+            this.BtnAggiungiTelefono.Depth = 0;
+            this.BtnAggiungiTelefono.Icon = global::IngegneriaDelSoftware.Properties.Resources.ic_add_black_18dp;
+            this.BtnAggiungiTelefono.Location = new System.Drawing.Point(259, 88);
+            this.BtnAggiungiTelefono.Mini = true;
+            this.BtnAggiungiTelefono.MouseState = MaterialSkin.MouseState.HOVER;
+            this.BtnAggiungiTelefono.Name = "BtnAggiungiTelefono";
+            this.BtnAggiungiTelefono.Size = new System.Drawing.Size(40, 40);
+            this.BtnAggiungiTelefono.TabIndex = 17;
+            this.BtnAggiungiTelefono.Text = "materialFloatingActionButton1";
+            this.BtnAggiungiTelefono.UseVisualStyleBackColor = true;
             // 
             // listTelefoni
             // 
@@ -811,6 +849,22 @@
             panel11.Name = "panel11";
             panel11.Size = new System.Drawing.Size(305, 129);
             panel11.TabIndex = 0;
+            // 
+            // btnAggiungiReferente
+            // 
+            this.btnAggiungiReferente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAggiungiReferente.AnimateIcon = false;
+            this.btnAggiungiReferente.AnimateShowHideButton = false;
+            this.btnAggiungiReferente.Depth = 0;
+            this.btnAggiungiReferente.Icon = global::IngegneriaDelSoftware.Properties.Resources.ic_add_black_18dp;
+            this.btnAggiungiReferente.Location = new System.Drawing.Point(263, 86);
+            this.btnAggiungiReferente.Mini = true;
+            this.btnAggiungiReferente.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnAggiungiReferente.Name = "btnAggiungiReferente";
+            this.btnAggiungiReferente.Size = new System.Drawing.Size(40, 40);
+            this.btnAggiungiReferente.TabIndex = 19;
+            this.btnAggiungiReferente.Text = "materialFloatingActionButton1";
+            this.btnAggiungiReferente.UseVisualStyleBackColor = true;
             // 
             // listReferenti
             // 
@@ -918,61 +972,13 @@
             this.panel1.Size = new System.Drawing.Size(649, 608);
             this.panel1.TabIndex = 2;
             // 
-            // BtnAggiungiEmail
-            // 
-            this.BtnAggiungiEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnAggiungiEmail.AnimateIcon = false;
-            this.BtnAggiungiEmail.AnimateShowHideButton = false;
-            this.BtnAggiungiEmail.Depth = 0;
-            this.BtnAggiungiEmail.Icon = global::IngegneriaDelSoftware.Properties.Resources.ic_add_black_18dp;
-            this.BtnAggiungiEmail.Location = new System.Drawing.Point(263, 91);
-            this.BtnAggiungiEmail.Mini = true;
-            this.BtnAggiungiEmail.MouseState = MaterialSkin.MouseState.HOVER;
-            this.BtnAggiungiEmail.Name = "BtnAggiungiEmail";
-            this.BtnAggiungiEmail.Size = new System.Drawing.Size(40, 40);
-            this.BtnAggiungiEmail.TabIndex = 15;
-            this.BtnAggiungiEmail.Text = "materialFloatingActionButton1";
-            this.BtnAggiungiEmail.UseVisualStyleBackColor = true;
-            // 
-            // BtnAggiungiTelefono
-            // 
-            this.BtnAggiungiTelefono.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.BtnAggiungiTelefono.AnimateIcon = false;
-            this.BtnAggiungiTelefono.AnimateShowHideButton = false;
-            this.BtnAggiungiTelefono.Depth = 0;
-            this.BtnAggiungiTelefono.Icon = global::IngegneriaDelSoftware.Properties.Resources.ic_add_black_18dp;
-            this.BtnAggiungiTelefono.Location = new System.Drawing.Point(259, 88);
-            this.BtnAggiungiTelefono.Mini = true;
-            this.BtnAggiungiTelefono.MouseState = MaterialSkin.MouseState.HOVER;
-            this.BtnAggiungiTelefono.Name = "BtnAggiungiTelefono";
-            this.BtnAggiungiTelefono.Size = new System.Drawing.Size(40, 40);
-            this.BtnAggiungiTelefono.TabIndex = 17;
-            this.BtnAggiungiTelefono.Text = "materialFloatingActionButton1";
-            this.BtnAggiungiTelefono.UseVisualStyleBackColor = true;
-            // 
-            // btnAggiungiReferente
-            // 
-            this.btnAggiungiReferente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAggiungiReferente.AnimateIcon = false;
-            this.btnAggiungiReferente.AnimateShowHideButton = false;
-            this.btnAggiungiReferente.Depth = 0;
-            this.btnAggiungiReferente.Icon = global::IngegneriaDelSoftware.Properties.Resources.ic_add_black_18dp;
-            this.btnAggiungiReferente.Location = new System.Drawing.Point(263, 86);
-            this.btnAggiungiReferente.Mini = true;
-            this.btnAggiungiReferente.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnAggiungiReferente.Name = "btnAggiungiReferente";
-            this.btnAggiungiReferente.Size = new System.Drawing.Size(40, 40);
-            this.btnAggiungiReferente.TabIndex = 19;
-            this.btnAggiungiReferente.Text = "materialFloatingActionButton1";
-            this.btnAggiungiReferente.UseVisualStyleBackColor = true;
-            // 
             // OverlayCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
             this.Name = "OverlayCliente";
-            this.Size = new System.Drawing.Size(1634, 902);
+            this.Size = new System.Drawing.Size(972, 642);
             splitContainer3.Panel1.ResumeLayout(false);
             splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(splitContainer3)).EndInit();

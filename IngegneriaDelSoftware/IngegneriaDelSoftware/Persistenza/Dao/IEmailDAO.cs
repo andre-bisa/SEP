@@ -7,13 +7,11 @@ using IngegneriaDelSoftware.Model;
 
 namespace IngegneriaDelSoftware.Persistenza.Dao
 {
-    public interface IPersonaDAO
+    public interface IEmailDAO
     {
-        bool Aggiorna(Persona vecchiaPersona, Persona nuovaPersona);
+        bool Aggiungi(Email emai, string IDCliente);
 
-        bool InserisciEmail(Email email, Persona persona);
-
-        bool RimuoviEmail(Email email, Persona persona);
+        bool Rimuovi(Email email, string IDCliente);
 
     }
 }

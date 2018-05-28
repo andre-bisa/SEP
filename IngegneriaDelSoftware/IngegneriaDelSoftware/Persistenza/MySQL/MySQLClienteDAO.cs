@@ -20,14 +20,17 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         private static readonly string SELEZIONA_TUTTI_CLIENTI = "SELECT C.IDUTENTE AS IDUTENTE, C.IDCLIENTE AS IDCLIENTE, C.TIPO AS TIPOCLIENTE, C.NOTE AS NOTE, P.CF AS CF, P.INDIRIZZO AS INDIRIZZO, P.TIPO AS TIPOPERSONA, P.NOME AS NOME, P.COGNOME AS COGNOME, P.PIVA AS PIVA, P.RAGIONE_SOCIALE AS RAGIONE_SOCIALE, P.SEDE_LEGALE AS SEDE_LEGALE FROM CLIENTE AS C INNER JOIN PERSONA AS P ON P.IDUTENTE=C.IDUTENTE AND P.IDPERSONA=C.IDPERSONA WHERE C.IDUTENTE=@idutente;";
         private static readonly string SELEZIONA_ULTIMO_ID_PERSONA = "SELECT MAX(IDPERSONA) AS MAX FROM PERSONA WHERE IDUTENTE = @idutente;";
         private static readonly string SELEZIONA_REFERENTI_DA_CLIENTE = "SELECT NOME, NOTA FROM REFERENTE WHERE IDUTENTE=@idutente AND IDCLIENTE=@idcliente;";
-        private static readonly string SELEZIONA_EMAIL_DA_CLIENTE = "SELECT NOME, NOTA FROM MAIL WHERE IDUTENTE=@idutente AND IDCLIENTE=@idcliente;";
-        private static readonly string SELEZIONA_TELEFONI_DA_CLIENTE = "SELECT TELEFONO, NOTA FROM TELEFONO WHERE IDUTENTE=@idutente AND IDCLIENTE=@idcliente;";
+        private static readonly string SELEZIONA_EMAIL_DA_CLIENTE = "SELECT MAIL, NOTA FROM MAIL WHERE IDUTENTE=@idutente AND IDPERSONA=@idpersona;";
+        private static readonly string SELEZIONA_TELEFONI_DA_CLIENTE = "SELECT TELEFONO, NOTA FROM TELEFONO WHERE IDUTENTE=@idutente AND IDPERSONA=@idpersona;";
 
         // Aggiorna
         private static readonly string AGGIORNA_CLIENTE = "UPDATE CLIENTE SET IDCLIENTE=@idcliente,TIPO=@tipoC,NOTE=@note WHERE IDUTENTE=@idutente AND IDCLIENTE=@old_idcliente;";
 
         // Elimina
         private static readonly string ELIMINA_PERSONA = "DELETE PERSONA.* FROM PERSONA INNER JOIN CLIENTE ON CLIENTE.IDPERSONA=CLIENTE.IDPERSONA AND CLIENTE.IDUTENTE=PERSONA.IDUTENTE WHERE PERSONA.IDUTENTE=@idutente AND CLIENTE.IDCLIENTE=@idcliente;";
+
+        // Tabelle esterne
+        
 
         public bool Aggiorna(Cliente clienteVecchio, Cliente clienteNuovo)
         {
@@ -329,7 +332,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText = SELEZIONA_EMAIL_DA_CLIENTE;
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
-            cmd.Parameters.AddWithValue("@idcliente", IDCliente);
+            cmd.Parameters.AddWithValue("@idpersona", OttieniIDPersona(IDCliente));
 
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -339,7 +342,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                     nota = "";
                 else
                     nota = reader.GetString("NOTA");
-                listaEmail.Add(new Email(reader.GetString("NOME"), nota));
+                listaEmail.Add(new Email(reader.GetString("MAIL"), nota));
             }
 
             connessione.Close();
@@ -361,7 +364,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText = SELEZIONA_TELEFONI_DA_CLIENTE;
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
-            cmd.Parameters.AddWithValue("@idcliente", IDCliente);
+            cmd.Parameters.AddWithValue("@idpersona", OttieniIDPersona(IDCliente));
 
             MySqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
@@ -377,5 +380,34 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             connessione.Close();
             return listaEmail;
         }
+
+        private int OttieniIDPersona(string IDCliente)
+        {
+            int IDPersona;
+            MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
+
+            if (connessione == null)
+                throw new Persistenza.ExceptionPersistenza();
+
+            MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                throw new Persistenza.ExceptionPersistenza();
+
+            cmd.CommandText = "SELECT C.IDPERSONA FROM PERSONA AS P INNER JOIN CLIENTE AS C ON C.IDPERSONA=P.IDPERSONA WHERE P.IDUTENTE=@idutente AND C.IDCLIENTE=@idcliente;";
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+            cmd.Parameters.AddWithValue("@idcliente", IDCliente);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            if (reader.Read())
+                IDPersona = reader.GetInt32(0);
+            else
+                throw new Persistenza.ExceptionPersistenza();
+
+            connessione.Close();
+            return IDPersona;
+        }
+
     }
 }
