@@ -4,12 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IngegneriaDelSoftware.Model.ArgsEvent;
+using IngegneriaDelSoftware.Persistenza;
 
 namespace IngegneriaDelSoftware.Model
 {
     public class Appuntamento : IObservable<Appuntamento>
     {
         public event EventHandler<ArgsModifica<Appuntamento>> OnModifica;
+
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza);
         private DatiAppuntamento _datiAppuntamento;
 
         #region Costruttori
@@ -79,14 +82,13 @@ namespace IngegneriaDelSoftware.Model
         {
             var appuntamento = obj as Appuntamento;
             return appuntamento != null &&
-                   Note == appuntamento.Note &&
-                   Luogo == appuntamento.Luogo &&
-                   DataOra == appuntamento.DataOra;
+                   IDAppuntamento == appuntamento.IDAppuntamento;
         }
 
         public override int GetHashCode()
         {
             var hashCode = -1334492624;
+            hashCode = hashCode * -1521134295 + EqualityComparer<int>.Default.GetHashCode(IDAppuntamento);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Note);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Luogo);
             hashCode = hashCode * -1521134295 + DataOra.GetHashCode();
@@ -103,6 +105,39 @@ namespace IngegneriaDelSoftware.Model
             return !(appuntamento1 == appuntamento2);
         }
 
+        #endregion
+
+        protected void LanciaEvento(Appuntamento vecchioAppuntamento)
+        {
+            if (OnModifica != null)
+            {
+                ArgsModifica<Appuntamento> args = new ArgsModifica<Appuntamento>(vecchioAppuntamento, this);
+                OnModifica(this, args);
+            }
+
+        }
+
+        public void cambiaDatiAppuntamento(DatiAppuntamento nuoviDati)
+        {
+            if (this._datiAppuntamento != nuoviDati)
+            {
+                Appuntamento vecchioAppuntamento = this.Clone();
+                this._datiAppuntamento = nuoviDati;
+
+                if (!_persistenza.GetAppuntamentoDAO().Aggiorna(vecchioAppuntamento, this))
+                { // se ci sono errori con la persistenza
+                    this._datiAppuntamento = vecchioAppuntamento._datiAppuntamento; // recupero i dati utente che avevo prima
+                    throw new ExceptionPersistenza();
+                }
+                LanciaEvento(vecchioAppuntamento);
+            }
+        }
+
+        #region Clone()
+        protected Appuntamento Clone()
+        {
+            return new Appuntamento(this._datiAppuntamento);
+        }
         #endregion
 
     }
@@ -137,6 +172,37 @@ namespace IngegneriaDelSoftware.Model
             Note = note;
             DataOra = dataOra;
             Luogo = luogo;
+        }
+        #endregion
+
+        #region Equals
+        public override bool Equals(object obj)
+        {
+            var datiAppuntamento = (DatiAppuntamento) obj;
+            return IDAppuntamento == datiAppuntamento.IDAppuntamento &&
+                   ConChi == datiAppuntamento.ConChi && Note == datiAppuntamento.Note
+                   && datiAppuntamento.Luogo == Luogo && datiAppuntamento.DataOra == DataOra;
+
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1334492624;
+            hashCode = hashCode * -1521134295 + EqualityComparer<int>.Default.GetHashCode(IDAppuntamento);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Note);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Luogo);
+            hashCode = hashCode * -1521134295 + DataOra.GetHashCode();
+            return hashCode;
+        }
+        
+        public static bool operator == (DatiAppuntamento datiAppuntamento1, DatiAppuntamento datiAppuntamento2)
+        {
+            return EqualityComparer<DatiAppuntamento>.Default.Equals(datiAppuntamento1, datiAppuntamento2);
+        }
+
+        public static bool operator != (DatiAppuntamento datiAppuntamento1, DatiAppuntamento datiAppuntamento2)
+        {
+            return !(datiAppuntamento1 == datiAppuntamento2);
         }
         #endregion
     }
