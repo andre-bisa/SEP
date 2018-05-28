@@ -189,7 +189,8 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
         public List<Appuntamento> LeggiTuttiAppuntamenti()
         {
-            throw new NotImplementedException();
+            return new List<Appuntamento>();
+            //throw new NotImplementedException();
         }
     }
 }

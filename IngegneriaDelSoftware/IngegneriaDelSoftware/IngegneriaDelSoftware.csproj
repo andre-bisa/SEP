@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\ControllerHome.cs" />
     <Compile Include="Login\ControllerLogin.cs" />
     <Compile Include="Model\ArgsEvent\ArgsAppuntamento.cs" />
     <Compile Include="Model\CollezioneAppuntamenti.cs" />
@@ -221,6 +222,12 @@
     <Compile Include="View\GetForm.Designer.cs">
       <DependentUpon>GetForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\HomeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\HomeForm.Designer.cs">
+      <DependentUpon>HomeForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Login.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -281,6 +288,9 @@
     <EmbeddedResource Include="View\GetForm.resx">
       <DependentUpon>GetForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="View\HomeForm.resx">
+      <DependentUpon>HomeForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -294,6 +304,7 @@
       <DependentUpon>VisualizzaCalendario.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

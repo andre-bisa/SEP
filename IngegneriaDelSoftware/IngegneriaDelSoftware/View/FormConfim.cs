@@ -42,10 +42,16 @@ namespace IngegneriaDelSoftware.View
             InitializeComponent();
         }
 
-        protected FormConfim(string titolo, string messaggio) : this()
+        protected FormConfim(string titolo, string messaggio, MessageBoxButtons buttons) : this()
         {
             Titolo = titolo;
             Messaggio = messaggio;
+            if(buttons == MessageBoxButtons.OKCancel) {
+                //do nothing;
+            }else if(buttons == MessageBoxButtons.OK) {
+                this.btnAnnulla.Visible = false;
+                this.btnConferma.Text = "Ok";
+            }
         }
         #endregion
 
@@ -69,9 +75,9 @@ namespace IngegneriaDelSoftware.View
         /// <param name="titolo">Titolo che verrà mostrato nella finestra</param>
         /// <param name="messaggio">Messaggio che si vuole chiedere all'utente</param>
         /// <returns></returns>
-        public static DialogResult Show(string titolo, string messaggio)
+        public static DialogResult Show(string titolo, string messaggio, MessageBoxButtons buttons = MessageBoxButtons.OKCancel)
         {
-            FormConfim formConfim = new FormConfim(titolo, messaggio);
+            FormConfim formConfim = new FormConfim(titolo, messaggio, buttons);
             return formConfim.ShowDialog();
         }
     }

@@ -94,7 +94,7 @@ namespace IngegneriaDelSoftware.Model {
                 //Recupera tutte le label e le variabili marcate important;
                 StringBuilder result = new StringBuilder();
                 foreach(string vari in scriptEngine.GetSaved()) {
-                    result.Append((scriptEngine.GetLabel(vari) ?? "") + scriptEngine.GetVariable(vari) + "\n");
+                    result.Append((scriptEngine.GetLabel(vari) ?? "") + scriptEngine.GetVariable(vari) + Environment.NewLine);
                 }
                 //Svuota il valutatore;
                 scriptEngine.Clear();
