@@ -39,10 +39,10 @@ namespace IngegneriaDelSoftware.View
 
             listCalendario.Items.Add(item1);
             listCalendario.Items.Add(item2);*/
-            c.GetAppuntamenti().ForEach((el) => {
+            /*c.GetAppuntamenti().ForEach((el) => {
                 // this method is bad and evil;
                 listCalendario.Items.Add(new ListViewItem(el.ToString().Split(' ')));
-            });
+            });*/
         }
 
         private void DataCambiata(object sender, EventArgs e)
