@@ -55,7 +55,7 @@
             panelLabelX.BackColor = System.Drawing.Color.Transparent;
             panelLabelX.Controls.Add(this.lblClose);
             panelLabelX.Dock = System.Windows.Forms.DockStyle.Right;
-            panelLabelX.Location = new System.Drawing.Point(370, 0);
+            panelLabelX.Location = new System.Drawing.Point(368, 0);
             panelLabelX.Margin = new System.Windows.Forms.Padding(0);
             panelLabelX.Name = "panelLabelX";
             panelLabelX.Size = new System.Drawing.Size(30, 30);
@@ -119,6 +119,7 @@
             // 
             panelContainer.AutoScroll = true;
             panelContainer.BackColor = System.Drawing.Color.Transparent;
+            panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelContainer.Controls.Add(this.mainPanel);
             panelContainer.Controls.Add(panelTitle);
             panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -134,7 +135,7 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 30);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(400, 420);
+            this.mainPanel.Size = new System.Drawing.Size(398, 418);
             this.mainPanel.TabIndex = 2;
             // 
             // panelTitle
@@ -145,11 +146,12 @@
             panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
             panelTitle.Location = new System.Drawing.Point(0, 0);
             panelTitle.Name = "panelTitle";
-            panelTitle.Size = new System.Drawing.Size(400, 30);
+            panelTitle.Size = new System.Drawing.Size(398, 30);
             panelTitle.TabIndex = 1;
             // 
             // lblTitolo
             // 
+            this.lblTitolo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblTitolo.Depth = 0;
             this.lblTitolo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitolo.Font = new System.Drawing.Font("Roboto", 11F);
@@ -157,7 +159,7 @@
             this.lblTitolo.Location = new System.Drawing.Point(0, 0);
             this.lblTitolo.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblTitolo.Name = "lblTitolo";
-            this.lblTitolo.Size = new System.Drawing.Size(370, 30);
+            this.lblTitolo.Size = new System.Drawing.Size(368, 30);
             this.lblTitolo.TabIndex = 1;
             this.lblTitolo.Text = "Titolo";
             this.lblTitolo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

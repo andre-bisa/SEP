@@ -19,10 +19,10 @@ namespace IngegneriaDelSoftware
         static void Main()
         {
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Login());
+            //Application.Run(new Login());
 
             Impostazioni impostazioni = Impostazioni.GetInstance();
-            impostazioni.TipoPersistenza = EnumTipoPersistenza.MySQL;
+            impostazioni.TipoPersistenza = EnumTipoPersistenza.NONE;
             impostazioni.IDUtente = 1;
 
             ControllerClienti controller = new ControllerClienti();
@@ -43,8 +43,8 @@ namespace IngegneriaDelSoftware
             Application.Run(g);
             */
             //Application.Run(new FormAppuntamenti());
-            /*Application.Run(new FormClienti(controller));
-            Application.Run(new FormEmail(controller));
+            Application.Run(new FormClienti(controller));
+            /*Application.Run(new FormEmail(controller));
             Application.Run(new Login());
             Application.Run(new VisualizzaCalendario());
             if (FormConfim.Show("Titolo", "Messaggio") == DialogResult.OK)
@@ -67,6 +67,7 @@ namespace IngegneriaDelSoftware
             CollezioneClienti.GetInstance().Add(cliente);
             CollezioneVendite.GetInstance().Add(vendita);
             CollezionePreventivi.GetInstance().Add(preventivo);
+            CollezioneFatture.GetInstance().Add(fattura);
             //Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
             //Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
             Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
