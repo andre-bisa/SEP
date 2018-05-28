@@ -19,6 +19,9 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         // Seleziona
         private static readonly string SELEZIONA_TUTTI_CLIENTI = "SELECT C.IDUTENTE AS IDUTENTE, C.IDCLIENTE AS IDCLIENTE, C.TIPO AS TIPOCLIENTE, C.NOTE AS NOTE, P.CF AS CF, P.INDIRIZZO AS INDIRIZZO, P.TIPO AS TIPOPERSONA, P.NOME AS NOME, P.COGNOME AS COGNOME, P.PIVA AS PIVA, P.RAGIONE_SOCIALE AS RAGIONE_SOCIALE, P.SEDE_LEGALE AS SEDE_LEGALE FROM CLIENTE AS C INNER JOIN PERSONA AS P ON P.IDUTENTE=C.IDUTENTE AND P.IDPERSONA=C.IDPERSONA WHERE C.IDUTENTE=@idutente;";
         private static readonly string SELEZIONA_ULTIMO_ID_PERSONA = "SELECT MAX(IDPERSONA) AS MAX FROM PERSONA WHERE IDUTENTE = @idutente;";
+        private static readonly string SELEZIONA_REFERENTI_DA_CLIENTE = "SELECT NOME, NOTA FROM REFERENTE WHERE IDUTENTE=@idutente AND IDCLIENTE=@idcliente;";
+        private static readonly string SELEZIONA_EMAIL_DA_CLIENTE = "SELECT NOME, NOTA FROM MAIL WHERE IDUTENTE=@idutente AND IDCLIENTE=@idcliente;";
+        private static readonly string SELEZIONA_TELEFONI_DA_CLIENTE = "SELECT TELEFONO, NOTA FROM TELEFONO WHERE IDUTENTE=@idutente AND IDCLIENTE=@idcliente;";
 
         // Aggiorna
         private static readonly string AGGIORNA_CLIENTE = "UPDATE CLIENTE SET IDCLIENTE=@idcliente,TIPO=@tipoC,NOTE=@note WHERE IDUTENTE=@idutente AND IDCLIENTE=@old_idcliente;";
@@ -175,7 +178,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 throw new ExceptionPersistenza();
 
             cmd.CommandText = SELEZIONA_ULTIMO_ID_PERSONA;
-            cmd.Parameters.AddWithValue("@idutente", "1");   // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
             MySqlDataReader reader = cmd.ExecuteReader();
             if (reader.HasRows)
             {
@@ -210,7 +213,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText += "COMMIT;";
 
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
 
@@ -235,7 +238,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText = SELEZIONA_TUTTI_CLIENTI;
 
-            cmd.Parameters.AddWithValue("@idutente", "1");
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -243,13 +246,16 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             {
                 Persona persona;
 
+                List<Telefono> telefoni = LeggiTelefoniDaCliente(reader.GetString("IDCLIENTE"));
+                List<Email> email = LeggiEmailDaCliente(reader.GetString("IDCLIENTE"));
+
                 if (reader.GetString("TIPOPERSONA") == "F")
                 {
-                    persona = new PersonaFisica(reader.GetString("CF"), reader.GetString("INDIRIZZO"), reader.GetString("NOME"), reader.GetString("COGNOME"), reader.GetString("PIVA"));
+                    persona = new PersonaFisica(reader.GetString("CF"), reader.GetString("INDIRIZZO"), reader.GetString("NOME"), reader.GetString("COGNOME"), reader.GetString("PIVA"), telefoni, email);
                 }
                 else
                 {
-                    persona = new PersonaGiuridica(reader.GetString("CF"), reader.GetString("INDIRIZZO"), reader.GetString("RAGIONE_SOCIALE"), reader.GetString("SEDE_LEGALE"), reader.GetString("PIVA"));
+                    persona = new PersonaGiuridica(reader.GetString("CF"), reader.GetString("INDIRIZZO"), reader.GetString("RAGIONE_SOCIALE"), reader.GetString("SEDE_LEGALE"), reader.GetString("PIVA"), telefoni, email);
                 }
 
                 EnumTipoCliente tipoCliente;
@@ -267,13 +273,109 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                         break;
                 }
 
-                List<Referente> referenti = null;
+                List<Referente> referenti = LeggiReferentiDaCliente(reader.GetString("IDCLIENTE"));
 
                 listaClienti.Add(new Cliente(persona, reader.GetString("IDCLIENTE"), referenti, tipoCliente, reader.GetString("NOTE")));
             }
 
             connessione.Clone();
             return listaClienti;
+        }
+
+        private List<Referente> LeggiReferentiDaCliente(string IDCliente)
+        {
+            List<Referente> listaReferenti = new List<Referente>();
+            MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
+
+            if (connessione == null)
+                throw new ExceptionPersistenza();
+
+            MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                throw new ExceptionPersistenza();
+
+            cmd.CommandText = SELEZIONA_REFERENTI_DA_CLIENTE;
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+            cmd.Parameters.AddWithValue("@idcliente", IDCliente);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                string nota;
+                if (reader.IsDBNull(1))
+                    nota = "";
+                else
+                    nota = reader.GetString("NOTA");
+                listaReferenti.Add(new Referente(reader.GetString("NOME"), nota));
+            }
+
+            connessione.Close();
+            return listaReferenti;
+        }
+
+        private List<Email> LeggiEmailDaCliente(string IDCliente)
+        {
+            List<Email> listaEmail = new List<Email>();
+            MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
+
+            if (connessione == null)
+                throw new ExceptionPersistenza();
+
+            MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                throw new ExceptionPersistenza();
+
+            cmd.CommandText = SELEZIONA_EMAIL_DA_CLIENTE;
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+            cmd.Parameters.AddWithValue("@idcliente", IDCliente);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                string nota;
+                if (reader.IsDBNull(1))
+                    nota = "";
+                else
+                    nota = reader.GetString("NOTA");
+                listaEmail.Add(new Email(reader.GetString("NOME"), nota));
+            }
+
+            connessione.Close();
+            return listaEmail;
+        }
+
+        private List<Telefono> LeggiTelefoniDaCliente(string IDCliente)
+        {
+            List<Telefono> listaEmail = new List<Telefono>();
+            MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
+
+            if (connessione == null)
+                throw new ExceptionPersistenza();
+
+            MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                throw new ExceptionPersistenza();
+
+            cmd.CommandText = SELEZIONA_TELEFONI_DA_CLIENTE;
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+            cmd.Parameters.AddWithValue("@idcliente", IDCliente);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                string nota;
+                if (reader.IsDBNull(1))
+                    nota = "";
+                else
+                    nota = reader.GetString("NOTA");
+                listaEmail.Add(new Telefono(reader.GetString("TELEFONO"), nota));
+            }
+
+            connessione.Close();
+            return listaEmail;
         }
     }
 }
