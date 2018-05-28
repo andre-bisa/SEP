@@ -116,7 +116,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             return (modifiche >= 1);
         }
 
-        public bool Elimina(string ID)
+        public bool Elimina(int ID)
         {
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 

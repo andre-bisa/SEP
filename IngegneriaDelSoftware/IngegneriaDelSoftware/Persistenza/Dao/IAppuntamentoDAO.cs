@@ -15,7 +15,7 @@ namespace IngegneriaDelSoftware.Persistenza.Dao
 
         bool Aggiorna(Appuntamento appuntamentoVecchio, Appuntamento nuovoAppuntamento);
 
-        bool Elimina(string ID);
+        bool Elimina(int ID);
 
         List<Appuntamento> LeggiTuttiAppuntamenti();
     }

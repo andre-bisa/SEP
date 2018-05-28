@@ -126,6 +126,11 @@ namespace IngegneriaDelSoftware.Persistenza.None
             return true;
         }
 
+        public bool Elimina(int ID)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public List<MailInviata> GetListaMailInviate()
         {
             return new List<MailInviata>();

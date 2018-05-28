@@ -21,11 +21,17 @@ namespace IngegneriaDelSoftware
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
-            bool accesso = ControllerLogin.GetInstance().ControllaCredenziali(txtUsername.Text.Trim(), txtPassword.Text.Trim());
-            if (!accesso)
-                MessageBox.Show("Errore, username e/o password errati.");
-            else
-                this.Close();
+            try
+            {
+                bool accesso = ControllerLogin.GetInstance().ControllaCredenziali(txtUsername.Text.Trim(), txtPassword.Text.Trim());
+                if (!accesso)
+                    MessageBox.Show("Errore, username e/o password errati.");
+                else
+                    this.Close();
+            } catch (Persistenza.ExceptionPersistenza)
+            {
+                MessageBox.Show("Errore, connessione assente.");
+            }
         }
     }
 }

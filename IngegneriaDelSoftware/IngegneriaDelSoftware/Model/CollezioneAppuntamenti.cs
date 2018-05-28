@@ -107,7 +107,7 @@ namespace IngegneriaDelSoftware.Model {
         public bool Remove(Appuntamento item) {
             bool rimosso = false;
             if(item != null) {
-                if(_persistenza.GetAppuntamentoDAO().Elimina(item.ID)) {
+                if(_persistenza.GetAppuntamentoDAO().Elimina(item.IDAppuntamento)) {
                     rimosso = ((ICollection<Appuntamento>)_appuntamenti).Remove(item);
                     LanciaEvento(OnRimozione, item);
                 } else { // Se ci sono errori nella persistenza
@@ -134,10 +134,10 @@ namespace IngegneriaDelSoftware.Model {
                     select appuntamento).ToArray();
         }
 
-        public Appuntamento this[string id] {
+        public Appuntamento this[int id] {
             get {
                 foreach(Appuntamento f in this._appuntamenti) {
-                    if(f.ID == id)
+                    if(f.IDAppuntamento == id)
                         return f;
                 }
                 return null;
