@@ -74,6 +74,14 @@ namespace IngegneriaDelSoftware.View {
         /// </summary>
         public event CercaClick OnCercaClick;
 
+        /// <param name="s">Il valore della string nella casella di testo della ricerca/param>
+        /// <param name="e"></param>
+        public delegate void CalcolaClick(GenericForm s, EventArgs e);
+        /// <summary>
+        /// Rappresenta il click sul bottone di creazione di una nuova
+        /// </summary>
+        public event CalcolaClick OnCalcolaClick;
+
         #endregion
 
         #region Campi privati
@@ -178,9 +186,12 @@ namespace IngegneriaDelSoftware.View {
             this.IndirizzoField.Enabled =
             this.NomeField.Enabled =
             this.CFField.Enabled =
-            this.PersonaFisicaRadio.Enabled =
-            this.EliminaVociBtn.Enabled = 
+            this.PersonaFisicaRadio.Enabled =/*
+            this.CalcolaBtn.Enabled = */
             this.PersonaGiuridicaRadio.Enabled = false;
+            this.PanelResult.Visible = false;
+            this.VociTxt.ScrollBars = ScrollBars.Vertical;
+            this.ResultTxt.ScrollBars = ScrollBars.Vertical;
         }
 
 
@@ -222,7 +233,9 @@ namespace IngegneriaDelSoftware.View {
                     //Se possibile formatta il valore con il format economico corrente;
 		            Result.Text = dvalue.ToString(FormatStyle, System.Globalization.CultureInfo.CurrentCulture);
                 }else {
-                    throw new ArgumentException("The inserted value must be a number");
+                    FormConfim.Show("Errore di formato", String.Format("Il numero inserito non rispetta il formato corretto.\n(Formato impostato {0})", FormatStyle), MessageBoxButtons.OK);
+                    Result.Text = "0";
+                    //throw new ArgumentException("The inserted value must be a number");
                 }
             };
             //Restituisce il risultato
@@ -444,6 +457,19 @@ namespace IngegneriaDelSoftware.View {
             }
         }
 
+        public void AggiungiResult(string v) {
+            this.ResultTxt.Text = "";
+            this.ResultTxt.AppendText(v);
+        }
+
+        public void CleanPrettyVoce() {
+            this.VociTxt.Text = "";
+        }
+        public void AggiungiPrettyVoce(string v) {
+            this.VociTxt.AppendText(v);
+            this.VociTxt.AppendText(Environment.NewLine);
+        }
+
         #endregion
 
         #region Gestione barra laterale 
@@ -485,7 +511,7 @@ namespace IngegneriaDelSoftware.View {
             if(!this.SingolaPanel.Visible) {
                 this.SingolaPanel.Visible = true;
                 this.AggiungiVociBtn.Visible = true;
-                this.EliminaVociBtn.Visible = true;
+                this.CalcolaBtn.Visible = true;
             }
             this.InserisciDatiDestinatario("", "", "", "", "", "", "", "", "", false, TipoPersona.FISICA);
         }
@@ -497,7 +523,7 @@ namespace IngegneriaDelSoftware.View {
             if(this.SingolaPanel.Visible) {
                 this.SingolaPanel.Visible = false;
                 this.AggiungiVociBtn.Visible = false;
-                this.EliminaVociBtn.Visible = false;
+                this.CalcolaBtn.Visible = false;
             }
         }
 
@@ -659,7 +685,7 @@ namespace IngegneriaDelSoftware.View {
             if(!this.SingolaPanel.Visible) {
                 this.SingolaPanel.Visible = true;
                 this.AggiungiVociBtn.Visible = true;
-                this.EliminaVociBtn.Visible = true;
+                this.CalcolaBtn.Visible = true;
             }
 
             //TODO implement the actual method
@@ -702,8 +728,12 @@ namespace IngegneriaDelSoftware.View {
 
         //Evento generato dal bottone per l'aggiunta del pannello delle voci;
         private void AggiungiVociBtn_Click(object sender, EventArgs e) {
-            if(!this.ValoriPanel.Visible) {
+            if(!this.ValoriPanel.Visible && !this.PanelResult.Visible) {
                 this.ShowVoci();
+            }else if(this.PanelResult.Visible) {
+                this.PanelResult.Visible = false;
+                this.ValoriPanel.Visible = true;
+                this.PanelResult.SendToBack();
             }
         }
 
@@ -717,9 +747,14 @@ namespace IngegneriaDelSoftware.View {
         }
 
         //Evento generato dal bottone per svuotare le voci;
-        private void EliminaVociBtn_Click(object sender, EventArgs e) {
+        private void CalcolaBtn_Click(object sender, EventArgs e) {
             //TODO: farsi dare conferma;
-            this.HideVoci();
+            //this.HideVoci();
+            
+            this.ValoriPanel.Visible = false;
+            this.PanelResult.Visible = true;
+            this.PanelResult.BringToFront();
+            this.OnCalcolaClick?.Invoke(this, e);
         }
 
         //Evento generato dal bottone per accettare l'elemento corrente;

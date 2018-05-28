@@ -58,7 +58,7 @@
             this.btnAnnulla.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnAnnulla.Depth = 0;
             this.btnAnnulla.Icon = null;
-            this.btnAnnulla.Location = new System.Drawing.Point(266, 88);
+            this.btnAnnulla.Location = new System.Drawing.Point(301, 88);
             this.btnAnnulla.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnAnnulla.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAnnulla.Name = "btnAnnulla";
@@ -78,7 +78,7 @@
             this.btnConferma.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.btnConferma.Depth = 0;
             this.btnConferma.Icon = null;
-            this.btnConferma.Location = new System.Drawing.Point(136, 88);
+            this.btnConferma.Location = new System.Drawing.Point(391, 88);
             this.btnConferma.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnConferma.Name = "btnConferma";
             this.btnConferma.Primary = true;

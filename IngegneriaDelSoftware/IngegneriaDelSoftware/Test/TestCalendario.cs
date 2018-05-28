@@ -43,7 +43,7 @@ namespace IngegneriaDelSoftware.Test
         public void TestRimuoviCalendario()
         {
             Persona p2 = new PersonaFisica("s", "Via x", "Mario", "Verdi");
-            DatiAppuntamento datiAppuntamento2 = new DatiAppuntamento(1, p2, "Riunione", "Milano", new DateTime(2018, 4, 30, 12, 0, 0));
+            DatiAppuntamento datiAppuntamento2 = new DatiAppuntamento(2, p2, "Riunione", "Milano", new DateTime(2018, 4, 30, 12, 0, 0));
             Appuntamento a2 = new Appuntamento(datiAppuntamento2);
 
             Assert.AreEqual(true, _calendario.Remove(a2));

@@ -189,7 +189,44 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
         public List<Appuntamento> LeggiTuttiAppuntamenti()
         {
-            throw new NotImplementedException();
+            MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
+
+            if (connessione == null)
+                return null;
+
+            MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                return null;
+
+            cmd.CommandText = "START TRANSACTION;";
+
+            cmd.CommandText += SELEZIONA_TUTTI_APPUNTAMENTI;
+
+            cmd.CommandText += "COMMIT;";
+
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+
+            MySqlDataReader reader = cmd.ExecuteReader();
+
+            //new Appuntamento(string idDatore, Persona conChi, string note, string luogo, DateTime dataOra);
+
+            /*
+             * Come prendere da DB un DateTime a partire da date e time di SQL?
+             * Come fare ad estrarre una persona a partire dalla tabella APPUNTAMENTICON che ha 
+             * 
+             * IDUTENTE int not null,
+               IDAPPUNTAMENTO int not null,
+               IDINTERMEDIARIO varchar(10) not null,
+               IDCLIENTE varchar(10) not null,
+               IDESTERNO varchar(10) not null,
+             * */
+
+            //Appuntamento appuntamento = new Appuntamento(reader.GetString("IDAPPUNTAMENTO"), reader.GetString);
+
+            connessione.Close();
+
+            return null;
         }
     }
 }

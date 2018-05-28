@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 
 namespace IngegneriaDelSoftware.View {
     public static class GenericViewLoader {
@@ -106,12 +106,16 @@ namespace IngegneriaDelSoftware.View {
             result.OnCreaClick += async (o, e) => {
                 var t = Task.Run<CollezionePreventivi>(() => { return CollezionePreventivi.GetInstance(); });
                 if(string.IsNullOrEmpty(o.Key)) {
-                    controller.AggiungiPreventivo(
-                        new Preventivo.DatiPreventivo(Convert.ToUInt64(o.Numero), tmpCliente, DateTime.Parse(o.Data), false),
-                        o.GetVoci().Select((el) => {
-                            return new VocePreventivo(el.Descrizione, Convert.ToDecimal(el.Importo), el.Tipologia, el.Numero);
-                        }).ToList()
-                    );
+                    try {
+                        controller.AggiungiPreventivo(
+                            new Preventivo.DatiPreventivo(Convert.ToUInt64(o.Numero), tmpCliente, DateTime.Parse(o.Data), false),
+                            o.GetVoci().Select((el) => {
+                                return new VocePreventivo(el.Descrizione, Convert.ToDecimal(el.Importo), el.Tipologia, el.Numero);
+                            }).ToList()
+                        );
+                    }catch(FormatException) {
+                        FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
+                    }
                 } else {
                     CollezionePreventivi col = await t;
                     //CollezionePreventivi col = CollezionePreventivi.GetInstance();
@@ -121,8 +125,14 @@ namespace IngegneriaDelSoftware.View {
                     if(old == null) {
                         return;
                     }
-                    DateTime? da = DateTime.Parse(o.Data);
-                    ulong id = Convert.ToUInt64(o.Numero);
+                    DateTime? da = null;
+                    ulong id = 0;
+                    try { 
+                        da = DateTime.Parse(o.Data);
+                        id = Convert.ToUInt64(o.Numero);
+                    } catch(FormatException) {
+                        FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
+                    }
                     bool mod = false;
                     if(da == old.Data) {
                         da = null;
@@ -164,6 +174,24 @@ namespace IngegneriaDelSoftware.View {
                     tmpCliente = c;
                 }
                 o.Enabled = true;
+            };
+            result.OnCalcolaClick += async (o, e) => {
+                if(o.Key != null) {
+                    Preventivo current = (from fa in CollezionePreventivi.GetInstance()
+                                       where fa.ID == Convert.ToUInt64(o.Key)
+                                       select fa).FirstOrDefault();
+                    if(current != null) {
+                        var t = Task.Run<string>(() => {
+                            return current.Totale().ToString("C");
+                        });
+                        result.CleanPrettyVoce();
+                        current.ToList().ForEach((v) => {
+                            result.AggiungiPrettyVoce(v.ToString());
+                        });
+                        string res = await t;
+                        result.AggiungiResult(res);
+                    }
+                }
             };
             return result;
         }
@@ -215,12 +243,16 @@ namespace IngegneriaDelSoftware.View {
             result.OnCreaClick += async (o, e) => {
                 var t = Task.Run<CollezioneVendite>(() => { return CollezioneVendite.GetInstance(); });
                 if(string.IsNullOrEmpty(o.Key)) {
-                    controller.AggiungiVendita(
-                        new Vendita.DatiVendita(Convert.ToUInt64(o.Numero), tmpCliente, DateTime.Parse(o.Data), null),
-                        o.GetVoci().Select((el) => {
-                            return new VoceVendita(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale), el.Tipologia, el.Numero);
-                        }).ToList()
-                    );
+                    try {
+                        controller.AggiungiVendita(
+                            new Vendita.DatiVendita(Convert.ToUInt64(o.Numero), tmpCliente, DateTime.Parse(o.Data), null),
+                            o.GetVoci().Select((el) => {
+                                return new VoceVendita(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale), el.Tipologia, el.Numero);
+                            }).ToList()
+                        );
+                    } catch(FormatException) {
+                        FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
+                    }
                 } else {
                     CollezioneVendite col = await t;
                     //CollezioneVendite col =  CollezioneVendite.GetInstance();
@@ -230,8 +262,14 @@ namespace IngegneriaDelSoftware.View {
                     if(old == null) {
                         return;
                     }
-                    DateTime? da = DateTime.Parse(o.Data);
-                    ulong id = Convert.ToUInt64(o.Numero);
+                    DateTime? da = null;
+                    ulong id = 0;
+                    try {
+                        da = DateTime.Parse(o.Data);
+                        id = Convert.ToUInt64(o.Numero);
+                    } catch(FormatException) {
+                        FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
+                    }
                     bool mod = false;
                     if(mod = (da == old.Data)) {
                         da = null;
@@ -288,6 +326,24 @@ namespace IngegneriaDelSoftware.View {
                 }
                 o.Enabled = true;
             };
+            result.OnCalcolaClick += async (o, e) => {
+                if(o.Key != null) {
+                    Vendita current = (from fa in CollezioneVendite.GetInstance()
+                                       where fa.ID == Convert.ToUInt64(o.Key)
+                                       select fa).FirstOrDefault();
+                    if(current != null) {
+                        var t = Task.Run<string>(() => {
+                            return current.Totale().ToString("C");
+                        });
+                        result.CleanPrettyVoce();
+                        current.ToList().ForEach((v) => {
+                            result.AggiungiPrettyVoce(v.ToString());
+                        });
+                        string res = await t;
+                        result.AggiungiResult(res);
+                    }
+                }
+            };
             return result;
         }
         public static GenericForm getFatturaForm(ControllerFatture controller) {
@@ -339,20 +395,30 @@ namespace IngegneriaDelSoftware.View {
             result.OnCreaClick += async (o, e) => {
                 var t = Task.Run<CollezioneFatture>(() => { return CollezioneFatture.GetInstance(); });
                 if(String.IsNullOrEmpty(o.Key)) {
-                    controller.AggiungiFattura(new Fattura.DatiFattura(Convert.ToInt32(o.Anno), o.Numero, tmpCliente, DateTime.Parse(o.Data), 0), vendite, o.GetVoci().Select((el) => {
-                        return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale), el.Tipologia, el.Numero);
-                    }).ToList());
+                    try {
+                        controller.AggiungiFattura(new Fattura.DatiFattura(Convert.ToInt32(o.Anno), o.Numero, tmpCliente, DateTime.Parse(o.Data), 0), vendite, o.GetVoci().Select((el) => {
+                            return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale), el.Tipologia, el.Numero);
+                        }).ToList());
+                    } catch(FormatException) {
+                        FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
+                    }
                 } else {
                     CollezioneFatture col = await t;
                     //CollezioneFatture col = CollezioneFatture.GetInstance();
                     var old = (from fa in col
                                where fa.ID == o.Key
-                               select fa).FirstOrDefault(); ;
+                               select fa).FirstOrDefault();
                     if(old == null) {
                         return;
                     }
-                    DateTime? da = DateTime.Parse(o.Data);
-                    string numero = o.Numero;
+                    DateTime? da = null;
+                    string numero = null;
+                    try {
+                        da = DateTime.Parse(o.Data);
+                        numero = o.Numero;
+                    } catch(FormatException) {
+                        FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
+                    }
                     bool mod = false;
                     int anno = Convert.ToInt32(o.Anno);
                     if(da == old.Data) {
@@ -412,6 +478,24 @@ namespace IngegneriaDelSoftware.View {
                     }
                 }
                 o.Enabled = true;
+            };
+            result.OnCalcolaClick += async (o, e) => {
+                if(o.Key != null) {
+                    Fattura current = (from fa in CollezioneFatture.GetInstance()
+                     where fa.ID == o.Key
+                     select fa).FirstOrDefault();
+                    if(current != null) {
+                        var t = Task.Run<string>(() => {
+                            return current.Calcola();
+                        });
+                        result.CleanPrettyVoce();
+                        current.ToList().ForEach((v) => {
+                            result.AggiungiPrettyVoce(v.ToString());
+                        });
+                        string res = await t;
+                        result.AggiungiResult(res);
+                    }
+                }
             };
             return result;
         }

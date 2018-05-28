@@ -1,4 +1,5 @@
-﻿using IngegneriaDelSoftware.Persistenza;
+﻿using IngegneriaDelSoftware.Model.ArgsEvent;
+using IngegneriaDelSoftware.Persistenza;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +13,10 @@ namespace IngegneriaDelSoftware.Model
     {
         private HashSet<Appuntamento> _appuntamenti;
         private static Calendario _calendario;
-        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.MySQL);
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.NONE);
+        public event EventHandler<ArgsAppuntamento> OnAggiunta;
+        public event EventHandler<ArgsAppuntamento> OnRimozione;
+        public event EventHandler<ArgsModifica<Appuntamento>> OnModifica;
 
         /// <summary>
         /// Costruttore di Calendario
@@ -24,6 +28,7 @@ namespace IngegneriaDelSoftware.Model
 
             try
             {
+                //Riempe preventivamente il calendario con appuntamenti presi da DB
                 foreach (Appuntamento a in _persistenza.GetAppuntamentoDAO().LeggiTuttiAppuntamenti())
                 {
                     _appuntamenti.Add(a);
@@ -171,6 +176,38 @@ namespace IngegneriaDelSoftware.Model
             }
 
             return ((ICollection<Appuntamento>)_appuntamenti).Remove(item);
+        }
+
+        /// <summary>
+        /// Indexer di <see cref="Calendario"/>, dà l'elemento con un certo id
+        /// </summary>
+        /// <param name="idAppuntamento">Identificativo dell'appuntamento</param>
+        /// <returns></returns>
+        public Appuntamento this[int idAppuntamento]
+        {
+            get
+            {
+                foreach (Appuntamento f in this._appuntamenti)
+                {
+                    if (f.IDAppuntamento == idAppuntamento)
+                        return f;
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Lancia l'evento relativo ad un certo <see cref="Appuntamento"/>
+        /// </summary>
+        /// <param name="evento"></param>
+        /// <param name="appuntamento"></param>
+        private void LanciaEvento(EventHandler<ArgsAppuntamento> evento, Appuntamento appuntamento)
+        {
+            if (evento != null)
+            {
+                ArgsAppuntamento args = new ArgsAppuntamento(appuntamento);
+                evento(this, args);
+            }
         }
     }
 }

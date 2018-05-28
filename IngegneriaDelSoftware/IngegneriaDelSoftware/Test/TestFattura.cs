@@ -32,7 +32,7 @@ namespace IngegneriaDelSoftware.Test {
             fattura.Add(voce1);
             Assert.AreEqual(fattura.Count, 1);
             fattura.Add(voce1, voce2);
-            Assert.AreEqual(fattura.Calcola(), "80");
+            Assert.AreEqual(fattura.Calcola(), "96,0");
             fattura.Finalizza();
             var dati = new DatiFattura();
             Assert.Catch(() => fattura.DatiFatturaInterni = dati);

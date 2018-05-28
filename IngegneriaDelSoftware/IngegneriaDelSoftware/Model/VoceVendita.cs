@@ -38,9 +38,13 @@ namespace IngegneriaDelSoftware.Model {
 
         #region Funzioni Pubbliche
         public override string ToString() {
-            return String.Format("{0}, {1}", base.ToString(), this._provvigione);
+            return String.Format("{0}, {1}%", base.ToString(), this._provvigione*100);
         }
-        
+
+        public override decimal ValoreTotale() {
+            return base.ValoreTotale() + base.ValoreTotale() * Convert.ToDecimal(this._provvigione);
+        }
+
         /// <summary>
         /// Crea una nuova <see cref="VoceFattura"/> a partire da una <see cref="VoceVendita"/>.
         /// <para>Il valore dell'iva è quello di default (<c>0</c>)</para>

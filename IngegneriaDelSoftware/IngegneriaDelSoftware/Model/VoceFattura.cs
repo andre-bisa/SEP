@@ -39,7 +39,7 @@ namespace IngegneriaDelSoftware.Model {
 
         #region Funzioni pubbliche
         public override string ToString() {
-            return String.Format("{0}, {1}", base.ToString(), this._iva);
+            return String.Format("{0}, {1}%", base.ToString(), this._iva*100);
         }
 
         public override bool Equals(object obj)
@@ -48,6 +48,10 @@ namespace IngegneriaDelSoftware.Model {
             return fattura != null &&
                    base.Equals(obj) &&
                    Iva == fattura.Iva;
+        }
+
+        public override decimal ValoreTotale() {
+            return base.ValoreTotale() + base.ValoreTotale() * Convert.ToDecimal(this._iva);
         }
 
         public override int GetHashCode()

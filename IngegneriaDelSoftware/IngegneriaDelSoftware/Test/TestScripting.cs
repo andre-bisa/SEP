@@ -39,7 +39,7 @@ namespace IngegneriaDelSoftware.Test {
             var voce4 = new VoceFattura("Canapa", 20, 0f, "non imponibili");
 
             fattura.Add(voce1, voce2, voce3, voce4);
-            Assert.AreEqual("Imponibile: 10\nTotale: 60\n", fattura.Calcola());
+            Assert.AreEqual("Imponibile: 10\r\nTotale: 60\r\n", fattura.Calcola());
         }
     }
 }
