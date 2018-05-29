@@ -17,5 +17,9 @@ namespace IngegneriaDelSoftware.Persistenza.Dao
 
         List<Cliente> LeggiTuttiClienti();
 
+        bool InserisciReferente(Referente referente, Cliente cliente);
+
+        bool RimuoviReferente(Referente referente, Cliente cliente);
+
     }
 }

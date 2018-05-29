@@ -737,6 +737,7 @@
             this.BtnAggiungiEmail.TabIndex = 15;
             this.BtnAggiungiEmail.Text = "materialFloatingActionButton1";
             this.BtnAggiungiEmail.UseVisualStyleBackColor = true;
+            this.BtnAggiungiEmail.Click += new System.EventHandler(this.BtnAggiungiEmail_Click);
             // 
             // listEmail
             // 
@@ -761,6 +762,7 @@
             this.listEmail.TabIndex = 13;
             this.listEmail.UseCompatibleStateImageBehavior = false;
             this.listEmail.View = System.Windows.Forms.View.Details;
+            this.listEmail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listEmail_KeyDown);
             // 
             // EmailEmail
             // 
@@ -787,6 +789,7 @@
             this.BtnAggiungiTelefono.TabIndex = 17;
             this.BtnAggiungiTelefono.Text = "materialFloatingActionButton1";
             this.BtnAggiungiTelefono.UseVisualStyleBackColor = true;
+            this.BtnAggiungiTelefono.Click += new System.EventHandler(this.BtnAggiungiTelefono_Click);
             // 
             // listTelefoni
             // 
@@ -811,6 +814,7 @@
             this.listTelefoni.TabIndex = 15;
             this.listTelefoni.UseCompatibleStateImageBehavior = false;
             this.listTelefoni.View = System.Windows.Forms.View.Details;
+            this.listTelefoni.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listTelefoni_KeyDown);
             // 
             // TelefoniTelefono
             // 
@@ -865,6 +869,7 @@
             this.btnAggiungiReferente.TabIndex = 19;
             this.btnAggiungiReferente.Text = "materialFloatingActionButton1";
             this.btnAggiungiReferente.UseVisualStyleBackColor = true;
+            this.btnAggiungiReferente.Click += new System.EventHandler(this.btnAggiungiReferente_Click);
             // 
             // listReferenti
             // 
@@ -889,6 +894,7 @@
             this.listReferenti.TabIndex = 17;
             this.listReferenti.UseCompatibleStateImageBehavior = false;
             this.listReferenti.View = System.Windows.Forms.View.Details;
+            this.listReferenti.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listReferenti_KeyDown);
             // 
             // ReferentiReferente
             // 

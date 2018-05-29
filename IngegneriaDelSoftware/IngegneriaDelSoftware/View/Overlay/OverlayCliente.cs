@@ -45,6 +45,12 @@ namespace IngegneriaDelSoftware.View.Overlay
                 Cliente = cliente;
                 CaricaClienteSuForm();
             }
+            else // se non c'è un cliente non puoi inserire referenti/telefoni/email
+            {
+                BtnAggiungiEmail.Enabled = false;
+                btnAggiungiReferente.Enabled = false;
+                BtnAggiungiTelefono.Enabled = false;
+            }
         }
         #endregion
 
@@ -77,7 +83,7 @@ namespace IngegneriaDelSoftware.View.Overlay
             DatiPersona datiPersona;
             EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo;
             DatiCliente datiCliente;
-            List<Referente> listaReferenti = null;
+            List<Referente> listaReferenti = new List<Referente>();
             string nota = txtNote.Text;
 
             if (radioFisica.Checked)
@@ -94,18 +100,31 @@ namespace IngegneriaDelSoftware.View.Overlay
             else if (checkPotenziale.Checked)
                 tipoCliente = EnumTipoCliente.Potenziale;
 
-            datiCliente = new DatiCliente(txtCodice.Text, tipoCliente, listaReferenti, nota);
-            
-            if (Cliente == null) // devo creare un cliente
+            datiCliente = new DatiCliente(txtCodice.Text, tipoCliente, nota);
+
+            try
             {
-                Cliente = this._controller.AggiungiCliente(datiCliente, datiPersona);
-            }
-            else
+                if (Cliente == null) // devo creare un cliente
+                {
+                    Cliente = this._controller.AggiungiCliente(datiCliente, datiPersona);
+                }
+                else
+                {
+                    this._controller.ModificaCliente(Cliente, datiCliente, datiPersona);
+                }
+            } catch (Persistenza.ExceptionPersistenza)
             {
-                this._controller.ModificaCliente(Cliente, datiCliente, datiPersona);
+                MessageBox.Show("Errore durante la comunicazione con il DataBase. L'applicazione termina.", "Errore connessione DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
 
-            this.Close(); // Chiudo l'overlay
+            if (Cliente != null)
+                this.Close(); // Chiudo l'overlay
+            else
+            {
+                FormConfim.Show("Errore", "Il codice cliente esiste già.", MessageBoxButtons.OK);
+                txtCodice.Focus();
+            }
         }
 
         private void btnAnnulla_Click(object sender, EventArgs e)
@@ -227,6 +246,141 @@ namespace IngegneriaDelSoftware.View.Overlay
                 checkPotenziale.Enabled = true;
             }
             AbilitaCheckPerTipologiaCliente();
+        }
+
+        private void BtnAggiungiEmail_Click(object sender, EventArgs e)
+        {
+            FormInserisciEmail inserisciEmail = new FormInserisciEmail();
+            if (Cliente != null)
+            { // se c'è un cliente aggancio l'handler per salvare la nuova email
+                inserisciEmail.OnAggiunta += (o, email) => 
+                {
+                    try
+                    {
+                        Cliente.Persona.Email.Add(email.Email);
+                    } catch (Persistenza.ExceptionPersistenza)
+                    {
+                        MessageBox.Show("Errore durante la comunicazione con il DataBase. L'applicazione termina.", "Errore connessione DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Application.Exit();
+                    }
+                    };
+            }
+            // inserisco la mail nella lista grafica
+            inserisciEmail.OnAggiunta += (o, email) => 
+            {
+                string[] rows = {email.Email.Indirizzo, email.Email.Nota };
+                ListViewItem item = new ListViewItem(rows);
+                listEmail.Items.Add(item);
+            };
+            inserisciEmail.ShowDialog();
+        }
+
+        private void BtnAggiungiTelefono_Click(object sender, EventArgs e)
+        {
+            FormInserisciTelefono inserisciTelefono = new FormInserisciTelefono();
+            if (Cliente != null)
+            { // se c'è un cliente aggancio l'handler per salvare la nuova email
+                inserisciTelefono.OnAggiunta += (o, tel) => 
+                {
+                    try
+                    {
+                        Cliente.Persona.Telefoni.Add(tel.Telefono);
+                    } catch(Persistenza.ExceptionPersistenza)
+                    {
+                        MessageBox.Show("Errore durante la comunicazione con il DataBase. L'applicazione termina.", "Errore connessione DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Application.Exit();
+                    }
+                };
+            }
+            // inserisco la mail nella lista grafica
+            inserisciTelefono.OnAggiunta += (o, tel) =>
+            {
+                string[] rows = { tel.Telefono.Numero, tel.Telefono.Nota };
+                ListViewItem item = new ListViewItem(rows);
+                listTelefoni.Items.Add(item);
+            };
+            inserisciTelefono.ShowDialog();
+        }
+
+        private void btnAggiungiReferente_Click(object sender, EventArgs e)
+        {
+            FormInserisciReferente inserisciReferente = new FormInserisciReferente();
+            if (Cliente != null)
+            { // se c'è un cliente aggancio l'handler per salvare la nuova email
+                inserisciReferente.OnAggiunta += (o, r) => 
+                {
+                    try
+                    {
+                        Cliente.Referenti.Add(r.Referente);
+                    } catch (Persistenza.ExceptionPersistenza)
+                    {
+                        MessageBox.Show("Errore durante la comunicazione con il DataBase. L'applicazione termina.", "Errore connessione DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Application.Exit();
+                    }
+                };
+            }
+            // inserisco la mail nella lista grafica
+            inserisciReferente.OnAggiunta += (o, r) =>
+            {
+                string[] rows = { r.Referente.Nome, r.Referente.Nota };
+                ListViewItem item = new ListViewItem(rows);
+                listReferenti.Items.Add(item);
+            };
+            inserisciReferente.ShowDialog();
+        }
+
+        private void listEmail_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && Cliente != null && listEmail.SelectedItems.Count > 0)
+            {
+                if (FormConfim.Show("Rimuovere?", "Sei sicuro di voler eliminare la mail: " + listEmail.SelectedItems[0].SubItems[0].Text + "?") == DialogResult.OK)
+                {
+                    Email emailMock = new Email(listEmail.SelectedItems[0].SubItems[0].Text);
+                    Cliente.Persona.Email.Remove(emailMock);
+                    listEmail.Items.Remove(listEmail.SelectedItems[0]);
+
+                    FormConfim.Show("Rimosso", "Email rimossa.", MessageBoxButtons.OK);
+                }
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void listTelefoni_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && Cliente != null && listTelefoni.SelectedItems.Count > 0)
+            {
+                if (FormConfim.Show("Rimuovere?", "Sei sicuro di voler eliminare il telefono: " + listTelefoni.SelectedItems[0].SubItems[0].Text + "?") == DialogResult.OK)
+                {
+                    Telefono telefonoMock = new Telefono(listTelefoni.SelectedItems[0].SubItems[0].Text);
+                    Cliente.Persona.Telefoni.Remove(telefonoMock);
+                    listTelefoni.Items.Remove(listTelefoni.SelectedItems[0]);
+
+                    FormConfim.Show("Rimosso", "Telefono rimosso.", MessageBoxButtons.OK);
+                }
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void listReferenti_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && Cliente != null && listReferenti.SelectedItems.Count > 0)
+            {
+                if (FormConfim.Show("Rimuovere?", "Sei sicuro di voler eliminare il referente: " + listReferenti.SelectedItems[0].SubItems[0].Text + "?") == DialogResult.OK)
+                {
+                    Referente referenteMock = new Referente(listReferenti.SelectedItems[0].SubItems[0].Text);
+                    Cliente.Referenti.Remove(referenteMock);
+                    listReferenti.Items.Remove(listReferenti.SelectedItems[0]);
+
+                    FormConfim.Show("Rimosso", "Referente rimosso.", MessageBoxButtons.OK);
+                }
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
         }
     }
 }

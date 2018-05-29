@@ -17,6 +17,7 @@ namespace IngegneriaDelSoftware.Model
         #region Campi privati
         private DatiCliente _datiCliente;
         private Persona _persona;
+        private CollezioneReferenti _referenti;
         #endregion
 
         #region Proprietà
@@ -64,7 +65,7 @@ namespace IngegneriaDelSoftware.Model
         {
             get
             {
-                return _datiCliente.Referenti;
+                return _referenti;
             }
         }
 
@@ -106,12 +107,15 @@ namespace IngegneriaDelSoftware.Model
                 throw new ArgumentNullException(nameof(nota));
             }
             #endregion
-            this._datiCliente = new DatiCliente(IDCliente, tipoCliente, referenti, nota);
+            this._datiCliente = new DatiCliente(IDCliente, tipoCliente, nota);
             _persona = persona;
             persona.OnModifica += this.PersonaModificata;
+            this._referenti = new CollezioneReferenti(referenti);
+            this._referenti.OnAggiunta += (o, e) => { _persistenza.GetClienteDAO().InserisciReferente(e.Referente, this); LanciaEvento(this); };
+            this._referenti.OnRimozione += (o, e) => { _persistenza.GetClienteDAO().RimuoviReferente(e.Referente, this); LanciaEvento(this); };
         }
 
-        public Cliente(DatiCliente cliente, Persona persona) : this(persona, cliente.IDCliente, cliente.Referenti, cliente.TipoCliente, cliente.Nota)
+        public Cliente(DatiCliente cliente, Persona persona, IEnumerable<Referente> referenti = null) : this(persona, cliente.IDCliente, referenti, cliente.TipoCliente, cliente.Nota)
         {}
         #endregion
 
@@ -197,7 +201,7 @@ namespace IngegneriaDelSoftware.Model
                 throw new ArgumentException();
             }
 
-            DatiCliente nuoviDati = new DatiCliente(this.IDCliente, nuovoTipoCliente, this.Referenti, this.Nota);
+            DatiCliente nuoviDati = new DatiCliente(this.IDCliente, nuovoTipoCliente, this.Nota);
             CambiaDatiCliente(nuoviDati);
         }
 
@@ -244,7 +248,7 @@ namespace IngegneriaDelSoftware.Model
 
         protected Cliente Clone()
         {
-            return new Cliente(this._datiCliente, this._persona);
+            return new Cliente(this._datiCliente, this._persona, this._referenti);
         }
         #endregion
     }
@@ -253,11 +257,10 @@ namespace IngegneriaDelSoftware.Model
     {
         public string IDCliente { get; private set; }
         public string Nota { get; private set; }
-        public CollezioneReferenti Referenti { get; private set; }
         public EnumTipoCliente TipoCliente { get; private set; }
 
         #region Costruttori
-        public DatiCliente(string IDCliente, EnumTipoCliente tipoCliente, IEnumerable<Referente> referenti = null, string nota = "")
+        public DatiCliente(string IDCliente, EnumTipoCliente tipoCliente, string nota = "")
         {
             #region Controlli
             if (IDCliente == null)
@@ -268,7 +271,6 @@ namespace IngegneriaDelSoftware.Model
 
             this.IDCliente = IDCliente;
             this.TipoCliente = tipoCliente;
-            this.Referenti = new CollezioneReferenti(referenti); // La gestione del null la fa la ListaReferenti
             this.Nota = nota;
         }
         #endregion

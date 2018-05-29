@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Model
 {
     public class CollezioneReferenti : ICollection<Referente>, IEnumerable<Referente>
     {
+        public event EventHandler<ArgsReferente> OnAggiunta;
+        public event EventHandler<ArgsReferente> OnRimozione;
+
         //Set poiche' non ha senso aggiungere due o piu' referenti uguali
         private HashSet<Referente> _referenti;
 
@@ -38,15 +42,23 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public void Add(Referente item)
         {
+            if (_referenti.Contains(item))
+                return;
+
             ((ICollection<Referente>)_referenti).Add(item);
+            if (OnAggiunta != null)
+            {
+                ArgsReferente args = new ArgsReferente(item);
+                OnAggiunta(this, args);
+            }
         }
 
         /// <summary>
-        /// Svuota la lista
+        /// Funzione non supportata!
         /// </summary>
         public void Clear()
         {
-            ((ICollection<Referente>)_referenti).Clear();
+            throw new NotSupportedException();
         }
 
         /// <summary>
@@ -78,7 +90,13 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public bool Remove(Referente item)
         {
-            return ((ICollection<Referente>)_referenti).Remove(item);
+            bool risultato = ((ICollection<Referente>)_referenti).Remove(item);
+            if (OnRimozione != null)
+            {
+                ArgsReferente args = new ArgsReferente(item);
+                OnRimozione(this, args);
+            }
+            return risultato;
         }
 
         IEnumerator IEnumerable.GetEnumerator()

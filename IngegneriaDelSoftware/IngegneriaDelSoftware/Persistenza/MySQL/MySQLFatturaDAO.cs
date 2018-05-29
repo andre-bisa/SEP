@@ -12,7 +12,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
     public class MySQLFatturaDAO : IFatturaDAO
     {
         // Inserisci
-        private static string INSERISCI_FATTURA = "INSERT INTO FATTURA(IDUTENTE,ANNO,NUMERO,DATA,BASE_IMPONIBILE,SCONTO,TOTALE,TIPOAGENTE,IDDATORELAVORO,IDCLIENTE) VALUES(@idutente,@anno,@numero,@data,@baseimponibile,@sconto,@totale,@tipoagente,@iddatorelavoto,@idcliente);";
+        private static string INSERISCI_FATTURA = "INSERT INTO FATTURA(IDUTENTE,ANNO,NUMERO,DATA,BASE_IMPONIBILE,SCONTO,TOTALE,TIPOAGENTE,IDDATORELAVORO,IDCLIENTE) VALUES(@idutente,@anno,@numero,@data,@baseimponibile,@sconto,@totale,@tipoagente,@iddatorelavoro,@idcliente);";
 
         // Aggiorna
         private static string AGGIORNA_FATTURA = "UPDATE FATTURA SET ANNO=@anno,NUMERO=@numero,DATA=@data,BASE_IMPONIBILE=@baseimponibile,SCONTO=@sconto,TOTALE=@totale,TIPOAGENTE=@tipoagente,IDDATORELAVORO=@iddatorelavoro,IDCLIENTE=@idcliente WHERE IDUTENTE=@idutente AND ANNO=@oldAnno AND NUMERO=@oldNumero;";
@@ -62,7 +62,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         }
 
         public bool Crea(Fattura nuova)
-        { // NOT TESTED
+        {
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
@@ -73,11 +73,19 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             if (cmd == null)
                 throw new ExceptionPersistenza();
 
-            cmd.CommandText = INSERISCI_FATTURA;
+            cmd.CommandText = "START TRANSACTION;";
+
+            cmd.CommandText += INSERISCI_FATTURA;
+
+            foreach (Vendita v in nuova.VenditeDiProvenienza)
+            {
+                cmd.CommandText += "INSERT INTO VENDITEFATTURA(ANNO, NUMERO, IDUTENTE, IDVENDITA) VALUES(@anno,@numero, @idutente, " + v.ID + ");";
+            }
 
             InserisciParametriFattura(nuova, cmd);
-
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+
+            cmd.CommandText += "COMMIT;";
 
             int modifiche = cmd.ExecuteNonQuery();
             connessione.Close();

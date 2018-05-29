@@ -588,7 +588,7 @@ namespace IngegneriaDelSoftware.View {
                             }
                             break;
                         case 4: //Provvigione o Iva %
-                            voce.Importo = Double.Parse(current.Text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.CurrentCulture);
+                            voce.Opzionale = Double.Parse(current.Text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.CurrentCulture);
                             if(this._provvigione) {
                                 result.Add(voce);
                             }

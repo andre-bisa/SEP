@@ -84,7 +84,7 @@ namespace IngegneriaDelSoftware.View {
                         return;
                     }
                     var cliente = preventivo.Cliente;
-                    CaricaCliente(result, cliente, null, preventivo.ID.ToString(), preventivo.Data.Date.ToString());
+                    CaricaCliente(result, cliente, null, preventivo.ID.ToString(), preventivo.Data.Date.ToShortDateString());
                     foreach(VocePreventivo voce in preventivo) {
                         result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);
                     }
@@ -233,7 +233,7 @@ namespace IngegneriaDelSoftware.View {
                         return;
                     }
                     var cliente = vendita.Cliente;
-                    CaricaCliente(result, cliente, null, vendita.ID.ToString(), vendita.Data.Date.ToString());
+                    CaricaCliente(result, cliente, null, vendita.ID.ToString(), vendita.Data.Date.ToShortDateString());
                     foreach(VoceVendita voce in vendita) {
                         result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), voce.Provvigione, voce.Quantita);
                     }
@@ -314,7 +314,7 @@ namespace IngegneriaDelSoftware.View {
                                                       where p.Cliente.Equals(c)
                                                       select p).ToList())) != null) {
                         var vendita = Vendita.FromPreventivo(0, prop, null);
-                        CaricaCliente(result, vendita.Cliente, "", null, vendita.Data.Date.ToString());
+                        CaricaCliente(result, vendita.Cliente, "", null, vendita.Data.Date.ToShortDateString());
                         foreach(VoceVendita voce in vendita) {
                             result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);
                         }
@@ -385,9 +385,9 @@ namespace IngegneriaDelSoftware.View {
                         return;
                     }
                     var cliente = fattura.Cliente;
-                    CaricaCliente(result, cliente, fattura.Anno.ToString(), fattura.Numero, fattura.Data.Date.ToString());
+                    CaricaCliente(result, cliente, fattura.Anno.ToString(), fattura.Numero, fattura.Data.Date.ToShortDateString());
                     foreach(VoceFattura voce in fattura) {
-                        result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);
+                        result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), voce.Iva * 100, voce.Quantita);
                     }
                     result.Key = fattura.ID;
                 }
@@ -397,7 +397,7 @@ namespace IngegneriaDelSoftware.View {
                 if(String.IsNullOrEmpty(o.Key)) {
                     try {
                         controller.AggiungiFattura(new Fattura.DatiFattura(Convert.ToInt32(o.Anno), o.Numero, tmpCliente, DateTime.Parse(o.Data), 0), vendite, o.GetVoci().Select((el) => {
-                            return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale), el.Tipologia, el.Numero);
+                            return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale / 100), el.Tipologia, el.Numero);
                         }).ToList());
                     } catch(FormatException) {
                         FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
@@ -448,7 +448,7 @@ namespace IngegneriaDelSoftware.View {
                     List<VoceFattura> voci = new List<VoceFattura>();
                     voci.AddRange(
                         o.GetVoci().Select((el) => {
-                            return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale), el.Tipologia, el.Numero);
+                            return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale / 100), el.Tipologia, el.Numero);
                         })
                     );
                     controller.UpdateFattura(o.Key, dat, voci);

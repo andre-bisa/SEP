@@ -11,6 +11,8 @@ namespace IngegneriaDelSoftware.Model {
 
         #region Campi privati
         private DatiPersonaGiuridica _datiPersona;
+        private CollezioneTelefoni _telefoni;
+        private CollezioneEmail _email;
 
         private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza);
         #endregion
@@ -76,7 +78,7 @@ namespace IngegneriaDelSoftware.Model {
         {
             get
             {
-                return this._datiPersona.Telefoni;
+                return this._telefoni;
             }
         }
 
@@ -84,7 +86,7 @@ namespace IngegneriaDelSoftware.Model {
         {
             get
             {
-                return this._datiPersona.Email;
+                return this._email;
             }
         }
         #endregion
@@ -102,16 +104,24 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="email">Gli indirizzi email della persona</param>
         /// <exception cref="ArgumentNullException"></exception>
         public PersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, IEnumerable<Telefono> telefoni = null, IEnumerable<Email> email = null) {
-            this._datiPersona = new DatiPersonaGiuridica(codiceFiscale, indirizzo, ragioneSociale, sedeLegale, partitaIVA, telefoni, email);
+            this._datiPersona = new DatiPersonaGiuridica(codiceFiscale, indirizzo, ragioneSociale, sedeLegale, partitaIVA);
+            this._email = new CollezioneEmail(email);
+            this._telefoni = new CollezioneTelefoni(telefoni);
             this.Email.OnAggiunta += (o, e) => { _persistenza.GetPersonaDAO().InserisciEmail(e.Email, this); LanciaEvento(this); };
             this.Email.OnRimozione += (o, e) => { _persistenza.GetPersonaDAO().RimuoviEmail(e.Email, this); LanciaEvento(this); };
+            this.Telefoni.OnAggiunta += (o, e) => { _persistenza.GetPersonaDAO().InserisciTelefono(e.Telefono, this); LanciaEvento(this); };
+            this.Telefoni.OnRimozione += (o, e) => { _persistenza.GetPersonaDAO().RimuoviTelefono(e.Telefono, this); LanciaEvento(this); };
         }
 
         public PersonaGiuridica(DatiPersonaGiuridica datiPersonaGiuridica)
         {
             this._datiPersona = datiPersonaGiuridica;
+            this._email = new CollezioneEmail();
+            this._telefoni = new CollezioneTelefoni();
             this.Email.OnAggiunta += (o, e) => { LanciaEvento(this); };
             this.Email.OnRimozione += (e, o) => { LanciaEvento(this); };
+            this.Telefoni.OnAggiunta += (o, e) => { _persistenza.GetPersonaDAO().InserisciTelefono(e.Telefono, this); LanciaEvento(this); };
+            this.Telefoni.OnRimozione += (o, e) => { _persistenza.GetPersonaDAO().RimuoviTelefono(e.Telefono, this); LanciaEvento(this); };
         }
         #endregion
 
@@ -170,8 +180,6 @@ namespace IngegneriaDelSoftware.Model {
         #region Campi privati
         private string _codiceFiscale;
         private string _indirizzo;
-        private CollezioneTelefoni _telefoni;
-        private CollezioneEmail _email;
         private string _ragioneSociale;
         private string _sedeLegale;
         private string _partitaIVA;
@@ -194,20 +202,6 @@ namespace IngegneriaDelSoftware.Model {
             get
             {
                 return _indirizzo;
-            }
-        }
-        public override CollezioneTelefoni Telefoni
-        {
-            get
-            {
-                return this._telefoni;
-            }
-        }
-        public override CollezioneEmail Email
-        {
-            get
-            {
-                return _email;
             }
         }
 
@@ -237,7 +231,7 @@ namespace IngegneriaDelSoftware.Model {
         #endregion
 
         #region Costruttori
-        public DatiPersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA, IEnumerable<Telefono> telefoni = null, IEnumerable<Email> email = null)
+        public DatiPersonaGiuridica(string codiceFiscale, string indirizzo, string ragioneSociale, string sedeLegale, string partitaIVA)
         {
             #region Controlli
             if (codiceFiscale == null)
@@ -257,8 +251,6 @@ namespace IngegneriaDelSoftware.Model {
             this._ragioneSociale = ragioneSociale;
             this._sedeLegale = sedeLegale;
             this._partitaIVA = partitaIVA;
-            this._telefoni = new CollezioneTelefoni(telefoni);
-            this._email = new CollezioneEmail(email);
         }
         #endregion
 

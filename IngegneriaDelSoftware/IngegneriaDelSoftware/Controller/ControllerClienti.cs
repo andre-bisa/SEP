@@ -26,6 +26,39 @@ namespace IngegneriaDelSoftware.Controller
         }
 
         /// <summary>
+        /// Aggiunge una mail al cliente
+        /// </summary>
+        /// <param name="cliente">Cliente a cui aggiungere la mail</param>
+        /// <param name="email">Email da aggiungere</param>
+        /// <exception cref="ExceptionPersistenza">In caso di errori della persistenza</exception>
+        public void AggiungiEmail(Cliente cliente, Email email)
+        {
+            cliente.Persona.Email.Add(email);
+        }
+
+        /// <summary>
+        /// Aggiunge un telefono al cliente
+        /// </summary>
+        /// <param name="cliente">Cliente a cui aggiungere la mail</param>
+        /// <param name="telefono">Telefono da aggiungere</param>
+        /// <exception cref="ExceptionPersistenza">In caso di errori della persistenza</exception>
+        public void AggiungiTelefono(Cliente cliente, Telefono telefono)
+        {
+            cliente.Persona.Telefoni.Add(telefono);
+        }
+
+        /// <summary>
+        /// Aggiunge un referente al cliente
+        /// </summary>
+        /// <param name="cliente">Cliente a cui aggiungere la mail</param>
+        /// <param name="referente">Referente da aggiungere</param>
+        /// <exception cref="ExceptionPersistenza">In caso di errori della persistenza</exception>
+        public void AggiungiReferente(Cliente cliente, Referente referente)
+        {
+            cliente.Referenti.Add(referente);
+        }
+
+        /// <summary>
         /// Aggiunge un cliente alla <see cref="CollezioneClienti"/>.
         /// </summary>
         /// <param name="cliente">I dati del <see cref="Cliente"/> da aggiungere</param>
@@ -48,6 +81,10 @@ namespace IngegneriaDelSoftware.Controller
             }
 
             Cliente risultato = new Cliente(cliente, persona);
+
+            if (_clienti.Contains(risultato))
+                return null;
+
             if (risultato != null)
                 this._clienti.Add(risultato);
             return risultato;

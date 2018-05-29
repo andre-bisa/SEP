@@ -35,11 +35,21 @@ namespace IngegneriaDelSoftware.Persistenza.XML {
             throw new NotImplementedException();
         }
 
+        public bool InserisciReferente(Referente referente, Cliente cliente)
+        {
+            throw new NotImplementedException();
+        }
+
         public Cliente Leggi(string IDCliente) {
             throw new NotImplementedException();
         }
 
         public List<Cliente> LeggiTuttiClienti() {
+            throw new NotImplementedException();
+        }
+
+        public bool RimuoviReferente(Referente referente, Cliente cliente)
+        {
             throw new NotImplementedException();
         }
     }

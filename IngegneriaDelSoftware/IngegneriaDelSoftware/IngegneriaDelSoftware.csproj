@@ -69,6 +69,8 @@
     <Compile Include="Login\ControllerLogin.cs" />
     <Compile Include="Model\ArgsEvent\ArgsAppuntamento.cs" />
     <Compile Include="Model\ArgsEvent\ArgsEmail.cs" />
+    <Compile Include="Model\ArgsEvent\ArgsReferente.cs" />
+    <Compile Include="Model\ArgsEvent\ArgsTelefono.cs" />
     <Compile Include="Model\CollezioneAppuntamenti.cs" />
     <Compile Include="Controller\ControllerCalendario.cs" />
     <Compile Include="Controller\ControllerClienti.cs" />
@@ -173,6 +175,24 @@
     <Compile Include="View\FormConfim.Designer.cs">
       <DependentUpon>FormConfim.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\FormInserisciReferente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FormInserisciReferente.Designer.cs">
+      <DependentUpon>FormInserisciReferente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\FormInserisciTelefono.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FormInserisciTelefono.Designer.cs">
+      <DependentUpon>FormInserisciTelefono.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\FormInserisciEmail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\FormInserisciEmail.Designer.cs">
+      <DependentUpon>FormInserisciEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\GenericForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -256,6 +276,15 @@
     </Compile>
     <EmbeddedResource Include="View\FormConfim.resx">
       <DependentUpon>FormConfim.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FormInserisciReferente.resx">
+      <DependentUpon>FormInserisciReferente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FormInserisciTelefono.resx">
+      <DependentUpon>FormInserisciTelefono.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\FormInserisciEmail.resx">
+      <DependentUpon>FormInserisciEmail.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\GenericForm.resx">
       <DependentUpon>GenericForm.cs</DependentUpon>

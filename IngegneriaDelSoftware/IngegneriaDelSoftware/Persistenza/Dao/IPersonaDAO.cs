@@ -15,5 +15,9 @@ namespace IngegneriaDelSoftware.Persistenza.Dao
 
         bool RimuoviEmail(Email email, Persona persona);
 
+        bool InserisciTelefono(Telefono telefono, Persona persona);
+
+        bool RimuoviTelefono(Telefono telefono, Persona persona);
+
     }
 }

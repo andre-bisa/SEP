@@ -55,15 +55,15 @@
             panelLabelX.BackColor = System.Drawing.Color.Transparent;
             panelLabelX.Controls.Add(this.lblClose);
             panelLabelX.Dock = System.Windows.Forms.DockStyle.Right;
-            panelLabelX.Location = new System.Drawing.Point(368, 0);
+            panelLabelX.Location = new System.Drawing.Point(366, 0);
             panelLabelX.Margin = new System.Windows.Forms.Padding(0);
             panelLabelX.Name = "panelLabelX";
-            panelLabelX.Size = new System.Drawing.Size(30, 30);
+            panelLabelX.Size = new System.Drawing.Size(30, 28);
             panelLabelX.TabIndex = 0;
             // 
             // lblClose
             // 
-            this.lblClose.BackColor = System.Drawing.Color.Red;
+            this.lblClose.BackColor = System.Drawing.Color.LightCoral;
             this.lblClose.Depth = 0;
             this.lblClose.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblClose.Font = new System.Drawing.Font("Roboto", 11F);
@@ -71,11 +71,13 @@
             this.lblClose.Location = new System.Drawing.Point(0, 0);
             this.lblClose.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblClose.Name = "lblClose";
-            this.lblClose.Size = new System.Drawing.Size(30, 30);
+            this.lblClose.Size = new System.Drawing.Size(30, 28);
             this.lblClose.TabIndex = 0;
             this.lblClose.Text = "X";
             this.lblClose.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblClose.Click += new System.EventHandler(this.LblClose_Click);
+            this.lblClose.MouseLeave += new System.EventHandler(this.lblClose_MouseLeave);
+            this.lblClose.MouseHover += new System.EventHandler(this.lblClose_MouseHover);
             // 
             // panelFillDocked
             // 
@@ -99,7 +101,7 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.AliceBlue;
+            this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.Menu;
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
@@ -141,6 +143,7 @@
             // panelTitle
             // 
             panelTitle.BackColor = System.Drawing.Color.White;
+            panelTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelTitle.Controls.Add(this.lblTitolo);
             panelTitle.Controls.Add(panelLabelX);
             panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
@@ -151,7 +154,7 @@
             // 
             // lblTitolo
             // 
-            this.lblTitolo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTitolo.BackColor = System.Drawing.Color.LightGray;
             this.lblTitolo.Depth = 0;
             this.lblTitolo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitolo.Font = new System.Drawing.Font("Roboto", 11F);
@@ -159,7 +162,7 @@
             this.lblTitolo.Location = new System.Drawing.Point(0, 0);
             this.lblTitolo.MouseState = MaterialSkin.MouseState.HOVER;
             this.lblTitolo.Name = "lblTitolo";
-            this.lblTitolo.Size = new System.Drawing.Size(368, 30);
+            this.lblTitolo.Size = new System.Drawing.Size(366, 28);
             this.lblTitolo.TabIndex = 1;
             this.lblTitolo.Text = "Titolo";
             this.lblTitolo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
