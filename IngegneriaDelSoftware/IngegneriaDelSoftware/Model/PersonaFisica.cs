@@ -107,6 +107,8 @@ namespace IngegneriaDelSoftware.Model
         public PersonaFisica(DatiPersonaFisica datiPersonaFisica)
         {
             this._datiPersona = datiPersonaFisica;
+            this._email = new CollezioneEmail();
+            this._telefoni = new CollezioneTelefoni();
             this.Email.OnAggiunta += (o, e) => { LanciaEvento(this); };
             this.Email.OnRimozione += (e, o) => { LanciaEvento(this); };
             this.Telefoni.OnAggiunta += (o, e) => { _persistenza.GetPersonaDAO().InserisciTelefono(e.Telefono, this); LanciaEvento(this); };

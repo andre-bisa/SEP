@@ -65,7 +65,7 @@ namespace IngegneriaDelSoftware.Controller
         /// <param name="datiPersonaGenerica">I dati della <see cref="Persona"/> associati al <see cref="Cliente"/></param>
         /// <returns>Il <see cref="Cliente"/> appena inserito, <c>null</c> in caso di errori</returns>
         /// <exception cref="ExceptionPersistenza">Eccezione lanciata in caso di insuccesso nelle comunicazioni con il DB</exception>
-        public Cliente AggiungiCliente(DatiCliente cliente, DatiPersona datiPersonaGenerica, IEnumerable<Referente> referenti = null)
+        public Cliente AggiungiCliente(DatiCliente cliente, DatiPersona datiPersonaGenerica)
         {
             Persona persona;
 
@@ -80,7 +80,7 @@ namespace IngegneriaDelSoftware.Controller
                 persona = new PersonaGiuridica(datiPersona);
             }
 
-            Cliente risultato = new Cliente(cliente, persona, referenti);
+            Cliente risultato = new Cliente(cliente, persona);
             if (risultato != null)
                 this._clienti.Add(risultato);
             return risultato;

@@ -19,7 +19,7 @@ namespace IngegneriaDelSoftware
         static void Main()
         {
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Login());
+            Application.Run(new Login());
             
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = EnumTipoPersistenza.MySQL;
@@ -43,8 +43,8 @@ namespace IngegneriaDelSoftware
             Application.Run(g);
             */
             //Application.Run(new FormAppuntamenti());
-            //Application.Run(new FormClienti(controller));
-            Email email = new Email("gne", "buu");
+            Application.Run(new FormClienti(controller));
+            /*Email email = new Email("gne", "buu");
             CollezioneClienti.GetInstance().Get("1").Persona.Email.Add(email);
             CollezioneClienti.GetInstance().Get("1").Persona.Email.Remove(email);
 
@@ -54,7 +54,7 @@ namespace IngegneriaDelSoftware
 
             Referente r = new Referente("Nome", "nota");
             CollezioneClienti.GetInstance().Get("1").Referenti.Add(r);
-            CollezioneClienti.GetInstance().Get("1").Referenti.Remove(r);
+            CollezioneClienti.GetInstance().Get("1").Referenti.Remove(r);*/
             /*Application.Run(new FormEmail(controller));
             Application.Run(new Login());
             Application.Run(new VisualizzaCalendario());
@@ -79,8 +79,8 @@ namespace IngegneriaDelSoftware
             CollezioneVendite.GetInstance().Add(vendita);
             CollezionePreventivi.GetInstance().Add(preventivo);
             CollezioneFatture.GetInstance().Add(fattura);
-            //Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
-            //Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
+            Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
+            Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
             Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
 
             var app1 = new Appuntamento(1, persona, "I like this one", "Cucina", DateTime.Now);

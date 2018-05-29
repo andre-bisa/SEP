@@ -737,6 +737,7 @@
             this.BtnAggiungiEmail.TabIndex = 15;
             this.BtnAggiungiEmail.Text = "materialFloatingActionButton1";
             this.BtnAggiungiEmail.UseVisualStyleBackColor = true;
+            this.BtnAggiungiEmail.Click += new System.EventHandler(this.BtnAggiungiEmail_Click);
             // 
             // listEmail
             // 
@@ -787,6 +788,7 @@
             this.BtnAggiungiTelefono.TabIndex = 17;
             this.BtnAggiungiTelefono.Text = "materialFloatingActionButton1";
             this.BtnAggiungiTelefono.UseVisualStyleBackColor = true;
+            this.BtnAggiungiTelefono.Click += new System.EventHandler(this.BtnAggiungiTelefono_Click);
             // 
             // listTelefoni
             // 
@@ -865,6 +867,7 @@
             this.btnAggiungiReferente.TabIndex = 19;
             this.btnAggiungiReferente.Text = "materialFloatingActionButton1";
             this.btnAggiungiReferente.UseVisualStyleBackColor = true;
+            this.btnAggiungiReferente.Click += new System.EventHandler(this.btnAggiungiReferente_Click);
             // 
             // listReferenti
             // 

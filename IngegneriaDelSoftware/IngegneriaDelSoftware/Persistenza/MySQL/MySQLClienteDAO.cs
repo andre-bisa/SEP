@@ -27,7 +27,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         private static readonly string AGGIORNA_CLIENTE = "UPDATE CLIENTE SET IDCLIENTE=@idcliente,TIPO=@tipoC,NOTE=@note WHERE IDUTENTE=@idutente AND IDCLIENTE=@old_idcliente;";
 
         // Elimina
-        private static readonly string ELIMINA_PERSONA = "DELETE PERSONA.* FROM PERSONA INNER JOIN CLIENTE ON CLIENTE.IDPERSONA=CLIENTE.IDPERSONA AND CLIENTE.IDUTENTE=PERSONA.IDUTENTE WHERE PERSONA.IDUTENTE=@idutente AND CLIENTE.IDCLIENTE=@idcliente;";
+        private static readonly string ELIMINA_PERSONA = "DELETE PERSONA.* FROM PERSONA INNER JOIN CLIENTE ON CLIENTE.IDPERSONA=PERSONA.IDPERSONA AND CLIENTE.IDUTENTE=PERSONA.IDUTENTE WHERE PERSONA.IDUTENTE=@idutente AND CLIENTE.IDCLIENTE=@idcliente;";
 
         // Tabelle esterne
         private static readonly string ELIMINA_REFERENTE = "DELETE FROM REFERENTE WHERE IDUTENTE=@idutente AND IDCLIENTE=@idcliente AND NOME=@nome;";
@@ -212,10 +212,10 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.CommandText = "START TRANSACTION;";
 
             cmd.CommandText += ELIMINA_PERSONA;
-            cmd.Parameters.AddWithValue("@idcliente", IDCliente);
 
             cmd.CommandText += "COMMIT;";
 
+            cmd.Parameters.AddWithValue("@idcliente", IDCliente);
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();

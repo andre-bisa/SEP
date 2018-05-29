@@ -73,6 +73,16 @@ namespace IngegneriaDelSoftware.View.Overlay
         {
             this.Close();
         }
+
+        private void lblClose_MouseHover(object sender, EventArgs e)
+        {
+            lblClose.BackColor = System.Drawing.Color.Red;
+        }
+
+        private void lblClose_MouseLeave(object sender, EventArgs e)
+        {
+            lblClose.BackColor = System.Drawing.Color.LightCoral;
+        }
         #endregion
 
         #region "Metodi pubblici"
@@ -109,5 +119,6 @@ namespace IngegneriaDelSoftware.View.Overlay
             this.Panel.BringToFront();
         }
         #endregion
+
     }
 }

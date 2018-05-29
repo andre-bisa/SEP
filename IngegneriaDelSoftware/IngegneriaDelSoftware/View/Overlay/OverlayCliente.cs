@@ -45,6 +45,12 @@ namespace IngegneriaDelSoftware.View.Overlay
                 Cliente = cliente;
                 CaricaClienteSuForm();
             }
+            else // se non c'è un cliente non puoi inserire referenti/telefoni/email
+            {
+                BtnAggiungiEmail.Enabled = false;
+                btnAggiungiReferente.Enabled = false;
+                BtnAggiungiTelefono.Enabled = false;
+            }
         }
         #endregion
 
@@ -95,15 +101,21 @@ namespace IngegneriaDelSoftware.View.Overlay
                 tipoCliente = EnumTipoCliente.Potenziale;
 
             datiCliente = new DatiCliente(txtCodice.Text, tipoCliente, nota);
-            
-            if (Cliente == null) // devo creare un cliente
+
+            try
             {
-                Cliente = this._controller.AggiungiCliente(datiCliente, datiPersona, listaReferenti);
-                // TODO Aggiungere email, telefoni e referenti
-            }
-            else
+                if (Cliente == null) // devo creare un cliente
+                {
+                    Cliente = this._controller.AggiungiCliente(datiCliente, datiPersona);
+                }
+                else
+                {
+                    this._controller.ModificaCliente(Cliente, datiCliente, datiPersona);
+                }
+            } catch (Persistenza.ExceptionPersistenza)
             {
-                this._controller.ModificaCliente(Cliente, datiCliente, datiPersona);
+                MessageBox.Show("Errore durante la comunicazione con il DataBase. L'applicazione termina.", "Errore connessione DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
 
             this.Close(); // Chiudo l'overlay
@@ -228,6 +240,87 @@ namespace IngegneriaDelSoftware.View.Overlay
                 checkPotenziale.Enabled = true;
             }
             AbilitaCheckPerTipologiaCliente();
+        }
+
+        private void BtnAggiungiEmail_Click(object sender, EventArgs e)
+        {
+            FormInserisciEmail inserisciEmail = new FormInserisciEmail();
+            if (Cliente != null)
+            { // se c'è un cliente aggancio l'handler per salvare la nuova email
+                inserisciEmail.OnAggiunta += (o, email) => 
+                {
+                    try
+                    {
+                        Cliente.Persona.Email.Add(email.Email);
+                    } catch (Persistenza.ExceptionPersistenza)
+                    {
+                        MessageBox.Show("Errore durante la comunicazione con il DataBase. L'applicazione termina.", "Errore connessione DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Application.Exit();
+                    }
+                    };
+            }
+            // inserisco la mail nella lista grafica
+            inserisciEmail.OnAggiunta += (o, email) => 
+            {
+                string[] rows = {email.Email.Indirizzo, email.Email.Nota };
+                ListViewItem item = new ListViewItem(rows);
+                listEmail.Items.Add(item);
+            };
+            inserisciEmail.ShowDialog();
+        }
+
+        private void BtnAggiungiTelefono_Click(object sender, EventArgs e)
+        {
+            FormInserisciTelefono inserisciTelefono = new FormInserisciTelefono();
+            if (Cliente != null)
+            { // se c'è un cliente aggancio l'handler per salvare la nuova email
+                inserisciTelefono.OnAggiunta += (o, tel) => 
+                {
+                    try
+                    {
+                        Cliente.Persona.Telefoni.Add(tel.Telefono);
+                    } catch(Persistenza.ExceptionPersistenza)
+                    {
+                        MessageBox.Show("Errore durante la comunicazione con il DataBase. L'applicazione termina.", "Errore connessione DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Application.Exit();
+                    }
+                };
+            }
+            // inserisco la mail nella lista grafica
+            inserisciTelefono.OnAggiunta += (o, tel) =>
+            {
+                string[] rows = { tel.Telefono.Numero, tel.Telefono.Nota };
+                ListViewItem item = new ListViewItem(rows);
+                listTelefoni.Items.Add(item);
+            };
+            inserisciTelefono.ShowDialog();
+        }
+
+        private void btnAggiungiReferente_Click(object sender, EventArgs e)
+        {
+            FormInserisciReferente inserisciReferente = new FormInserisciReferente();
+            if (Cliente != null)
+            { // se c'è un cliente aggancio l'handler per salvare la nuova email
+                inserisciReferente.OnAggiunta += (o, r) => 
+                {
+                    try
+                    {
+                        Cliente.Referenti.Add(r.Referente);
+                    } catch (Persistenza.ExceptionPersistenza)
+                    {
+                        MessageBox.Show("Errore durante la comunicazione con il DataBase. L'applicazione termina.", "Errore connessione DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Application.Exit();
+                    }
+                };
+            }
+            // inserisco la mail nella lista grafica
+            inserisciReferente.OnAggiunta += (o, r) =>
+            {
+                string[] rows = { r.Referente.Nome, r.Referente.Nota };
+                ListViewItem item = new ListViewItem(rows);
+                listReferenti.Items.Add(item);
+            };
+            inserisciReferente.ShowDialog();
         }
     }
 }
