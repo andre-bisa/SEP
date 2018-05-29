@@ -81,8 +81,8 @@ namespace IngegneriaDelSoftware
             CollezioneFatture.GetInstance().Add(fattura);
             //Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
             //Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
-            Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
-            /*
+            //Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
+            
             var app1 = new Appuntamento(1, persona, "I like this one", "Cucina", DateTime.Now);
             var app2 = new Appuntamento(2, persona, "I like this one", "Cucina", DateTime.Now.AddDays(1));
             var app3 = new Appuntamento(3, persona, "I like this one", "Cucina", DateTime.Now.AddHours(2));
@@ -92,7 +92,7 @@ namespace IngegneriaDelSoftware
             Calendario.GetInstance().Add(app3);
             Calendario.GetInstance().Add(app4);
 
-            Application.Run(new HomeForm(new ControllerHome()));*/
+            Application.Run(new HomeForm(new ControllerHome()));
         }
     }
 }
