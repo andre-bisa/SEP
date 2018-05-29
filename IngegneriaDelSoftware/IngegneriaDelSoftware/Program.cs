@@ -55,11 +55,11 @@ namespace IngegneriaDelSoftware
             Referente r = new Referente("Nome", "nota");
             CollezioneClienti.GetInstance().Get("1").Referenti.Add(r);
             CollezioneClienti.GetInstance().Get("1").Referenti.Remove(r);*/
-            /*Application.Run(new FormEmail(controller));
+            Application.Run(new FormEmail(controller));
             Application.Run(new Login());
-            Application.Run(new VisualizzaCalendario());
+            Application.Run(new VisualizzaCalendario(new ControllerCalendario()));
             if (FormConfim.Show("Titolo", "Messaggio") == DialogResult.OK)
-                MessageBox.Show("Premuto OK");*/
+                MessageBox.Show("Premuto OK");
             var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
             var cliente = new Cliente(persona, "1");
             var vendita = new Vendita(1, cliente);

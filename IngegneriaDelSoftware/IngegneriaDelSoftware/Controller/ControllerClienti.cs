@@ -81,6 +81,10 @@ namespace IngegneriaDelSoftware.Controller
             }
 
             Cliente risultato = new Cliente(cliente, persona);
+
+            if (_clienti.Contains(risultato))
+                return null;
+
             if (risultato != null)
                 this._clienti.Add(risultato);
             return risultato;

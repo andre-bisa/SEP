@@ -30,7 +30,8 @@ namespace IngegneriaDelSoftware
                     this.Close();
             } catch (Persistenza.ExceptionPersistenza)
             {
-                MessageBox.Show("Errore, connessione assente.");
+                MessageBox.Show("Errore, connessione assente. Il programma termina", "Errore connessione DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
             }
         }
     }

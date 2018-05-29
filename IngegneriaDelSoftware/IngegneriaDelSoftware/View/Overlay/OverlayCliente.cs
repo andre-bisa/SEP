@@ -118,7 +118,13 @@ namespace IngegneriaDelSoftware.View.Overlay
                 Application.Exit();
             }
 
-            this.Close(); // Chiudo l'overlay
+            if (Cliente != null)
+                this.Close(); // Chiudo l'overlay
+            else
+            {
+                FormConfim.Show("Errore", "Il codice cliente esiste già.", MessageBoxButtons.OK);
+                txtCodice.Focus();
+            }
         }
 
         private void btnAnnulla_Click(object sender, EventArgs e)
@@ -333,7 +339,7 @@ namespace IngegneriaDelSoftware.View.Overlay
                     Cliente.Persona.Email.Remove(emailMock);
                     listEmail.Items.Remove(listEmail.SelectedItems[0]);
 
-                    FormConfim.Show("Rimosso", "Email rimossa.");
+                    FormConfim.Show("Rimosso", "Email rimossa.", MessageBoxButtons.OK);
                 }
 
                 e.Handled = true;
@@ -351,7 +357,7 @@ namespace IngegneriaDelSoftware.View.Overlay
                     Cliente.Persona.Telefoni.Remove(telefonoMock);
                     listTelefoni.Items.Remove(listTelefoni.SelectedItems[0]);
 
-                    FormConfim.Show("Rimosso", "Telefono rimosso.");
+                    FormConfim.Show("Rimosso", "Telefono rimosso.", MessageBoxButtons.OK);
                 }
 
                 e.Handled = true;
@@ -369,7 +375,7 @@ namespace IngegneriaDelSoftware.View.Overlay
                     Cliente.Referenti.Remove(referenteMock);
                     listReferenti.Items.Remove(listReferenti.SelectedItems[0]);
 
-                    FormConfim.Show("Rimosso", "Referente rimosso.");
+                    FormConfim.Show("Rimosso", "Referente rimosso.", MessageBoxButtons.OK);
                 }
 
                 e.Handled = true;
