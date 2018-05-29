@@ -387,7 +387,7 @@ namespace IngegneriaDelSoftware.View {
                     var cliente = fattura.Cliente;
                     CaricaCliente(result, cliente, fattura.Anno.ToString(), fattura.Numero, fattura.Data.Date.ToString());
                     foreach(VoceFattura voce in fattura) {
-                        result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);
+                        result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), voce.Iva * 100, voce.Quantita);
                     }
                     result.Key = fattura.ID;
                 }
@@ -397,7 +397,7 @@ namespace IngegneriaDelSoftware.View {
                 if(String.IsNullOrEmpty(o.Key)) {
                     try {
                         controller.AggiungiFattura(new Fattura.DatiFattura(Convert.ToInt32(o.Anno), o.Numero, tmpCliente, DateTime.Parse(o.Data), 0), vendite, o.GetVoci().Select((el) => {
-                            return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale), el.Tipologia, el.Numero);
+                            return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale / 100), el.Tipologia, el.Numero);
                         }).ToList());
                     } catch(FormatException) {
                         FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
@@ -448,7 +448,7 @@ namespace IngegneriaDelSoftware.View {
                     List<VoceFattura> voci = new List<VoceFattura>();
                     voci.AddRange(
                         o.GetVoci().Select((el) => {
-                            return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale), el.Tipologia, el.Numero);
+                            return new VoceFattura(el.Descrizione, Convert.ToDecimal(el.Importo), Convert.ToSingle(el.Opzionale / 100), el.Tipologia, el.Numero);
                         })
                     );
                     controller.UpdateFattura(o.Key, dat, voci);
