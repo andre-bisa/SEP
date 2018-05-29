@@ -101,7 +101,7 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.LightGray;
+            this.tableLayoutPanel1.BackColor = System.Drawing.SystemColors.Menu;
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
@@ -154,6 +154,7 @@
             // 
             // lblTitolo
             // 
+            this.lblTitolo.BackColor = System.Drawing.Color.LightGray;
             this.lblTitolo.Depth = 0;
             this.lblTitolo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTitolo.Font = new System.Drawing.Font("Roboto", 11F);
