@@ -1,4 +1,7 @@
-﻿namespace IngegneriaDelSoftware.View
+﻿using IngegneriaDelSoftware.Model;
+using System;
+
+namespace IngegneriaDelSoftware.View
 {
     partial class FormAppuntamenti
     {

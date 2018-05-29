@@ -29,7 +29,8 @@
         private void InitializeComponent()
         {
             this.listCalendario = new MaterialSkin.Controls.MaterialListView();
-            this.headerDataEOra = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.headerData = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.headerOra = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.headerLuogo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.headerOggetto = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.headerConChi = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -46,7 +47,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listCalendario.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listCalendario.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.headerDataEOra,
+            this.headerData,
+            this.headerOra,
             this.headerLuogo,
             this.headerOggetto,
             this.headerConChi});
@@ -55,7 +57,7 @@
             this.listCalendario.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
             this.listCalendario.FullRowSelect = true;
             this.listCalendario.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listCalendario.Location = new System.Drawing.Point(12, 124);
+            this.listCalendario.Location = new System.Drawing.Point(12, 133);
             this.listCalendario.MouseLocation = new System.Drawing.Point(-1, -1);
             this.listCalendario.MouseState = MaterialSkin.MouseState.OUT;
             this.listCalendario.Name = "listCalendario";
@@ -64,25 +66,35 @@
             this.listCalendario.TabIndex = 0;
             this.listCalendario.UseCompatibleStateImageBehavior = false;
             this.listCalendario.View = System.Windows.Forms.View.Details;
-            this.listCalendario.SelectedIndexChanged += new System.EventHandler(this.listCalendario_SelectedIndexChanged);
+            this.listCalendario.SelectedIndexChanged += new System.EventHandler(this.ListCalendario_SelectedIndexChanged);
             // 
-            // headerDataEOra
+            // headerData
             // 
-            this.headerDataEOra.Text = "Data e ora";
-            this.headerDataEOra.Width = 217;
+            this.headerData.Text = "Data";
+            this.headerData.DisplayIndex = 0;
+            this.headerData.Width = 109;
+            // 
+            // headerOra
+            // 
+            this.headerOra.Text = "Ora";
+            this.headerOra.DisplayIndex = 1;
+            this.headerOra.Width = 76;
             // 
             // headerLuogo
             // 
+            this.headerLuogo.DisplayIndex = 2;
             this.headerLuogo.Text = "Luogo";
             this.headerLuogo.Width = 114;
             // 
             // headerOggetto
             // 
+            this.headerOggetto.DisplayIndex = 3;
             this.headerOggetto.Text = "Oggetto";
             this.headerOggetto.Width = 165;
             // 
             // headerConChi
             // 
+            this.headerConChi.DisplayIndex = 4;
             this.headerConChi.Text = "Con chi";
             this.headerConChi.Width = 176;
             // 
@@ -149,7 +161,7 @@
         #endregion
 
         private MaterialSkin.Controls.MaterialListView listCalendario;
-        private System.Windows.Forms.ColumnHeader headerDataEOra;
+        private System.Windows.Forms.ColumnHeader headerData;
         private System.Windows.Forms.ColumnHeader headerLuogo;
         private System.Windows.Forms.ColumnHeader headerOggetto;
         private System.Windows.Forms.ColumnHeader headerConChi;
@@ -157,5 +169,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerA;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
+        private System.Windows.Forms.ColumnHeader headerOra;
     }
 }
