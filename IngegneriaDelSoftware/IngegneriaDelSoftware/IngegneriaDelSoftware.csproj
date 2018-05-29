@@ -69,6 +69,8 @@
     <Compile Include="Login\ControllerLogin.cs" />
     <Compile Include="Model\ArgsEvent\ArgsAppuntamento.cs" />
     <Compile Include="Model\ArgsEvent\ArgsEmail.cs" />
+    <Compile Include="Model\ArgsEvent\ArgsReferente.cs" />
+    <Compile Include="Model\ArgsEvent\ArgsTelefono.cs" />
     <Compile Include="Model\CollezioneAppuntamenti.cs" />
     <Compile Include="Controller\ControllerCalendario.cs" />
     <Compile Include="Controller\ControllerClienti.cs" />

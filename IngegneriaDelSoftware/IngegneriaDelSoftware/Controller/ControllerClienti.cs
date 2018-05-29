@@ -26,13 +26,46 @@ namespace IngegneriaDelSoftware.Controller
         }
 
         /// <summary>
+        /// Aggiunge una mail al cliente
+        /// </summary>
+        /// <param name="cliente">Cliente a cui aggiungere la mail</param>
+        /// <param name="email">Email da aggiungere</param>
+        /// <exception cref="ExceptionPersistenza">In caso di errori della persistenza</exception>
+        public void AggiungiEmail(Cliente cliente, Email email)
+        {
+            cliente.Persona.Email.Add(email);
+        }
+
+        /// <summary>
+        /// Aggiunge un telefono al cliente
+        /// </summary>
+        /// <param name="cliente">Cliente a cui aggiungere la mail</param>
+        /// <param name="telefono">Telefono da aggiungere</param>
+        /// <exception cref="ExceptionPersistenza">In caso di errori della persistenza</exception>
+        public void AggiungiTelefono(Cliente cliente, Telefono telefono)
+        {
+            cliente.Persona.Telefoni.Add(telefono);
+        }
+
+        /// <summary>
+        /// Aggiunge un referente al cliente
+        /// </summary>
+        /// <param name="cliente">Cliente a cui aggiungere la mail</param>
+        /// <param name="referente">Referente da aggiungere</param>
+        /// <exception cref="ExceptionPersistenza">In caso di errori della persistenza</exception>
+        public void AggiungiReferente(Cliente cliente, Referente referente)
+        {
+            cliente.Referenti.Add(referente);
+        }
+
+        /// <summary>
         /// Aggiunge un cliente alla <see cref="CollezioneClienti"/>.
         /// </summary>
         /// <param name="cliente">I dati del <see cref="Cliente"/> da aggiungere</param>
         /// <param name="datiPersonaGenerica">I dati della <see cref="Persona"/> associati al <see cref="Cliente"/></param>
         /// <returns>Il <see cref="Cliente"/> appena inserito, <c>null</c> in caso di errori</returns>
         /// <exception cref="ExceptionPersistenza">Eccezione lanciata in caso di insuccesso nelle comunicazioni con il DB</exception>
-        public Cliente AggiungiCliente(DatiCliente cliente, DatiPersona datiPersonaGenerica)
+        public Cliente AggiungiCliente(DatiCliente cliente, DatiPersona datiPersonaGenerica, IEnumerable<Referente> referenti = null)
         {
             Persona persona;
 
@@ -47,7 +80,7 @@ namespace IngegneriaDelSoftware.Controller
                 persona = new PersonaGiuridica(datiPersona);
             }
 
-            Cliente risultato = new Cliente(cliente, persona);
+            Cliente risultato = new Cliente(cliente, persona, referenti);
             if (risultato != null)
                 this._clienti.Add(risultato);
             return risultato;

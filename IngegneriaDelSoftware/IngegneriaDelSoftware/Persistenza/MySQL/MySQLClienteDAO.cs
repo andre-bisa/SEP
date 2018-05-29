@@ -30,7 +30,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         private static readonly string ELIMINA_PERSONA = "DELETE PERSONA.* FROM PERSONA INNER JOIN CLIENTE ON CLIENTE.IDPERSONA=CLIENTE.IDPERSONA AND CLIENTE.IDUTENTE=PERSONA.IDUTENTE WHERE PERSONA.IDUTENTE=@idutente AND CLIENTE.IDCLIENTE=@idcliente;";
 
         // Tabelle esterne
-        
+        private static readonly string ELIMINA_REFERENTE = "DELETE FROM REFERENTE WHERE IDUTENTE=@idutente AND IDCLIENTE=@idcliente AND NOME=@nome;";
 
         public bool Aggiorna(Cliente clienteVecchio, Cliente clienteNuovo)
         {
@@ -409,5 +409,61 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             return IDPersona;
         }
 
+        public bool InserisciReferente(Referente referente, Cliente cliente)
+        {
+            MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
+
+            if (connessione == null)
+                throw new Persistenza.ExceptionPersistenza();
+
+            MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                throw new Persistenza.ExceptionPersistenza();
+
+            cmd.CommandText = "START TRANSACTION;";
+
+            cmd.CommandText += "INSERT INTO REFERENTE(IDUTENTE, IDCLIENTE, NOME, NOTA) VALUES(@idutente,@idcliente,@nome,@nota);";
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+            cmd.Parameters.AddWithValue("@idcliente", cliente.IDCliente);
+            cmd.Parameters.AddWithValue("@nome", referente.Nome);
+            cmd.Parameters.AddWithValue("@nota", referente.Nota);
+
+            cmd.CommandText += "COMMIT;";
+
+            int modifiche = cmd.ExecuteNonQuery();
+
+            connessione.Close();
+
+            return (modifiche >= 1);
+        }
+
+        public bool RimuoviReferente(Referente referente, Cliente cliente)
+        {
+            MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
+
+            if (connessione == null)
+                throw new Persistenza.ExceptionPersistenza();
+
+            MySqlCommand cmd = connessione.CreateCommand();
+
+            if (cmd == null)
+                throw new Persistenza.ExceptionPersistenza();
+
+            //cmd.CommandText = "START TRANSACTION;";
+
+            cmd.CommandText = ELIMINA_REFERENTE;
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+            cmd.Parameters.AddWithValue("@idcliente", cliente.IDCliente);
+            cmd.Parameters.AddWithValue("@nome", referente.Nome);
+
+            //cmd.CommandText += "COMMIT;";
+
+            int modifiche = cmd.ExecuteNonQuery();
+
+            connessione.Close();
+
+            return (modifiche >= 1);
+        }
     }
 }

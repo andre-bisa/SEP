@@ -43,14 +43,24 @@ namespace IngegneriaDelSoftware
             Application.Run(g);
             */
             //Application.Run(new FormAppuntamenti());
-            Application.Run(new FormClienti(controller));
-            CollezioneClienti.GetInstance().Get("1").Persona.Email.Add(new Email("gne", "buu"));
+            //Application.Run(new FormClienti(controller));
+            Email email = new Email("gne", "buu");
+            CollezioneClienti.GetInstance().Get("1").Persona.Email.Add(email);
+            CollezioneClienti.GetInstance().Get("1").Persona.Email.Remove(email);
+
+            Telefono tel = new Telefono("051", "nota");
+            CollezioneClienti.GetInstance().Get("1").Persona.Telefoni.Add(tel);
+            CollezioneClienti.GetInstance().Get("1").Persona.Telefoni.Remove(tel);
+
+            Referente r = new Referente("Nome", "nota");
+            CollezioneClienti.GetInstance().Get("1").Referenti.Add(r);
+            CollezioneClienti.GetInstance().Get("1").Referenti.Remove(r);
             /*Application.Run(new FormEmail(controller));
             Application.Run(new Login());
             Application.Run(new VisualizzaCalendario());
             if (FormConfim.Show("Titolo", "Messaggio") == DialogResult.OK)
                 MessageBox.Show("Premuto OK");*/
-            var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");/*
+            var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
             var cliente = new Cliente(persona, "1");
             var vendita = new Vendita(1, cliente);
             var fattura = new FatturaScripting(2018, "2", cliente, vendita);
@@ -69,9 +79,9 @@ namespace IngegneriaDelSoftware
             CollezioneVendite.GetInstance().Add(vendita);
             CollezionePreventivi.GetInstance().Add(preventivo);
             CollezioneFatture.GetInstance().Add(fattura);
-            Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));*/
+            //Application.Run(GenericViewLoader.getPreventivoForm(new ControllerPreventivi()));
             //Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
-            //Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
+            Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
 
             var app1 = new Appuntamento(1, persona, "I like this one", "Cucina", DateTime.Now);
             var app2 = new Appuntamento(2, persona, "I like this one", "Cucina", DateTime.Now.AddDays(1));

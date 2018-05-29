@@ -42,6 +42,9 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public void Add(Email item)
         {
+            if (_email.Contains(item))
+                return;
+
             ((ICollection<Email>)_email).Add(item);
             if (OnAggiunta != null)
             {

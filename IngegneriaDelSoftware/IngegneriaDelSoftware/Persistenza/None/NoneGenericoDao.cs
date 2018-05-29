@@ -128,7 +128,7 @@ namespace IngegneriaDelSoftware.Persistenza.None
 
         public bool Elimina(int ID)
         {
-            throw new System.NotImplementedException();
+            return true;
         }
 
         public List<MailInviata> GetListaMailInviate()
@@ -138,7 +138,17 @@ namespace IngegneriaDelSoftware.Persistenza.None
 
         public bool InserisciEmail(Email email, Persona persona)
         {
+            return true;
+        }
+
+        public bool InserisciReferente(Referente referente, Cliente cliente)
+        {
             throw new System.NotImplementedException();
+        }
+
+        public bool InserisciTelefono(Telefono telefono, Persona persona)
+        {
+            return true;
         }
 
         public Appuntamento Leggi(string ID)
@@ -179,7 +189,17 @@ namespace IngegneriaDelSoftware.Persistenza.None
 
         public bool RimuoviEmail(Email email, Persona persona)
         {
+            return true;
+        }
+
+        public bool RimuoviReferente(Referente referente, Cliente cliente)
+        {
             throw new System.NotImplementedException();
+        }
+
+        public bool RimuoviTelefono(Telefono telefono, Persona persona)
+        {
+            return true;
         }
 
         DatoreLavoro IDatoreLavoroDAO.Leggi(string ID)

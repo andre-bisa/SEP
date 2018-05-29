@@ -77,7 +77,7 @@ namespace IngegneriaDelSoftware.View.Overlay
             DatiPersona datiPersona;
             EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo;
             DatiCliente datiCliente;
-            List<Referente> listaReferenti = null;
+            List<Referente> listaReferenti = new List<Referente>();
             string nota = txtNote.Text;
 
             if (radioFisica.Checked)
@@ -94,11 +94,12 @@ namespace IngegneriaDelSoftware.View.Overlay
             else if (checkPotenziale.Checked)
                 tipoCliente = EnumTipoCliente.Potenziale;
 
-            datiCliente = new DatiCliente(txtCodice.Text, tipoCliente, listaReferenti, nota);
+            datiCliente = new DatiCliente(txtCodice.Text, tipoCliente, nota);
             
             if (Cliente == null) // devo creare un cliente
             {
-                Cliente = this._controller.AggiungiCliente(datiCliente, datiPersona);
+                Cliente = this._controller.AggiungiCliente(datiCliente, datiPersona, listaReferenti);
+                // TODO Aggiungere email, telefoni e referenti
             }
             else
             {

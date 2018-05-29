@@ -28,6 +28,7 @@ namespace IngegneriaDelSoftware.Controller {
             if(voci != null) {
                 fatturaCercata.Clear();
                 fatturaCercata.Add(voci.ToArray());
+                System.Diagnostics.Debug.WriteLine(voci.Count);
             }
         }
         public async void RimuoviFattura(string id) {

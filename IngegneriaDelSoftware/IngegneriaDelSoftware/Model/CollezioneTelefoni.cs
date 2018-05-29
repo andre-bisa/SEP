@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IngegneriaDelSoftware.Model.ArgsEvent;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace IngegneriaDelSoftware.Model
 {
     public class CollezioneTelefoni : ICollection<Telefono>, IEnumerable<Telefono>
     {
+        public event EventHandler<ArgsTelefono> OnAggiunta;
+        public event EventHandler<ArgsTelefono> OnRimozione;
+
         //Set poiche' non ha senso aggiungere due o piu' numeri uguali
         private HashSet<Telefono> _telefoni;
 
@@ -38,7 +42,15 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public void Add(Telefono item)
         {
+            if (_telefoni.Contains(item))
+                return;
+
             ((ICollection<Telefono>)_telefoni).Add(item);
+            if (OnAggiunta != null)
+            {
+                ArgsTelefono args = new ArgsTelefono(item);
+                OnAggiunta(this, args);
+            }
         }
 
         /// <summary>
@@ -78,7 +90,13 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public bool Remove(Telefono item)
         {
-            return ((ICollection<Telefono>)_telefoni).Remove(item);
+            bool risultato = ((ICollection<Telefono>)_telefoni).Remove(item);
+            if (OnRimozione != null)
+            {
+                ArgsTelefono args = new ArgsTelefono(item);
+                OnRimozione(this, args);
+            }
+            return risultato;
         }
 
         IEnumerator IEnumerable.GetEnumerator()
