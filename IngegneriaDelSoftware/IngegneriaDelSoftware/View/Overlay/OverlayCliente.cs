@@ -322,5 +322,59 @@ namespace IngegneriaDelSoftware.View.Overlay
             };
             inserisciReferente.ShowDialog();
         }
+
+        private void listEmail_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && Cliente != null && listEmail.SelectedItems.Count > 0)
+            {
+                if (FormConfim.Show("Rimuovere?", "Sei sicuro di voler eliminare la mail: " + listEmail.SelectedItems[0].SubItems[0].Text + "?") == DialogResult.OK)
+                {
+                    Email emailMock = new Email(listEmail.SelectedItems[0].SubItems[0].Text);
+                    Cliente.Persona.Email.Remove(emailMock);
+                    listEmail.Items.Remove(listEmail.SelectedItems[0]);
+
+                    FormConfim.Show("Rimosso", "Email rimossa.");
+                }
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void listTelefoni_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && Cliente != null && listTelefoni.SelectedItems.Count > 0)
+            {
+                if (FormConfim.Show("Rimuovere?", "Sei sicuro di voler eliminare il telefono: " + listTelefoni.SelectedItems[0].SubItems[0].Text + "?") == DialogResult.OK)
+                {
+                    Telefono telefonoMock = new Telefono(listTelefoni.SelectedItems[0].SubItems[0].Text);
+                    Cliente.Persona.Telefoni.Remove(telefonoMock);
+                    listTelefoni.Items.Remove(listTelefoni.SelectedItems[0]);
+
+                    FormConfim.Show("Rimosso", "Telefono rimosso.");
+                }
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void listReferenti_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete && Cliente != null && listReferenti.SelectedItems.Count > 0)
+            {
+                if (FormConfim.Show("Rimuovere?", "Sei sicuro di voler eliminare il referente: " + listReferenti.SelectedItems[0].SubItems[0].Text + "?") == DialogResult.OK)
+                {
+                    Referente referenteMock = new Referente(listReferenti.SelectedItems[0].SubItems[0].Text);
+                    Cliente.Referenti.Remove(referenteMock);
+                    listReferenti.Items.Remove(listReferenti.SelectedItems[0]);
+
+                    FormConfim.Show("Rimosso", "Referente rimosso.");
+                }
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
     }
 }

@@ -762,6 +762,7 @@
             this.listEmail.TabIndex = 13;
             this.listEmail.UseCompatibleStateImageBehavior = false;
             this.listEmail.View = System.Windows.Forms.View.Details;
+            this.listEmail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listEmail_KeyDown);
             // 
             // EmailEmail
             // 
@@ -813,6 +814,7 @@
             this.listTelefoni.TabIndex = 15;
             this.listTelefoni.UseCompatibleStateImageBehavior = false;
             this.listTelefoni.View = System.Windows.Forms.View.Details;
+            this.listTelefoni.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listTelefoni_KeyDown);
             // 
             // TelefoniTelefono
             // 
@@ -892,6 +894,7 @@
             this.listReferenti.TabIndex = 17;
             this.listReferenti.UseCompatibleStateImageBehavior = false;
             this.listReferenti.View = System.Windows.Forms.View.Details;
+            this.listReferenti.KeyDown += new System.Windows.Forms.KeyEventHandler(this.listReferenti_KeyDown);
             // 
             // ReferentiReferente
             // 
