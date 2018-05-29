@@ -31,7 +31,7 @@ namespace IngegneriaDelSoftware.Controller {
         /// <returns>Array di Appuntamenti</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public Appuntamento[] GetAppuntamentiDaA(DateTime da, DateTime a) {
+        public List<Appuntamento> GetAppuntamentiDaA(DateTime da, DateTime a) {
 
             if (da == null || a == null)
             {
@@ -43,7 +43,7 @@ namespace IngegneriaDelSoftware.Controller {
                 throw new ArgumentException();
             }
 
-            return this._calendario.AppuntamentiDaA(da, a).ToArray();
+            return this._calendario.AppuntamentiDaA(da, a);
         }
 
 
