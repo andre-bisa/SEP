@@ -162,6 +162,7 @@ namespace IngegneriaDelSoftware.View
             this.btnAggiungi.Size = new System.Drawing.Size(56, 56);
             this.btnAggiungi.TabIndex = 4;
             this.btnAggiungi.UseVisualStyleBackColor = true;
+            this.btnAggiungi.Click += new System.EventHandler(this.btnAggiungi_Click);
             // 
             // materialRaisedButton1
             // 

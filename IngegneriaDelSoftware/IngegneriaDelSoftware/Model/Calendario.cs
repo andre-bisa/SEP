@@ -32,6 +32,9 @@ namespace IngegneriaDelSoftware.Model
                 foreach (Appuntamento a in _persistenza.GetAppuntamentoDAO().LeggiTuttiAppuntamenti())
                 {
                     _appuntamenti.Add(a);
+                    a.OnModifica += (o, e) => {
+                        this.OnModifica?.Invoke(o, e);
+                    };
                 }
             }
             catch (Exception)
@@ -131,6 +134,14 @@ namespace IngegneriaDelSoftware.Model
             }
 
             ((ICollection<Appuntamento>)_appuntamenti).Add(item);
+            item.OnModifica += (o, e) => {
+                this.OnModifica?.Invoke(o, e);
+            };
+
+            if (OnAggiunta != null)
+            {
+                LanciaEvento(OnAggiunta, item);
+            }
         }
 
         /// <summary>
@@ -170,12 +181,19 @@ namespace IngegneriaDelSoftware.Model
         /// <exception cref="ArgumentNullException"></exception>
         public bool Remove(Appuntamento item)
         {
+            bool risultato = false;
             if (item == null)
             {
                 throw new ArgumentNullException();
             }
 
-            return ((ICollection<Appuntamento>)_appuntamenti).Remove(item);
+            if (OnRimozione != null)
+            {
+                risultato = ((ICollection<Appuntamento>)_appuntamenti).Remove(item);
+                LanciaEvento(OnRimozione, item);
+            }
+
+            return risultato;
         }
 
         /// <summary>

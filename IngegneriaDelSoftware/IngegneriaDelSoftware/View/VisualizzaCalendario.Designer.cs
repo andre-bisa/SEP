@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.listCalendario = new MaterialSkin.Controls.MaterialListView();
+            this.headerID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.headerData = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.headerOra = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.headerLuogo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -38,11 +39,11 @@
             this.dateTimePickerA = new System.Windows.Forms.DateTimePicker();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
-            this.headerID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listCalendario
             // 
+            this.listCalendario.Activation = System.Windows.Forms.ItemActivation.TwoClick;
             this.listCalendario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -68,7 +69,11 @@
             this.listCalendario.TabIndex = 0;
             this.listCalendario.UseCompatibleStateImageBehavior = false;
             this.listCalendario.View = System.Windows.Forms.View.Details;
-            this.listCalendario.SelectedIndexChanged += new System.EventHandler(this.ListCalendario_SelectedIndexChanged);
+            
+            // 
+            // headerID
+            // 
+            this.headerID.Text = "ID";
             // 
             // headerData
             // 
@@ -137,10 +142,6 @@
             this.materialLabel2.Size = new System.Drawing.Size(19, 19);
             this.materialLabel2.TabIndex = 4;
             this.materialLabel2.Text = "A";
-            // 
-            // headerID
-            // 
-            this.headerID.Text = "ID";
             // 
             // VisualizzaCalendario
             // 
