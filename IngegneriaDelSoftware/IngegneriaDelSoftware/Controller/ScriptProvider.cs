@@ -56,6 +56,7 @@ namespace IngegneriaDelSoftware.Controller {
         public void AddVariable(string name, decimal value) {
             this._env.registerVariable("$" + name.ToUpper(), string.Join(",", value));
         }
+
         public string GetVariable(string name) {
             return this._env.getVariableValue(name.ToUpper());
         }
@@ -90,6 +91,10 @@ namespace IngegneriaDelSoftware.Controller {
             if(!_instance.ContainsKey(tag)) {
                 _instance.Add(tag, new ScriptProvider(tag, lines));
             }
+        }
+        public static void Drop(string input)
+        {
+            _instance.Remove(input);
         }
         internal static void create(string filename) {
             if(!_instance.ContainsKey(filename)) {

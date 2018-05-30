@@ -29,51 +29,35 @@ namespace IngegneriaDelSoftware.View {
         }
 
         private void appuntamentoBtn_Click(object sender, EventArgs e) {
-            this.Hide();
             this._controller.MostraAppuntamento();
-            this.Show();
         }
 
         private void clientiBtn_Click(object sender, EventArgs e) {
-            this.Hide();
             this._controller.MostraClienti();
-            this.Show();
         }
 
         private void calendarioBtn_Click(object sender, EventArgs e) {
-            this.Hide();
             this._controller.MostraCalendario();
-            this.Show();
         }
 
         private void emailBtn_Click(object sender, EventArgs e) {
-            this.Hide();
             this._controller.MostraEmail();
-            this.Show();
         }
 
         private void fattureBtn_Click(object sender, EventArgs e) {
-            this.Hide();
             this._controller.MostraFatture();
-            this.Show();
         }
 
         private void preventiviBtn_Click(object sender, EventArgs e) {
-            this.Hide();
             this._controller.MostraPreventivi();
-            this.Show();
         }
 
         private void venditeBtn_Click(object sender, EventArgs e) {
-            this.Hide();
             this._controller.MostraVendite();
-            this.Show();
         }
 
         private void syncBtn_Click(object sender, EventArgs e) {
-            this.Hide();
             this._controller.MostraImpostazioni();
-            this.Show();
         }
     }
 }
