@@ -160,6 +160,7 @@ namespace IngegneriaDelSoftware.View
             this.btnAggiungi.Size = new System.Drawing.Size(56, 56);
             this.btnAggiungi.TabIndex = 4;
             this.btnAggiungi.UseVisualStyleBackColor = true;
+            this.btnAggiungi.Click += new System.EventHandler(this.btnAggiungi_Click);
             // 
             // materialRaisedButton1
             // 
@@ -206,7 +207,7 @@ namespace IngegneriaDelSoftware.View
             this.materialRaisedButton3.Text = "Aggiungi intermediari";
             this.materialRaisedButton3.UseVisualStyleBackColor = true;
             // 
-            // formAppuntamenti
+            // FormAppuntamenti
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -223,7 +224,7 @@ namespace IngegneriaDelSoftware.View
             this.Controls.Add(materialLabel2);
             this.Controls.Add(materialLabel1);
             this.MaximizeBox = false;
-            this.Name = "formAppuntamenti";
+            this.Name = "FormAppuntamenti";
             this.Text = "Inserimento appuntamenti";
             this.ResumeLayout(false);
             this.PerformLayout();
