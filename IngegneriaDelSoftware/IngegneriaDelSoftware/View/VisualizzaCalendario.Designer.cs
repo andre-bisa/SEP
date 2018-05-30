@@ -38,6 +38,7 @@
             this.dateTimePickerA = new System.Windows.Forms.DateTimePicker();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            this.headerID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listCalendario
@@ -47,6 +48,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listCalendario.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.listCalendario.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.headerID,
             this.headerData,
             this.headerOra,
             this.headerLuogo,
@@ -71,30 +73,25 @@
             // headerData
             // 
             this.headerData.Text = "Data";
-            this.headerData.DisplayIndex = 0;
             this.headerData.Width = 109;
             // 
             // headerOra
             // 
             this.headerOra.Text = "Ora";
-            this.headerOra.DisplayIndex = 1;
             this.headerOra.Width = 76;
             // 
             // headerLuogo
             // 
-            this.headerLuogo.DisplayIndex = 2;
             this.headerLuogo.Text = "Luogo";
             this.headerLuogo.Width = 114;
             // 
             // headerOggetto
             // 
-            this.headerOggetto.DisplayIndex = 3;
             this.headerOggetto.Text = "Oggetto";
             this.headerOggetto.Width = 165;
             // 
             // headerConChi
             // 
-            this.headerConChi.DisplayIndex = 4;
             this.headerConChi.Text = "Con chi";
             this.headerConChi.Width = 176;
             // 
@@ -141,6 +138,10 @@
             this.materialLabel2.TabIndex = 4;
             this.materialLabel2.Text = "A";
             // 
+            // headerID
+            // 
+            this.headerID.Text = "ID";
+            // 
             // VisualizzaCalendario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -170,5 +171,6 @@
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private System.Windows.Forms.ColumnHeader headerOra;
+        private System.Windows.Forms.ColumnHeader headerID;
     }
 }
