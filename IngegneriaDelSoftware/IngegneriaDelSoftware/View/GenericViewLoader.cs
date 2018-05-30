@@ -193,6 +193,30 @@ namespace IngegneriaDelSoftware.View {
                     }
                 }
             };
+            result.OnCercaClick += async (s, e) =>
+            {
+                var t = Task.Run<CollezionePreventivi>(() => { return CollezionePreventivi.GetInstance(); });
+                result.CleanInserite();
+                CollezionePreventivi col = await t;
+                try
+                {
+                    ulong id = Convert.ToUInt64(s);
+                    (from fat in col
+                     where fat.ID == id
+                     select fat
+                ).ToList().ForEach((ei) =>
+                {
+                    result.AggiungiBarraLaterale(ei.ID);
+                });
+                }
+                catch (Exception){
+                    col.ToList().ForEach((ei) =>
+                    {
+                        result.AggiungiBarraLaterale(ei.ID);
+                    });
+                }
+                
+            };
             return result;
         }
         public static GenericForm getVenditaForm(ControllerVendite controller) {
@@ -342,6 +366,30 @@ namespace IngegneriaDelSoftware.View {
                         string res = await t;
                         result.AggiungiResult(res);
                     }
+                }
+            };
+            result.OnCercaClick += async (s, e) =>
+            {
+                var t = Task.Run<CollezioneVendite>(() => { return CollezioneVendite.GetInstance(); });
+                result.CleanInserite();
+                CollezioneVendite col = await t;
+                try
+                {
+                    ulong id = Convert.ToUInt64(s);
+                    (from fat in col
+                     where fat.ID == id
+                     select fat
+                ).ToList().ForEach((ei) =>
+                {
+                    result.AggiungiBarraLaterale(ei.ID);
+                });
+                }
+                catch (Exception)
+                {
+                    col.ToList().ForEach((ei) =>
+                    {
+                        result.AggiungiBarraLaterale(ei.ID);
+                    });
                 }
             };
             return result;
@@ -495,6 +543,30 @@ namespace IngegneriaDelSoftware.View {
                         string res = await t;
                         result.AggiungiResult(res);
                     }
+                }
+            };
+            result.OnCercaClick += async (s, e) =>
+            {
+                var t = Task.Run<CollezioneFatture>(() => { return CollezioneFatture.GetInstance(); });
+                result.CleanInserite();
+                if (String.IsNullOrEmpty(s))
+                {
+                    CollezioneFatture col = await t;
+                    col.ToList().ForEach((ei) =>
+                    {
+                        result.AggiungiBarraLaterale(ei.ID);
+                    });
+                }
+                else
+                {
+                    CollezioneFatture col = await t;
+                    (from fat in col
+                     where fat.ID.ToLower().Contains(s.ToLower())
+                     select fat
+                    ).ToList().ForEach((ei) =>
+                    {
+                        result.AggiungiBarraLaterale(ei.ID);
+                    });
                 }
             };
             return result;

@@ -658,6 +658,11 @@ namespace IngegneriaDelSoftware.View {
             this.HideVoci();
         }
 
+        public void CleanInserite()
+        {
+            this.Inserite.Items.Clear();
+        }
+
         #endregion
 
         #region Getter Form
