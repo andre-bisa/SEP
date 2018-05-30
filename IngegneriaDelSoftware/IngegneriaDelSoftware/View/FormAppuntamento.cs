@@ -80,6 +80,7 @@ namespace IngegneriaDelSoftware.View
                     this._appuntamento.cambiaDatiAppuntamento(nuoviDatiAppuntamento);
                 }
             }
+            this.Close();
         }
     }
 }
