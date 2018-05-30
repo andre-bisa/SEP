@@ -61,6 +61,7 @@ namespace IngegneriaDelSoftware.View
             this._visualizzatore = new VisualizzatoreCliente(controller.CollezioneClienti, ricercaTuttiParametri);
 
             this._controllerClienti.CollezioneClienti.OnRimozione += this.RimossoCliente;
+            this._controllerClienti.CollezioneClienti.OnAggiunta += (o, e) => { CaricaClientiMancanti(); };
         }
         #endregion
 

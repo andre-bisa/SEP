@@ -54,6 +54,7 @@ namespace IngegneriaDelSoftware.View
             this._visualizzatore = new VisualizzatoreCliente(_controllerClienti.CollezioneClienti, ricercaTuttiParametri);
 
             this._controllerClienti.CollezioneClienti.OnRimozione += this.RimossoCliente;
+            this._controllerClienti.CollezioneClienti.OnAggiunta += (o, e) => { CaricaClientiMancanti(); };
 
             // Carico il numero di clienti che possono essere visti in base alle dimensioni dello schermo
             RiempiSchedeClienti(Screen.FromControl(this).Bounds.Height / SchedaCliente.AltezzaSchedaClienti() + 1);
