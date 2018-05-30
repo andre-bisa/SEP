@@ -73,7 +73,7 @@ namespace IngegneriaDelSoftware.Model
         #region ToString()
         public override string ToString()
         {
-            return String.Format("{0};{1};{2};{3};{4}", DataOra.ToShortDateString(), DataOra.TimeOfDay, Luogo, Note, ConChi.getDenominazione());
+            return String.Format("{0};{1};{2};{3};{4};{5}", IDAppuntamento, DataOra.ToShortDateString(), DataOra.ToShortTimeString(), Luogo, Note, ConChi.getDenominazione());
         }
         #endregion
 

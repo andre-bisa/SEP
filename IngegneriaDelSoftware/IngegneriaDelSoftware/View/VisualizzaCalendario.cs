@@ -44,7 +44,7 @@ namespace IngegneriaDelSoftware.View
             Persona p1 = new PersonaFisica("cf", "indirizzo", "Nome", "Cognome");
 
             DatiAppuntamento d1 = new DatiAppuntamento(1, p1, "Riunione", "Bologna", DateTime.Now);
-            DatiAppuntamento d2 = new DatiAppuntamento(1, p1, "Riunione", "Napoli", new DateTime(2500, 12, 31, 15, 54, 34));
+            DatiAppuntamento d2 = new DatiAppuntamento(2, p1, "Riunione", "Napoli", new DateTime(2500, 12, 31, 15, 54, 34));
 
             _a1 = new Appuntamento(d1);
             _a2 = new Appuntamento(d2);
@@ -105,14 +105,17 @@ namespace IngegneriaDelSoftware.View
         private void ListCalendario_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Lancio form di visualizzazione dettagliata dell'appuntamento selezionato
+            int idAppuntamento = 0;
 
-            //Controllo l'elemento selezionato
-            foreach(ListViewItem item in this.listCalendario.SelectedItems)
+            //Controllo l'elemento selezionato, che e' l'ID
+            foreach (ListViewItem item in this.listCalendario.SelectedItems)
             {
-                Console.WriteLine(item.Text);
+                idAppuntamento = Convert.ToInt32(item.Text);
             }
 
-            //new FormAppuntamenti(_a1).Show();
+            Appuntamento appuntamento = this._controller.GetAppuntamenti()[idAppuntamento];
+
+            new FormAppuntamenti(appuntamento).Show();
         }
     }
 }

@@ -47,8 +47,8 @@ namespace IngegneriaDelSoftware.Controller {
         }
 
 
-        public HashSet<Appuntamento> GetAppuntamenti() {
-            return this._calendario.AppuntamentiCalendario;
+        public Calendario GetAppuntamenti() {
+            return this._calendario;
         }
 
         /// <summary>
