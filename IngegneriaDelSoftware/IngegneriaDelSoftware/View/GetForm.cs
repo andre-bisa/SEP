@@ -28,7 +28,8 @@ namespace IngegneriaDelSoftware.View {
                     return i.Name.Contains("ID");
                 }).FirstOrDefault<PropertyInfo>()?.GetValue(e).ToString() ?? e.ToString());
                 this._storage.Add(tmp, e);
-                this.ClientiList.Items.Add(new ListViewItem(new string[] { tmp, e.ToString() }));
+                this.ClientiList.Items.Add(new ListViewItem(new string[] { tmp, "" + String.Join("", e.ToString().ToCharArray().Take(100)) }));
+                System.Diagnostics.Debug.WriteLine(tmp + " " + e.ToString());
                 //this._storage.Add(e.ToString(), e);
             });/*
             foreach(var key in this._storage.Keys) {
