@@ -73,9 +73,10 @@ namespace IngegneriaDelSoftware.Model {
             });
             //Recupera il valutatore;
             var scriptEngine = ScriptProvider.get("Test");
-            if(scriptEngine != null) {
-                decimal[] tmp = null;
+            if(scriptEngine != null) {/*
+                //decimal[] tmp = null;
                 tipologie.AsParallel().ForAll((t) => {
+                    decimal[] tmp = null;
                     tmp = t.ToArray().Select((i) => {
                         return (i.Importo * i.Quantita) * new decimal(i.Iva + 1);
                     }).ToArray();
@@ -90,6 +91,14 @@ namespace IngegneriaDelSoftware.Model {
                     //Aggiunge al valutatore i dati appena creati;
                     scriptEngine.AddArrayVariable(tipologia.Key.Replace(" ", ""), tmp);
                 }*/
+                tipologie.AsParallel().ForAll((t) => {
+                    string name = t.Key.Replace(" ", "");
+                    scriptEngine.AddArrayVariable(name, 
+                        t.ToArray().Select((i) => {
+                            return (i.Importo * i.Quantita) * new decimal(i.Iva + 1);
+                        }).ToArray()
+                    );
+                });
                 scriptEngine.Calculate();
                 //Recupera tutte le label e le variabili marcate important;
                 StringBuilder result = new StringBuilder();

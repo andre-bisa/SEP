@@ -32,7 +32,7 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="IVA">Il valore dell'iva da calcolare pe la voce</param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
-        public VoceFattura(string causale, decimal importo, float IVA = 0, string tipologia = null, int quantita = 1) : base(causale, importo, tipologia, quantita) {
+        public VoceFattura(string causale, decimal importo, float IVA = 0, string tipologia = null, int quantita = 1) : base(causale, importo, String.IsNullOrEmpty(tipologia) ? "GENERICO" : tipologia, quantita) {
             this._iva = IVA;
         }
         #endregion

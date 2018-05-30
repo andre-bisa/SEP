@@ -41,5 +41,33 @@ namespace IngegneriaDelSoftware.Test {
             fattura.Add(voce1, voce2, voce3, voce4);
             Assert.AreEqual("Imponibile: 10\r\nTotale: 60\r\n", fattura.Calcola());
         }
+        [Test]
+        public void TestLoadNoVarName()
+        {
+            Impostazioni impostazioni = Impostazioni.GetInstance();
+            impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+
+            ScriptProvider.Drop("Test");
+
+            ScriptProvider.create("Test", (""
+                + "$GEN=( #SUM( @GENERICO ) )\n"
+                + "$TOTALE=( $GEN )\n"
+                + ".SET LABEL FOR $TOTALE AS \"Totale: \"\n"
+                + ".SET LABEL FOR $GEN AS \"Generico: \"\n"
+                + ".SET $GEN AS IMPORTANT\n"
+                + ".SET $TOTALE AS IMPORTANT"
+            + "").Split('\n'));
+            var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
+            var cliente = new Cliente(persona, "1");
+            var vendita = new Vendita(1, cliente);
+            var fattura = new FatturaScripting(2018, "2", cliente, vendita);
+            var voce1 = new VoceFattura("Corda", 30, 0f, "");
+            var voce2 = new VoceFattura("Canapa", 20, 0f, "");
+            var voce3 = new VoceFattura("Coltelli", 20, 0f, "");
+            var voce4 = new VoceFattura("Cianuro", 20, 0f, "");
+
+            fattura.Add(voce1, voce2, voce3, voce4);
+            Assert.AreEqual("Generico: 90\r\nTotale: 90\r\n", fattura.Calcola());
+        }
     }
 }
