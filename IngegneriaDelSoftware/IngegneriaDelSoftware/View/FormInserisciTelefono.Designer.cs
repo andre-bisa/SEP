@@ -115,7 +115,7 @@
             this.BtnCancella.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.BtnCancella.MouseState = MaterialSkin.MouseState.HOVER;
             this.BtnCancella.Name = "BtnCancella";
-            this.BtnCancella.Primary = false;
+            this.BtnCancella.Primary = true;
             this.BtnCancella.Size = new System.Drawing.Size(90, 36);
             this.BtnCancella.TabIndex = 5;
             this.BtnCancella.Text = "Cancella";

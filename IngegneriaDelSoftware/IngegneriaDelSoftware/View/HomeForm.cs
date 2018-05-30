@@ -1,5 +1,6 @@
 ﻿using IngegneriaDelSoftware.Controller;
 using IngegneriaDelSoftware.Model;
+using MaterialSkin;
 using MaterialSkin.Controls;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace IngegneriaDelSoftware.View {
         public HomeForm(ControllerHome controller) {
             this._controller = controller;
             InitializeComponent();
+            MaterialSkinManager.Instance.AddFormToManage(this);
             this.riempiAppuntamenti();
         }
 

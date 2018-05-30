@@ -261,7 +261,7 @@
             this.btnCaricaAltri.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnCaricaAltri.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnCaricaAltri.Name = "btnCaricaAltri";
-            this.btnCaricaAltri.Primary = false;
+            this.btnCaricaAltri.Primary = true;
             this.btnCaricaAltri.Size = new System.Drawing.Size(746, 56);
             this.btnCaricaAltri.TabIndex = 0;
             this.btnCaricaAltri.Text = "Carica altri";

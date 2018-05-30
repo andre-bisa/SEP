@@ -62,7 +62,7 @@
             this.btnAnnulla.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnAnnulla.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAnnulla.Name = "btnAnnulla";
-            this.btnAnnulla.Primary = false;
+            this.btnAnnulla.Primary = true;
             this.btnAnnulla.Size = new System.Drawing.Size(83, 36);
             this.btnAnnulla.TabIndex = 2;
             this.btnAnnulla.Text = "Annulla";

@@ -32,22 +32,21 @@
             System.Windows.Forms.Panel panelFillDocked;
             System.Windows.Forms.Panel panelContent;
             System.Windows.Forms.Panel panelContainer;
-            System.Windows.Forms.Panel panelTitle;
             this.lblClose = new MaterialSkin.Controls.MaterialLabel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.panelTitle = new System.Windows.Forms.Panel();
             this.lblTitolo = new MaterialSkin.Controls.MaterialLabel();
             panelLabelX = new System.Windows.Forms.Panel();
             panelFillDocked = new System.Windows.Forms.Panel();
             panelContent = new System.Windows.Forms.Panel();
             panelContainer = new System.Windows.Forms.Panel();
-            panelTitle = new System.Windows.Forms.Panel();
             panelLabelX.SuspendLayout();
             panelFillDocked.SuspendLayout();
             panelContent.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             panelContainer.SuspendLayout();
-            panelTitle.SuspendLayout();
+            this.panelTitle.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelLabelX
@@ -123,7 +122,7 @@
             panelContainer.BackColor = System.Drawing.Color.Transparent;
             panelContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             panelContainer.Controls.Add(this.mainPanel);
-            panelContainer.Controls.Add(panelTitle);
+            panelContainer.Controls.Add(this.panelTitle);
             panelContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             panelContainer.Location = new System.Drawing.Point(50, 25);
             panelContainer.Margin = new System.Windows.Forms.Padding(0);
@@ -142,15 +141,15 @@
             // 
             // panelTitle
             // 
-            panelTitle.BackColor = System.Drawing.Color.White;
-            panelTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            panelTitle.Controls.Add(this.lblTitolo);
-            panelTitle.Controls.Add(panelLabelX);
-            panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
-            panelTitle.Location = new System.Drawing.Point(0, 0);
-            panelTitle.Name = "panelTitle";
-            panelTitle.Size = new System.Drawing.Size(398, 30);
-            panelTitle.TabIndex = 1;
+            this.panelTitle.BackColor = System.Drawing.Color.White;
+            this.panelTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTitle.Controls.Add(this.lblTitolo);
+            this.panelTitle.Controls.Add(panelLabelX);
+            this.panelTitle.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTitle.Location = new System.Drawing.Point(0, 0);
+            this.panelTitle.Name = "panelTitle";
+            this.panelTitle.Size = new System.Drawing.Size(398, 30);
+            this.panelTitle.TabIndex = 1;
             // 
             // lblTitolo
             // 
@@ -180,7 +179,7 @@
             panelContent.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             panelContainer.ResumeLayout(false);
-            panelTitle.ResumeLayout(false);
+            this.panelTitle.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -191,5 +190,6 @@
         private System.Windows.Forms.Panel mainPanel;
         private MaterialSkin.Controls.MaterialLabel lblTitolo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panelTitle;
     }
 }
