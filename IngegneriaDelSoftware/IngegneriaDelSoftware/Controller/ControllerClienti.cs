@@ -20,10 +20,20 @@ namespace IngegneriaDelSoftware.Controller
             }
         }
 
-        public ControllerClienti()
+
+        #region Singleton
+        private static ControllerClienti _instance = null;
+        private ControllerClienti()
         {
             _clienti = Model.CollezioneClienti.GetInstance();
         }
+        public static ControllerClienti GetInstance()
+        {
+            if (_instance == null)
+                _instance = new ControllerClienti();
+            return _instance;
+        }
+        #endregion
 
         /// <summary>
         /// Aggiunge una mail al cliente

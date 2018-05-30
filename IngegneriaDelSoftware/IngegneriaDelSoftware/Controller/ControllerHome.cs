@@ -37,7 +37,7 @@ namespace IngegneriaDelSoftware.Controller {
 
         public void MostraClienti() {
             if(this._clienti == null || this._clienti.IsDisposed) {
-                this._clienti = new FormClienti(new ControllerClienti());
+                this._clienti = new FormClienti(ControllerClienti.GetInstance());
                 MaterialSkinManager.Instance.AddFormToManage(_clienti);
                 this._clienti.Show();
             }
@@ -55,7 +55,7 @@ namespace IngegneriaDelSoftware.Controller {
 
         public void MostraEmail() {
             if(this._email == null || this._email.IsDisposed) {
-                this._email = new FormEmail(new ControllerClienti());
+                this._email = new FormEmail(ControllerClienti.GetInstance());
                 MaterialSkinManager.Instance.AddFormToManage(_email);
                 this._email.Show();
             }

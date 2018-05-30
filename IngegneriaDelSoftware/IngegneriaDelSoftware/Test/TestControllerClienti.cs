@@ -19,7 +19,7 @@ namespace IngegneriaDelSoftware.Test
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
 
-            this._controllerClienti = new ControllerClienti();
+            this._controllerClienti = ControllerClienti.GetInstance();
         }
 
         [Test]
