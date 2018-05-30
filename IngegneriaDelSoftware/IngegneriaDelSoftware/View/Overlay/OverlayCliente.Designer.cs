@@ -268,6 +268,7 @@
             // 
             splitContainer3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            splitContainer3.IsSplitterFixed = true;
             splitContainer3.Location = new System.Drawing.Point(14, 146);
             splitContainer3.Name = "splitContainer3";
             splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -315,6 +316,7 @@
             // splitContainer4
             // 
             splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer4.IsSplitterFixed = true;
             splitContainer4.Location = new System.Drawing.Point(0, 0);
             splitContainer4.Name = "splitContainer4";
             // 
@@ -391,6 +393,7 @@
             // 
             splitContainer2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            splitContainer2.IsSplitterFixed = true;
             splitContainer2.Location = new System.Drawing.Point(14, 65);
             splitContainer2.Name = "splitContainer2";
             // 
@@ -429,7 +432,7 @@
             this.txtCodice.SelectedText = "";
             this.txtCodice.SelectionLength = 0;
             this.txtCodice.SelectionStart = 0;
-            this.txtCodice.Size = new System.Drawing.Size(187, 23);
+            this.txtCodice.Size = new System.Drawing.Size(163, 23);
             this.txtCodice.TabIndex = 5;
             this.txtCodice.TabStop = false;
             this.txtCodice.UseSystemPasswordChar = false;
@@ -561,6 +564,7 @@
             // splitContainer1
             // 
             splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer1.IsSplitterFixed = true;
             splitContainer1.Location = new System.Drawing.Point(0, 0);
             splitContainer1.Name = "splitContainer1";
             // 
@@ -677,6 +681,7 @@
             // 
             splitContainer5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            splitContainer5.IsSplitterFixed = true;
             splitContainer5.Location = new System.Drawing.Point(14, 293);
             splitContainer5.Name = "splitContainer5";
             splitContainer5.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -695,6 +700,7 @@
             // splitContainer6
             // 
             splitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer6.IsSplitterFixed = true;
             splitContainer6.Location = new System.Drawing.Point(0, 0);
             splitContainer6.Name = "splitContainer6";
             // 
@@ -829,6 +835,7 @@
             // splitContainer7
             // 
             splitContainer7.Dock = System.Windows.Forms.DockStyle.Fill;
+            splitContainer7.IsSplitterFixed = true;
             splitContainer7.Location = new System.Drawing.Point(0, 0);
             splitContainer7.Name = "splitContainer7";
             // 
@@ -957,7 +964,7 @@
             this.btnAnnulla.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.btnAnnulla.MouseState = MaterialSkin.MouseState.HOVER;
             this.btnAnnulla.Name = "btnAnnulla";
-            this.btnAnnulla.Primary = false;
+            this.btnAnnulla.Primary = true;
             this.btnAnnulla.Size = new System.Drawing.Size(83, 36);
             this.btnAnnulla.TabIndex = 19;
             this.btnAnnulla.Text = "Annulla";

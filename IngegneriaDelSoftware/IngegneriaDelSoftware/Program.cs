@@ -19,15 +19,15 @@ namespace IngegneriaDelSoftware
         static void Main()
         {
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.EnableVisualStyles(); // senza questo non si vedono gli Hint
             //Application.Run(new Login());
-            
+
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = EnumTipoPersistenza.NONE;
             impostazioni.IDUtente = 1;
             
             //ControllerClienti controller = new ControllerClienti();
 
-            /*Application.EnableVisualStyles();*/
             /*
             var g = new View.GenericForm(View.GenericForm.TipoForm.FATTURE);
             g.OnCreaClick += (result, e) => {

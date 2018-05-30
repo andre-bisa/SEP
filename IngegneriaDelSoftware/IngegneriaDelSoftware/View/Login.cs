@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MaterialSkin.Controls;
 using IngegneriaDelSoftware.Controller;
+using MaterialSkin;
 
 namespace IngegneriaDelSoftware
 {
@@ -17,6 +18,7 @@ namespace IngegneriaDelSoftware
         public Login()
         {
             InitializeComponent();
+            MaterialSkinManager.Instance.AddFormToManage(this);
         }
 
         private void BtnLogin_Click(object sender, EventArgs e)

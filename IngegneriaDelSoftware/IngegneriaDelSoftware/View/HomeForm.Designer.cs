@@ -95,7 +95,7 @@
             this.venditeBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.venditeBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.venditeBtn.Name = "venditeBtn";
-            this.venditeBtn.Primary = false;
+            this.venditeBtn.Primary = true;
             this.venditeBtn.Size = new System.Drawing.Size(76, 36);
             this.venditeBtn.TabIndex = 7;
             this.venditeBtn.Text = "Vendite";
@@ -112,7 +112,7 @@
             this.preventiviBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.preventiviBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.preventiviBtn.Name = "preventiviBtn";
-            this.preventiviBtn.Primary = false;
+            this.preventiviBtn.Primary = true;
             this.preventiviBtn.Size = new System.Drawing.Size(97, 36);
             this.preventiviBtn.TabIndex = 6;
             this.preventiviBtn.Text = "preventivi";
@@ -129,7 +129,7 @@
             this.calendarioBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.calendarioBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.calendarioBtn.Name = "calendarioBtn";
-            this.calendarioBtn.Primary = false;
+            this.calendarioBtn.Primary = true;
             this.calendarioBtn.Size = new System.Drawing.Size(104, 36);
             this.calendarioBtn.TabIndex = 5;
             this.calendarioBtn.Text = "Calendario";
@@ -146,7 +146,7 @@
             this.fattureBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.fattureBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.fattureBtn.Name = "fattureBtn";
-            this.fattureBtn.Primary = false;
+            this.fattureBtn.Primary = true;
             this.fattureBtn.Size = new System.Drawing.Size(80, 36);
             this.fattureBtn.TabIndex = 4;
             this.fattureBtn.Text = "Fatture";
@@ -175,7 +175,7 @@
             this.emailBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.emailBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.emailBtn.Name = "emailBtn";
-            this.emailBtn.Primary = false;
+            this.emailBtn.Primary = true;
             this.emailBtn.Size = new System.Drawing.Size(61, 36);
             this.emailBtn.TabIndex = 2;
             this.emailBtn.Text = "Email";
@@ -192,7 +192,7 @@
             this.clientiBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.clientiBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.clientiBtn.Name = "clientiBtn";
-            this.clientiBtn.Primary = false;
+            this.clientiBtn.Primary = true;
             this.clientiBtn.Size = new System.Drawing.Size(71, 36);
             this.clientiBtn.TabIndex = 1;
             this.clientiBtn.Text = "Clienti";
@@ -209,7 +209,7 @@
             this.appuntamentoBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.appuntamentoBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.appuntamentoBtn.Name = "appuntamentoBtn";
-            this.appuntamentoBtn.Primary = false;
+            this.appuntamentoBtn.Primary = true;
             this.appuntamentoBtn.Size = new System.Drawing.Size(126, 36);
             this.appuntamentoBtn.TabIndex = 0;
             this.appuntamentoBtn.Text = "Appuntamenti";

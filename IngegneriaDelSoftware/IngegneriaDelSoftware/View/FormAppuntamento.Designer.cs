@@ -106,6 +106,7 @@ namespace IngegneriaDelSoftware.View
             // 
             // txtLuogoAppuntamento
             // 
+            this.txtLuogoAppuntamento.BackColor = System.Drawing.Color.White;
             this.txtLuogoAppuntamento.Depth = 0;
             this.txtLuogoAppuntamento.Hint = "Luogo";
             this.txtLuogoAppuntamento.Location = new System.Drawing.Point(160, 219);
@@ -132,6 +133,7 @@ namespace IngegneriaDelSoftware.View
             // 
             // txtNoteAppuntamento
             // 
+            this.txtNoteAppuntamento.BackColor = System.Drawing.Color.White;
             this.txtNoteAppuntamento.Depth = 0;
             this.txtNoteAppuntamento.Hint = "Note";
             this.txtNoteAppuntamento.Location = new System.Drawing.Point(160, 284);
@@ -206,10 +208,11 @@ namespace IngegneriaDelSoftware.View
             this.materialRaisedButton3.Text = "Aggiungi intermediari";
             this.materialRaisedButton3.UseVisualStyleBackColor = true;
             // 
-            // formAppuntamenti
+            // FormAppuntamenti
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(541, 472);
             this.Controls.Add(this.materialRaisedButton3);
             this.Controls.Add(this.materialRaisedButton2);
@@ -223,7 +226,7 @@ namespace IngegneriaDelSoftware.View
             this.Controls.Add(materialLabel2);
             this.Controls.Add(materialLabel1);
             this.MaximizeBox = false;
-            this.Name = "formAppuntamenti";
+            this.Name = "FormAppuntamenti";
             this.Text = "Inserimento appuntamenti";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MaterialSkin;
 
 namespace IngegneriaDelSoftware.View.Overlay
 {
@@ -47,6 +48,9 @@ namespace IngegneriaDelSoftware.View.Overlay
         private Overlay()
         {
             InitializeComponent();
+            MaterialSkinManager manager = MaterialSkinManager.Instance;
+            panelTitle.BackColor = lblTitolo.BackColor = lblClose.BackColor = manager.ColorScheme.PrimaryColor;
+            tableLayoutPanel1.BackColor = manager.ColorScheme.LightPrimaryColor;
             this.Dock = DockStyle.Fill;
             this.Visible = false;
         }
@@ -76,12 +80,12 @@ namespace IngegneriaDelSoftware.View.Overlay
 
         private void lblClose_MouseHover(object sender, EventArgs e)
         {
-            lblClose.BackColor = System.Drawing.Color.Red;
+            lblClose.BackColor = MaterialSkinManager.Instance.ColorScheme.DarkPrimaryColor;
         }
 
         private void lblClose_MouseLeave(object sender, EventArgs e)
         {
-            lblClose.BackColor = System.Drawing.Color.LightCoral;
+            lblClose.BackColor = MaterialSkinManager.Instance.ColorScheme.PrimaryColor;
         }
         #endregion
 

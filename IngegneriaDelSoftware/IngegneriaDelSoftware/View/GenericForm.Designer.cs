@@ -58,6 +58,11 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.CalcolaBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.AggiungiVociBtn = new MaterialSkin.Controls.MaterialFlatButton();
+            this.PanelResult = new System.Windows.Forms.Panel();
+            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            this.ResultTxt = new System.Windows.Forms.TextBox();
+            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
+            this.VociTxt = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.SearchLabel = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.NuovaBtn = new MaterialSkin.Controls.MaterialFlatButton();
@@ -68,19 +73,14 @@
             this.CausaleLabel = new MaterialSkin.Controls.MaterialLabel();
             this.ImportoLabel = new MaterialSkin.Controls.MaterialLabel();
             this.TipologiaLabel = new MaterialSkin.Controls.MaterialLabel();
-            this.PanelResult = new System.Windows.Forms.Panel();
-            this.VociTxt = new System.Windows.Forms.TextBox();
-            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            this.ResultTxt = new System.Windows.Forms.TextBox();
-            this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             this.panel1.SuspendLayout();
             this.GrigliaSfondoPanel.SuspendLayout();
             this.SingolaPanel.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.PanelResult.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -636,6 +636,74 @@
             this.AggiungiVociBtn.Visible = false;
             this.AggiungiVociBtn.Click += new System.EventHandler(this.AggiungiVociBtn_Click);
             // 
+            // PanelResult
+            // 
+            this.PanelResult.Controls.Add(this.materialLabel2);
+            this.PanelResult.Controls.Add(this.ResultTxt);
+            this.PanelResult.Controls.Add(this.materialLabel1);
+            this.PanelResult.Controls.Add(this.VociTxt);
+            this.PanelResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PanelResult.Location = new System.Drawing.Point(373, 102);
+            this.PanelResult.Name = "PanelResult";
+            this.PanelResult.Size = new System.Drawing.Size(792, 565);
+            this.PanelResult.TabIndex = 5;
+            // 
+            // materialLabel2
+            // 
+            this.materialLabel2.AutoSize = true;
+            this.materialLabel2.Depth = 0;
+            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel2.Location = new System.Drawing.Point(19, 311);
+            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel2.Name = "materialLabel2";
+            this.materialLabel2.Size = new System.Drawing.Size(69, 19);
+            this.materialLabel2.TabIndex = 3;
+            this.materialLabel2.Text = "Risultato";
+            // 
+            // ResultTxt
+            // 
+            this.ResultTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ResultTxt.BackColor = System.Drawing.Color.White;
+            this.ResultTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ResultTxt.Enabled = false;
+            this.ResultTxt.Location = new System.Drawing.Point(27, 333);
+            this.ResultTxt.Multiline = true;
+            this.ResultTxt.Name = "ResultTxt";
+            this.ResultTxt.ReadOnly = true;
+            this.ResultTxt.Size = new System.Drawing.Size(738, 197);
+            this.ResultTxt.TabIndex = 2;
+            // 
+            // materialLabel1
+            // 
+            this.materialLabel1.AutoSize = true;
+            this.materialLabel1.Depth = 0;
+            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
+            this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.materialLabel1.Location = new System.Drawing.Point(19, 15);
+            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialLabel1.Name = "materialLabel1";
+            this.materialLabel1.Size = new System.Drawing.Size(104, 19);
+            this.materialLabel1.TabIndex = 1;
+            this.materialLabel1.Text = "Riepilogo voci";
+            // 
+            // VociTxt
+            // 
+            this.VociTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.VociTxt.BackColor = System.Drawing.Color.White;
+            this.VociTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.VociTxt.Enabled = false;
+            this.VociTxt.Location = new System.Drawing.Point(27, 40);
+            this.VociTxt.Multiline = true;
+            this.VociTxt.Name = "VociTxt";
+            this.VociTxt.ReadOnly = true;
+            this.VociTxt.Size = new System.Drawing.Size(738, 268);
+            this.VociTxt.TabIndex = 0;
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.SearchLabel);
@@ -678,7 +746,7 @@
             this.NuovaBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
             this.NuovaBtn.MouseState = MaterialSkin.MouseState.HOVER;
             this.NuovaBtn.Name = "NuovaBtn";
-            this.NuovaBtn.Primary = false;
+            this.NuovaBtn.Primary = true;
             this.NuovaBtn.Size = new System.Drawing.Size(198, 36);
             this.NuovaBtn.TabIndex = 4;
             this.NuovaBtn.Text = "Nuova ";
@@ -743,7 +811,7 @@
             // 
             this.CausaleLabel.AutoSize = true;
             this.CausaleLabel.Depth = 0;
-            this.CausaleLabel.Font = new System.Drawing.Font("Roboto", 11F);
+            this.CausaleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.CausaleLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.CausaleLabel.Location = new System.Drawing.Point(183, 0);
             this.CausaleLabel.MouseState = MaterialSkin.MouseState.HOVER;
@@ -756,7 +824,7 @@
             // 
             this.ImportoLabel.AutoSize = true;
             this.ImportoLabel.Depth = 0;
-            this.ImportoLabel.Font = new System.Drawing.Font("Roboto", 11F);
+            this.ImportoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.ImportoLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.ImportoLabel.Location = new System.Drawing.Point(252, 0);
             this.ImportoLabel.MouseState = MaterialSkin.MouseState.HOVER;
@@ -769,7 +837,7 @@
             // 
             this.TipologiaLabel.AutoSize = true;
             this.TipologiaLabel.Depth = 0;
-            this.TipologiaLabel.Font = new System.Drawing.Font("Roboto", 11F);
+            this.TipologiaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.TipologiaLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.TipologiaLabel.Location = new System.Drawing.Point(83, 0);
             this.TipologiaLabel.MouseState = MaterialSkin.MouseState.HOVER;
@@ -777,74 +845,6 @@
             this.TipologiaLabel.Size = new System.Drawing.Size(72, 19);
             this.TipologiaLabel.TabIndex = 2;
             this.TipologiaLabel.Text = "Tipologia";
-            // 
-            // PanelResult
-            // 
-            this.PanelResult.Controls.Add(this.materialLabel2);
-            this.PanelResult.Controls.Add(this.ResultTxt);
-            this.PanelResult.Controls.Add(this.materialLabel1);
-            this.PanelResult.Controls.Add(this.VociTxt);
-            this.PanelResult.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PanelResult.Location = new System.Drawing.Point(373, 102);
-            this.PanelResult.Name = "PanelResult";
-            this.PanelResult.Size = new System.Drawing.Size(792, 565);
-            this.PanelResult.TabIndex = 5;
-            // 
-            // VociTxt
-            // 
-            this.VociTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.VociTxt.BackColor = System.Drawing.Color.White;
-            this.VociTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.VociTxt.Enabled = false;
-            this.VociTxt.Location = new System.Drawing.Point(27, 40);
-            this.VociTxt.Multiline = true;
-            this.VociTxt.Name = "VociTxt";
-            this.VociTxt.ReadOnly = true;
-            this.VociTxt.Size = new System.Drawing.Size(738, 268);
-            this.VociTxt.TabIndex = 0;
-            // 
-            // materialLabel1
-            // 
-            this.materialLabel1.AutoSize = true;
-            this.materialLabel1.Depth = 0;
-            this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel1.Location = new System.Drawing.Point(19, 15);
-            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel1.Name = "materialLabel1";
-            this.materialLabel1.Size = new System.Drawing.Size(104, 19);
-            this.materialLabel1.TabIndex = 1;
-            this.materialLabel1.Text = "Riepilogo voci";
-            // 
-            // ResultTxt
-            // 
-            this.ResultTxt.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ResultTxt.BackColor = System.Drawing.Color.White;
-            this.ResultTxt.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ResultTxt.Enabled = false;
-            this.ResultTxt.Location = new System.Drawing.Point(27, 333);
-            this.ResultTxt.Multiline = true;
-            this.ResultTxt.Name = "ResultTxt";
-            this.ResultTxt.ReadOnly = true;
-            this.ResultTxt.Size = new System.Drawing.Size(738, 197);
-            this.ResultTxt.TabIndex = 2;
-            // 
-            // materialLabel2
-            // 
-            this.materialLabel2.AutoSize = true;
-            this.materialLabel2.Depth = 0;
-            this.materialLabel2.Font = new System.Drawing.Font("Roboto", 11F);
-            this.materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.materialLabel2.Location = new System.Drawing.Point(19, 311);
-            this.materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel2.Name = "materialLabel2";
-            this.materialLabel2.Size = new System.Drawing.Size(69, 19);
-            this.materialLabel2.TabIndex = 3;
-            this.materialLabel2.Text = "Risultato";
             // 
             // GenericForm
             // 
@@ -864,10 +864,10 @@
             this.panel2.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.PanelResult.ResumeLayout(false);
             this.PanelResult.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
