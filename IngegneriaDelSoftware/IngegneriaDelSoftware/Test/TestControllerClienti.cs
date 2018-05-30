@@ -25,8 +25,8 @@ namespace IngegneriaDelSoftware.Test
         [Test]
         public void TestAggiungiCliente()
         {
-            DatiCliente d = new DatiCliente("ID", EnumTipoCliente.Attivo);
-            DatiPersona p = new DatiPersonaFisica("CF", "Indirizzo", "Nome", "Cognome");
+            DatiCliente d = new DatiCliente("ID1", EnumTipoCliente.Attivo);
+            DatiPersona p = new DatiPersonaFisica("CF1", "Indirizzo", "Nome", "Cognome");
 
             Cliente c = this._controllerClienti.AggiungiCliente(d, p);
 
@@ -38,8 +38,8 @@ namespace IngegneriaDelSoftware.Test
         public void TestRimuoviCliente()
         {
             // Aggiungo
-            DatiCliente d = new DatiCliente("ID", EnumTipoCliente.Attivo);
-            DatiPersona p = new DatiPersonaFisica("CF", "Indirizzo", "Nome", "Cognome");
+            DatiCliente d = new DatiCliente("ID2", EnumTipoCliente.Attivo);
+            DatiPersona p = new DatiPersonaFisica("CF2", "Indirizzo", "Nome", "Cognome");
 
             Cliente c = this._controllerClienti.AggiungiCliente(d, p);
 
@@ -52,17 +52,19 @@ namespace IngegneriaDelSoftware.Test
         public void TestModificaClienteStessoTipoPersona()
         {
             // Aggiungo
-            DatiCliente d = new DatiCliente("ID", EnumTipoCliente.Attivo);
-            DatiPersona p = new DatiPersonaFisica("CF", "Indirizzo", "Nome", "Cognome");
+            DatiCliente d = new DatiCliente("IDmodifica", EnumTipoCliente.Attivo);
+            DatiPersona p = new DatiPersonaFisica("CF3", "Indirizzo", "Nome", "Cognome");
 
             Cliente c = this._controllerClienti.AggiungiCliente(d, p);
 
+            Assert.NotNull(c);
             // Modifico
-            DatiCliente d2 = new DatiCliente("ID2", EnumTipoCliente.Ex);
-            DatiPersona p2 = new DatiPersonaFisica("CF2", "Indirizzo2", "Nome2", "Cognome2");
+            DatiCliente d2 = new DatiCliente("ID4", EnumTipoCliente.Ex);
+            DatiPersona p2 = new DatiPersonaFisica("CF4", "Indirizzo2", "Nome2", "Cognome2");
 
             this._controllerClienti.ModificaCliente(c, d2, p2);
 
+            Assert.NotNull(c);
             Assert.AreEqual(true, this._controllerClienti.CollezioneClienti.Any(cli => cli.IDCliente == d2.IDCliente));
         }
 

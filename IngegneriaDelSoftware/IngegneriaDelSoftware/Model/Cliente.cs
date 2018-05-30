@@ -205,23 +205,6 @@ namespace IngegneriaDelSoftware.Model
             CambiaDatiCliente(nuoviDati);
         }
 
-        public override bool Equals(object obj)
-        {
-            if (obj is DatiCliente)
-            {
-                return ((DatiCliente)obj).IDCliente == this.IDCliente; // Se è di tipo DatiCliente posso dire che è uguale se il codice è uguale
-            }
-            var cliente = obj as Cliente;
-            return cliente != null &&
-                   IDCliente == cliente.IDCliente;
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = 2011232026;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(IDCliente);
-            return hashCode;
-        }
         public override string ToString() {
             return String.Format("{0}, {1}, {2}, {3}", this.IDCliente, this.Denominazione, this.Persona.CodiceFiscale, this.TipoCliente);
         }
@@ -249,6 +232,30 @@ namespace IngegneriaDelSoftware.Model
         protected Cliente Clone()
         {
             return new Cliente(this._datiCliente, this._persona, this._referenti);
+        }
+        #endregion
+
+        #region Equals
+        public override bool Equals(object obj)
+        {
+            var cliente = obj as Cliente;
+            return cliente != null &&
+                   IDCliente == cliente.IDCliente;
+        }
+
+        public override int GetHashCode()
+        {
+            return 65159214 + EqualityComparer<string>.Default.GetHashCode(IDCliente);
+        }
+
+        public static bool operator ==(Cliente cliente1, Cliente cliente2)
+        {
+            return EqualityComparer<Cliente>.Default.Equals(cliente1, cliente2);
+        }
+
+        public static bool operator !=(Cliente cliente1, Cliente cliente2)
+        {
+            return !(cliente1 == cliente2);
         }
         #endregion
     }
