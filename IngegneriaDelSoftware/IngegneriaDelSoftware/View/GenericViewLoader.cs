@@ -44,6 +44,15 @@ namespace IngegneriaDelSoftware.View {
             }
         }
 
+        private static bool CheckValidID(string id) {
+            try {
+                Convert.ToUInt64(id);
+                return true;
+            } catch(Exception) {
+                FormConfim.Show("Errore", "Identificativo non valido", MessageBoxButtons.OK);
+                return false;
+            }
+        }
         public static GenericForm getPreventivoForm(ControllerPreventivi controller) {
             GenericForm result = GenericForm.CreaFormPreventivo();
             Cliente tmpCliente = null;
@@ -94,15 +103,23 @@ namespace IngegneriaDelSoftware.View {
             };
             result.OnAccettaClick += (o, e) => {
                 if(o.Key != null) {
-                    controller.AccettaPreventivo(Convert.ToUInt64(o.Key));
-                    result.StatoTxt = "Accettato";
+                    try {
+                        controller.AccettaPreventivo(Convert.ToUInt64(o.Key));
+                        result.StatoTxt = "Accettato";
+                    } catch(Exception) {
+                        FormConfim.Show("Errore", "Identificativo del preventivo non valido", MessageBoxButtons.OK);
+                    }
                 }
             };
             result.OnRifiutaClick += (o, e) => {
                 if(o.Key != null) {
-                    controller.RifiutaPreventivo(Convert.ToUInt64(o.Key));
-                    result.StatoTxt = "Rifutato";
-                    //TODO: generare la vendita da qui!
+                    try {
+                        controller.RifiutaPreventivo(Convert.ToUInt64(o.Key));
+                        result.StatoTxt = "Rifutato";
+                        //TODO: generare la vendita da qui!
+                    }catch(Exception) {
+                        FormConfim.Show("Errore", "Identificativo del preventivo non valido", MessageBoxButtons.OK);
+                    }
                 }
 
             };
@@ -121,6 +138,9 @@ namespace IngegneriaDelSoftware.View {
                         FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
                     }
                 } else {
+                    if(!CheckValidID(o.Key)) {
+                        return;
+                    }
                     CollezionePreventivi col = await t;
                     //CollezionePreventivi col = CollezionePreventivi.GetInstance();
                     var old = (from preve in col
@@ -182,6 +202,9 @@ namespace IngegneriaDelSoftware.View {
                 o.Enabled = true;
             };
             result.OnCalcolaClick += async (o, e) => {
+                if(!CheckValidID(o.Key)) {
+                    return;
+                }
                 if(o.Key != null) {
                     Preventivo current = (from fa in CollezionePreventivi.GetInstance()
                                        where fa.ID == Convert.ToUInt64(o.Key)
@@ -284,6 +307,9 @@ namespace IngegneriaDelSoftware.View {
                         FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
                     }
                 } else {
+                    if(!CheckValidID(o.Key)) {
+                        return;
+                    }
                     CollezioneVendite col = await t;
                     //CollezioneVendite col =  CollezioneVendite.GetInstance();
                     var old = (from vendi in col
@@ -364,6 +390,9 @@ namespace IngegneriaDelSoftware.View {
                 o.Enabled = true;
             };
             result.OnCalcolaClick += async (o, e) => {
+                if(!CheckValidID(o.Key)) {
+                    return;
+                }
                 if(o.Key != null) {
                     Vendita current = (from fa in CollezioneVendite.GetInstance()
                                        where fa.ID == Convert.ToUInt64(o.Key)
