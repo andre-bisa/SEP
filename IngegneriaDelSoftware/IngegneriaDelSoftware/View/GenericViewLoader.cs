@@ -337,7 +337,14 @@ namespace IngegneriaDelSoftware.View {
                     if((prop = GetForm<Preventivo>.Get((from p in colp.ToList()
                                                       where p.Cliente.Equals(c)
                                                       select p).ToList())) != null) {
-                        var vendita = Vendita.FromPreventivo(0, prop, null);
+                        Vendita vendita = null;
+                        try {
+                            vendita = Vendita.FromPreventivo(0, prop, null);
+                        }catch(Exception ex) {
+                            FormConfim.Show("Errore", "Sì è verificato un errore nella creazione della vendita: " + ex.Message, MessageBoxButtons.OK);
+                            o.Enabled = true;
+                            return;
+                        }
                         CaricaCliente(result, vendita.Cliente, "", null, vendita.Data.Date.ToShortDateString());
                         foreach(VoceVendita voce in vendita) {
                             result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);

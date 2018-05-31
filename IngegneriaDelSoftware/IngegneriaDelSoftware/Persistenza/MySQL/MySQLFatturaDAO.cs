@@ -137,7 +137,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 else
                 { // Inserisco rivolta a cliente
                     Cliente cliente = CollezioneClienti.GetInstance().Get(reader.GetString("IDCLIENTE"));
-                    fattura = new Fattura(reader.GetInt32("ANNO"), reader.GetString("NUMERO"), cliente, venditeFattura, reader.GetDateTime("DATA"), reader.GetFloat("SCONTO"), voci, false); // TODO aggiustare
+                    fattura = new FatturaScripting(reader.GetInt32("ANNO"), reader.GetString("NUMERO"), cliente, venditeFattura, reader.GetDateTime("DATA"), reader.GetFloat("SCONTO"), voci, false); // TODO aggiustare
                 }
 
                 listaFatture.Add(fattura);

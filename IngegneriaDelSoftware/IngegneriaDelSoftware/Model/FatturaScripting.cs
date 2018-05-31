@@ -92,7 +92,7 @@ namespace IngegneriaDelSoftware.Model {
                     scriptEngine.AddArrayVariable(tipologia.Key.Replace(" ", ""), tmp);
                 }*/
                 tipologie.AsParallel().ForAll((t) => {
-                    string name = t.Key.Replace(" ", "");
+                    string name = t.Key.Replace(" ", "").ToUpper();
                     scriptEngine.AddArrayVariable(name, 
                         t.ToArray().Select((i) => {
                             return (i.Importo * i.Quantita) * new decimal(i.Iva + 1);
@@ -103,7 +103,7 @@ namespace IngegneriaDelSoftware.Model {
                 //Recupera tutte le label e le variabili marcate important;
                 StringBuilder result = new StringBuilder();
                 foreach(string vari in scriptEngine.GetSaved()) {
-                    result.Append((scriptEngine.GetLabel(vari) ?? "") + scriptEngine.GetVariable(vari) + Environment.NewLine);
+                    result.Append((scriptEngine.GetLabel(vari) ?? "") + String.Format("{0:C}", Double.Parse(scriptEngine.GetVariable(vari))) + Environment.NewLine);
                 }
                 //Svuota il valutatore;
                 scriptEngine.Clear();

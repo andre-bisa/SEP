@@ -9,7 +9,7 @@ using System.IO;
 namespace IngegneriaDelSoftware.Controller {
     public class ScriptProvider {
         private ScriptInCSharp.Environment _env;
-        private Evaluator _eval;
+        private ScriptInCSharp.Evaluator _eval;
         private string _filename;
         private List<Line> _script;
         private List<Preprocessor> _preprocessor;

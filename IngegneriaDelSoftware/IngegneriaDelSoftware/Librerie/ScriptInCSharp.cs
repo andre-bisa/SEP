@@ -279,10 +279,12 @@ namespace ScriptInCSharp {
                     if(this.variables[name] is Environment.VariableObj) {
                         return ((Environment.VariableObj)this.variables[name]).Value;
                     } else {
-                        throw new InvalidCastException("Internal error, but maybe you did something wrong too... Check " + name);
+                        return "0";
+                        //throw new InvalidCastException("Internal error, but maybe you did something wrong too... Check " + name);
                     }
                 } else {
-                    throw new KeyNotFoundException("The searched variable wasn't defined" + name);
+                    return "0";
+                    //throw new KeyNotFoundException("The searched variable wasn't defined" + name);
                 }
             }else if(Regex.IsMatch(name, ArrayValue.ARRAY)) {
                 Match m = Regex.Match(name, ArrayValue.ARRAY);

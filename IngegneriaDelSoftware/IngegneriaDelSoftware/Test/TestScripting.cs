@@ -13,7 +13,7 @@ namespace IngegneriaDelSoftware.Test {
     [TestFixture]
     class TestScripting {
         [Test]
-        public void TestLoad(){
+        public void TestLoad() {
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
 
@@ -39,11 +39,10 @@ namespace IngegneriaDelSoftware.Test {
             var voce4 = new VoceFattura("Canapa", 20, 0f, "non imponibili");
 
             fattura.Add(voce1, voce2, voce3, voce4);
-            Assert.AreEqual("Imponibile: 10\r\nTotale: 60\r\n", fattura.Calcola());
+            Assert.AreEqual("Imponibile: € 10,00\r\nTotale: € 60,00\r\n", fattura.Calcola());
         }
         [Test]
-        public void TestLoadNoVarName()
-        {
+        public void TestLoadNoVarName() {
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
 
@@ -67,7 +66,91 @@ namespace IngegneriaDelSoftware.Test {
             var voce4 = new VoceFattura("Cianuro", 20, 0f, "");
 
             fattura.Add(voce1, voce2, voce3, voce4);
-            Assert.AreEqual("Generico: 90\r\nTotale: 90\r\n", fattura.Calcola());
+            Assert.AreEqual("Generico: € 90,00\r\nTotale: € 90,00\r\n", fattura.Calcola());
+        }
+        [Test]
+        public void TestLoadReal1() {
+            Impostazioni impostazioni = Impostazioni.GetInstance();
+            impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+
+            ScriptProvider.Drop("Test");
+
+            ScriptProvider.create("Test", (""
+                + "$ON=( #SUM( @ONORARIO ) )\n"
+                + "$CPA=( $ON * 0,04 )\n"
+                + "$IMPIVA=( $ON + $CPA )\n"
+                + "$IVA=( $IMPIVA * 0,22 )\n"
+                + "$TOTPAR=( $IMPIVA + $IVA )\n"
+                + "$NON=( #SUM( @NONIMPONIBILI ) )\n"
+                + "$TOTALE=( $TOTPAR + $NON )\n"
+                + ".SET $ON AS IMPORTANT\n"
+                + ".SET $CPA AS IMPORTANT\n"
+                + ".SET $IMPIVA AS IMPORTANT\n"
+                + ".SET $IVA AS IMPORTANT\n"
+                + ".SET $TOTPAR AS IMPORTANT\n"
+                + ".SET $NON AS IMPORTANT\n"
+                + ".SET $TOTALE AS IMPORTANT\n"
+                + ".SET LABEL FOR $ON AS \"Totale onorari \"\n"
+                + ".SET LABEL FOR $CPA AS \"Cpa \"\n"
+                + ".SET LABEL FOR $IMPIVA AS \"Imponibile iva \"\n"
+                + ".SET LABEL FOR $IVA AS \"Iva \"\n"
+                + ".SET LABEL FOR $TOTPAR AS \"Totale parziale \"\n"
+                + ".SET LABEL FOR $NON AS \"Anticipazioni \"\n"
+                + ".SET LABEL FOR $TOTALE AS \"Totale generale \""
+            + "").Split('\n'));
+            var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
+            var cliente = new Cliente(persona, "1");
+            var vendita = new Vendita(1, cliente);
+            var fattura = new FatturaScripting(2018, "2", cliente, vendita);
+            var voce1 = new VoceFattura("Corda", 100, 0f, "onorario");
+            var voce2 = new VoceFattura("Canapa", 16, 0f, "non imponibili");/*
+            var voce3 = new VoceFattura("Coltelli", 20, 0f, "");
+            var voce4 = new VoceFattura("Cianuro", 20, 0f, "");*/
+
+            fattura.Add(voce1, voce2/*, voce3, voce4*/);
+            Assert.AreEqual("Totale onorari € 100,00\r\nCpa € 4,00\r\nImponibile iva € 104,00\r\nIva € 22,88\r\nTotale parziale € 126,88\r\nAnticipazioni € 16,00\r\nTotale generale € 142,88\r\n", fattura.Calcola());
+        }
+        [Test]
+        public void TestLoadReal2() {
+            Impostazioni impostazioni = Impostazioni.GetInstance();
+            impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+
+            ScriptProvider.Drop("Test");
+
+            ScriptProvider.create("Test", (""
+                + "$ON=( #SUM( @ONORARIO ) )\n"
+                + "$CPA=( $ON * 0,04 )\n"
+                + "$IMPIVA=( $ON + $CPA )\n"
+                + "$IVA=( $IMPIVA * 0,22 )\n"
+                + "$TOTPAR=( $IMPIVA + $IVA )\n"
+                + "$NON=( #SUM( @NONIMPONIBILI ) )\n"
+                + "$TOTALE=( $TOTPAR + $NON )\n"
+                + ".SET $ON AS IMPORTANT\n"
+                + ".SET $CPA AS IMPORTANT\n"
+                + ".SET $IMPIVA AS IMPORTANT\n"
+                + ".SET $IVA AS IMPORTANT\n"
+                + ".SET $TOTPAR AS IMPORTANT\n"
+                + ".SET $NON AS IMPORTANT\n"
+                + ".SET $TOTALE AS IMPORTANT\n"
+                + ".SET LABEL FOR $ON AS \"Totale onorari \"\n"
+                + ".SET LABEL FOR $CPA AS \"Cpa \"\n"
+                + ".SET LABEL FOR $IMPIVA AS \"Imponibile iva \"\n"
+                + ".SET LABEL FOR $IVA AS \"Iva \"\n"
+                + ".SET LABEL FOR $TOTPAR AS \"Totale parziale \"\n"
+                + ".SET LABEL FOR $NON AS \"Anticipazioni \"\n"
+                + ".SET LABEL FOR $TOTALE AS \"Totale generale \""
+            + "").Split('\n'));
+            var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
+            var cliente = new Cliente(persona, "1");
+            var vendita = new Vendita(1, cliente);
+            var fattura = new FatturaScripting(2018, "2", cliente, vendita);
+            var voce1 = new VoceFattura("Corda", 320, 0f, "onorario");
+            /*var voce2 = new VoceFattura("Canapa", 16, 0f, "non imponibili");/*
+            var voce3 = new VoceFattura("Coltelli", 20, 0f, "");
+            var voce4 = new VoceFattura("Cianuro", 20, 0f, "");*/
+
+            fattura.Add(voce1/*, voce2/*, voce3, voce4*/);
+            Assert.AreEqual("Totale onorari € 320,00\r\nCpa € 12,80\r\nImponibile iva € 332,80\r\nIva € 73,22\r\nTotale parziale € 406,02\r\nTotale generale € 406,02\r\n", fattura.Calcola());
         }
     }
 }

@@ -25,7 +25,30 @@ namespace IngegneriaDelSoftware
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = EnumTipoPersistenza.NONE;
             impostazioni.IDUtente = 1;
-            
+            ScriptProvider.create("Test", (""
+               + "$ON=( #SUM( @ONORARIO ) )\n"
+               + "$CPA=( $ON * 0,04 )\n"
+               + "$IMPIVA=( $ON + $CPA )\n"
+               + "$IVA=( $IMPIVA * 0,22 )\n"
+               + "$TOTPAR=( $IMPIVA + $IVA )\n"
+               + "$NON=( #SUM( @NONIMPONIBILI ) )\n"
+               + "$TOTALE=( $TOTPAR + $NON )\n"
+               + ".SET $ON AS IMPORTANT\n"
+               + ".SET $CPA AS IMPORTANT\n"
+               + ".SET $IMPIVA AS IMPORTANT\n"
+               + ".SET $IVA AS IMPORTANT\n"
+               + ".SET $TOTPAR AS IMPORTANT\n"
+               + ".SET $NON AS IMPORTANT\n"
+               + ".SET $TOTALE AS IMPORTANT\n"
+               + ".SET LABEL FOR $ON AS \"Totale onorari \"\n"
+               + ".SET LABEL FOR $CPA AS \"Cpa \"\n"
+               + ".SET LABEL FOR $IMPIVA AS \"Imponibile iva \"\n"
+               + ".SET LABEL FOR $IVA AS \"Iva \"\n"
+               + ".SET LABEL FOR $TOTPAR AS \"Totale parziale \"\n"
+               + ".SET LABEL FOR $NON AS \"Anticipazioni \"\n"
+               + ".SET LABEL FOR $TOTALE AS \"Totale generale \""
+           + "").Split('\n'));
+
             //ControllerClienti controller = new ControllerClienti();
 
             /*
