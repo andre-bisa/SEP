@@ -80,6 +80,19 @@ namespace IngegneriaDelSoftware.View.Overlay
 
         private void BottoneSalva(object sender, EventArgs e)
         {
+            // Controllo inserimento dei campi
+            if (
+                txtCodice.Text.Trim().Length == 0 ||
+                txtCodiceFiscale.Text.Trim().Length == 0 ||
+                txtIndirizzo.Text.Trim().Length == 0 ||
+                (radioFisica.Checked && (txtNome.Text.Trim().Length == 0 || txtCognome.Text.Trim().Length == 0)) ||
+                (radioGiuridica.Checked && txtDenominazione.Text.Trim().Length == 0)
+                )
+            {
+                FormConfim.Show("Errore, inserire tutti i campi obbligatori", "Errore nell'inserimento dei campi obbligatori." + System.Environment.NewLine + "I campi obbligatori sono: Codice, Indirizzo, Codice Fiscale, Nome e Cognome oppure Denominazione.", MessageBoxButtons.OK);
+                return;
+            }
+
             DatiPersona datiPersona;
             EnumTipoCliente tipoCliente = EnumTipoCliente.Attivo;
             DatiCliente datiCliente;
