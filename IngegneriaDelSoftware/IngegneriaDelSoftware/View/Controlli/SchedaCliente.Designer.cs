@@ -50,7 +50,6 @@
             this.checkScheda.Size = new System.Drawing.Size(26, 30);
             this.checkScheda.TabIndex = 0;
             this.checkScheda.UseVisualStyleBackColor = true;
-            this.checkScheda.CheckedChanged += new System.EventHandler(this.CheckScheda_CheckedChanged);
             // 
             // lblDenominazione
             // 

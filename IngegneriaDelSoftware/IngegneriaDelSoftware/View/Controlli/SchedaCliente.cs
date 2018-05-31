@@ -75,6 +75,18 @@ namespace IngegneriaDelSoftware.View.Controlli
         protected SchedaCliente()
         {
             InitializeComponent();
+            this.checkScheda.CheckedChanged += this.CambiaSelezione;
+
+            this.MouseClick += this.CambiaSelezione;
+            lblDenominazione.MouseClick += this.CambiaSelezione;
+            lblEmail.MouseClick += this.CambiaSelezione;
+            lblIndirizzo.MouseClick += this.CambiaSelezione;
+
+            this.MouseDoubleClick += this.CambiaSelezione;
+            lblDenominazione.MouseDoubleClick += this.CambiaSelezione;
+            lblEmail.MouseDoubleClick += this.CambiaSelezione;
+            lblIndirizzo.MouseDoubleClick += this.CambiaSelezione;
+
             this.Size = new System.Drawing.Size(200, SchedaCliente.AltezzaSchedaClienti());
         }
         /// <summary>
@@ -99,9 +111,12 @@ namespace IngegneriaDelSoftware.View.Controlli
         #endregion
 
         #region "Gestione eventi controlli"
-        private void CheckScheda_CheckedChanged(object sender, EventArgs e)
+        private void CambiaSelezione(object sender, EventArgs e)
         {
-            Selected = !Selected;
+            if (sender is CheckBox)
+                Selected = checkScheda.Checked;
+            else
+                checkScheda.Checked = !Selected;
         }
 
         private void LblEspandi_Click(object sender, EventArgs e)

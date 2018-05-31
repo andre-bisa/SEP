@@ -61,12 +61,14 @@ namespace IngegneriaDelSoftware.View.Controlli
         {
             InitializeComponent();
 
+            this.MouseClick += this.MouseClickOnPanel;
             lblDenominazione.MouseClick += this.MouseClickOnPanel;
             lblEmail.MouseClick += this.MouseClickOnPanel;
             lblIndirizzo.MouseClick += this.MouseClickOnPanel;
             lblReferenti.MouseClick += this.MouseClickOnPanel;
             lblTelefoni.MouseClick += this.MouseClickOnPanel;
 
+            this.MouseDoubleClick += this.MouseClickOnPanel;
             lblDenominazione.MouseDoubleClick += this.MouseClickOnPanel;
             lblEmail.MouseDoubleClick += this.MouseClickOnPanel;
             lblIndirizzo.MouseDoubleClick += this.MouseClickOnPanel;
