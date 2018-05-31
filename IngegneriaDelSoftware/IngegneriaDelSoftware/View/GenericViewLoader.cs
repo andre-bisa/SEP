@@ -88,17 +88,20 @@ namespace IngegneriaDelSoftware.View {
                     foreach(VocePreventivo voce in preventivo) {
                         result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);
                     }
+                    result.StatoTxt = preventivo.Accettato ? "Accettato" : "Rifiutato";
                     result.Key = preventivo.ID.ToString();
                 }
             };
             result.OnAccettaClick += (o, e) => {
                 if(o.Key != null) {
                     controller.AccettaPreventivo(Convert.ToUInt64(o.Key));
+                    result.StatoTxt = "Accettato";
                 }
             };
             result.OnRifiutaClick += (o, e) => {
                 if(o.Key != null) {
                     controller.RifiutaPreventivo(Convert.ToUInt64(o.Key));
+                    result.StatoTxt = "Rifutato";
                     //TODO: generare la vendita da qui!
                 }
 
@@ -113,6 +116,7 @@ namespace IngegneriaDelSoftware.View {
                                 return new VocePreventivo(el.Descrizione, Convert.ToDecimal(el.Importo), el.Tipologia, el.Numero);
                             }).ToList()
                         );
+                        
                     }catch(FormatException) {
                         FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
                     }
@@ -169,9 +173,11 @@ namespace IngegneriaDelSoftware.View {
                 //CollezioneClienti col = CollezioneClienti.GetInstance();
                 if((c = GetForm<Cliente>.Get(col.ToList())) == null) {
                     o.CleanAll();
+
                 } else {
                     CaricaCliente(result, c, null, null, null);
                     tmpCliente = c;
+                    result.StatoTxt = "";
                 }
                 o.Enabled = true;
             };

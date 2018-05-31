@@ -630,6 +630,10 @@ namespace IngegneriaDelSoftware.View {
 
         #region Setter Form
 
+        public string StatoTxt { set {
+                this.InformazioniTxT.Text = value;
+            }
+        }
         /// <summary>
         /// Se l'infopanel contenente i dati del cliente può essere modificato.<para/>
         /// <see cref="false"/> di default.
@@ -656,6 +660,7 @@ namespace IngegneriaDelSoftware.View {
         public void CleanAll() {
             this.HideInfo();
             this.HideVoci();
+            this.InformazioniTxT.Text = "";
         }
 
         public void CleanInserite()
