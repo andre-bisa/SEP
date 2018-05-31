@@ -43,7 +43,7 @@ namespace IngegneriaDelSoftware
             Application.Run(g);
             */
             //Application.Run(new FormAppuntamenti());
-            //Application.Run(new FormClienti(controller));
+            //Application.Run(new FormClienti());
             /*Email email = new Email("gne", "buu");
             CollezioneClienti.GetInstance().Get("1").Persona.Email.Add(email);
             CollezioneClienti.GetInstance().Get("1").Persona.Email.Remove(email);
@@ -55,7 +55,7 @@ namespace IngegneriaDelSoftware
             Referente r = new Referente("Nome", "nota");
             CollezioneClienti.GetInstance().Get("1").Referenti.Add(r);
             CollezioneClienti.GetInstance().Get("1").Referenti.Remove(r);*//*
-            Application.Run(new FormEmail(controller));
+            Application.Run(new FormEmail());
             Application.Run(new Login());
             Application.Run(new VisualizzaCalendario(new ControllerCalendario()));
             if (FormConfim.Show("Titolo", "Messaggio") == DialogResult.OK)

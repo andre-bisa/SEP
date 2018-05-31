@@ -21,7 +21,7 @@ namespace IngegneriaDelSoftware.View.Controlli
 
         #region Campi privati
         private Panel _panelContainer;
-        private ControllerClienti _controller;
+        private ControllerClienti _controller = ControllerClienti.GetInstance();
 
         private Cliente _cliente;
         private bool _selected = false;
@@ -57,7 +57,7 @@ namespace IngegneriaDelSoftware.View.Controlli
 
 
         #region "Costruttori"
-        protected PannelloCliente()
+        private PannelloCliente()
         {
             InitializeComponent();
 
@@ -81,18 +81,15 @@ namespace IngegneriaDelSoftware.View.Controlli
         /// <param name="cliente">Cliente da visualizzare</param>
         /// <param name="panelContainer">Pannello che conterrà l'overlay a seguito della pressione del pulsante di espansione</param>
         /// <exception cref="ArgumentNullException">Se vengono passati dei null</exception>
-        public PannelloCliente(ControllerClienti controller, Cliente cliente, Panel panelContainer) : this()
+        public PannelloCliente(Cliente cliente, Panel panelContainer) : this()
         {
             #region Controlli
-            if (controller == null)
-                throw new ArgumentNullException(nameof(controller));
             if (cliente == null)
                 throw new ArgumentNullException(nameof(cliente));
             #endregion
 
             Cliente = cliente;
             _panelContainer = panelContainer;
-            _controller = controller;
 
             DoppioClickCliente += new EventHandler<ArgsPannelloCliente>(this.ApriOverlayCliente);
             Cliente.OnModifica += this.ClienteModificato;
@@ -169,7 +166,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         private void ApriOverlayCliente(object sender, ArgsCliente e)
         {
             if (_panelContainer != null)
-                new OverlayCliente(_controller, _panelContainer, Cliente).Open();
+                new OverlayCliente(_panelContainer, Cliente).Open();
         }
         #endregion
     }

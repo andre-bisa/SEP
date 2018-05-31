@@ -17,7 +17,7 @@ namespace IngegneriaDelSoftware.View
         private const int NUMERO_CLIENTI_PER_PAGINA = 12;
         private const int NUMERO_PAGINE_CARICATE_INIZIALMENTE = 2;
 
-        private ControllerClienti _controller;
+        private ControllerClienti _controller = ControllerClienti.GetInstance();
         private VisualizzatoreCliente _visualizzatoreCliente;
 
         private List<ClienteMostrato<PannelloCliente>> _clientiCaricati = new List<ClienteMostrato<PannelloCliente>>();
@@ -25,10 +25,10 @@ namespace IngegneriaDelSoftware.View
         private int quantiClientiCaricare = NUMERO_CLIENTI_PER_PAGINA * NUMERO_PAGINE_CARICATE_INIZIALMENTE;
 
         #region "Costruttori"
-        protected FormClienti()
+        public FormClienti()
         {
             InitializeComponent();
-            this.txtSearchBar.KeyDown += (sender, e) => 
+            this.txtSearchBar.KeyDown += (sender, e) =>
             {
                 if (e.KeyCode == System.Windows.Forms.Keys.Enter)
                 {
@@ -37,17 +37,13 @@ namespace IngegneriaDelSoftware.View
                     e.SuppressKeyPress = true;
                 }
             };
-        }
 
-        public FormClienti(ControllerClienti controller): this()
-        {
             // Funzione che permette di effettuare la ricerca per tutti i campi
             var ricercaTuttiParametri = new Func<Cliente, string, bool>((cliente, stringa) =>
             {
                 return cliente.IDCliente.ToLower().Contains(stringa.ToLower()) || cliente.Persona.Indirizzo.ToLower().Contains(stringa.ToLower()) || cliente.Denominazione.ToLower().Contains(stringa.ToLower()) || cliente.Referenti.Any(referente => referente.Nome.ToLower().Contains(stringa.ToLower()));
             });
-            this._visualizzatoreCliente = new VisualizzatoreCliente(controller.CollezioneClienti, ricercaTuttiParametri);
-            this._controller = controller;
+            this._visualizzatoreCliente = new VisualizzatoreCliente(_controller.CollezioneClienti, ricercaTuttiParametri);
 
             _controller.CollezioneClienti.OnRimozione += this.RimossoCliente;
         }
@@ -70,7 +66,7 @@ namespace IngegneriaDelSoftware.View
             if (clienteDaCaricare == null) // Sono già mostrati tutti i clienti
                 return;
 
-            PannelloCliente pannelloCliente = new PannelloCliente(_controller, clienteDaCaricare, this.panelForm);
+            PannelloCliente pannelloCliente = new PannelloCliente(clienteDaCaricare, this.panelForm);
             pannelloCliente.Margin = new Padding(5, 3, 5, 3);
             pannelloCliente.ModificataSelezione += new EventHandler<ArgsPannelloCliente>(this.AbilitaDelete);
             this.flowClienti.Controls.Add(pannelloCliente);
@@ -184,7 +180,7 @@ namespace IngegneriaDelSoftware.View
 
         private void MaterialFloatingActionButton1_Click(object sender, EventArgs e)
         {
-            OverlayCliente overlayCliente = new OverlayCliente(_controller, this.panelForm);
+            OverlayCliente overlayCliente = new OverlayCliente(this.panelForm);
             overlayCliente.OverlayChiuso += (s, ee) => CaricaClientiMancanti();
             overlayCliente.Open();
         }

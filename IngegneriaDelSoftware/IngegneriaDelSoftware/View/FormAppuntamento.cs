@@ -88,7 +88,7 @@ namespace IngegneriaDelSoftware.View
             if (clienteDaMostrare == null)
                 return;
 
-            SchedaCliente schedaCliente = new SchedaCliente(_controllerClienti, clienteDaMostrare, this.mainPanel);
+            SchedaCliente schedaCliente = new SchedaCliente(clienteDaMostrare, this.mainPanel);
             schedaCliente.ModificataSelezione += ModificataSelezione;
             this.flowClienti.Controls.Add(schedaCliente);
             this._clientiCaricati.Add(new ClienteMostrato<SchedaCliente>(clienteDaMostrare, schedaCliente, false));

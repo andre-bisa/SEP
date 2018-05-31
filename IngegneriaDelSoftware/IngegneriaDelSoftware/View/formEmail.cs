@@ -21,7 +21,7 @@ namespace IngegneriaDelSoftware.View
     {
         private ControllerInviaMail _controllerInviaMail = new ControllerInviaMail();
 
-        private ControllerClienti _controllerClienti;
+        private ControllerClienti _controllerClienti = ControllerClienti.GetInstance();
         private VisualizzatoreCliente _visualizzatore;
 
         private List<ClienteMostrato<SchedaCliente>> _clientiCaricati = new List<ClienteMostrato<SchedaCliente>>();
@@ -32,7 +32,7 @@ namespace IngegneriaDelSoftware.View
         private CollezioneEmailInviate _emailInviate = CollezioneEmailInviate.GetInstance();
 
         #region "Costruttore"
-        protected FormEmail()
+        public FormEmail()
         {
             InitializeComponent();
 
@@ -47,18 +47,13 @@ namespace IngegneriaDelSoftware.View
                     e.SuppressKeyPress = true;
                 }
             };
-        }
-
-        public FormEmail(ControllerClienti controller) : this()
-        {
-            this._controllerClienti = controller;
 
             // Funzione che permette di effettuare la ricerca per tutti i campi
             var ricercaTuttiParametri = new Func<Cliente, string, bool>((cliente, stringa) =>
             {
                 return cliente.IDCliente.ToLower().Contains(stringa.ToLower()) || cliente.Persona.Indirizzo.ToLower().Contains(stringa.ToLower()) || cliente.Denominazione.ToLower().Contains(stringa.ToLower()) || cliente.Referenti.Any(referente => referente.Nome.ToLower().Contains(stringa.ToLower()));
             });
-            this._visualizzatore = new VisualizzatoreCliente(controller.CollezioneClienti, ricercaTuttiParametri);
+            this._visualizzatore = new VisualizzatoreCliente(_controllerClienti.CollezioneClienti, ricercaTuttiParametri);
 
             this._controllerClienti.CollezioneClienti.OnRimozione += this.RimossoCliente;
             this._controllerClienti.CollezioneClienti.OnAggiunta += (o, e) => { CaricaClientiMancanti(); };
@@ -81,7 +76,7 @@ namespace IngegneriaDelSoftware.View
             if (clienteDaMostrare == null)
                 return;
 
-            SchedaCliente schedaCliente = new SchedaCliente(_controllerClienti, clienteDaMostrare, this.panelForm);
+            SchedaCliente schedaCliente = new SchedaCliente(clienteDaMostrare, this.panelForm);
             schedaCliente.ModificataSelezione += ModificataSelezione;
             this.flowClienti.Controls.Add(schedaCliente);
             this._clientiCaricati.Add(new ClienteMostrato<SchedaCliente>(clienteDaMostrare, schedaCliente, false));

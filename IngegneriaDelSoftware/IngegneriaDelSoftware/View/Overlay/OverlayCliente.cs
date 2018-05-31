@@ -20,7 +20,7 @@ namespace IngegneriaDelSoftware.View.Overlay
         /// Cliente dell'overlay
         /// </summary>
         public Cliente Cliente { get; private set; }
-        private ControllerClienti _controller;
+        private ControllerClienti _controller = ControllerClienti.GetInstance();
 
         private Impostazioni _impostazioni = Impostazioni.GetInstance();
 
@@ -31,7 +31,7 @@ namespace IngegneriaDelSoftware.View.Overlay
         /// <param name="controller">Il controller dei clienti a cui dovrà fare riferimento la view (serve a chiedere di inserire/modificare/eliminare i clienti)</param>
         /// <param name="panelContainer">Pannello che conterrà l'overlay</param>
         /// <param name="cliente">Cliente a cui si riferisce l'overlay</param>
-        public OverlayCliente(ControllerClienti controller, Panel panelContainer, Cliente cliente = null) : base(panelContainer)
+        public OverlayCliente(Panel panelContainer, Cliente cliente = null) : base(panelContainer)
         {
             InitializeComponent();
             base.AddPanel(this.panel1);
@@ -39,7 +39,6 @@ namespace IngegneriaDelSoftware.View.Overlay
 
             this.Titolo = "Cliente";
 
-            this._controller = controller;
             if (cliente != null)
             {
                 Cliente = cliente;
