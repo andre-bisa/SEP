@@ -187,9 +187,10 @@ namespace IngegneriaDelSoftware.Model
                 throw new ArgumentNullException();
             }
 
+            risultato = ((ICollection<Appuntamento>)_appuntamenti).Remove(item);
+
             if (OnRimozione != null)
             {
-                risultato = ((ICollection<Appuntamento>)_appuntamenti).Remove(item);
                 LanciaEvento(OnRimozione, item);
             }
 
