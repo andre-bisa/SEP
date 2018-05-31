@@ -73,6 +73,7 @@
             this.CausaleLabel = new MaterialSkin.Controls.MaterialLabel();
             this.ImportoLabel = new MaterialSkin.Controls.MaterialLabel();
             this.TipologiaLabel = new MaterialSkin.Controls.MaterialLabel();
+            this.InformazioniTxT = new MaterialSkin.Controls.MaterialLabel();
             this.panel1.SuspendLayout();
             this.GrigliaSfondoPanel.SuspendLayout();
             this.SingolaPanel.SuspendLayout();
@@ -121,6 +122,7 @@
             // SingolaPanel
             // 
             this.SingolaPanel.BackColor = System.Drawing.Color.White;
+            this.SingolaPanel.Controls.Add(this.InformazioniTxT);
             this.SingolaPanel.Controls.Add(this.AccettaBtn);
             this.SingolaPanel.Controls.Add(this.RifiutaBtn);
             this.SingolaPanel.Controls.Add(this.DataField);
@@ -846,6 +848,19 @@
             this.TipologiaLabel.TabIndex = 2;
             this.TipologiaLabel.Text = "Tipologia";
             // 
+            // InformazioniTxT
+            // 
+            this.InformazioniTxT.AutoSize = true;
+            this.InformazioniTxT.Depth = 0;
+            this.InformazioniTxT.Font = new System.Drawing.Font("Roboto", 11F);
+            this.InformazioniTxT.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.InformazioniTxT.Location = new System.Drawing.Point(175, 468);
+            this.InformazioniTxT.MouseState = MaterialSkin.MouseState.HOVER;
+            this.InformazioniTxT.Name = "InformazioniTxT";
+            this.InformazioniTxT.Size = new System.Drawing.Size(13, 19);
+            this.InformazioniTxT.TabIndex = 29;
+            this.InformazioniTxT.Text = " ";
+            // 
             // GenericForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -925,5 +940,6 @@
         private System.Windows.Forms.TextBox VociTxt;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
         private System.Windows.Forms.TextBox ResultTxt;
+        private MaterialSkin.Controls.MaterialLabel InformazioniTxT;
     }
 }

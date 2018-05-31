@@ -44,6 +44,15 @@ namespace IngegneriaDelSoftware.View {
             }
         }
 
+        private static bool CheckValidID(string id) {
+            try {
+                Convert.ToUInt64(id);
+                return true;
+            } catch(Exception) {
+                FormConfim.Show("Errore", "Identificativo non valido", MessageBoxButtons.OK);
+                return false;
+            }
+        }
         public static GenericForm getPreventivoForm(ControllerPreventivi controller) {
             GenericForm result = GenericForm.CreaFormPreventivo();
             Cliente tmpCliente = null;
@@ -88,18 +97,29 @@ namespace IngegneriaDelSoftware.View {
                     foreach(VocePreventivo voce in preventivo) {
                         result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);
                     }
+                    result.StatoTxt = preventivo.Accettato ? "Accettato" : "Rifiutato";
                     result.Key = preventivo.ID.ToString();
                 }
             };
             result.OnAccettaClick += (o, e) => {
                 if(o.Key != null) {
-                    controller.AccettaPreventivo(Convert.ToUInt64(o.Key));
+                    try {
+                        controller.AccettaPreventivo(Convert.ToUInt64(o.Key));
+                        result.StatoTxt = "Accettato";
+                    } catch(Exception) {
+                        FormConfim.Show("Errore", "Identificativo del preventivo non valido", MessageBoxButtons.OK);
+                    }
                 }
             };
             result.OnRifiutaClick += (o, e) => {
                 if(o.Key != null) {
-                    controller.RifiutaPreventivo(Convert.ToUInt64(o.Key));
-                    //TODO: generare la vendita da qui!
+                    try {
+                        controller.RifiutaPreventivo(Convert.ToUInt64(o.Key));
+                        result.StatoTxt = "Rifutato";
+                        //TODO: generare la vendita da qui!
+                    }catch(Exception) {
+                        FormConfim.Show("Errore", "Identificativo del preventivo non valido", MessageBoxButtons.OK);
+                    }
                 }
 
             };
@@ -113,10 +133,14 @@ namespace IngegneriaDelSoftware.View {
                                 return new VocePreventivo(el.Descrizione, Convert.ToDecimal(el.Importo), el.Tipologia, el.Numero);
                             }).ToList()
                         );
+                        
                     }catch(FormatException) {
                         FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
                     }
                 } else {
+                    if(!CheckValidID(o.Key)) {
+                        return;
+                    }
                     CollezionePreventivi col = await t;
                     //CollezionePreventivi col = CollezionePreventivi.GetInstance();
                     var old = (from preve in col
@@ -169,13 +193,18 @@ namespace IngegneriaDelSoftware.View {
                 //CollezioneClienti col = CollezioneClienti.GetInstance();
                 if((c = GetForm<Cliente>.Get(col.ToList())) == null) {
                     o.CleanAll();
+
                 } else {
                     CaricaCliente(result, c, null, null, null);
                     tmpCliente = c;
+                    result.StatoTxt = "";
                 }
                 o.Enabled = true;
             };
             result.OnCalcolaClick += async (o, e) => {
+                if(!CheckValidID(o.Key)) {
+                    return;
+                }
                 if(o.Key != null) {
                     Preventivo current = (from fa in CollezionePreventivi.GetInstance()
                                        where fa.ID == Convert.ToUInt64(o.Key)
@@ -278,6 +307,9 @@ namespace IngegneriaDelSoftware.View {
                         FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
                     }
                 } else {
+                    if(!CheckValidID(o.Key)) {
+                        return;
+                    }
                     CollezioneVendite col = await t;
                     //CollezioneVendite col =  CollezioneVendite.GetInstance();
                     var old = (from vendi in col
@@ -337,7 +369,14 @@ namespace IngegneriaDelSoftware.View {
                     if((prop = GetForm<Preventivo>.Get((from p in colp.ToList()
                                                       where p.Cliente.Equals(c)
                                                       select p).ToList())) != null) {
-                        var vendita = Vendita.FromPreventivo(0, prop, null);
+                        Vendita vendita = null;
+                        try {
+                            vendita = Vendita.FromPreventivo(0, prop, null);
+                        }catch(Exception ex) {
+                            FormConfim.Show("Errore", "Sì è verificato un errore nella creazione della vendita: " + ex.Message, MessageBoxButtons.OK);
+                            o.Enabled = true;
+                            return;
+                        }
                         CaricaCliente(result, vendita.Cliente, "", null, vendita.Data.Date.ToShortDateString());
                         foreach(VoceVendita voce in vendita) {
                             result.AggiungiRigaCampi(voce.Tipologia, voce.Causale, Convert.ToDouble(voce.Importo), 0, voce.Quantita);
@@ -351,6 +390,9 @@ namespace IngegneriaDelSoftware.View {
                 o.Enabled = true;
             };
             result.OnCalcolaClick += async (o, e) => {
+                if(!CheckValidID(o.Key)) {
+                    return;
+                }
                 if(o.Key != null) {
                     Vendita current = (from fa in CollezioneVendite.GetInstance()
                                        where fa.ID == Convert.ToUInt64(o.Key)

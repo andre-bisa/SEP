@@ -13,7 +13,7 @@ namespace IngegneriaDelSoftware.Controller {
 
         public async void AggiungiFattura(Fattura.DatiFattura datiFattura, List<Vendita> venditeDiProvenienza, List<VoceFattura> voci) {
             CollezioneFatture col = await Task.Run<CollezioneFatture>(() => { return CollezioneFatture.GetInstance(); });
-            col.Add(new Fattura(datiFattura, venditeDiProvenienza, voci));
+            col.Add(new FatturaScripting(datiFattura, venditeDiProvenienza, voci));
         }
 
         public async void UpdateFattura(string id, Fattura.DatiFattura? datiFattura = null, List<VoceFattura> voci = null) {
