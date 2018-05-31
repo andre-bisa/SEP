@@ -6,200 +6,159 @@ namespace IngegneriaDelSoftware.Persistenza.None
 {
     public class NoneGenericoDao : IAppuntamentoDAO, IClienteDAO, IDatoreLavoroDAO, IEsternoDAO, IFatturaDAO, IMailInviataDAO, IIntermediarioDAO, IPreventivoDAO, IVenditaDAO, IPersonaDAO
     {
-        public bool Aggiorna(Appuntamento appuntamentoVecchio, Appuntamento nuovoAppuntamento)
+        bool IAppuntamentoDAO.Aggiorna(Appuntamento appuntamentoVecchio, Appuntamento nuovoAppuntamento)
         {
             return true;
         }
 
-        public bool Aggiorna(Cliente clienteVecchio, Cliente clienteNuovo)
+        bool IClienteDAO.Aggiorna(Cliente clienteVecchio, Cliente clienteNuovo)
         {
             return true;
         }
 
-        public bool Aggiorna(DatoreLavoro vecchio, DatoreLavoro nuovo)
+        bool IDatoreLavoroDAO.Aggiorna(DatoreLavoro vecchio, DatoreLavoro nuovo)
         {
             return true;
         }
 
-        public bool Aggiorna(Esterno vecchio, Esterno nuovo)
+        bool IEsternoDAO.Aggiorna(Esterno vecchio, Esterno nuovo)
         {
             return true;
         }
 
-        public bool Aggiorna(Fattura vecchia, Fattura nuova)
+        bool IFatturaDAO.Aggiorna(Fattura vecchia, Fattura nuova)
         {
             return true;
         }
 
-        public bool Aggiorna(Intermediario vecchio, Intermediario nuovo)
+        bool IIntermediarioDAO.Aggiorna(Intermediario vecchio, Intermediario nuovo)
         {
             return true;
         }
 
-        public bool Aggiorna(Preventivo vecchio, Preventivo nuovo)
+        bool IPreventivoDAO.Aggiorna(Preventivo vecchio, Preventivo nuovo)
         {
             return true;
         }
 
-        public bool Aggiorna(Utente vecchia, Utente nuova)
+        bool IVenditaDAO.Aggiorna(Vendita vecchia, Vendita nuova)
         {
             return true;
         }
 
-        public bool Aggiorna(Vendita vecchia, Vendita nuova)
+        bool IPersonaDAO.Aggiorna(Persona vecchiaPersona, Persona nuovaPersona)
         {
             return true;
         }
 
-        public bool Aggiorna(Persona vecchiaPersona, Persona nuovaPersona)
+        bool IAppuntamentoDAO.Crea(Appuntamento appuntamento)
         {
             return true;
         }
 
-        public bool Crea(Appuntamento appuntamento)
+        bool IClienteDAO.Crea(Cliente cliente)
         {
             return true;
         }
 
-        public bool Crea(Cliente cliente)
+        bool IDatoreLavoroDAO.Crea(DatoreLavoro nuovo)
         {
             return true;
         }
 
-        public bool Crea(DatoreLavoro nuovo)
+        bool IEsternoDAO.Crea(Esterno nuovo)
         {
             return true;
         }
 
-        public bool Crea(Esterno nuovo)
+        bool IFatturaDAO.Crea(Fattura nuova)
         {
             return true;
         }
 
-        public bool Crea(Fattura nuova)
+        bool IMailInviataDAO.Crea(MailInviata nuova)
         {
             return true;
         }
 
-        public bool Crea(MailInviata nuova)
+        bool IIntermediarioDAO.Crea(Intermediario nuovo)
         {
             return true;
         }
 
-        public bool Crea(Intermediario nuovo)
+        bool IPreventivoDAO.Crea(Preventivo nuovo)
         {
             return true;
         }
 
-        public bool Crea(Preventivo nuovo)
+        bool IVenditaDAO.Crea(Vendita nuova)
         {
             return true;
         }
 
-        public bool Crea(Utente nuova)
+        bool IAppuntamentoDAO.Elimina(int ID)
         {
             return true;
         }
 
-        public bool Crea(Vendita nuova)
+        bool IClienteDAO.Elimina(string IDCliente)
         {
             return true;
         }
 
-        public bool Elimina(string ID)
+        bool IDatoreLavoroDAO.Elimina(string ID)
         {
             return true;
         }
 
-        public bool Elimina(ulong ID)
+        bool IEsternoDAO.Elimina(string ID)
         {
             return true;
         }
 
-        public bool Elimina(string numero, string anno)
+        bool IFatturaDAO.Elimina(string numero, int anno)
         {
             return true;
         }
 
-        public bool Elimina(string numero, int anno)
+        bool IIntermediarioDAO.Elimina(string ID)
         {
             return true;
         }
 
-        public bool Elimina(int ID)
+        bool IPreventivoDAO.Elimina(ulong ID)
         {
             return true;
         }
 
-        public List<MailInviata> GetListaMailInviate()
+        bool IVenditaDAO.Elimina(ulong ID)
+        {
+            return true;
+        }
+
+        List<MailInviata> IMailInviataDAO.GetListaMailInviate()
         {
             return new List<MailInviata>();
         }
 
-        public bool InserisciEmail(Email email, Persona persona)
+        bool IPersonaDAO.InserisciEmail(Email email, Persona persona)
         {
             return true;
         }
 
-        public bool InserisciReferente(Referente referente, Cliente cliente)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool InserisciTelefono(Telefono telefono, Persona persona)
+        bool IClienteDAO.InserisciReferente(Referente referente, Cliente cliente)
         {
             return true;
         }
 
-        public Appuntamento Leggi(string ID)
+        bool IPersonaDAO.InserisciTelefono(Telefono telefono, Persona persona)
+        {
+            return true;
+        }
+
+        Appuntamento IAppuntamentoDAO.Leggi(string ID)
         {
             return null;
-        }
-
-        public List<Fattura> LeggiTutteFatture()
-        {
-            return new List<Fattura>();
-        }
-
-        public List<Vendita> LeggiTutteVendite()
-        {
-
-            return new List<Vendita>();
-        }
-
-        public List<Appuntamento> LeggiTuttiAppuntamenti()
-        {
-            return new List<Appuntamento>();
-        }
-
-        public List<Cliente> LeggiTuttiClienti()
-        {
-            return new List<Cliente>();
-        }
-
-        public List<DatoreLavoro> LeggiTuttiDatoriLavoro()
-        {
-            return new List<DatoreLavoro>();
-        }
-
-        public List<Preventivo> LeggiTuttiPreventivi()
-        {
-            return new List<Preventivo>();
-        }
-
-        public bool RimuoviEmail(Email email, Persona persona)
-        {
-            return true;
-        }
-
-        public bool RimuoviReferente(Referente referente, Cliente cliente)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool RimuoviTelefono(Telefono telefono, Persona persona)
-        {
-            return true;
         }
 
         DatoreLavoro IDatoreLavoroDAO.Leggi(string ID)
@@ -227,5 +186,49 @@ namespace IngegneriaDelSoftware.Persistenza.None
             return null;
         }
 
+        List<Fattura> IFatturaDAO.LeggiTutteFatture()
+        {
+            return new List<Fattura>();
+        }
+
+        List<Vendita> IVenditaDAO.LeggiTutteVendite()
+        {
+            return new List<Vendita>();
+        }
+
+        List<Appuntamento> IAppuntamentoDAO.LeggiTuttiAppuntamenti()
+        {
+            return new List<Appuntamento>();
+        }
+
+        List<Cliente> IClienteDAO.LeggiTuttiClienti()
+        {
+            return new List<Cliente>();
+        }
+
+        List<DatoreLavoro> IDatoreLavoroDAO.LeggiTuttiDatoriLavoro()
+        {
+            return new List<DatoreLavoro>();
+        }
+
+        List<Preventivo> IPreventivoDAO.LeggiTuttiPreventivi()
+        {
+            return new List<Preventivo>();
+        }
+
+        bool IPersonaDAO.RimuoviEmail(Email email, Persona persona)
+        {
+            return true;
+        }
+
+        bool IClienteDAO.RimuoviReferente(Referente referente, Cliente cliente)
+        {
+            return true;
+        }
+
+        bool IPersonaDAO.RimuoviTelefono(Telefono telefono, Persona persona)
+        {
+            return true;
+        }
     }
 }
