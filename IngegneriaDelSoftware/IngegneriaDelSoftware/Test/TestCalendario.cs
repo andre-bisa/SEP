@@ -16,6 +16,8 @@ namespace IngegneriaDelSoftware.Test
 
         public TestCalendario()
         {
+            Impostazioni.GetInstance().TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+
             Persona p1 = new PersonaFisica("s", "Via x", "Mario", "Rossi");
             Persona p2 = new PersonaFisica("s", "Via x", "Mario", "Verdi");
             Persona p3 = new PersonaGiuridica("s", "Via x", "REgione Sociale", "Sede Illegale", "2");
