@@ -11,23 +11,22 @@ namespace IngegneriaDelSoftware.Controller
 {
     public class VisualizzatoreCliente : Visualizzatore<Cliente>
     {
-
         private IComparer<Cliente> _comparatore;
 
         /// <summary>
         /// Costruttore di default
         /// </summary>
-        /// <param name="collezioneClienti">Collezione di clienti da cui partire</param>
         /// <param name="filtroSuTuttiCampi">Funzione che dato un <see cref="Cliente"/> e data una <see cref="string"/> restituisce <c>true</c> o <c>false</c>.
         /// La funzione verrà usata in <see cref="ImpostaFiltroTuttiParametri(string)"/></param>
-        public VisualizzatoreCliente(CollezioneClienti collezioneClienti, Func<Cliente, string, bool> filtroSuTuttiCampi = null, IComparer<Cliente> comparatore = null) : base(filtroSuTuttiCampi)
+        /// <param name="comparatore">Logica di ordinamento degli elementi</param>
+        public VisualizzatoreCliente(Func<Cliente, string, bool> filtroSuTuttiCampi = null, IComparer<Cliente> comparatore = null) : base(filtroSuTuttiCampi)
         {
             this._comparatore = comparatore;
 
-            collezioneClienti.OnAggiunta += this.NuovoCliente;
-            collezioneClienti.OnRimozione += this.RimossoCliente;
+            CollezioneClienti.GetInstance().OnAggiunta += this.NuovoCliente;
+            CollezioneClienti.GetInstance().OnRimozione += this.RimossoCliente;
 
-            foreach (Cliente c in collezioneClienti)
+            foreach (Cliente c in CollezioneClienti.GetInstance())
             {
                 base.Lista.Add(new OggettoVisualizzato<Cliente>(c, false));
             }
@@ -38,12 +37,12 @@ namespace IngegneriaDelSoftware.Controller
         #region Gestione eventi
         private void RimossoCliente(object sender, ArgsCliente e)
         {
-            this.Lista.Remove(this.Lista.Find(c => c.Oggetto.Equals(e.Cliente)));
+            base.Lista.Remove(base.Lista.Find(c => c.Oggetto.Equals(e.Cliente)));
         }
 
         private void NuovoCliente(object sender, ArgsCliente e)
         {
-            this.Lista.Add(new OggettoVisualizzato<Cliente>(e.Cliente, false));
+            base.Lista.Add(new OggettoVisualizzato<Cliente>(e.Cliente, false));
             if (_comparatore != null)
                 base.Lista.Sort((x, y) => _comparatore.Compare(x.Oggetto, y.Oggetto));
         }
@@ -70,9 +69,8 @@ namespace IngegneriaDelSoftware.Controller
 
             this._comparatore = comparatore;
             base.Lista.Sort((x, y) => _comparatore.Compare(x.Oggetto, y.Oggetto));
-            this.Reset();
+            base.Reset();
         }
-
         #endregion
     }
 

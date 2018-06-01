@@ -53,7 +53,7 @@ namespace IngegneriaDelSoftware.View
             {
                 return cliente.IDCliente.ToLower().Contains(stringa.ToLower()) || cliente.Persona.Indirizzo.ToLower().Contains(stringa.ToLower()) || cliente.Denominazione.ToLower().Contains(stringa.ToLower()) || cliente.Referenti.Any(referente => referente.Nome.ToLower().Contains(stringa.ToLower()));
             });
-            this._visualizzatore = new VisualizzatoreCliente(_controllerClienti.CollezioneClienti, ricercaTuttiParametri);
+            this._visualizzatore = new VisualizzatoreCliente(ricercaTuttiParametri);
 
             this._controllerClienti.CollezioneClienti.OnRimozione += this.RimossoCliente;
             this._controllerClienti.CollezioneClienti.OnAggiunta += (o, e) => { CaricaClientiMancanti(); };
