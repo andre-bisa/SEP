@@ -367,7 +367,7 @@ namespace IngegneriaDelSoftware.View {
                     o.CleanAll();
                 } else {
                     if((prop = GetForm<Preventivo>.Get((from p in colp.ToList()
-                                                      where p.Cliente.Equals(c)
+                                                      where p.Cliente.Equals(c) && p.Accettato
                                                       select p).ToList())) != null) {
                         Vendita vendita = null;
                         try {
