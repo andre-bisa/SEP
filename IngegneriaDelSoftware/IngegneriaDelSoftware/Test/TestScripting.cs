@@ -5,6 +5,7 @@ using ScriptInCSharp;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +40,9 @@ namespace IngegneriaDelSoftware.Test {
             var voce4 = new VoceFattura("Canapa", 20, 0f, "non imponibili");
 
             fattura.Add(voce1, voce2, voce3, voce4);
-            Assert.AreEqual("Imponibile: € 10,00\r\nTotale: € 60,00\r\n", fattura.Calcola());
+            decimal imponibile = 10;
+            decimal totale = 60;
+            Assert.AreEqual("Imponibile: " + imponibile.ToString("C", CultureInfo.CurrentCulture) + "\r\nTotale: " + totale.ToString("C", CultureInfo.CurrentCulture) + "\r\n", fattura.Calcola());
         }
         [Test]
         public void TestLoadNoVarName() {
@@ -66,7 +69,9 @@ namespace IngegneriaDelSoftware.Test {
             var voce4 = new VoceFattura("Cianuro", 20, 0f, "");
 
             fattura.Add(voce1, voce2, voce3, voce4);
-            Assert.AreEqual("Generico: € 90,00\r\nTotale: € 90,00\r\n", fattura.Calcola());
+            decimal generico = 90;
+            decimal totale = 90;
+            Assert.AreEqual("Generico: " + generico.ToString("C", CultureInfo.CurrentCulture) + "\r\nTotale: " + totale.ToString("C", CultureInfo.CurrentCulture) + "\r\n", fattura.Calcola());
         }
         [Test]
         public void TestLoadReal1() {
@@ -108,7 +113,14 @@ namespace IngegneriaDelSoftware.Test {
             var voce4 = new VoceFattura("Cianuro", 20, 0f, "");*/
 
             fattura.Add(voce1, voce2/*, voce3, voce4*/);
-            Assert.AreEqual("Totale onorari € 100,00\r\nCpa € 4,00\r\nImponibile iva € 104,00\r\nIva € 22,88\r\nTotale parziale € 126,88\r\nAnticipazioni € 16,00\r\nTotale generale € 142,88\r\n", fattura.Calcola());
+            decimal onorari = 100;
+            decimal cpa = 4;
+            decimal imponibileIva = 104;
+            decimal iva = 22.88M;
+            decimal totaleParziale = 126.88M;
+            decimal anticipazioni = 16;
+            decimal totaleGenerico = 142.88M;
+            Assert.AreEqual("Totale onorari " + onorari.ToString("C", CultureInfo.CurrentCulture) + "\r\nCpa " + cpa.ToString("C", CultureInfo.CurrentCulture) + "\r\nImponibile iva " + imponibileIva.ToString("C", CultureInfo.CurrentCulture) + "\r\nIva " + iva.ToString("C", CultureInfo.CurrentCulture) + "\r\nTotale parziale " + totaleParziale.ToString("C", CultureInfo.CurrentCulture) + "\r\nAnticipazioni " + anticipazioni.ToString("C", CultureInfo.CurrentCulture) + "\r\nTotale generale " + totaleGenerico.ToString("C", CultureInfo.CurrentCulture) + "\r\n", fattura.Calcola());
         }
         [Test]
         public void TestLoadReal2() {
@@ -150,7 +162,13 @@ namespace IngegneriaDelSoftware.Test {
             var voce4 = new VoceFattura("Cianuro", 20, 0f, "");*/
 
             fattura.Add(voce1/*, voce2/*, voce3, voce4*/);
-            Assert.AreEqual("Totale onorari € 320,00\r\nCpa € 12,80\r\nImponibile iva € 332,80\r\nIva € 73,22\r\nTotale parziale € 406,02\r\nTotale generale € 406,02\r\n", fattura.Calcola());
+            decimal onorari = 320;
+            decimal cpa = 12.80M;
+            decimal imponibileIva = 332.80M;
+            decimal iva = 73.22M;
+            decimal totaleParziale = 406.02M;
+            decimal totaleGenerale = 406.02M;
+            Assert.AreEqual("Totale onorari " + onorari.ToString("C", CultureInfo.CurrentCulture) + "\r\nCpa " + cpa.ToString("C", CultureInfo.CurrentCulture) + "\r\nImponibile iva " + imponibileIva.ToString("C", CultureInfo.CurrentCulture) + "\r\nIva " + iva.ToString("C", CultureInfo.CurrentCulture) + "\r\nTotale parziale " + totaleParziale.ToString("C", CultureInfo.CurrentCulture) + "\r\nTotale generale " + totaleGenerale.ToString("C", CultureInfo.CurrentCulture) + "\r\n", fattura.Calcola());
         }
     }
 }
