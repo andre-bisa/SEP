@@ -1,0 +1,200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="IngegneriaDelSoftware.View.ClienteMostrato&lt;T&gt;">
+    <Position X="9.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgACAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>View\ClienteMostrato.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.FormAppuntamenti">
+    <Position X="6.75" Y="20.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAIAgAACACAIAAAAGAAwASQAIQAYAAABBACVFEAAA=</HashCode>
+      <FileName>View\FormAppuntamento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.FormClienti">
+    <Position X="9.25" Y="20.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AgQAEAAgBCAABNAGAQCAAgACEAAACQAAABAACUAEoIA=</HashCode>
+      <FileName>View\FormClienti.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.FormConfim">
+    <Position X="4" Y="2.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AQAAEACAACAAAAAABACAAABCAAAEAAAAAAACAAQAAAA=</HashCode>
+      <FileName>View\FormConfim.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.FormEmail">
+    <Position X="6.75" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AsAAAByAACUAAIAAECGAAwBCADIQAQAABBIAiQFEAAQ=</HashCode>
+      <FileName>View\FormEmail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.FormInserisciEmail">
+    <Position X="9.25" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABIQAAACAAAAAAAICAAAACAAAAAIAAAAAAAAAAQAA=</HashCode>
+      <FileName>View\FormInserisciEmail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.FormInserisciReferente">
+    <Position X="6.75" Y="27.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAARIQAAACAAAAAAAICAAAACAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>View\FormInserisciReferente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.FormInserisciTelefono">
+    <Position X="9.5" Y="16.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAABIQAAACAAAAAAAICAAAACAAAAAAAgAAAAAAAAQAA=</HashCode>
+      <FileName>View\FormInserisciTelefono.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.GenericForm">
+    <Position X="3.5" Y="13.75" Width="2.5" />
+    <NestedTypes>
+      <Delegate Name="IngegneriaDelSoftware.View.GenericForm.PannelloLateraleClick" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>View\GenericForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Enum Name="IngegneriaDelSoftware.View.GenericForm.TipoPersona" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>View\GenericForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Delegate Name="IngegneriaDelSoftware.View.GenericForm.CalcolaClick" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>View\GenericForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="IngegneriaDelSoftware.View.GenericForm.CreaClick" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>View\GenericForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Enum Name="IngegneriaDelSoftware.View.GenericForm.TipoForm" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>View\GenericForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Delegate Name="IngegneriaDelSoftware.View.GenericForm.AccettaClick" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>View\GenericForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="IngegneriaDelSoftware.View.GenericForm.CercaClick" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>View\GenericForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Delegate Name="IngegneriaDelSoftware.View.GenericForm.RifiutaClick" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>View\GenericForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+      <Struct Name="IngegneriaDelSoftware.View.GenericForm.LabelText" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>View\GenericForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="IngegneriaDelSoftware.View.GenericForm.Voce" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>View\GenericForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Delegate Name="IngegneriaDelSoftware.View.GenericForm.NuovaClick" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>View\GenericForm.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EVIVRlmpkSkRoGzBZIOqJgJiiWl0ITECqwEkVUFR4hE=</HashCode>
+      <FileName>View\GenericForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.GenericViewLoader">
+    <Position X="6.75" Y="11.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEQAAAgAAAAAAABCAAAAAAA=</HashCode>
+      <FileName>View\GenericViewLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.GetForm&lt;T&gt;">
+    <Position X="6.75" Y="31.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAACgAAQCEAAAAAAAAAAAAAACAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.GetForm&lt;T&gt;">
+    <Position X="9.25" Y="6.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAQBAAAEAAAAAAIAAAQAAAAAAAACAwAA=</HashCode>
+      <FileName>View\GetForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.HomeForm">
+    <Position X="0.5" Y="18.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQEAAAiwECAgAAAADADICQCCAxAAASAAAAEAQECAAAA=</HashCode>
+      <FileName>View\HomeForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.VisualizzaCalendario">
+    <Position X="9.25" Y="10.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAQAAEKAAAAECCACAAECiAAABAAgAIAAAIMAQAAA=</HashCode>
+      <FileName>View\VisualizzaCalendario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.Controlli.ArgsPannelloCliente">
+    <Position X="4" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\Controlli\ArgsPannelloCliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.Controlli.ArgsSchedaCliente">
+    <Position X="6.75" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\Controlli\ArgsSchedaCliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.Controlli.PannelloCliente">
+    <Position X="4" Y="6.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAECgAAAAAABCBISACAAIQAAEAAgBAAFAAgAI=</HashCode>
+      <FileName>View\Controlli\PannelloCliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.Controlli.SchedaCliente">
+    <Position X="6.75" Y="13.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAkCgAAAAAABCAoQACAAYQIgEAAgBAAEAAAAI=</HashCode>
+      <FileName>View\Controlli\SchedaCliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.Overlay.Overlay">
+    <Position X="0.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAIIAAAECBAIACQAQCAAAACAAAAEAABAAAAAASQQCA=</HashCode>
+      <FileName>View\Overlay\Overlay.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.View.Overlay.OverlayCliente">
+    <Position X="0.5" Y="7" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AECTAAGAACySAEBYkAKACAxGAIARAAYRAgQAEUcAAAA=</HashCode>
+      <FileName>View\Overlay\OverlayCliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

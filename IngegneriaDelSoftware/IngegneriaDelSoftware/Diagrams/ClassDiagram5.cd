@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="IngegneriaDelSoftware.Persistenza.ExceptionPersistenza">
+    <Position X="7.5" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistenza\ExceptionPersistenza.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.PersistenzaFactory">
+    <Position X="2.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAIAAAAAAAICAVQAAAAAgAAAAAAEAgAEAAAAA=</HashCode>
+      <FileName>Persistenza\PersistenzaFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.MySQL.MySQLAppuntamentoDAO" BaseTypeListCollapsed="true">
+    <Position X="10" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAACAAABBAACAAAUAAAAAARAAACAIAAA=</HashCode>
+      <FileName>Persistenza\MySQL\MySQLAppuntamentoDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.MySQL.MySQLClienteDAO" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="10" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAIAACIAACASAgAACCAEAQQAgYAQBACBAEAAAQ=</HashCode>
+      <FileName>Persistenza\MySQL\MySQLClienteDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.MySQL.MySQLDaoFactory">
+    <Position X="5" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgEAAABIAAQAAAAICAVQABABAgAAAAAAEAAAEAAAAA=</HashCode>
+      <FileName>Persistenza\MySQL\MySQLDaoFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.MySQL.MySQLDatoreLavoroDAO" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="10" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAACAAABAAEwAAAQAAAiAABAAACAAAAA=</HashCode>
+      <FileName>Persistenza\MySQL\MySQLDatoreLavoroDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.MySQL.MySQLEsternoDAO" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAQAAAAAABAAACAAAAA=</HashCode>
+      <FileName>Persistenza\MySQL\MySQLEsternoDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.MySQL.MySQLFatturaDAO" BaseTypeListCollapsed="true">
+    <Position X="10" Y="4" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAQAACAAAAAAAAgAGQQAAEAABEAACAAABA=</HashCode>
+      <FileName>Persistenza\MySQL\MySQLFatturaDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.MySQL.MySQLIntermediarioDAO" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="15.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAQAAAAAABAAACAAAAA=</HashCode>
+      <FileName>Persistenza\MySQL\MySQLIntermediarioDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.MySQL.MySQLMailInviataDAO" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="13.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAQAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Persistenza\MySQL\MySQLMailInviataDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.MySQL.MySQLPersonaDAO" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="3.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EBAAACAICAACAACgCAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistenza\MySQL\MySQLPersonaDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.MySQL.MySQLPreventivoDAO" BaseTypeListCollapsed="true">
+    <Position X="10" Y="7.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACIAAAACIAQAAAAAAAAQgAQAAABAAAAAAABA=</HashCode>
+      <FileName>Persistenza\MySQL\MySQLPreventivoDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.MySQL.MySQLUtenteDAO" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="17.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistenza\MySQL\MySQLUtenteDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.MySQL.MySQLVenditaDAO" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="15.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAQAAAACAAAAAACAQAIQAAAAAABAAAAAQQAA=</HashCode>
+      <FileName>Persistenza\MySQL\MySQLVenditaDAO.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.None.NONEDaoFactory">
+    <Position X="2.75" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgEAAAAIAAAAAAAICAVQAAABAgAAAAAAEAAAEAAAAA=</HashCode>
+      <FileName>Persistenza\None\NONEDaoFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.None.NoneGenericoDao" BaseTypeListCollapsed="true">
+    <Position X="6.5" Y="18" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAxAKmABdAYAAICAACxEAMAhABgJABBACcAAJBQABE=</HashCode>
+      <FileName>Persistenza\None\NoneGenericoDao.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.XML.XMLClienteDao" BaseTypeListCollapsed="true">
+    <Position X="10" Y="11" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAQAAgIAABAAgCEAAAA=</HashCode>
+      <FileName>Persistenza\XML\XMLClienteDao.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Persistenza.XML.XMLDaoFactory">
+    <Position X="0.5" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAgkAAAAIAAAAAAAICAVQAAABAgAAAAAAEAAgEAABAA=</HashCode>
+      <FileName>Persistenza\XML\XMLDaoFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="IngegneriaDelSoftware.Persistenza.Dao.IAppuntamentoDAO">
+    <Position X="7.5" Y="6.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAUAAAAAABAAACAAAAA=</HashCode>
+      <FileName>Persistenza\Dao\IAppuntamentoDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IngegneriaDelSoftware.Persistenza.Dao.IClienteDAO">
+    <Position X="10" Y="14" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAQAAgIAABAAAAEAAAA=</HashCode>
+      <FileName>Persistenza\Dao\IClienteDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IngegneriaDelSoftware.Persistenza.Dao.IDatoreLavoroDAO">
+    <Position X="0.5" Y="19" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAQAAACAABAAACAAAAA=</HashCode>
+      <FileName>Persistenza\Dao\IDatoreLavoroDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IngegneriaDelSoftware.Persistenza.Dao.IEmailDAO">
+    <Position X="3.5" Y="19" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Persistenza\Dao\IEmailDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IngegneriaDelSoftware.Persistenza.Dao.IEsternoDAO">
+    <Position X="7.5" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAQAAAAAABAAACAAAAA=</HashCode>
+      <FileName>Persistenza\Dao\IEsternoDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IngegneriaDelSoftware.Persistenza.Dao.IFatturaDAO">
+    <Position X="7.5" Y="14" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAACAAAAAAAAAAAQAAAAAABAAACAAAAA=</HashCode>
+      <FileName>Persistenza\Dao\IFatturaDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IngegneriaDelSoftware.Persistenza.Dao.IIntermediarioDAO">
+    <Position X="0.5" Y="21" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAQAAAAAABAAACAAAAA=</HashCode>
+      <FileName>Persistenza\Dao\IIntermediarioDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IngegneriaDelSoftware.Persistenza.Dao.IMailInviataDAO">
+    <Position X="3.5" Y="20.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAQAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>Persistenza\Dao\IMailInviataDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IngegneriaDelSoftware.Persistenza.Dao.IPersonaDAO">
+    <Position X="7.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAICAAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistenza\Dao\IPersonaDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IngegneriaDelSoftware.Persistenza.Dao.IPreventivoDAO">
+    <Position X="7.5" Y="16" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAACAAAAAAAAAAAQAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Persistenza\Dao\IPreventivoDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IngegneriaDelSoftware.Persistenza.Dao.IUtenteDAO">
+    <Position X="0.5" Y="22.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistenza\Dao\IUtenteDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="IngegneriaDelSoftware.Persistenza.Dao.IVenditaDAO">
+    <Position X="3.5" Y="22.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAQAAAAAABAAAAAAQAA=</HashCode>
+      <FileName>Persistenza\Dao\IVenditaDAO.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="IngegneriaDelSoftware.Persistenza.EnumTipoPersistenza">
+    <Position X="7.5" Y="12.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAQAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Persistenza\EnumTipoPersistenza.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

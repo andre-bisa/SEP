@@ -335,6 +335,13 @@
     <EmbeddedResource Include="View\VisualizzaCalendario.resx">
       <DependentUpon>VisualizzaCalendario.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Diagrams\ClassDiagram2.cd" />
+    <None Include="Diagrams\ClassDiagram3.cd" />
+    <None Include="Diagrams\ClassDiagram4.cd" />
+    <None Include="Diagrams\ClassDiagram5.cd" />
+    <None Include="Diagrams\ClassDiagram6.cd" />
+    <None Include="Diagrams\ClassDiagram7.cd" />
+    <None Include="Diagrams\ClassDiagram8.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

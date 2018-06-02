@@ -1,0 +1,471 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="IngegneriaDelSoftware.Model.Impostazioni">
+    <Position X="3.5" Y="45.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAYAAAABAAAAAAAACABAAAgAAAAAAACAAAgAA=</HashCode>
+      <FileName>Login\Impostazioni.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.Appuntamento" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="29.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAEgBACAAAAACAAAYAAQAIAAAEAAjA=</HashCode>
+      <FileName>Model\Appuntamento.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.Calendario" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="35" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAIAIAACAAAAABAUCJAABAQAhCEAAAAEAAAAAAFQIAA=</HashCode>
+      <FileName>Model\Calendario.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.Cliente" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="33.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAgACAAAAAAAQAAEkBAABEIAACAAAKAAQAAEEAEAgjA=</HashCode>
+      <FileName>Model\Cliente.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.CollezioneAppuntamenti" BaseTypeListCollapsed="true">
+    <Position X="6" Y="33.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAIAACIAAAABAQCBAABAQABCEAAAAEAAAAAAFQIAA=</HashCode>
+      <FileName>Model\CollezioneAppuntamenti.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.CollezioneClienti" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="33.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAIAACAAAAABBSCBAABAQABCAAAAAEAgAAAABQIAA=</HashCode>
+      <FileName>Model\CollezioneClienti.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.CollezioneEmail" BaseTypeListCollapsed="true">
+    <Position X="11" Y="33.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAIAACAAAAABAUCAAABAQAAAAAAAAEAAAAAABQIAE=</HashCode>
+      <FileName>Model\CollezioneEmail.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.CollezioneEmailInviate" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="33.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAABABAUAAAABAQABAAAAAAEAAAAAABQIAE=</HashCode>
+      <FileName>Model\CollezioneEmailInviate.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.CollezioneFatture" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="41.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAIAAGAAAAABAQCBAABAQAJCAAAAAEAAAAAAFQIAA=</HashCode>
+      <FileName>Model\CollezioneFatture.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.CollezionePreventivi" BaseTypeListCollapsed="true">
+    <Position X="3.5" Y="39.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAIAACAAAAABBwCBAABAQABCAAAACEAAAAAAFQIAA=</HashCode>
+      <FileName>Model\CollezionePreventivi.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.CollezioneReferenti" BaseTypeListCollapsed="true">
+    <Position X="6" Y="39.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAIAACAAAAABAUGAAABAQAAAAAAAAEAAAAAABQIAA=</HashCode>
+      <FileName>Model\CollezioneReferenti.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.CollezioneTelefoni" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="39.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAIAACAAAAABAUCAAABAQAAAgAAAAEAAAAAABQIAA=</HashCode>
+      <FileName>Model\CollezioneTelefoni.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.CollezioneVendite" BaseTypeListCollapsed="true">
+    <Position X="11" Y="39.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAIAACAAAAABBQCBAABAQAJCAAAAAEAAAAAAFQIAQ=</HashCode>
+      <FileName>Model\CollezioneVendite.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.DatoreLavoro" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="39.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEAgAAAAACAAEAAEAAAABSBAAAIAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model\DatoreLavoro.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.Esterno" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="46.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAICAAkAAAAAAABAAAAAAAAAAAAAAAAgEAAAA=</HashCode>
+      <FileName>Model\Esterno.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.Fattura">
+    <Position X="13.5" Y="15.5" Width="2.25" />
+    <NestedTypes>
+      <Enum Name="IngegneriaDelSoftware.Model.Fattura.Stato" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Model\Fattura.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Struct Name="IngegneriaDelSoftware.Model.Fattura.DatiFattura" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Model\Fattura.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAIAABAAAAAAghAUiACQDAQAAAUEQJAEAQAYSAlRIBg=</HashCode>
+      <FileName>Model\Fattura.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.FatturaAgente">
+    <Position X="13.5" Y="27.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Model\FatturaAgente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.FatturaScripting">
+    <Position X="13.5" Y="25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAg=</HashCode>
+      <FileName>Model\FatturaScripting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.Intermediario" BaseTypeListCollapsed="true">
+    <Position X="6" Y="45.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAEAAEAgAA=</HashCode>
+      <FileName>Model\Intermediario.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.MailInviata">
+    <Position X="8.5" Y="45.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABCAAAAIAgAAAAAAAAAAAAJAAAAAAAAAAAiA=</HashCode>
+      <FileName>Model\MailInviata.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.Persona">
+    <Position X="8.5" Y="15.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAACAgEQAAgBIAACAAAAAAAIAAAAAAAAEAABA=</HashCode>
+      <FileName>Model\Persona.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.DatiPersona">
+    <Position X="1.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Persona.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.PersonaFisica">
+    <Position X="9.75" Y="20" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAICEgEQAAgAIABCAAACgAAIAAAAAAAAEAAjE=</HashCode>
+      <FileName>Model\PersonaFisica.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.DatiPersonaFisica">
+    <Position X="3" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAIAAAIgAAkAAAgCACBAAAAAAAAIIAAAAAAAEAAiA=</HashCode>
+      <FileName>Model\PersonaFisica.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.PersonaGiuridica">
+    <Position X="6.5" Y="20" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAICEgUQAAgAIAASAAACgAAIAAAAAAAAAAABE=</HashCode>
+      <FileName>Model\PersonaGiuridica.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.DatiPersonaGiuridica">
+    <Position X="0.5" Y="12" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAIAAA0ACAgCACAQAAAAAAAIIAAAAQAAAAAiA=</HashCode>
+      <FileName>Model\PersonaGiuridica.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.Preventivo" BaseTypeListCollapsed="true">
+    <Position X="11" Y="45.5" Width="2.25" />
+    <NestedTypes>
+      <Struct Name="IngegneriaDelSoftware.Model.Preventivo.DatiPreventivo" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Model\Preventivo.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAACAgBAUiACQBAQAAAAAQJAEAAAASAFRIBA=</HashCode>
+      <FileName>Model\Preventivo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.Utente">
+    <Position X="11.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAgAAAAACAAEAAEAQAAACAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model\Utente.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.DatiUtente">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAgAAAAACAAEAAAAQAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Utente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.UtenteAgente">
+    <Position X="14.5" Y="10.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAgCAAAACAAEAAEAQAABCAAACAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model\UtenteAgente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.DatiUtenteAgente">
+    <Position X="14.5" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAgAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model\UtenteAgente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.UtenteAzienda">
+    <Position X="8.75" Y="10.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAgAAAAACAAUAAEAQAAASAAAAAAAAAAAAAIAAEAAAA=</HashCode>
+      <FileName>Model\UtenteAzienda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.DatiUtenteAzienda">
+    <Position X="8.75" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\UtenteAzienda.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.UtenteLiberoProfessionista">
+    <Position X="11.25" Y="10.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEAgAAAAACAQEAAEAQAABCAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model\UtenteLiberoProfessionista.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.DatiUtenteLiberoProfessionista">
+    <Position X="11.25" Y="3.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model\UtenteLiberoProfessionista.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.Vendita" BaseTypeListCollapsed="true">
+    <Position X="13.5" Y="45.5" Width="2.25" />
+    <NestedTypes>
+      <Struct Name="IngegneriaDelSoftware.Model.Vendita.DatiVendita" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Model\Vendita.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAgBAUiACSBBQCAAAAQJAEAAAACCFQIBA=</HashCode>
+      <FileName>Model\Vendita.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.Voce">
+    <Position X="3" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAQFgkAAAAAABAIAAoAAAAAAAEAACAA=</HashCode>
+      <FileName>Model\Voce.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.VoceFattura">
+    <Position X="5.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAABAAAAIAAAACgAAAAAAA=</HashCode>
+      <FileName>Model\VoceFattura.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.VocePreventivo">
+    <Position X="3" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\VocePreventivo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.VoceVendita">
+    <Position X="0.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAACAAEAAAAAAAABAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Model\VoceVendita.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.ArgsEvent.ArgsAppuntamento">
+    <Position X="3.5" Y="29.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>Model\ArgsEvent\ArgsAppuntamento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.ArgsEvent.ArgsCliente">
+    <Position X="6" Y="29.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ArgsEvent\ArgsCliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.ArgsEvent.ArgsEmail">
+    <Position X="7.75" Y="29.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ArgsEvent\ArgsEmail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.ArgsEvent.ArgsFattura">
+    <Position X="9.5" Y="29.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Model\ArgsEvent\ArgsFattura.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.ArgsEvent.ArgsModifica&lt;Tipo&gt;">
+    <Position X="11.25" Y="29.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ArgsEvent\ArgsModifica.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.ArgsEvent.ArgsModificaCliente">
+    <Position X="13.5" Y="29.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ArgsEvent\ArgsModificaCliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.ArgsEvent.ArgsModificaPersona">
+    <Position X="3.5" Y="31.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Model\ArgsEvent\ArgsModificaPersona.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.ArgsEvent.ArgsPreventivo">
+    <Position X="6" Y="31.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Model\ArgsEvent\ArgsPreventivi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.ArgsEvent.ArgsReferente">
+    <Position X="8.5" Y="31.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ArgsEvent\ArgsReferente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.ArgsEvent.ArgsTelefono">
+    <Position X="10.25" Y="31.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Model\ArgsEvent\ArgsTelefono.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Model.ArgsEvent.ArgsVendita">
+    <Position X="12" Y="31.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Model\ArgsEvent\ArgsVendita.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="IngegneriaDelSoftware.Model.DatiAppuntamento">
+    <Position X="0.75" Y="50.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAgAACAAAAAAAAAYAAAAIAAAEAAiA=</HashCode>
+      <FileName>Model\Appuntamento.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IngegneriaDelSoftware.Model.DatiCliente">
+    <Position X="3.5" Y="49" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAgAAABAAAAAAAAIAAAAAAEAAAAiA=</HashCode>
+      <FileName>Model\Cliente.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IngegneriaDelSoftware.Model.DatiDatoreLavoro">
+    <Position X="6" Y="49" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEAgAAAAACAAEAAAAAAABSAAAAIAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model\DatoreLavoro.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IngegneriaDelSoftware.Model.Email">
+    <Position X="8.5" Y="49" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAEAAAAAA=</HashCode>
+      <FileName>Model\Email.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IngegneriaDelSoftware.Model.Referente">
+    <Position X="6" Y="52.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAEAEAAAA=</HashCode>
+      <FileName>Model\Referente.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="IngegneriaDelSoftware.Model.Telefono">
+    <Position X="8.5" Y="52.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAEAABAAA=</HashCode>
+      <FileName>Model\Telefono.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="IngegneriaDelSoftware.Model.IObservable&lt;T&gt;">
+    <Position X="0.75" Y="53.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Model\IObservable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="IngegneriaDelSoftware.Model.EnumTipoCliente">
+    <Position X="0.75" Y="54.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\EnumTipoCliente.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="IngegneriaDelSoftware.Model.EnumTipoPersona">
+    <Position X="3.5" Y="52.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\EnumTipoPersona.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
