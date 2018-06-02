@@ -143,7 +143,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 listaFatture.Add(fattura);
             }
 
-            connessione.Clone();
+            connessione.Close();
             return listaFatture;
         }
 

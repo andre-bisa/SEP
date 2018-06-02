@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MaterialSkin.Controls;
 using IngegneriaDelSoftware.Controller;
 using MaterialSkin;
+using IngegneriaDelSoftware.View;
 
 namespace IngegneriaDelSoftware
 {
@@ -27,7 +28,7 @@ namespace IngegneriaDelSoftware
             {
                 bool accesso = ControllerLogin.GetInstance().ControllaCredenziali(txtUsername.Text.Trim(), txtPassword.Text.Trim());
                 if (!accesso)
-                    MessageBox.Show("Errore, username e/o password errati.");
+                    FormConfim.Show("Errore accesso", "Errore, username e/o password errati.", MessageBoxButtons.OK);
                 else
                     this.Close();
             } catch (Persistenza.ExceptionPersistenza)

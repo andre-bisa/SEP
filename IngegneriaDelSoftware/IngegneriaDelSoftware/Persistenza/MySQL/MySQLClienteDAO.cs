@@ -281,7 +281,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 listaClienti.Add(new Cliente(persona, reader.GetString("IDCLIENTE"), referenti, tipoCliente, reader.GetString("NOTE")));
             }
 
-            connessione.Clone();
+            connessione.Close();
             return listaClienti;
         }
 

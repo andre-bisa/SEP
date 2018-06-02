@@ -24,12 +24,15 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         }
         #endregion
 
-        private static MySqlConnection connessione;
         public static MySqlConnection ApriConnessione()
         {
+            MySqlConnection connessione = null;
             try
             {
-                connessione = new MySqlConnection("SERVER=andre-bisa.ddns.net;database=SEP;uid=SEP;pwd=password;SslMode=None");
+                /*if (connessione != null && connessione.State != System.Data.ConnectionState.Closed)
+                    return connessione;*/
+
+                connessione = new MySqlConnection("SERVER=10.0.250.13;database=SEP;uid=SEP;pwd=password;SslMode=None;Pooling=False");
                 if (connessione != null)
                     connessione.Open();
             } catch (MySqlException e)
@@ -37,12 +40,6 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 connessione = null;
             }
             return connessione;
-        }
-
-        public static void ChiudiConnessione()
-        {
-            if (connessione != null)
-                connessione.Close();
         }
 
         #region Getters della Factory

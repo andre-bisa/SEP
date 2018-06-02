@@ -7,6 +7,7 @@ using IngegneriaDelSoftware.View;
 using IngegneriaDelSoftware.Controller;
 using IngegneriaDelSoftware.Model;
 using IngegneriaDelSoftware.Persistenza;
+using MaterialSkin;
 
 namespace IngegneriaDelSoftware
 {
@@ -22,9 +23,13 @@ namespace IngegneriaDelSoftware
             Application.EnableVisualStyles(); // senza questo non si vedono gli Hint
             //Application.Run(new Login());
 
+            MaterialSkinManager.Instance.Theme = MaterialSkinManager.Themes.LIGHT;
+            MaterialSkinManager.Instance.ColorScheme = new ColorScheme(Primary.BlueGrey500, Primary.BlueGrey700, Primary.BlueGrey100, Accent.LightBlue200, TextShade.WHITE);
+
             Impostazioni impostazioni = Impostazioni.GetInstance();
-            impostazioni.TipoPersistenza = EnumTipoPersistenza.NONE;
-            impostazioni.IDUtente = 1;
+            impostazioni.TipoPersistenza = EnumTipoPersistenza.MySQL;
+            //impostazioni.IDUtente = 1;
+
             ScriptProvider.create("Test", (""
                + "$ON=( #SUM( @ONORARIO ) )\n"
                + "$CPA=( $ON * 0,04 )\n"
@@ -48,6 +53,10 @@ namespace IngegneriaDelSoftware
                + ".SET LABEL FOR $NON AS \"Anticipazioni \"\n"
                + ".SET LABEL FOR $TOTALE AS \"Totale generale \""
            + "").Split('\n'));
+
+            Application.Run(new Login());
+            Application.Run(new HomeForm(new ControllerHome()));
+            return;
 
             //ControllerClienti controller = new ControllerClienti();
 

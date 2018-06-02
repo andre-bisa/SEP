@@ -135,7 +135,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 listaVendite.Add(vendita);
             }
 
-            connessione.Clone();
+            connessione.Close();
             return listaVendite;
         }
 

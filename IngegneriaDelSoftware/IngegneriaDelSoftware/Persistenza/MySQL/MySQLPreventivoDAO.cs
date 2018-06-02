@@ -121,7 +121,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 listaPreventivo.Add(preventivo);
             }
 
-            connessione.Clone();
+            connessione.Close();
             return listaPreventivo;
         }
 

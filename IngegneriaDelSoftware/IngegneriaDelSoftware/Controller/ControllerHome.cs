@@ -20,12 +20,6 @@ namespace IngegneriaDelSoftware.Controller {
         private VisualizzaCalendario _calendario = null;
         private Form _impostazioni = null;
 
-        public ControllerHome()
-        {
-            MaterialSkinManager.Instance.Theme = MaterialSkinManager.Themes.LIGHT;
-            MaterialSkinManager.Instance.ColorScheme = new ColorScheme(Primary.BlueGrey500, Primary.BlueGrey700, Primary.BlueGrey100, Accent.LightBlue200, TextShade.WHITE);
-        }
-
         public void MostraAppuntamento() {
             if(this._appuntamento == null || this._appuntamento.IsDisposed) {
                 this._appuntamento = new FormAppuntamenti();
