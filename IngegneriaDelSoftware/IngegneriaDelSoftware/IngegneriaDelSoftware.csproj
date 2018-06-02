@@ -161,6 +161,7 @@
     <Compile Include="Persistenza\XML\XMLDaoFactory.cs" />
     <Compile Include="Test\TestCollezioneClienti.cs" />
     <Compile Include="Test\TestCalendario.cs" />
+    <Compile Include="Test\TestControllerCalendario.cs" />
     <Compile Include="Test\TestControllerClienti.cs" />
     <Compile Include="Test\TestFattura.cs" />
     <Compile Include="Test\TestScripting.cs" />
