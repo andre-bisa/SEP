@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ScriptInCSharp.Preprocessor" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptInCSharp.LabelInstruction" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACBAAAAAAIgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptInCSharp.ImportantInstruction" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAABAAAAAAIgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptInCSharp.Symbol" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptInCSharp.Operand" Collapsed="true">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAAEAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptInCSharp.IndirectValue" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptInCSharp.Variable" Collapsed="true">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEAAYBAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptInCSharp.ArrayValue" Collapsed="true">
+    <Position X="10" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAIAAAAIAAEAAIBAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptInCSharp.Number" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptInCSharp.Assignment" Collapsed="true">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgCAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptInCSharp.Function" Collapsed="true">
+    <Position X="7.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIBAAAAAgAEAAAAAAAEAACAAAA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptInCSharp.Environment" Collapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="ScriptInCSharp.Environment.Object" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Librerie\ScriptInCSharp.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ScriptInCSharp.Environment.ArrayObj" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Librerie\ScriptInCSharp.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="ScriptInCSharp.Environment.VariableObj" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Librerie\ScriptInCSharp.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAIQAAADARAIAAIAgAJAAAgAAAAEAAEAQAAAAAEAAA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptInCSharp.Line" Collapsed="true">
+    <Position X="14.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQABAGAAAQAAAAAEgAAAAAAAAAAAACAAAAAAIAAAACA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ScriptInCSharp.Evaluator" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Librerie\ScriptInCSharp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
