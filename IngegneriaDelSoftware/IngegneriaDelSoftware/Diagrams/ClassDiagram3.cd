@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="IngegneriaDelSoftware.Controller.ControllerCalendario">
+    <Position X="3" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>GAAAIAAAAAgAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\ControllerCalendario.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Controller.ControllerClienti">
+    <Position X="5.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEBAAAAAAAAAACAACABAIABAAABIEAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\ControllerClienti.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Controller.ControllerFatture">
+    <Position X="0.5" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAACAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\ControllerFatture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Controller.ControllerHome">
+    <Position X="2.75" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAAAAIAEAAIAAAAiAKgAAABAQEgAIAAAAgAAAAAAAAU=</HashCode>
+      <FileName>Controller\ControllerHome.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Controller.ControllerInviaMail">
+    <Position X="3" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\ControllerInviaMail.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Controller.ControllerPreventivi">
+    <Position X="3" Y="6.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAAAAAAABAAAAAIAAQAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\ControllerPreventivi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Controller.ControllerVendite">
+    <Position X="5.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAEIAAAA=</HashCode>
+      <FileName>Controller\ControllerVendite.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Controller.OggettoVisualizzato&lt;T&gt;">
+    <Position X="3" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controller\OggettoVisualizzato.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Controller.ScriptProvider">
+    <Position X="5.25" Y="4.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ACAEBAAAAAAQAAQAAAAgQAAQACQAAAAAAALAAABAUAA=</HashCode>
+      <FileName>Controller\ScriptProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Controller.Visualizzatore&lt;T&gt;">
+    <Position X="0.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAEAABAQAAAAEAAQAAAAAIAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Controller\Visualizzatore.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Controller.VisualizzatoreCliente">
+    <Position X="0.5" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAAAAAAAAAAAAAAAAIAgAAAAAIAEAAA=</HashCode>
+      <FileName>Controller\VisualizzatoreCliente.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IngegneriaDelSoftware.Controller.ControllerLogin">
+    <Position X="0.5" Y="7.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAEAAAAAAAAAAAABAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Login\ControllerLogin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
