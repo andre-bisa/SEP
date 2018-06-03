@@ -20,6 +20,20 @@ namespace IngegneriaDelSoftware
         {
             InitializeComponent();
             MaterialSkinManager.Instance.AddFormToManage(this);
+
+            this.txtPassword.KeyDown += this.SubmitLogin;
+            this.txtUsername.KeyDown += this.SubmitLogin;
+        }
+
+        private void SubmitLogin(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                BtnLogin.PerformClick();
+
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
         }
 
         private void BtnLogin_Click(object sender, EventArgs e)
