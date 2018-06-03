@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace IngegneriaDelSoftware.Model
@@ -27,6 +28,11 @@ namespace IngegneriaDelSoftware.Model
         {
             if(indirizzo == null) {
                 throw new ArgumentNullException(nameof(indirizzo));
+            }
+            Regex controlloEmail = new Regex("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$");
+            if (!controlloEmail.Match(indirizzo).Success)
+            {
+                throw new ArgumentException("L'e-mail inserita non è valida.");
             }
             Indirizzo = indirizzo;
             if (nota == null)

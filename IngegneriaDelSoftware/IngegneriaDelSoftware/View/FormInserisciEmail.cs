@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using IngegneriaDelSoftware.Model.ArgsEvent;
 using MaterialSkin.Controls;
+using System.Text.RegularExpressions;
 
 namespace IngegneriaDelSoftware.View
 {
@@ -23,6 +24,13 @@ namespace IngegneriaDelSoftware.View
 
         private void BtnSalva_Click(object sender, EventArgs e)
         {
+            Regex controlloEmail = new Regex("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$");
+            if (!controlloEmail.Match(txtEmail.Text.Trim()).Success)
+            {
+                FormConfim.Show("Errore email", "Errore, la e-mail inserita non è valida.");
+                return;
+            }
+
             if (OnAggiunta != null)
             {
                 ArgsEmail args = new ArgsEmail(new Model.Email(txtEmail.Text.Trim(), txtNota.Text.Trim()));

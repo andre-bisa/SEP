@@ -54,8 +54,8 @@ namespace IngegneriaDelSoftware
                + ".SET LABEL FOR $TOTALE AS \"Totale generale \""
            + "").Split('\n'));
 
-            Application.Run(new Login());
-            Application.Run(new HomeForm(new ControllerHome()));
+            if ((new Login()).ShowDialog() == DialogResult.OK)
+                Application.Run(new HomeForm(new ControllerHome()));
             return;
 
             //ControllerClienti controller = new ControllerClienti();

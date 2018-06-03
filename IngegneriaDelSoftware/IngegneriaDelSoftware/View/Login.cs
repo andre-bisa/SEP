@@ -16,6 +16,9 @@ namespace IngegneriaDelSoftware
 {
     public partial class Login : MaterialForm
     {
+
+        private DialogResult _risultato = DialogResult.Cancel;
+
         public Login()
         {
             InitializeComponent();
@@ -44,12 +47,20 @@ namespace IngegneriaDelSoftware
                 if (!accesso)
                     FormConfim.Show("Errore accesso", "Errore, username e/o password errati.", MessageBoxButtons.OK);
                 else
+                {
+                    _risultato = DialogResult.OK;
                     this.Close();
+                }
             } catch (Persistenza.ExceptionPersistenza)
             {
                 MessageBox.Show("Errore, connessione assente. Il programma termina", "Errore connessione DB", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
+        }
+
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.DialogResult = _risultato;
         }
     }
 }

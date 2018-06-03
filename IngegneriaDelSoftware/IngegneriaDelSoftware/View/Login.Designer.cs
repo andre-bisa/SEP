@@ -132,6 +132,7 @@
             this.Sizable = false;
             this.Text = "Login";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
