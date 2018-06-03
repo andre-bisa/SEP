@@ -41,8 +41,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
-
-            connessione.Close();
+            MySQLDaoFactory.ChiudiConnessione();
 
             return (modifiche >= 1);
         }
@@ -71,7 +70,8 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             else
                 throw new Persistenza.ExceptionPersistenza();
 
-            connessione.Close();
+            MySQLDaoFactory.ChiudiConnessione();
+
             return IDPersona;
         }
 
@@ -146,8 +146,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.CommandText += "COMMIT;";
 
             int modifiche = cmd.ExecuteNonQuery();
-
-            connessione.Close();
+            MySQLDaoFactory.ChiudiConnessione();
 
             return (modifiche >= 1);
         }

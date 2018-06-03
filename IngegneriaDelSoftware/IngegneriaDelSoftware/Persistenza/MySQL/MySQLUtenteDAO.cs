@@ -36,7 +36,6 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@password", password);
 
             MySqlDataReader reader = cmd.ExecuteReader();
-            MySQLDaoFactory.ChiudiConnessione();
 
             if (reader.Read())
             {
@@ -45,6 +44,8 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 else 
                     IDUtente = -1;  // utente non trovato
             }
+
+            MySQLDaoFactory.ChiudiConnessione();
 
             return IDUtente;
         }
