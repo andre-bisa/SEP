@@ -30,11 +30,12 @@
         {
             MaterialSkin.Controls.MaterialLabel materialLabel1;
             MaterialSkin.Controls.MaterialLabel materialLabel2;
-            this.BtnLogin = new MaterialSkin.Controls.MaterialRaisedButton();
+            MaterialSkin.Controls.MaterialRaisedButton BtnLogin;
             this.txtUsername = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.txtPassword = new MaterialSkin.Controls.MaterialSingleLineTextField();
             materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
+            BtnLogin = new MaterialSkin.Controls.MaterialRaisedButton();
             this.SuspendLayout();
             // 
             // materialLabel1
@@ -65,19 +66,19 @@
             // 
             // BtnLogin
             // 
-            this.BtnLogin.AutoSize = true;
-            this.BtnLogin.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BtnLogin.Depth = 0;
-            this.BtnLogin.Icon = null;
-            this.BtnLogin.Location = new System.Drawing.Point(117, 162);
-            this.BtnLogin.MouseState = MaterialSkin.MouseState.HOVER;
-            this.BtnLogin.Name = "BtnLogin";
-            this.BtnLogin.Primary = true;
-            this.BtnLogin.Size = new System.Drawing.Size(61, 36);
-            this.BtnLogin.TabIndex = 5;
-            this.BtnLogin.Text = "Login";
-            this.BtnLogin.UseVisualStyleBackColor = true;
-            this.BtnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
+            BtnLogin.AutoSize = true;
+            BtnLogin.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            BtnLogin.Depth = 0;
+            BtnLogin.Icon = null;
+            BtnLogin.Location = new System.Drawing.Point(117, 162);
+            BtnLogin.MouseState = MaterialSkin.MouseState.HOVER;
+            BtnLogin.Name = "BtnLogin";
+            BtnLogin.Primary = true;
+            BtnLogin.Size = new System.Drawing.Size(61, 36);
+            BtnLogin.TabIndex = 5;
+            BtnLogin.Text = "Login";
+            BtnLogin.UseVisualStyleBackColor = true;
+            BtnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
             // 
             // txtUsername
             // 
@@ -125,7 +126,7 @@
             this.ClientSize = new System.Drawing.Size(256, 233);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.txtUsername);
-            this.Controls.Add(this.BtnLogin);
+            this.Controls.Add(BtnLogin);
             this.Controls.Add(materialLabel2);
             this.Controls.Add(materialLabel1);
             this.Name = "Login";
@@ -140,6 +141,5 @@
         #endregion
         private MaterialSkin.Controls.MaterialSingleLineTextField txtUsername;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtPassword;
-        private MaterialSkin.Controls.MaterialRaisedButton BtnLogin;
     }
 }
