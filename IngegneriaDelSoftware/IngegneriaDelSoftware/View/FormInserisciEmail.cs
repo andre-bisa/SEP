@@ -27,7 +27,7 @@ namespace IngegneriaDelSoftware.View
             Regex controlloEmail = new Regex("^\\w+([-+.']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$");
             if (!controlloEmail.Match(txtEmail.Text.Trim()).Success)
             {
-                FormConfim.Show("Errore email", "Errore, la e-mail inserita non è valida.");
+                FormConfim.Show("Errore email", "Errore, la e-mail inserita non è valida.", MessageBoxButtons.OK);
                 return;
             }
 

@@ -11,8 +11,6 @@ namespace IngegneriaDelSoftware.Persistenza.Dao
     {
         bool Crea(MailInviata nuova);
 
-        MailInviata Leggi(string ID);
-
         List<MailInviata> GetListaMailInviate();
 
     }

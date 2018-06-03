@@ -19,7 +19,7 @@ namespace IngegneriaDelSoftware.View
 {
     public partial class FormEmail : MaterialForm
     {
-        private ControllerInviaMail _controllerInviaMail = new ControllerInviaMail();
+        private ControllerInviaMail _controllerInviaMail = ControllerInviaMail.GetInstance();
 
         private ControllerClienti _controllerClienti = ControllerClienti.GetInstance();
         private VisualizzatoreCliente _visualizzatore;
@@ -57,6 +57,13 @@ namespace IngegneriaDelSoftware.View
 
             this._controllerClienti.CollezioneClienti.OnRimozione += this.RimossoCliente;
             this._controllerClienti.CollezioneClienti.OnAggiunta += (o, e) => { CaricaClientiMancanti(); };
+
+            this._controllerInviaMail.CollezioneEmailInviate.OnAggiunta += (o, email) => 
+            {
+                string[] row = { email.MailInviata.Data.ToString(), email.MailInviata.Oggetto, email.MailInviata.Email, email.MailInviata.Corpo };
+                ListViewItem item = new ListViewItem(row);
+                this.listMailInviate.Items.Add(item);
+            };
         }
         #endregion
 
@@ -196,9 +203,16 @@ namespace IngegneriaDelSoftware.View
 
         private void btnInvia_Click(object sender, EventArgs e)
         {
-            bool mandate = this._controllerInviaMail.InviaMail(DateTime.Now, txtOggetto.Text.Trim(), txtCorpo.Text, this._indirizziACuiMandare);
+            if (_indirizziACuiMandare.Count == 0)
+            {
+                FormConfim.Show("Errore", "Seleziona almeno un destinatario!", MessageBoxButtons.OK);
+                return;
+            }
+            bool mandate = this._controllerInviaMail.InviaMail(txtOggetto.Text.Trim(), txtCorpo.Text, this._indirizziACuiMandare);
             if (mandate)
-                MessageBox.Show("Mail inviata con successo.");
+                FormConfim.Show("Mail inviate", "Mail inviate con successo.", MessageBoxButtons.OK);
+            else
+                FormConfim.Show("Errore", "Errore invio email." + Environment.NewLine + "Consulta le MailInviate per vedere tutte le mail inviate.", MessageBoxButtons.OK);
         }
     }
 

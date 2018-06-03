@@ -50,7 +50,9 @@ namespace IngegneriaDelSoftware.Model
 
         #region Dati pubblici
         public int IDUtente { get; internal set; }
-        public Utente UtenteLoggato { get; internal set; } 
+        public Utente UtenteLoggato { get; internal set; }
+        public string Email { get; private set; } = "andreabisacchi@gmail.com";
+        public string PasswordEmail { get; private set; } = "PASSWORD-QUI-PASSWORD-QUI";
         #endregion
 
     }

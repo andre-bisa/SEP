@@ -176,11 +176,6 @@ namespace IngegneriaDelSoftware.Persistenza.None
             return null;
         }
 
-        MailInviata IMailInviataDAO.Leggi(string ID)
-        {
-            return null;
-        }
-
         Intermediario IIntermediarioDAO.Leggi(string ID)
         {
             return null;

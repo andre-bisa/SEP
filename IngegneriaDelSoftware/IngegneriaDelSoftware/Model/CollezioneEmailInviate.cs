@@ -4,19 +4,30 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IngegneriaDelSoftware.Model.ArgsEvent;
+using IngegneriaDelSoftware.Persistenza;
 
 namespace IngegneriaDelSoftware.Model
 {
     public class CollezioneEmailInviate : IEnumerable<MailInviata>, ICollection<MailInviata>
     {
+        public event EventHandler<ArgsMailInviata> OnAggiunta;
+
         private List<MailInviata> _email = new List<MailInviata>();
 
         protected CollezioneEmailInviate()
         {
+            foreach (MailInviata mail in PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetMailInviataDAO().GetListaMailInviate())
+            {
+                this._email.Add(mail);
+            }
+            // Mock
+            /*
             for (int i = 0; i < 10; i++)
             {
                 this._email.Add(new MailInviata(new DateTime(2018, 5, i+1), "Oggetto" + i, "Corpo", "mail@mail.com"));
             }
+            */
         }
 
         #region Singleton
@@ -46,6 +57,12 @@ namespace IngegneriaDelSoftware.Model
         public void Add(MailInviata item)
         {
             ((ICollection<MailInviata>)_email).Add(item);
+
+            if (OnAggiunta != null)
+            {
+                ArgsMailInviata args = new ArgsMailInviata(item);
+                OnAggiunta(this, args);
+            }
         }
 
         public void Clear()

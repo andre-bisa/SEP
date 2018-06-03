@@ -21,7 +21,6 @@ namespace IngegneriaDelSoftware
         {
             Application.SetCompatibleTextRenderingDefault(false);
             Application.EnableVisualStyles(); // senza questo non si vedono gli Hint
-            //Application.Run(new Login());
 
             MaterialSkinManager.Instance.Theme = MaterialSkinManager.Themes.LIGHT;
             MaterialSkinManager.Instance.ColorScheme = new ColorScheme(Primary.BlueGrey500, Primary.BlueGrey700, Primary.BlueGrey100, Accent.LightBlue200, TextShade.WHITE);
