@@ -45,7 +45,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                     IDUtente = -1;  // utente non trovato
             }
 
-            MySQLDaoFactory.ChiudiConnessione();
+            connessione.Close();
 
             return IDUtente;
         }
