@@ -100,10 +100,9 @@ create table MAILINVIATA (
      IDUTENTE int not null,
      IDMAIL int not null,
      MAIL varchar(50) not null,
-     DATA date not null,
+     DATA datetime not null,
      OGGETTO varchar(100) not null,
      CORPO blob not null,
-     IDPERSONA int not null,
      constraint ID_MAIL_INVIATA_ID primary key (IDUTENTE, IDMAIL));
 
 create table PERSONA (
@@ -299,11 +298,6 @@ alter table MAILINVIATA add constraint REF_MAIL__UTENT
      references UTENTE(IDUTENTE)
      ON DELETE CASCADE ON UPDATE CASCADE;
 
-alter table MAILINVIATA add constraint REF_MAIL__PERSO_FK
-     foreign key (IDUTENTE, IDPERSONA)
-     references PERSONA (IDUTENTE, IDPERSONA)
-     ON DELETE CASCADE ON UPDATE CASCADE;
-
 alter table PERSONA add constraint REF_PERSO_UTENT
      foreign key (IDUTENTE)
      references UTENTE(IDUTENTE)
@@ -445,9 +439,6 @@ create index REF_MAIL_PERSO_IND
 
 create unique index ID_MAIL_INVIATA_IND
      on MAILINVIATA (IDUTENTE, IDMAIL);
-
-create index REF_MAIL__PERSO_IND
-     on MAILINVIATA (IDUTENTE, IDPERSONA);
 
 create unique index SID_PERSONA_IND
      on PERSONA (IDUTENTE, CF);
