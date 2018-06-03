@@ -55,8 +55,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
-
-            connessione.Close();
+            MySQLDaoFactory.ChiudiConnessione();
 
             return (modifiche >= 1);
         }
@@ -95,8 +94,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@idpersona", "" + IDPersona);
 
             int modifiche = cmd.ExecuteNonQuery();
-
-            connessione.Close();
+            MySQLDaoFactory.ChiudiConnessione();
 
             return (modifiche >= 1);
         }
@@ -183,6 +181,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.CommandText = SELEZIONA_ULTIMO_ID_PERSONA;
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
             MySqlDataReader reader = cmd.ExecuteReader();
+            MySQLDaoFactory.ChiudiConnessione();
             if (reader.HasRows)
             {
                 reader.Read();
@@ -191,8 +190,6 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 else
                     ultimoID = reader.GetInt32(0);
             }
-
-            connessione.Close();
 
             return ultimoID + 1;
         }
@@ -219,8 +216,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
-
-            connessione.Close();
+            MySQLDaoFactory.ChiudiConnessione();
 
             return (modifiche >= 1);
         }
@@ -244,6 +240,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             MySqlDataReader reader = cmd.ExecuteReader();
+            MySQLDaoFactory.ChiudiConnessione();
 
             while (reader.Read())
             {
@@ -280,8 +277,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
                 listaClienti.Add(new Cliente(persona, reader.GetString("IDCLIENTE"), referenti, tipoCliente, reader.GetString("NOTE")));
             }
-
-            connessione.Close();
+            
             return listaClienti;
         }
 
@@ -303,6 +299,8 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@idcliente", IDCliente);
 
             MySqlDataReader reader = cmd.ExecuteReader();
+            MySQLDaoFactory.ChiudiConnessione();
+
             while (reader.Read())
             {
                 string nota;
@@ -312,8 +310,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                     nota = reader.GetString("NOTA");
                 listaReferenti.Add(new Referente(reader.GetString("NOME"), nota));
             }
-
-            connessione.Close();
+            
             return listaReferenti;
         }
 
@@ -335,6 +332,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@idpersona", OttieniIDPersona(IDCliente));
 
             MySqlDataReader reader = cmd.ExecuteReader();
+            MySQLDaoFactory.ChiudiConnessione();
             while (reader.Read())
             {
                 string nota;
@@ -344,8 +342,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                     nota = reader.GetString("NOTA");
                 listaEmail.Add(new Email(reader.GetString("MAIL"), nota));
             }
-
-            connessione.Close();
+            
             return listaEmail;
         }
 
@@ -367,6 +364,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@idpersona", OttieniIDPersona(IDCliente));
 
             MySqlDataReader reader = cmd.ExecuteReader();
+            MySQLDaoFactory.ChiudiConnessione();
             while (reader.Read())
             {
                 string nota;
@@ -376,8 +374,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                     nota = reader.GetString("NOTA");
                 listaEmail.Add(new Telefono(reader.GetString("TELEFONO"), nota));
             }
-
-            connessione.Close();
+            
             return listaEmail;
         }
 
@@ -399,13 +396,13 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@idcliente", IDCliente);
 
             MySqlDataReader reader = cmd.ExecuteReader();
+            MySQLDaoFactory.ChiudiConnessione();
 
             if (reader.Read())
                 IDPersona = reader.GetInt32(0);
             else
                 throw new Persistenza.ExceptionPersistenza();
-
-            connessione.Close();
+            
             return IDPersona;
         }
 
@@ -432,9 +429,8 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.CommandText += "COMMIT;";
 
             int modifiche = cmd.ExecuteNonQuery();
-
-            connessione.Close();
-
+            MySQLDaoFactory.ChiudiConnessione();
+            
             return (modifiche >= 1);
         }
 
@@ -460,8 +456,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             //cmd.CommandText += "COMMIT;";
 
             int modifiche = cmd.ExecuteNonQuery();
-
-            connessione.Close();
+            MySQLDaoFactory.ChiudiConnessione();
 
             return (modifiche >= 1);
         }
