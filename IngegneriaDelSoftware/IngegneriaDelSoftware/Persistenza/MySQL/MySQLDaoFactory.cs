@@ -29,7 +29,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             MySqlConnection connessione = null;
             try
             {
-                connessione = new MySqlConnection("SERVER=192.168.1.103;database=SEP;uid=SEP;pwd=password;SslMode=None;Pooling=False");
+                connessione = new MySqlConnection("SERVER=andre-bisa.ddns.net;database=SEP;uid=SEP;pwd=password;SslMode=None;Pooling=False");
                 if (connessione != null)
                     connessione.Open();
             } catch (MySqlException e)
