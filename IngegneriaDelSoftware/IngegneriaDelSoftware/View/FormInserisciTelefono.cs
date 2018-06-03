@@ -23,6 +23,9 @@ namespace IngegneriaDelSoftware.View
 
         private void BtnSalva_Click(object sender, EventArgs e)
         {
+            if (txtTelefono.Text.Trim().Length == 0)
+                return;
+
             if (OnAggiunta != null)
             {
                 ArgsTelefono args = new ArgsTelefono(new Model.Telefono(txtTelefono.Text.Trim(), txtNota.Text.Trim()));

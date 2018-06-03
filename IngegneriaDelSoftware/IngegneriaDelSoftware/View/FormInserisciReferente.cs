@@ -23,6 +23,9 @@ namespace IngegneriaDelSoftware.View
 
         private void BtnSalva_Click(object sender, EventArgs e)
         {
+            if (txtNome.Text.Trim().Length == 0)
+                return;
+
             if (OnAggiunta != null)
             {
                 ArgsReferente args = new ArgsReferente(new Model.Referente(txtNome.Text.Trim(), txtNota.Text.Trim()));
