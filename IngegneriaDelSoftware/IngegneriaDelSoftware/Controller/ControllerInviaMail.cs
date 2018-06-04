@@ -31,7 +31,6 @@ namespace IngegneriaDelSoftware.Controller
 {
     public class ControllerInviaMail
     {
-
         #region Singleton
         private static ControllerInviaMail _instance = null;
         private ControllerInviaMail()
@@ -51,19 +50,33 @@ namespace IngegneriaDelSoftware.Controller
         /// </summary>
         /// <param name="oggetto">Oggetto della mail</param>
         /// <param name="corpo">Corpo della mail</param>
-        /// <param name="email">Elenco di destinatari</param>
+        /// <param name="destinatari">Elenco di destinatari</param>
         /// <returns><c>true</c> solo se ha mandato correttamente le mail a TUTTI i destinatari</returns>
-        public bool InviaMail(string oggetto, string corpo, IEnumerable<Email> destinatari)
+        public bool InviaMail(string oggetto, string corpo, IEnumerable<Cliente> destinatari)
         {
-            bool mandateTutte = true;
-            foreach (Email e in destinatari)
+            List<Email> email = new List<Email>();
+            int MAIL_ALLA_VOLTA = 100;
+
+            foreach (Cliente c in destinatari)
             {
-                MailInviata mail = new MailInviata(DateTime.Now, oggetto, corpo, e.Indirizzo);
-                if (SpedisciMail(mail))
-                { // se spedita
-                    if (PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetMailInviataDAO().Crea(mail))
-                    { // se inserita nella persistenza
-                        CollezioneEmailInviate.Add(mail);
+                email.AddRange(c.Persona.Email);
+            }
+
+            bool mandateTutte = true;
+            
+            // Invio gruppo di MAIL_ALLA_VOLTA
+            for (int i = 0; i < email.Count; i++)
+            {
+                List<Email> gruppoMail = email.Skip(i * MAIL_ALLA_VOLTA).Take(MAIL_ALLA_VOLTA).ToList();
+                if (SpedisciMail(oggetto, corpo, gruppoMail))
+                { // se spedite
+                    foreach (Email e in gruppoMail)
+                    {
+                        MailInviata mail = new MailInviata(DateTime.Now, oggetto, corpo, e.Indirizzo);
+                        if (PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetMailInviataDAO().Crea(mail))
+                        { // se inserita nella persistenza
+                            CollezioneEmailInviate.Add(mail);
+                        }
                     }
                 }
                 else
@@ -73,19 +86,25 @@ namespace IngegneriaDelSoftware.Controller
             return mandateTutte;
         }
 
-        private bool SpedisciMail(MailInviata destinatario)
+        private bool SpedisciMail(string oggetto, string corpo, IEnumerable<Email> emails)
         {
-            MailMessage mail = new MailMessage(Impostazioni.GetInstance().Email, destinatario.Email);
+            MailMessage mail = new MailMessage(Impostazioni.GetInstance().Email, "dummy@dummy.com");
+            mail.To.Clear(); // Rimuovo il to
+
+            // Inserisco i mittenti in Bcc
+            foreach (Email e in emails)
+                mail.Bcc.Add(new MailAddress(e.Indirizzo));
+
             SmtpClient client = new SmtpClient();
             client.Port = 587;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
             client.Host = "smtp.gmail.com";
             client.EnableSsl = true;
-            client.Timeout = 2000;
+            client.Timeout = 5000;
             client.Credentials = new NetworkCredential(Impostazioni.GetInstance().Email, Impostazioni.GetInstance().PasswordEmail);
-            mail.Subject = destinatario.Oggetto;
-            mail.Body = destinatario.Corpo;
+            mail.Subject = oggetto;
+            mail.Body = corpo;
             try
             {
                 client.Send(mail);

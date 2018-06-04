@@ -33,6 +33,7 @@ using System.Windows.Forms;
 using IngegneriaDelSoftware.Model;
 using IngegneriaDelSoftware.Controller;
 using IngegneriaDelSoftware.Model.ArgsEvent;
+using System.Threading;
 
 namespace IngegneriaDelSoftware.View
 {
@@ -46,7 +47,7 @@ namespace IngegneriaDelSoftware.View
         private List<ClienteMostrato<SchedaCliente>> _clientiCaricati = new List<ClienteMostrato<SchedaCliente>>();
         private int quantiClientiMostrare;
 
-        private List<Email> _indirizziACuiMandare = new List<Email>();
+        private List<Cliente> _clientiACuiMandare = new List<Cliente>();
 
         private CollezioneEmailInviate _emailInviate = CollezioneEmailInviate.GetInstance();
 
@@ -54,6 +55,8 @@ namespace IngegneriaDelSoftware.View
         public FormEmail()
         {
             InitializeComponent();
+
+            this.btnInvia.Click += (o, e) => { InviaMail(); };
 
             flowClienti.Scroll += (s, e) => HandleScroll();
             flowClienti.MouseWheel += (s, e) => HandleScroll();
@@ -113,14 +116,12 @@ namespace IngegneriaDelSoftware.View
         {
             if (e.SchedaCliente.Selected)
             {
-                this._indirizziACuiMandare.AddRange(e.Cliente.Persona.Email);
+                this._clientiACuiMandare.Add(e.Cliente);
             }
             else
             {
-                foreach (Email email in e.Cliente.Persona.Email)
-                {
-                    this._indirizziACuiMandare.Remove(email);
-                }
+                if (this._clientiACuiMandare.Contains(e.Cliente))
+                    this._clientiACuiMandare.Remove(e.Cliente);
             }
         }
 
@@ -220,18 +221,23 @@ namespace IngegneriaDelSoftware.View
             this.Close();
         }
 
-        private void btnInvia_Click(object sender, EventArgs e)
+        private void InviaMail()
         {
-            if (_indirizziACuiMandare.Count == 0)
+            if (_clientiACuiMandare.Count == 0)
             {
                 FormConfim.Show("Errore", "Seleziona almeno un destinatario!", MessageBoxButtons.OK);
                 return;
             }
-            bool mandate = this._controllerInviaMail.InviaMail(txtOggetto.Text.Trim(), txtCorpo.Text, this._indirizziACuiMandare);
+
+            btnInvia.Enabled = false;
+
+            bool mandate = this._controllerInviaMail.InviaMail(txtOggetto.Text.Trim(), txtCorpo.Text, this._clientiACuiMandare);
             if (mandate)
                 FormConfim.Show("Mail inviate", "Mail inviate con successo.", MessageBoxButtons.OK);
             else
                 FormConfim.Show("Errore", "Errore invio email." + Environment.NewLine + "Consulta le MailInviate per vedere tutte le mail inviate.", MessageBoxButtons.OK);
+
+            btnInvia.Enabled = true;
         }
     }
 
