@@ -38,6 +38,7 @@ namespace IngegneriaDelSoftware.Model
         /// <summary>
         /// Costruttore
         /// </summary>
+        /// <param name="referenti">Referenti iniziali</param>
         public CollezioneReferenti(IEnumerable<Referente> referenti = null)
         {
             //Se argomento nullo dà lista vuota, altrimenti crea una copia della lista data

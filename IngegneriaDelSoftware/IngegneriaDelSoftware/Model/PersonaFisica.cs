@@ -128,8 +128,8 @@ namespace IngegneriaDelSoftware.Model
             this._datiPersona = datiPersonaFisica;
             this._email = new CollezioneEmail();
             this._telefoni = new CollezioneTelefoni();
-            this.Email.OnAggiunta += (o, e) => { LanciaEvento(this); };
-            this.Email.OnRimozione += (e, o) => { LanciaEvento(this); };
+            this.Email.OnAggiunta += (o, e) => { _persistenza.GetPersonaDAO().InserisciEmail(e.Email, this); LanciaEvento(this); };
+            this.Email.OnRimozione += (o, e) => { _persistenza.GetPersonaDAO().RimuoviEmail(e.Email, this); LanciaEvento(this); };
             this.Telefoni.OnAggiunta += (o, e) => { _persistenza.GetPersonaDAO().InserisciTelefono(e.Telefono, this); LanciaEvento(this); };
             this.Telefoni.OnRimozione += (o, e) => { _persistenza.GetPersonaDAO().RimuoviTelefono(e.Telefono, this); LanciaEvento(this); };
         }
