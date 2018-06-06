@@ -28,6 +28,7 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Runtime.InteropServices;
 using IngegneriaDelSoftware.View;
+using System.Reflection;
 
 namespace IngegneriaDelSoftware.Model
 {
@@ -55,28 +56,32 @@ namespace IngegneriaDelSoftware.Model
             IniFile ini = new IniFile(NOME_FILE_INI);
 
             try
-            {
-                // MySQL
-                this.IndirizzoServerMySQL = Decrypt(ini.Leggi("IndirizzoServer", "MYSQL"), PASSWORD_INI);
-                this.UtenteServerMySQL = Decrypt(ini.Leggi("Utente", "MYSQL"), PASSWORD_INI);
-                this.PasswordServerMySQL = Decrypt(ini.Leggi("Password", "MYSQL"), PASSWORD_INI);
+            { 
+                foreach (PropertyInfo prop in this.GetType().GetProperties())
+                {
+                    var attributo = (Persistente)prop.GetCustomAttribute(typeof(Persistente), true);
+                    if (attributo != null)
+                    {
+                        string chiave = attributo.Chiave ?? prop.Name;
+                        string sezione = attributo.Sezione; // null è accettato
 
-                // Email
-                this.Email = Decrypt(ini.Leggi("Email", "Email"), PASSWORD_INI);
-                this.PasswordEmail = Decrypt(ini.Leggi("Password", "Email"), PASSWORD_INI);
-                this.PortaEmail = Int32.Parse(Decrypt(ini.Leggi("Porta", "Email"), PASSWORD_INI));
-                this.HostEmail = Decrypt(ini.Leggi("Host", "Email"), PASSWORD_INI);
+                        string valoreStringa = ini.Leggi(chiave, sezione);
 
-                // Script fattura
-                this.FileScriptFattura = Decrypt(ini.Leggi("File", "Script"), PASSWORD_INI);
+                        if (attributo.Cifrato)
+                            valoreStringa = Decrypt(valoreStringa, PASSWORD_INI);
 
+                        object valore = valoreStringa;
 
+                        if (attributo.Tipo == typeof(int))
+                            valore = Int32.Parse(valoreStringa);
+
+                        prop.SetValue(this, valore);
+                    }
+                }
             } catch (Exception)
             {
                 FormConfim.Show("Errore lettura file impostazioni", "Il file di impostazioni non è valido, verrà sovrascritto con il file di default.", System.Windows.Forms.MessageBoxButtons.OK);
-                ini.EliminaSezione("MYSQL");
-                ini.EliminaSezione("Email");
-                ini.EliminaSezione("Script");
+                File.Delete(NOME_FILE_INI);
                 CaricaImpostazioniDefault();
                 SalvaImpostazioni();
             }
@@ -212,8 +217,11 @@ namespace IngegneriaDelSoftware.Model
 
         #region Database
         public EnumTipoPersistenza TipoPersistenza { get; set; } = EnumTipoPersistenza.NONE;
+        [Persistente(Chiave = "Indirizzo", Sezione = "MYSQL", Cifrato = false)]
         public string IndirizzoServerMySQL { get; set; }
+        [Persistente(Chiave = "Utente", Sezione = "MYSQL", Cifrato = true)]
         public string UtenteServerMySQL { get; set; }
+        [Persistente(Chiave = "Password", Sezione = "MYSQL", Cifrato = true)]
         public string PasswordServerMySQL { get; set; }
         #endregion
 
@@ -223,13 +231,18 @@ namespace IngegneriaDelSoftware.Model
         #endregion
 
         #region Email
+        [Persistente (Chiave = "Email", Sezione = "Email", Cifrato = false)]
         public string Email { get; private set; }
+        [Persistente(Chiave = "Password", Sezione = "Email", Cifrato = true)]
         public string PasswordEmail { get; private set; }
+        [Persistente(Chiave = "Porta", Sezione = "Email", Cifrato = false, Tipo = typeof(int))]
         public int PortaEmail { get; set; }
+        [Persistente(Chiave = "Host", Sezione = "Email", Cifrato = false)]
         public string HostEmail { get; set; }
         #endregion
 
         #region Script fattura
+        [Persistente(Chiave = "File", Sezione = "Script", Cifrato = false)]
         public string FileScriptFattura { get; set; }
         #endregion
 
@@ -238,22 +251,33 @@ namespace IngegneriaDelSoftware.Model
         {
             IniFile ini = new IniFile(NOME_FILE_INI);
 
-            // MySQL
-            ini.Scrivi("IndirizzoServer", Encrypt(this.IndirizzoServerMySQL, PASSWORD_INI), "MYSQL");
-            ini.Scrivi("Utente", Encrypt(this.UtenteServerMySQL, PASSWORD_INI), "MYSQL");
-            ini.Scrivi("Password", Encrypt(this.PasswordServerMySQL, PASSWORD_INI), "MYSQL");
+            foreach (PropertyInfo prop in this.GetType().GetProperties())
+            {
+                var attributo = (Persistente) prop.GetCustomAttribute(typeof(Persistente), true);
+                if (attributo != null)
+                {
+                    string chiave = attributo.Chiave ?? prop.Name;
+                    string sezione = attributo.Sezione; // null è accettato
 
-            // Email
-            ini.Scrivi("Email", Encrypt(this.Email, PASSWORD_INI), "Email");
-            ini.Scrivi("Password", Encrypt(this.PasswordEmail, PASSWORD_INI), "Email");
-            ini.Scrivi("Porta", Encrypt(this.PortaEmail.ToString(), PASSWORD_INI), "Email");
-            ini.Scrivi("Host", Encrypt(this.HostEmail, PASSWORD_INI), "Email");
+                    // Cast dinamico
+                    object valore = Convert.ChangeType(prop.GetValue(this, null), attributo.Tipo);
+                    
+                    if (attributo.Cifrato)
+                        valore = Encrypt(valore.ToString(), PASSWORD_INI);
 
-            // Script fattura
-            ini.Scrivi("File", Encrypt(this.FileScriptFattura, PASSWORD_INI), "Script");
+                    ini.Scrivi(chiave, valore.ToString(), sezione);
+                }
+            }
         }
         #endregion
-
-
     }
+
+    internal class Persistente : Attribute
+    {
+        public string Chiave { get; set; } = null;
+        public string Sezione { get; set; } = null;
+        public bool Cifrato { get; set; } = false;
+        public Type Tipo { get; set; } = typeof(string);
+    }
+
 }
