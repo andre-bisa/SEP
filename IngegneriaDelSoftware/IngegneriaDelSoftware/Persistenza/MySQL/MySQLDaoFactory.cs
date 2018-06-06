@@ -22,6 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IngegneriaDelSoftware.Model;
 using IngegneriaDelSoftware.Persistenza;
 using IngegneriaDelSoftware.Persistenza.Dao;
 using MySql.Data.MySqlClient;
@@ -43,12 +44,14 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         }
         #endregion
 
+        private static readonly string stringaConnessione = "SERVER=" + Impostazioni.GetInstance().IndirizzoServerMySQL + ";database=SEP;uid=" + Impostazioni.GetInstance().UtenteServerMySQL + ";pwd=" + Impostazioni.GetInstance().PasswordServerMySQL + ";SslMode=None;Pooling=False";
+
         public static MySqlConnection ApriConnessione()
         {
             MySqlConnection connessione = null;
             try
             {
-                connessione = new MySqlConnection("SERVER=andre-bisa.ddns.net;database=SEP;uid=SEP;pwd=password;SslMode=None;Pooling=False");
+                connessione = new MySqlConnection(stringaConnessione);
                 if (connessione != null)
                     connessione.Open();
             } catch (MySqlException e)

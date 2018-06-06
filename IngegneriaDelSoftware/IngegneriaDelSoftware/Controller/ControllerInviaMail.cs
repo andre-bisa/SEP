@@ -88,7 +88,9 @@ namespace IngegneriaDelSoftware.Controller
 
         private bool SpedisciMail(string oggetto, string corpo, IEnumerable<Email> emails)
         {
-            MailMessage mail = new MailMessage(Impostazioni.GetInstance().Email, "dummy@dummy.com");
+            Impostazioni impo = Impostazioni.GetInstance();
+
+            MailMessage mail = new MailMessage(impo.Email, "dummy@dummy.com");
             mail.To.Clear(); // Rimuovo il to
 
             // Inserisco i mittenti in Bcc
@@ -96,13 +98,13 @@ namespace IngegneriaDelSoftware.Controller
                 mail.Bcc.Add(new MailAddress(e.Indirizzo));
 
             SmtpClient client = new SmtpClient();
-            client.Port = 587;
+            client.Port = impo.PortaEmail;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            client.Host = "smtp.gmail.com";
+            client.Host = impo.HostEmail;
             client.EnableSsl = true;
             client.Timeout = 5000;
-            client.Credentials = new NetworkCredential(Impostazioni.GetInstance().Email, Impostazioni.GetInstance().PasswordEmail);
+            client.Credentials = new NetworkCredential(impo.Email, impo.PasswordEmail);
             mail.Subject = oggetto;
             mail.Body = corpo;
             try
