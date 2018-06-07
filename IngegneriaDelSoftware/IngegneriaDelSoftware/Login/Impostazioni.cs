@@ -272,6 +272,7 @@ namespace IngegneriaDelSoftware.Model
         #endregion
     }
 
+    [AttributeUsage(AttributeTargets.Property, Inherited = false)]
     internal class Persistente : Attribute
     {
         public string Chiave { get; set; } = null;
