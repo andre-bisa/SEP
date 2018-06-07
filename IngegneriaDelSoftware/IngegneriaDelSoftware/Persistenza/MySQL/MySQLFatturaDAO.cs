@@ -43,7 +43,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
 
         public bool Aggiorna(Fattura vecchia, Fattura nuova)
-        { // NOT TESTED
+        {
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
@@ -54,13 +54,31 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             if (cmd == null)
                 throw new ExceptionPersistenza();
 
-            cmd.CommandText = AGGIORNA_FATTURA;
+            cmd.CommandText = "START TRANSACTION;";
+
+            cmd.CommandText += AGGIORNA_FATTURA;
+
+            cmd.CommandText += "DELETE FROM VOCEFATTURA WHERE IDUTENTE=@idutente AND ANNO=@oldAnno AND NUMEROFATTURA=@oldNumero;";
+
+            System.Globalization.CultureInfo backup = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+            int maxNumeroVoce = 1;
+            foreach (VoceFattura voce in nuova)
+            {
+                cmd.CommandText += "INSERT INTO VOCEFATTURA(IDUTENTE,ANNO,NUMEROFATTURA,NUMEROVOCE,DESCRIZIONE,TIPOLOGIA,PERCENTUALE_IVA,QUANTITA,IMPORTO) VALUES(@idutente,@anno,@numero," + maxNumeroVoce + ",'" + voce.Causale + "','" + voce.Tipologia + "'," + voce.Iva + "," + voce.Quantita + "," + voce.Importo + ");";
+                maxNumeroVoce++;
+            }
+            System.Threading.Thread.CurrentThread.CurrentCulture = backup;
 
             InserisciParametriFattura(nuova, cmd);
 
             cmd.Parameters.AddWithValue("@oldAnno", vecchia.Anno);
             cmd.Parameters.AddWithValue("@oldNumero", vecchia.Numero);
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
+
+            cmd.CommandText += "COMMIT;";
 
             int modifiche = cmd.ExecuteNonQuery();
             connessione.Close();
@@ -100,6 +118,18 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             {
                 cmd.CommandText += "INSERT INTO VENDITEFATTURA(ANNO, NUMERO, IDUTENTE, IDVENDITA) VALUES(@anno,@numero, @idutente, " + v.ID + ");";
             }
+
+            System.Globalization.CultureInfo backup = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+            int maxNumeroVoce = 1;
+            foreach (VoceFattura voce in nuova)
+            {
+                cmd.CommandText += "INSERT INTO VOCEFATTURA(IDUTENTE,ANNO,NUMEROFATTURA,NUMEROVOCE,DESCRIZIONE,TIPOLOGIA,PERCENTUALE_IVA,QUANTITA,IMPORTO) VALUES(@idutente,@anno,@numero," + maxNumeroVoce + ",'" + voce.Causale + "','" + voce.Tipologia + "'," + voce.Iva + "," + voce.Quantita + "," + voce.Importo + ");";
+                maxNumeroVoce++;
+            }
+            System.Threading.Thread.CurrentThread.CurrentCulture = backup;
 
             InserisciParametriFattura(nuova, cmd);
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);

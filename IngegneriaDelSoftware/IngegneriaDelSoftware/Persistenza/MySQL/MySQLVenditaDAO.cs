@@ -1,4 +1,23 @@
-﻿using System;
+﻿/*
+    Copyright (C) 2018 Andrea Bisacchi, chkrr00k, Davide Giordano
+  
+    This file is part of SEP.
+
+    SEP is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    SEP is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with SEP.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +43,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
 
         public bool Aggiorna(Vendita vecchia, Vendita nuova)
-        { // NOT TESTED
+        {
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
@@ -35,10 +54,28 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             if (cmd == null)
                 throw new ExceptionPersistenza();
 
-            cmd.CommandText = AGGIORNA_VENDITA;
+            cmd.CommandText = "START TRANSACTION;";
+
+            cmd.CommandText += AGGIORNA_VENDITA;
+
+            cmd.CommandText += "DELETE FROM VOCEVENDITA WHERE IDUTENTE=@idutente AND IDVENDITA=@oldidvendita;";
+
+            System.Globalization.CultureInfo backup = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+            int maxNumeroVoce = 1;
+            foreach (VoceVendita voce in nuova)
+            {
+                string provvigione = "NULL";
+                cmd.CommandText += "INSERT INTO VOCEVENDITA(IDUTENTE,IDVENDITA,NUMERO,DESCRIZIONE,TIPOLOGIA,QUANTITA,PROVVIGIONE,IMPORTO) VALUES(@idutente,@idvendita," + maxNumeroVoce + ",'" + voce.Causale + "','" + voce.Tipologia + "'," + voce.Quantita + "," + provvigione + "," + voce.Importo + ");";
+                maxNumeroVoce++;
+            }
+            System.Threading.Thread.CurrentThread.CurrentCulture = backup;
 
             InserisciParametriVendita(nuova, cmd);
 
+            cmd.CommandText += "COMMIT;";
             cmd.Parameters.AddWithValue("@oldidvendita", vecchia.ID);
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
@@ -66,13 +103,18 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.CommandText += INSERISCI_VENDITA;
             InserisciParametriVendita(vendita, cmd);
 
-            int maxNumeroVoce = 0; // Cerca il max nella tabella
+            System.Globalization.CultureInfo backup = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+            int maxNumeroVoce = 1;
             foreach (VoceVendita voce in vendita.Voci)
             {
                 string provvigione = "NULL";
                 cmd.CommandText += "INSERT INTO VOCEVENDITA(IDUTENTE,IDVENDITA,NUMERO,DESCRIZIONE,TIPOLOGIA,QUANTITA,PROVVIGIONE,IMPORTO) VALUES(@idutente,@idvendita," + maxNumeroVoce + ",'" + voce.Causale + "','" + voce.Tipologia + "'," + voce.Quantita + "," + provvigione + "," + voce.Importo + ");";
                 maxNumeroVoce++;
             }
+            System.Threading.Thread.CurrentThread.CurrentCulture = backup;
 
             cmd.CommandText += "COMMIT;";
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
