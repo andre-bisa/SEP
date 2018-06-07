@@ -451,8 +451,8 @@ namespace IngegneriaDelSoftware.View {
             Cliente tmpCliente = null;
             List<Vendita> vendite = null;
             GenericForm result = GenericForm.CreaFormFattura();
+            result.SvuotaBarraLaterale();
             CollezioneFatture.GetInstance().ToList().ForEach((e) => {
-                result.SvuotaBarraLaterale();
                 result.AggiungiBarraLaterale(e.ID);
             });
             EventHandler<ArgsFattura> l = (o, ev) => {
