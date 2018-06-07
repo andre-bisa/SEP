@@ -32,7 +32,7 @@ namespace IngegneriaDelSoftware.Model
     {
         private HashSet<Appuntamento> _appuntamenti;
         private static Calendario _calendario;
-        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(EnumTipoPersistenza.NONE);
+        private PersistenzaFactory _persistenza = PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza);
         public event EventHandler<ArgsAppuntamento> OnAggiunta;
         public event EventHandler<ArgsAppuntamento> OnRimozione;
         public event EventHandler<ArgsModifica<Appuntamento>> OnModifica;
@@ -51,9 +51,9 @@ namespace IngegneriaDelSoftware.Model
                 foreach (Appuntamento a in _persistenza.GetAppuntamentoDAO().LeggiTuttiAppuntamenti())
                 {
                     _appuntamenti.Add(a);
-                    a.OnModifica += (o, e) => {
+                    /*a.OnModifica += (o, e) => {
                         this.OnModifica?.Invoke(o, e);
-                    };
+                    };*/
                 }
             }
             catch (Exception)

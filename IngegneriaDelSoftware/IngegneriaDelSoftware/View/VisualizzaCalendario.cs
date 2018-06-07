@@ -162,7 +162,8 @@ namespace IngegneriaDelSoftware.View
 
             //Controllo l'elemento selezionato, che e' l'ID
             if (this.listCalendario.SelectedItems.Count == 1)
-            { 
+            {
+                //Risalgo all'elemento selezionato
                 foreach (ListViewItem item in this.listCalendario.SelectedItems)
                 {
                     idAppuntamento = Convert.ToInt32(item.Text);
@@ -171,6 +172,29 @@ namespace IngegneriaDelSoftware.View
                 Appuntamento appuntamento = this._controller.GetAppuntamenti()[idAppuntamento];
                 
                 new FormAppuntamenti(appuntamento).ShowDialog();
+            }
+        }
+
+        private void ListCalendario_KeyDown(object sender, KeyEventArgs e)
+        {
+            int idAppuntamento = 0;
+
+            if (e.KeyData == Keys.Delete)
+            {
+
+                if (FormConfim.Show("Eliminare l'appuntameto selezionato?", "Confermi l'eliminazione dell'appuntamento?") == DialogResult.OK)
+                {
+
+                    //Risalgo all'elemento selezionato
+                    foreach (ListViewItem item in this.listCalendario.SelectedItems)
+                    {
+                        idAppuntamento = Convert.ToInt32(item.Text);
+                    }
+
+                    Appuntamento appuntamento = this._controller.GetAppuntamenti()[idAppuntamento];
+
+                    this._controller.RimuoviAppuntamento(appuntamento);
+                }
             }
         }
     }

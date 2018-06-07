@@ -37,7 +37,7 @@ namespace IngegneriaDelSoftware.View
     public partial class FormAppuntamenti : MaterialForm
     {
         private Appuntamento _appuntamento = null;
-
+        private ControllerCalendario _controllerCalendario = new ControllerCalendario();
         private ControllerClienti _controllerClienti = ControllerClienti.GetInstance();
         private List<ClienteMostrato<SchedaCliente>> _clientiCaricati = new List<ClienteMostrato<SchedaCliente>>();
         private int quantiClientiMostrare;
@@ -219,6 +219,10 @@ namespace IngegneriaDelSoftware.View
                     DatiAppuntamento nuoviDatiAppuntamento = new DatiAppuntamento(this._appuntamento.IDAppuntamento, this._appuntamento.ConChi, note, luogo, data);
 
                     this._appuntamento.cambiaDatiAppuntamento(nuoviDatiAppuntamento);
+                }
+                else
+                {
+                    _controllerCalendario.AggiungiAppuntamento(this._appuntamento);
                 }
             }
             this.Close();

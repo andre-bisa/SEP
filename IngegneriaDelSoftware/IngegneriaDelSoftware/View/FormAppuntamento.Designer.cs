@@ -57,14 +57,14 @@ namespace IngegneriaDelSoftware.View
             System.Windows.Forms.Panel panelSchedeClienteGenerico;
             System.Windows.Forms.Panel panelSearchBar;
             System.Windows.Forms.Panel panelSearchBarIcon;
-            this.txtLuogoAppuntamento = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.dataAppuntamento = new System.Windows.Forms.DateTimePicker();
-            this.txtNoteAppuntamento = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.btnAggiungi = new MaterialSkin.Controls.MaterialFloatingActionButton();
             this.flowClienti = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtSearchBar = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.txtLuogoAppuntamento = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.dataAppuntamento = new System.Windows.Forms.DateTimePicker();
+            this.txtNoteAppuntamento = new MaterialSkin.Controls.MaterialSingleLineTextField();
+            this.btnAggiungi = new MaterialSkin.Controls.MaterialFloatingActionButton();
             this.materialDivider1 = new MaterialSkin.Controls.MaterialDivider();
             this.mainPanel = new System.Windows.Forms.Panel();
             materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
@@ -137,66 +137,6 @@ namespace IngegneriaDelSoftware.View
             materialLabel4.Size = new System.Drawing.Size(42, 19);
             materialLabel4.TabIndex = 6;
             materialLabel4.Text = "Note";
-            // 
-            // txtLuogoAppuntamento
-            // 
-            this.txtLuogoAppuntamento.BackColor = System.Drawing.Color.White;
-            this.txtLuogoAppuntamento.Depth = 0;
-            this.txtLuogoAppuntamento.Hint = "Luogo";
-            this.txtLuogoAppuntamento.Location = new System.Drawing.Point(428, 142);
-            this.txtLuogoAppuntamento.MaxLength = 32767;
-            this.txtLuogoAppuntamento.MouseState = MaterialSkin.MouseState.HOVER;
-            this.txtLuogoAppuntamento.Name = "txtLuogoAppuntamento";
-            this.txtLuogoAppuntamento.PasswordChar = '\0';
-            this.txtLuogoAppuntamento.SelectedText = "";
-            this.txtLuogoAppuntamento.SelectionLength = 0;
-            this.txtLuogoAppuntamento.SelectionStart = 0;
-            this.txtLuogoAppuntamento.Size = new System.Drawing.Size(183, 23);
-            this.txtLuogoAppuntamento.TabIndex = 2;
-            this.txtLuogoAppuntamento.TabStop = false;
-            this.txtLuogoAppuntamento.UseSystemPasswordChar = false;
-            // 
-            // dataAppuntamento
-            // 
-            this.dataAppuntamento.CustomFormat = "dd/MM/yyyy";
-            this.dataAppuntamento.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dataAppuntamento.Location = new System.Drawing.Point(428, 82);
-            this.dataAppuntamento.Name = "dataAppuntamento";
-            this.dataAppuntamento.Size = new System.Drawing.Size(183, 20);
-            this.dataAppuntamento.TabIndex = 1;
-            // 
-            // txtNoteAppuntamento
-            // 
-            this.txtNoteAppuntamento.BackColor = System.Drawing.Color.White;
-            this.txtNoteAppuntamento.Depth = 0;
-            this.txtNoteAppuntamento.Hint = "Note";
-            this.txtNoteAppuntamento.Location = new System.Drawing.Point(428, 207);
-            this.txtNoteAppuntamento.MaxLength = 32767;
-            this.txtNoteAppuntamento.MouseState = MaterialSkin.MouseState.HOVER;
-            this.txtNoteAppuntamento.Name = "txtNoteAppuntamento";
-            this.txtNoteAppuntamento.PasswordChar = '\0';
-            this.txtNoteAppuntamento.SelectedText = "";
-            this.txtNoteAppuntamento.SelectionLength = 0;
-            this.txtNoteAppuntamento.SelectionStart = 0;
-            this.txtNoteAppuntamento.Size = new System.Drawing.Size(183, 23);
-            this.txtNoteAppuntamento.TabIndex = 3;
-            this.txtNoteAppuntamento.TabStop = false;
-            this.txtNoteAppuntamento.UseSystemPasswordChar = false;
-            // 
-            // btnAggiungi
-            // 
-            this.btnAggiungi.AnimateIcon = true;
-            this.btnAggiungi.AnimateShowHideButton = true;
-            this.btnAggiungi.Depth = 0;
-            this.btnAggiungi.Icon = global::IngegneriaDelSoftware.Properties.Resources.ic_save_black_48dp;
-            this.btnAggiungi.Location = new System.Drawing.Point(577, 314);
-            this.btnAggiungi.Mini = false;
-            this.btnAggiungi.MouseState = MaterialSkin.MouseState.HOVER;
-            this.btnAggiungi.Name = "btnAggiungi";
-            this.btnAggiungi.Size = new System.Drawing.Size(56, 56);
-            this.btnAggiungi.TabIndex = 4;
-            this.btnAggiungi.UseVisualStyleBackColor = true;
-            this.btnAggiungi.Click += new System.EventHandler(this.btnAggiungi_Click);
             // 
             // panelSchedeClienteGenerico
             // 
@@ -274,6 +214,66 @@ namespace IngegneriaDelSoftware.View
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            // 
+            // txtLuogoAppuntamento
+            // 
+            this.txtLuogoAppuntamento.BackColor = System.Drawing.Color.White;
+            this.txtLuogoAppuntamento.Depth = 0;
+            this.txtLuogoAppuntamento.Hint = "Luogo";
+            this.txtLuogoAppuntamento.Location = new System.Drawing.Point(428, 142);
+            this.txtLuogoAppuntamento.MaxLength = 32767;
+            this.txtLuogoAppuntamento.MouseState = MaterialSkin.MouseState.HOVER;
+            this.txtLuogoAppuntamento.Name = "txtLuogoAppuntamento";
+            this.txtLuogoAppuntamento.PasswordChar = '\0';
+            this.txtLuogoAppuntamento.SelectedText = "";
+            this.txtLuogoAppuntamento.SelectionLength = 0;
+            this.txtLuogoAppuntamento.SelectionStart = 0;
+            this.txtLuogoAppuntamento.Size = new System.Drawing.Size(183, 23);
+            this.txtLuogoAppuntamento.TabIndex = 2;
+            this.txtLuogoAppuntamento.TabStop = false;
+            this.txtLuogoAppuntamento.UseSystemPasswordChar = false;
+            // 
+            // dataAppuntamento
+            // 
+            this.dataAppuntamento.CustomFormat = "dd/MM/yyyy";
+            this.dataAppuntamento.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dataAppuntamento.Location = new System.Drawing.Point(428, 82);
+            this.dataAppuntamento.Name = "dataAppuntamento";
+            this.dataAppuntamento.Size = new System.Drawing.Size(183, 20);
+            this.dataAppuntamento.TabIndex = 1;
+            // 
+            // txtNoteAppuntamento
+            // 
+            this.txtNoteAppuntamento.BackColor = System.Drawing.Color.White;
+            this.txtNoteAppuntamento.Depth = 0;
+            this.txtNoteAppuntamento.Hint = "Note";
+            this.txtNoteAppuntamento.Location = new System.Drawing.Point(428, 207);
+            this.txtNoteAppuntamento.MaxLength = 32767;
+            this.txtNoteAppuntamento.MouseState = MaterialSkin.MouseState.HOVER;
+            this.txtNoteAppuntamento.Name = "txtNoteAppuntamento";
+            this.txtNoteAppuntamento.PasswordChar = '\0';
+            this.txtNoteAppuntamento.SelectedText = "";
+            this.txtNoteAppuntamento.SelectionLength = 0;
+            this.txtNoteAppuntamento.SelectionStart = 0;
+            this.txtNoteAppuntamento.Size = new System.Drawing.Size(183, 23);
+            this.txtNoteAppuntamento.TabIndex = 3;
+            this.txtNoteAppuntamento.TabStop = false;
+            this.txtNoteAppuntamento.UseSystemPasswordChar = false;
+            // 
+            // btnAggiungi
+            // 
+            this.btnAggiungi.AnimateIcon = true;
+            this.btnAggiungi.AnimateShowHideButton = true;
+            this.btnAggiungi.Depth = 0;
+            this.btnAggiungi.Icon = global::IngegneriaDelSoftware.Properties.Resources.ic_save_black_48dp;
+            this.btnAggiungi.Location = new System.Drawing.Point(577, 314);
+            this.btnAggiungi.Mini = false;
+            this.btnAggiungi.MouseState = MaterialSkin.MouseState.HOVER;
+            this.btnAggiungi.Name = "btnAggiungi";
+            this.btnAggiungi.Size = new System.Drawing.Size(56, 56);
+            this.btnAggiungi.TabIndex = 4;
+            this.btnAggiungi.UseVisualStyleBackColor = true;
+            this.btnAggiungi.Click += new System.EventHandler(this.btnAggiungi_Click);
             // 
             // materialDivider1
             // 
