@@ -32,27 +32,25 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
     {
         // Inserisci
         private static readonly string INSERISCI_DATORE_LAVORO = "INSERT INTO DATORE_LAVORO (IDDATORELAVORO,NOME,COGNOME,RAGIONE_SOCIALE,PIVA,CF,TELEFONO,INDIRIZZO,MAIL,IDUTENTE)"
-            + "VALUES (@iddatorelavoro,@nome,@cognome,@ragione_sociale,@piva,@cf,@telefono,@indirizzo,@mail,@idutente);";
-        private static readonly string INSERISCI_UTENTE = "INSERT INTO UTENTE (IDUTENTE,USERNAME,PASSWORD,PIVA,CF,TELEFONO,INDIRIZZO,MAIL,TIPO,NOME,COGNOME,PROVVIGIONE_DEFAULT,RAGIONE_SOCIALE,SEDE_LEGALE)"
-            + "VALUES (@idutente,@username,@password,@piva,@cf,@telefono,@indirizzo,@mail,@tipoU,@nome,@cognome,@provvigione_default,@ragione_sociale,@sede_legale);";
+            + " VALUES (@iddatorelavoro,@nome,@cognome,@ragione_sociale,@piva,@cf,@telefono,@indirizzo,@mail,@idutente);";
 
         // Seleziona
         private static readonly string SELEZIONA_TUTTI_DATORI_LAVORO = "SELECT * "
-            + "FROM DATORELAVORO AS D INNER JOIN UTENTE AS U ON D.IDUTENTE=U.IDUTENTE"
-            + "WHERE D.IDUTENTE=@idutente;";
+            + " FROM DATORELAVORO AS D INNER JOIN UTENTE AS U ON D.IDUTENTE=U.IDUTENTE"
+            + " WHERE D.IDUTENTE=@idutente;";
         private static readonly string SELEZIONA_DATORE_LAVORO = "SELECT *"
-            + "FROM DATORELAVORO"
-            + "WHERE IDDATORELAVORO = @iddatorelavoro AND IDUTENTE = @idutente;";
+            + " FROM DATORELAVORO"
+            + " WHERE IDDATORELAVORO = @iddatorelavoro AND IDUTENTE = @idutente;";
 
         // Aggiorna
         private static readonly string AGGIORNA_DATORE_LAVORO = "UPDATE DATORELAVORO"
-            + "SET IDDATORELAVORO=@iddatorelavoro,NOME=@nome,COGNOME=@cognome,RAGIONE_SOCIALE=@ragione_sociale,PIVA=@piva,CF=@cf,TELEFONO=@telefono,INDIRIZZO=@indirizzo,MAIL=@mail"
-            + "WHERE IDUTENTE=@idutente AND IDDATORELAVORO=@old_iddatorelavoro;";
+            + " SET IDDATORELAVORO=@iddatorelavoro,NOME=@nome,COGNOME=@cognome,RAGIONE_SOCIALE=@ragione_sociale,PIVA=@piva,CF=@cf,TELEFONO=@telefono,INDIRIZZO=@indirizzo,MAIL=@mail"
+            + " WHERE IDUTENTE=@idutente AND IDDATORELAVORO=@old_iddatorelavoro;";
 
         // Elimina
         private static readonly string ELIMINA_DATORE_LAVORO = "DELETE DATORELAVORO.*"
-            + "FROM DATORELAVORO INNER JOIN UTENTE ON DATORELAVORO.IDUTENTE=UTENTE.IDUTENTE"
-            + "WHERE DATORELAVORO.IDDATORELAVORO=@iddatorelavoro AND DATORELAVORO.IDUTENTE=@idutente;";
+            + " FROM DATORELAVORO INNER JOIN UTENTE ON DATORELAVORO.IDUTENTE=UTENTE.IDUTENTE"
+            + " WHERE DATORELAVORO.IDDATORELAVORO=@iddatorelavoro AND DATORELAVORO.IDUTENTE=@idutente;";
 
         /// <summary>
         /// Aggiorna un certo DatoreLavoro
@@ -133,7 +131,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@indirizzo", nuovo.Indirizzo);
             cmd.Parameters.AddWithValue("@mail", nuovo.Email.ToString());
 
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             cmd.CommandText += "COMMIT;";
 
@@ -168,7 +166,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText += "COMMIT;";
 
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
 
@@ -201,7 +199,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText += "COMMIT;";
 
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -232,11 +230,11 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.CommandText = "START TRANSACTION;";
 
-            cmd.CommandText += SELEZIONA_DATORE_LAVORO;
+            cmd.CommandText += SELEZIONA_TUTTI_DATORI_LAVORO;
 
             cmd.CommandText += "COMMIT;";
 
-            cmd.Parameters.AddWithValue("@idutente", "1");       // <-------------- TODO inserire IDUTENTE
+            cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             MySqlDataReader reader = cmd.ExecuteReader();
 

@@ -17,44 +17,6 @@
     along with SEP.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/*
-    Copyright (C) 2018 Andrea Bisacchi, chkrr00k, Davide Giordano
-  
-    This file is part of SEP.
-
-    SEP is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    SEP is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with SEP.  If not, see <http://www.gnu.org/licenses/>.
- */
-
-/*
-    Copyright (C) 2018 Andrea Bisacchi, chkrr00k, Davide Giordano
-  
-    This file is part of SEP.
-
-    SEP is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    SEP is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with SEP.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,26 +33,24 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
         // Inserisci
         private static readonly string INSERISCI_APPUNTAMENTO = "INSERT INTO APPUNTAMENTO (IDUTENTE,IDAPPUNTAMENTO,DATA,ORA,LUOGO,NOTE)"
-            + "VALUES (@idutente,@idappuntamento,@data,@ora,@luogo,@note);";
-        private static readonly string INSERISCI_UTENTE = "INSERT INTO UTENTE (IDUTENTE,USERNAME,PASSWORD,PIVA,CF,TELEFONO,INDIRIZZO,MAIL,TIPO,NOME,COGNOME,PROVVIGIONE_DEFAULT,RAGIONE_SOCIALE,SEDE_LEGALE)"
-            + "VALUES (@idutente,@username,@password,@piva,@cf,@telefono,@indirizzo,@mail,@tipoU,@nome,@cognome,@provvigione_default,@ragione_sociale,@sede_legale);";
+            + " VALUES (@idutente,@idappuntamento,@data,@ora,@luogo,@note);";
 
         // Seleziona
-        private static readonly string SELEZIONA_TUTTI_APPUNTAMENTI = "SELECT A.IDUTENTE AS IDUTENTE, A.IDAPPUNTAMENTO AS IDAPPUNTAMENTO, A.DATA AS DATA, A.ORA AS ORA, A.LUOGO AS LUOGO, A.NOTE AS NOTE, U.USERNAME AS USERNAME, U.PIVA AS PIVA, U.CF AS CF, U.TELEFONO AS TELEFONO, U.INDIRIZZO AS INDIRIZZO, U.MAIL AS MAIL, U.TIPO AS TIPO_UTENTE, U.NOME AS NOME, U.COGNOME AS COGNOME, U.PROVVIGIONE_DEFAULT, U.RAGIONE_SOCIALE AS RAGIONE_SOCIALE, U.SEDE_LEGALE AS SEDE_LEGALE "
-            + "FROM APPUNTAMENTO AS A INNER JOIN UTENTE AS U ON A.IDUTENTE=U.IDUTENTE"
-            + "WHERE A.IDUTENTE=@idutente;";
+        private static readonly string SELEZIONA_TUTTI_APPUNTAMENTI = "SELECT A.IDUTENTE AS IDUTENTE, A.IDAPPUNTAMENTO AS IDAPPUNTAMENTO, A.DATA AS DATA, A.ORA AS ORA, A.LUOGO AS LUOGO, A.NOTE AS NOTE"
+            + " FROM APPUNTAMENTO AS A INNER JOIN UTENTE AS U ON A.IDUTENTE=U.IDUTENTE"
+            + " WHERE A.IDUTENTE=@idutente;";
         private static readonly string SELEZIONA_APPUNTAMENTO = "SELECT *"
-            + "FROM APPUNTAMENTO"
-            + "WHERE IDAPPUNTAMENTO = @idappuntamento AND IDUTENTE = @idutente;";
+            + " FROM APPUNTAMENTO"
+            + " WHERE IDAPPUNTAMENTO = @idappuntamento AND IDUTENTE = @idutente;";
 
         // Aggiorna
         private static readonly string AGGIORNA_APPUNTAMENTO = "UPDATE APPUNTAMENTO SET IDAPPUNTAMENTO=@idappuntamento,DATA=@data,ORA=@ora,LUOGO=@luogo,NOTE=@note"
-            + "WHERE IDUTENTE=@idutente AND IDAPPUNTAMENTO=@old_idappuntamento;";
+            + " WHERE IDUTENTE=@idutente AND IDAPPUNTAMENTO=@old_idappuntamento;";
 
         // Elimina
         private static readonly string ELIMINA_APPUNTAMENTO = "DELETE APPUNTAMENTO.*"
-            + "FROM APPUNTAMENTO INNER JOIN UTENTE ON APPUNTAMENTO.IDUTENTE=UTENTE.IDUTENTE"
-            + "WHERE APPUNTAMENTO.IDAPPUNTAMENTO=@idappuntamento AND APPUNTAMENTO.IDUTENTE=@idutente;";
+            + " FROM APPUNTAMENTO INNER JOIN UTENTE ON APPUNTAMENTO.IDUTENTE=UTENTE.IDUTENTE"
+            + " WHERE APPUNTAMENTO.IDAPPUNTAMENTO=@idappuntamento AND APPUNTAMENTO.IDUTENTE=@idutente;";
 
         /// <summary>
         /// Aggiorna un appuntamento
@@ -248,6 +208,8 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         {
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
+            List<Appuntamento> risultato = new List<Appuntamento>();
+
             if (connessione == null)
                 return null;
 
@@ -279,7 +241,33 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                IDESTERNO varchar(10) not null,
              * */
 
+            Persona p = new PersonaFisica("cf", "via cane", "mario", "rossi");
+
             //Appuntamento appuntamento = new Appuntamento(reader.GetString("IDAPPUNTAMENTO"), reader.GetString);
+            while (reader.Read())
+            {
+                //Prendo prima la data
+                DateTime dataOra = reader.GetDateTime("DATA");
+
+                //Poi faccio il parsing dell'orario, in modo da aggiungerlo dopo al DateTime
+                String orario = reader.GetString("ORA");
+                int ora = Convert.ToInt32(orario.Split(':')[0]);
+                int minuti = Convert.ToInt32(orario.Split(':')[1]);
+                int secondi = Convert.ToInt32(orario.Split(':')[2]);
+                TimeSpan tempo = new TimeSpan(ora, minuti, secondi);
+
+                //Aggiunta dell'orario
+                dataOra = dataOra + tempo;
+
+                int id = reader.GetInt32("IDAPPUNTAMENTO");
+                String note = reader.GetValue(5).ToString();
+                String luogo = reader.GetString("LUOGO");
+
+                DatiAppuntamento datiAppuntamento = new DatiAppuntamento(id, p, note, luogo, dataOra);
+                Appuntamento appuntamento = new Appuntamento(datiAppuntamento);
+
+                risultato.Add(appuntamento);
+            }
 
             connessione.Close();
 
