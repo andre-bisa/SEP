@@ -37,6 +37,6 @@ namespace IngegneriaDelSoftware.Persistenza.Dao
         bool Elimina(string numero, int anno);
 
         List<Fattura> LeggiTutteFatture();
-
+        bool AggiungiVoce(VoceFattura item);
     }
 }

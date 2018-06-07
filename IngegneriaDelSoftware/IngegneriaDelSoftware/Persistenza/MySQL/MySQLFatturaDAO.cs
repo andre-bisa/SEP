@@ -229,5 +229,10 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             connessione.Close();
             return vociFattura;
         }
+
+        public bool AggiungiVoce(VoceFattura item)
+        {
+            return true;
+        }
     }
 }

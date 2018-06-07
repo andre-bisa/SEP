@@ -24,6 +24,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using IngegneriaDelSoftware.Model.ArgsEvent;
+using IngegneriaDelSoftware.Persistenza;
 
 namespace IngegneriaDelSoftware.Model {
     public class Fattura : IEnumerable<VoceFattura>, ICollection<VoceFattura>, IObservable<Fattura> {
@@ -122,7 +123,14 @@ namespace IngegneriaDelSoftware.Model {
                 }
                 var old = this.Clone();
                 this._datiFattura = value;
-                this.OnModifica?.Invoke(this, new ArgsModifica<Fattura>(old, this));
+                if (PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetFatturaDAO().Aggiorna(old, this))
+                {
+                    this.OnModifica?.Invoke(this, new ArgsModifica<Fattura>(old, this));
+                }
+                else
+                {
+                    this._datiFattura = old._datiFattura;
+                }
             }
             get {
                 return this._datiFattura;
@@ -257,6 +265,7 @@ namespace IngegneriaDelSoftware.Model {
             set {
                 if(this._stato != Stato.LOCKED) {
                     var old = this.Clone();
+                    PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetFatturaDAO().AggiornaVoce(this, this._voci[i], value);
                     this._voci[i] = value;
                     this.OnModifica?.Invoke(this, new ArgsModifica<Fattura>(old, this));
                 } else {
@@ -317,6 +326,7 @@ namespace IngegneriaDelSoftware.Model {
         public void Add(VoceFattura item) {
             if(this._stato != Stato.LOCKED) {
                 var old = this.Clone();
+                PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetFatturaDAO().AggiungiVoce(this, item);
                 ((ICollection<VoceFattura>)this._voci).Add(item);
                 this.OnModifica?.Invoke(this, new ArgsModifica<Fattura>(old, this));
             } else {
@@ -330,6 +340,12 @@ namespace IngegneriaDelSoftware.Model {
         public void Add(params VoceFattura[] item) {
             if(this._stato != Stato.LOCKED) {
                 var old = this.Clone();
+                //XXX Test this;
+                var dao = PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetFatturaDAO();
+                item.ToList().ForEach((e) =>
+                {
+                    dao.AggiungiVoce(this, e);
+                });
                 this._voci.AddRange(item);
                 this.OnModifica?.Invoke(this, new ArgsModifica<Fattura>(old, this));
             } else {
@@ -342,6 +358,7 @@ namespace IngegneriaDelSoftware.Model {
         public void Clear() {
             if(this._stato != Stato.LOCKED) {
                 var old = this.Clone();
+                PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetFatturaDAO().RimuoviTutteVoci(this);
                 ((ICollection<VoceFattura>)this._voci).Clear();
                 this.OnModifica?.Invoke(this, new ArgsModifica<Fattura>(old, this));
             } else {
@@ -368,6 +385,7 @@ namespace IngegneriaDelSoftware.Model {
         public bool Remove(VoceFattura item) {
             if(this._stato != Stato.LOCKED) {
                 var old = this.Clone();
+                PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetFatturaDAO().RimuoviVoce(this, item);
                 bool result = ((ICollection<VoceFattura>)this._voci).Remove(item);
                 this.OnModifica?.Invoke(this, new ArgsModifica<Fattura>(old, this));
                 return result;

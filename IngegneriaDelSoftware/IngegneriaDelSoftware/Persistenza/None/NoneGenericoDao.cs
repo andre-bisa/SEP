@@ -70,6 +70,11 @@ namespace IngegneriaDelSoftware.Persistenza.None
             return true;
         }
 
+        bool IFatturaDAO.AggiungiVoce(VoceFattura item)
+        {
+            return true;
+        }
+
         bool IAppuntamentoDAO.Crea(Appuntamento appuntamento)
         {
             return true;

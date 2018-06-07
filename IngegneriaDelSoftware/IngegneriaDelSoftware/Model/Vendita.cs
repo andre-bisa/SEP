@@ -148,6 +148,7 @@ namespace IngegneriaDelSoftware.Model {
             get { return this._voci[i]; }
             set {
                 var old = this.Clone();
+                Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetVenditaDAO().AggiornaVoce(this, this._voci[i], value);
                 this._voci[i] = value;
                 this.OnModifica?.Invoke(this, new ArgsModifica<Vendita>(old, this));
             }
@@ -195,6 +196,7 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="item">La voce</param>
         public void Add(VoceVendita item) {
             var old = this.Clone();
+            Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetVenditaDAO().AggiungiVoce(this, item);
             ((ICollection<VoceVendita>)this._voci).Add(item);
             this.OnModifica?.Invoke(this, new ArgsModifica<Vendita>(old, this));
         }
@@ -204,6 +206,11 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="item">Le voci</param>
         public void Add(params VoceVendita[] item) {
             var old = this.Clone();
+            var dao = Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetVenditaDAO();
+            item.ToList().ForEach((e) =>
+            {
+                dao.AggiungiVoce(this, e);
+            });
             this._voci.AddRange(item);
             this.OnModifica?.Invoke(this, new ArgsModifica<Vendita>(old, this));
         }
@@ -212,6 +219,7 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         public void Clear() {
             var old = this.Clone();
+            Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetVenditaDAO().RimuoviTutteVoci(this);
             ((ICollection<VoceVendita>)this._voci).Clear();
             this.OnModifica?.Invoke(this, new ArgsModifica<Vendita>(old, this));
         }
@@ -234,6 +242,7 @@ namespace IngegneriaDelSoftware.Model {
         /// <returns></returns>
         public bool Remove(VoceVendita item) {
             var old = this.Clone();
+            Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetVenditaDAO().RimuoviVoce(this, item);
             bool result = ((ICollection<VoceVendita>)this._voci).Remove(item);
             this.OnModifica?.Invoke(this, new ArgsModifica<Vendita>(old, this));
             return result;
