@@ -140,9 +140,7 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         /// <returns>il valore della vendita</returns>
         public decimal Totale() {
-            return this._voci.Select((e) => {
-                return e.ValoreTotale();
-            }).Sum();
+            return this._voci.Select((e) => { return e.ValoreTotale(); }).Sum();
         }
 
         /// <summary>
@@ -155,7 +153,6 @@ namespace IngegneriaDelSoftware.Model {
             get { return this._voci[i]; }
             set {
                 var old = this.Clone();
-                Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetPreventivoDAO().AggiornaVoce(this, this._voci[i], value);
                 this._voci[i] = value;
                 this.OnModifica?.Invoke(this, new ArgsModifica<Preventivo>(old, this));
             }
@@ -195,7 +192,6 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="item">La voce</param>
         public void Add(VocePreventivo item) {
             var old = this.Clone();
-            Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetPreventivoDAO().AggiungiVoce(this, item);
             ((ICollection<VocePreventivo>)this._voci).Add(item);
             this.OnModifica?.Invoke(this, new ArgsModifica<Preventivo>(old, this));
         }
@@ -205,11 +201,6 @@ namespace IngegneriaDelSoftware.Model {
         /// <param name="item">Le voci</param>
         public void Add(params VocePreventivo[] item) {
             var old = this.Clone();
-            var dao = Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetPreventivoDAO();
-            item.ToList().ForEach((e) =>
-            {
-                dao.AggiungiVoce(this, e);
-            });
             this._voci.AddRange(item);
             this.OnModifica?.Invoke(this, new ArgsModifica<Preventivo>(old, this));
         }
@@ -218,7 +209,6 @@ namespace IngegneriaDelSoftware.Model {
         /// </summary>
         public void Clear() {
             var old = this.Clone();
-            Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetPreventivoDAO().RimuoviTutteVoci(this);
             ((ICollection<VocePreventivo>)this._voci).Clear();
             this.OnModifica?.Invoke(this, new ArgsModifica<Preventivo>(old, this));
         }
@@ -241,7 +231,6 @@ namespace IngegneriaDelSoftware.Model {
         /// <returns></returns>
         public bool Remove(VocePreventivo item) {
             var old = this.Clone();
-            Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza).GetPreventivoDAO().RimuoviVoce(this, item);
             bool result = ((ICollection<VocePreventivo>)this._voci).Remove(item);
             this.OnModifica?.Invoke(this, new ArgsModifica<Preventivo>(old, this));
             return result;

@@ -41,10 +41,6 @@ namespace IngegneriaDelSoftware
             Application.SetCompatibleTextRenderingDefault(false);
             Application.EnableVisualStyles(); // senza questo non si vedono gli Hint
 
-            var culture = new System.Globalization.CultureInfo("it-IT");
-            System.Globalization.CultureInfo.DefaultThreadCurrentCulture = culture;
-            System.Globalization.CultureInfo.DefaultThreadCurrentUICulture = culture;
-
             MaterialSkinManager.Instance.Theme = MaterialSkinManager.Themes.LIGHT;
             MaterialSkinManager.Instance.ColorScheme = new ColorScheme(Primary.BlueGrey500, Primary.BlueGrey700, Primary.BlueGrey100, Accent.LightBlue200, TextShade.WHITE);
 
