@@ -62,6 +62,9 @@ namespace IngegneriaDelSoftware.Model
                 {
                     _fatture.Add(f);
                     f.OnModifica += (o, e) => {
+                        Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza)
+                            .GetFatturaDAO()
+                                .Aggiorna(e.Vecchio, e.Nuovo);
                         this.OnModifica?.Invoke(o, e);
                     };
                 }
@@ -102,6 +105,9 @@ namespace IngegneriaDelSoftware.Model
                 {
                     ((ICollection<Fattura>)_fatture).Add(item);
                     item.OnModifica += (o, e) => {
+                        Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza)
+                            .GetFatturaDAO()
+                                .Aggiorna(e.Vecchio, e.Nuovo);
                         this.OnModifica?.Invoke(o, e);
                     };
                     LanciaEvento(OnAggiunta, item);

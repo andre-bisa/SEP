@@ -62,6 +62,9 @@ namespace IngegneriaDelSoftware.Model
                 {
                     _preventivi.Add(p);
                     p.OnModifica += (o, e) => {
+                        Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza)
+                            .GetPreventivoDAO()
+                                .Aggiorna(e.Vecchio, e.Nuovo);
                         this.OnModifica?.Invoke(o, e);
                     };
                 }
@@ -112,6 +115,9 @@ namespace IngegneriaDelSoftware.Model
                 {
                     ((ICollection<Preventivo>)_preventivi).Add(item);
                     item.OnModifica += (o, e) => {
+                        Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza)
+                            .GetPreventivoDAO()
+                                .Aggiorna(e.Vecchio, e.Nuovo);
                         this.OnModifica?.Invoke(o, e);
                     };
                     LanciaEvento(OnAggiunta, item);

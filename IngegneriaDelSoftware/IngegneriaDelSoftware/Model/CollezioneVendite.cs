@@ -62,6 +62,9 @@ namespace IngegneriaDelSoftware.Model
                 {
                     _vendite.Add(v);
                     v.OnModifica += (o, e) => {
+                        Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza)
+                            .GetVenditaDAO()
+                                .Aggiorna(e.Vecchio, e.Nuovo);
                         this.OnModifica?.Invoke(o, e);
                     };
                 }
@@ -110,6 +113,9 @@ namespace IngegneriaDelSoftware.Model
                 {
                     ((ICollection<Vendita>)_vendite).Add(item);
                     item.OnModifica += (o, e) => {
+                        Persistenza.PersistenzaFactory.OttieniDAO(Impostazioni.GetInstance().TipoPersistenza)
+                            .GetVenditaDAO()
+                                .Aggiorna(e.Vecchio, e.Nuovo);
                         this.OnModifica?.Invoke(o, e);
                     };
                     LanciaEvento(OnAggiunta, item);
