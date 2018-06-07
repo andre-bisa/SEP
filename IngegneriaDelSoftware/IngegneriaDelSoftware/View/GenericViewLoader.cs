@@ -78,23 +78,19 @@ namespace IngegneriaDelSoftware.View {
             CollezionePreventivi.GetInstance().ToList().ForEach((e) => {
                 result.AggiungiBarraLaterale(e.ID);
             });
-            EventHandler<ArgsPreventivo> l = async (o, ev) => {
-                var t = Task.Run<CollezionePreventivi>(() => { return CollezionePreventivi.GetInstance(); });
+            EventHandler<ArgsPreventivo> l =  (o, ev) => {
                 result.SvuotaBarraLaterale();
-                CollezionePreventivi col = await t;
-                lock(result) {
+                CollezionePreventivi col = CollezionePreventivi.GetInstance();
                     col.ToList().ForEach((e) => {
                         result.AggiungiBarraLaterale(e.ID);
 
                     });
-                }
             };
             CollezionePreventivi.GetInstance().OnAggiunta += l;
             CollezionePreventivi.GetInstance().OnRimozione += l;
-            CollezionePreventivi.GetInstance().OnModifica += async (o, ev) => {
-                var t = Task.Run<CollezionePreventivi>(() => { return CollezionePreventivi.GetInstance(); });
+            CollezionePreventivi.GetInstance().OnModifica += (o, ev) => {
                 result.SvuotaBarraLaterale();
-                CollezionePreventivi col = await t;
+                CollezionePreventivi col = CollezionePreventivi.GetInstance();
                 col.ToList().ForEach((e) => {
                     result.AggiungiBarraLaterale(e.ID);
 
@@ -273,26 +269,22 @@ namespace IngegneriaDelSoftware.View {
             CollezioneVendite.GetInstance().ToList().ForEach((e) => {
                 result.AggiungiBarraLaterale(e.ID);
             });
-            EventHandler<ArgsVendita> l = async (o, ev) => {
-                var t = Task.Run<CollezioneVendite>(() => { return CollezioneVendite.GetInstance(); });
+            EventHandler<ArgsVendita> l = (o, ev) => {
                 result.SvuotaBarraLaterale();
-                CollezioneVendite col = await t;
+                CollezioneVendite col = CollezioneVendite.GetInstance();
                 col.ToList().ForEach((e) => {
                     result.AggiungiBarraLaterale(e.ID);
                 });
             };
             CollezioneVendite.GetInstance().OnAggiunta += l;
             CollezioneVendite.GetInstance().OnRimozione += l;
-            CollezioneVendite.GetInstance().OnModifica += async (o, ev) => {
-                var t = Task.Run<CollezioneVendite>(() => { return CollezioneVendite.GetInstance(); });
+            CollezioneVendite.GetInstance().OnModifica +=(o, ev) => {
                 result.SvuotaBarraLaterale();
-                CollezioneVendite col = await t;
-                lock(result) {
+                CollezioneVendite col = CollezioneVendite.GetInstance();
                     //CollezioneVendite col = CollezioneVendite.GetInstance();
                     col.ToList().ForEach((e) => {
                         result.AggiungiBarraLaterale(e.ID);
                     });
-                }
             }; ;
             result.OnPannelloLateraleClick += async (o, e) => {
                 if(o.SelectedItems.Count == 1) {
@@ -463,25 +455,21 @@ namespace IngegneriaDelSoftware.View {
                 result.SvuotaBarraLaterale();
                 result.AggiungiBarraLaterale(e.ID);
             });
-            EventHandler<ArgsFattura> l = async (o, ev) => {
-                var t = Task.Run<CollezioneFatture>(() => { return CollezioneFatture.GetInstance(); });
+            EventHandler<ArgsFattura> l = (o, ev) => {
                 result.SvuotaBarraLaterale();
-                CollezioneFatture col = await t;
+                CollezioneFatture col = CollezioneFatture.GetInstance();
                 col.ToList().ForEach((e) => {
                     result.AggiungiBarraLaterale(e.ID);
                 });
             };
             CollezioneFatture.GetInstance().OnAggiunta += l;
             CollezioneFatture.GetInstance().OnRimozione += l;
-            CollezioneFatture.GetInstance().OnModifica += async (o, ev) => {
-                var t = Task.Run<CollezioneFatture>(() => { return CollezioneFatture.GetInstance(); });
+            CollezioneFatture.GetInstance().OnModifica += (o, ev) => {
                 result.SvuotaBarraLaterale();
-                CollezioneFatture col = await t;
-                lock(result) {
-                    col.ToList().ForEach((e) => {
-                        result.AggiungiBarraLaterale(e.ID);
-                    });
-                }
+                CollezioneFatture col = CollezioneFatture.GetInstance();
+                col.ToList().ForEach((e) => {
+                    result.AggiungiBarraLaterale(e.ID);
+                });
             };
             result.OnPannelloLateraleClick += async (o, e) => {
                 if(o.SelectedItems.Count == 1) {

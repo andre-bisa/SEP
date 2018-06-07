@@ -72,8 +72,39 @@ namespace IngegneriaDelSoftware
                + ".SET LABEL FOR $TOTALE AS \"Totale generale \""
            + "").Split('\n'));
 
-            if ((new Login()).ShowDialog() == DialogResult.OK)
-                Application.Run(new HomeForm(new ControllerHome()));
+            if((new Login()).ShowDialog() == DialogResult.OK) {
+                try {
+                    {
+                        LoadingForm l = new LoadingForm();
+                        l.Show();
+                    
+                        l.Status = "Caricamento Appuntamenti";
+                        CollezioneAppuntamenti.GetInstance();
+                        l.Value = 16;
+                        l.Status = "Caricamento Clienti";
+                        CollezioneClienti.GetInstance();
+                        l.Value += 16;
+                        l.Status = "Caricamento Email";
+                        CollezioneEmailInviate.GetInstance();
+                        l.Value += 16;
+                        l.Status = "Caricamento Fatture";
+                        CollezioneFatture.GetInstance();
+                        l.Value += 16;
+                        l.Status = "Caricamento Preventivi";
+                        CollezionePreventivi.GetInstance();
+                        l.Value += 16;
+                        l.Status = "Caricamento Vendite";
+                        CollezioneVendite.GetInstance();
+                        l.Value = 100;
+                    
+                        l.Close();
+                        l.Dispose();
+                    }
+                    Application.Run(new HomeForm(new ControllerHome()));
+                }catch(Exception e) {
+                    FormConfim.Show("Errore Fatale", "Si è verificato un errore in: " + e.Message, MessageBoxButtons.OK);
+                }
+        }
             return;
 
             //ControllerClienti controller = new ControllerClienti();
