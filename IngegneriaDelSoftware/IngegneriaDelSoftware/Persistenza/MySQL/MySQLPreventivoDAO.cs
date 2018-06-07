@@ -41,7 +41,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         private static string SELEZIONA_TUTTE_VOCI_PREVENTIVO = "SELECT V.NUMERO AS NUMERO, V.DESCRIZIONE AS DESCRIZIONE, V.TIPOLOGIA AS TIPOLOGIA, V.QUANTITA AS QUANTITA, V.IMPORTO AS IMPORTO FROM VOCEPREVENTIVO AS V WHERE IDUTENTE=@idutente AND IDPREVENTIVO=@idpreventivo;";
 
         public bool Aggiorna(Preventivo vecchio, Preventivo nuovo)
-        { // NOT TESTED!
+        {
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
             if (connessione == null)
@@ -52,10 +52,29 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             if (cmd == null)
                 throw new ExceptionPersistenza();
 
-            cmd.CommandText = AGGIORNA_PREVENTIVO;
+            cmd.CommandText = "START TRANSACTION;";
+
+            cmd.CommandText += AGGIORNA_PREVENTIVO;
+
+            cmd.CommandText += "DELETE FROM VOCEPREVENTIVO WHERE IDUTENTE=@idutente AND IDPREVENTIVO=@oldidpreventivo;";
+
+            System.Globalization.CultureInfo backup = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+            int maxNumeroVoce = 1;
+            foreach (VocePreventivo voce in nuovo.Voci)
+            {
+                cmd.CommandText += "INSERT INTO VOCEPREVENTIVO(IDUTENTE,IDPREVENTIVO,NUMERO,DESCRIZIONE,TIPOLOGIA,QUANTITA,IMPORTO) VALUES(@idutente,@idpreventivo," + maxNumeroVoce + ",'" + voce.Causale + "','" + voce.Tipologia + "'," + voce.Quantita + "," + voce.Importo + ");";
+                maxNumeroVoce++;
+            }
+            System.Threading.Thread.CurrentThread.CurrentCulture = backup;
 
             InserisciParametriPreventivo(nuovo, cmd);
 
+            cmd.CommandText += "COMMIT;";
+
+            cmd.Parameters.AddWithValue("@oldidpreventivo", vecchio.ID);
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
             int modifiche = cmd.ExecuteNonQuery();
@@ -82,12 +101,17 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.CommandText += INSERISCI_PREVENTIVO;
             InserisciParametriPreventivo(preventivo, cmd);
 
-            int maxNumeroVoce = 0; // Cerca il max nella tabella
+            System.Globalization.CultureInfo backup = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+            int maxNumeroVoce = 1;
             foreach (VocePreventivo voce in preventivo.Voci)
             {
                 cmd.CommandText += "INSERT INTO VOCEPREVENTIVO(IDUTENTE,IDPREVENTIVO,NUMERO,DESCRIZIONE,TIPOLOGIA,QUANTITA,IMPORTO) VALUES(@idutente,@idpreventivo," + maxNumeroVoce + ",'" + voce.Causale + "','" + voce.Tipologia + "'," + voce.Quantita + "," + voce.Importo + ");";
                 maxNumeroVoce++;
             }
+            System.Threading.Thread.CurrentThread.CurrentCulture = backup;
 
             cmd.CommandText += "COMMIT;";
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);

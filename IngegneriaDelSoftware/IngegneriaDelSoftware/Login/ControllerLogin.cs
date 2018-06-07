@@ -60,6 +60,16 @@ namespace IngegneriaDelSoftware.Controller
             _impostazioni.UtenteLoggato = null; // Da settare
             _impostazioni.IDUtente = IDUtente;
 
+            /*if (IDUtente > 0)
+            {
+                // Carico DB
+                CollezioneClienti.GetInstance();
+                CollezioneEmailInviate.GetInstance();
+                CollezionePreventivi.GetInstance();
+                CollezioneVendite.GetInstance();
+                CollezioneFatture.GetInstance();
+            }*/
+
             return (IDUtente >= 0);
         }
 
