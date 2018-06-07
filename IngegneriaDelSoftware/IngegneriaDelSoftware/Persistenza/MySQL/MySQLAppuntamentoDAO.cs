@@ -271,7 +271,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             connessione.Close();
 
-            return null;
+            return risultato;
         }
     }
 }
