@@ -35,7 +35,11 @@ namespace IngegneriaDelSoftware.Controller {
         /// <exception cref="ExceptionPersistenza">Eccezione lanciata in caso di insuccesso nelle comunicazioni con il DB</exception>
         public async void AggiungiPreventivo(Preventivo.DatiPreventivo datiPreventivo, List<VocePreventivo> voci) {
             CollezionePreventivi col = await Task.Run<CollezionePreventivi>(() => { return CollezionePreventivi.GetInstance(); });
-            col.Add(new Model.Preventivo(datiPreventivo, voci));
+            try {
+                col.Add(new Model.Preventivo(datiPreventivo, voci));
+            } catch(ArgumentException e) {
+                View.FormConfim.Show("Errore", "Si è verificato un errore in: " + e.Message, System.Windows.Forms.MessageBoxButtons.OK);
+            }
         }
         /// <summary>
         /// Funzione che permette di aggiornare un preventivo

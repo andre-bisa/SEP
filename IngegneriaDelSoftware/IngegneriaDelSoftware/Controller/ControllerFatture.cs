@@ -18,6 +18,7 @@
  */
 
 using IngegneriaDelSoftware.Model;
+using IngegneriaDelSoftware.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,11 @@ namespace IngegneriaDelSoftware.Controller {
 
         public async void AggiungiFattura(Fattura.DatiFattura datiFattura, List<Vendita> venditeDiProvenienza, List<VoceFattura> voci) {
             CollezioneFatture col = await Task.Run<CollezioneFatture>(() => { return CollezioneFatture.GetInstance(); });
-            col.Add(new FatturaScripting(datiFattura, venditeDiProvenienza, voci));
+            try {
+                col.Add(new FatturaScripting(datiFattura, venditeDiProvenienza, voci));
+            }catch(ArgumentException e) {
+                FormConfim.Show("Errore", "Si è verificato un errore in: " + e.Message, System.Windows.Forms.MessageBoxButtons.OK);
+            }
         }
 
         public async void UpdateFattura(string id, Fattura.DatiFattura? datiFattura = null, List<VoceFattura> voci = null) {

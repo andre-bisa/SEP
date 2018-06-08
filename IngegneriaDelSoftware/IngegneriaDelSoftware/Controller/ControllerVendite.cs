@@ -35,7 +35,11 @@ namespace IngegneriaDelSoftware.Controller {
         /// <exception cref="ExceptionPersistenza">Eccezione lanciata in caso di insuccesso nelle comunicazioni con il DB</exception>
         public async void AggiungiVendita(Vendita.DatiVendita datiVendita, List<VoceVendita> voci) {
             CollezioneVendite col = await Task.Run<CollezioneVendite>(() => { return CollezioneVendite.GetInstance(); });
-            col.Add(new Model.Vendita(datiVendita, voci));
+            try {
+                col.Add(new Model.Vendita(datiVendita, voci));
+            } catch(ArgumentException e) {
+                View.FormConfim.Show("Errore", "Si è verificato un errore in: " + e.Message, System.Windows.Forms.MessageBoxButtons.OK);
+            }
         }
 
         /// <summary>

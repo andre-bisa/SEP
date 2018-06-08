@@ -206,7 +206,7 @@ namespace IngegneriaDelSoftware.View {
                 Cliente c = null;
                 CollezioneClienti col = await t;
                 //CollezioneClienti col = CollezioneClienti.GetInstance();
-                if((c = GetForm<Cliente>.Get(col.ToList())) == null) {
+                if((c = GetForm<Cliente>.Get((from cl in col where cl.TipoCliente == EnumTipoCliente.Attivo select cl).ToList())) == null) {
                     o.CleanAll();
 
                 } else {
@@ -374,7 +374,7 @@ namespace IngegneriaDelSoftware.View {
                 CollezioneClienti col = await t;
                 CollezionePreventivi colp = await t2;
                 //CollezioneClienti col = CollezioneClienti.GetInstance();
-                if((c = GetForm<Cliente>.Get(col.ToList())) == null) {
+                if((c = GetForm<Cliente>.Get((from cl in col where cl.TipoCliente == EnumTipoCliente.Attivo select cl).ToList())) == null) {
                     o.CleanAll();
                 } else {
                     if((prop = GetForm<Preventivo>.Get((from p in colp.ToList()

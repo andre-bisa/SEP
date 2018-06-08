@@ -116,6 +116,8 @@ namespace IngegneriaDelSoftware.Model
                 { // Se si sono verificati errori nella persistenza
                     throw new ExceptionPersistenza();
                 }
+            }else {
+                throw new ArgumentException("L'id era già presente: sceglierne un altro");
             }
         }
 
