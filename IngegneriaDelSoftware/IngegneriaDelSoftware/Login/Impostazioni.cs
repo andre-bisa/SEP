@@ -122,7 +122,7 @@ namespace IngegneriaDelSoftware.Model
             }
             return randomBytes;
         }
-        public static string Encrypt(string plainText, string passPhrase)
+        private static string Encrypt(string plainText, string passPhrase)
         {
             var saltStringBytes = Generate256BitsOfRandomEntropy();
             var ivStringBytes = Generate256BitsOfRandomEntropy();
@@ -156,7 +156,7 @@ namespace IngegneriaDelSoftware.Model
                 }
             }
         }
-        public static string Decrypt(string cipherText, string passPhrase)
+        private static string Decrypt(string cipherText, string passPhrase)
         {
             var cipherTextBytesWithSaltAndIv = Convert.FromBase64String(cipherText);
             var saltStringBytes = cipherTextBytesWithSaltAndIv.Take(Keysize / 8).ToArray();

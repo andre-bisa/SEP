@@ -45,7 +45,7 @@ namespace IngegneriaDelSoftware
             MaterialSkinManager.Instance.ColorScheme = new ColorScheme(Primary.BlueGrey500, Primary.BlueGrey700, Primary.BlueGrey100, Accent.LightBlue200, TextShade.WHITE);
 
             Impostazioni impostazioni = Impostazioni.GetInstance();
-            impostazioni.TipoPersistenza = EnumTipoPersistenza.MySQL;
+            //impostazioni.TipoPersistenza = EnumTipoPersistenza.MySQL;
             //impostazioni.IDUtente = 1;
 
             ScriptProvider.create("Test", (""
