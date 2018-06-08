@@ -54,7 +54,7 @@ namespace IngegneriaDelSoftware.Model
         private void CaricaImpostazioniDaIni()
         {
             IniFile ini = new IniFile(NOME_FILE_INI);
-
+            
             try
             { 
                 foreach (PropertyInfo prop in this.GetType().GetProperties())
@@ -72,8 +72,10 @@ namespace IngegneriaDelSoftware.Model
 
                         object valore = valoreStringa;
 
-                        if (attributo.Tipo == typeof(int))
+                        if(attributo.Tipo == typeof(int))
                             valore = Int32.Parse(valoreStringa);
+                        else if(attributo.Tipo == typeof(EnumTipoPersistenza))
+                            valore = Enum.Parse(typeof(EnumTipoPersistenza), valoreStringa);
 
                         prop.SetValue(this, valore);
                     }
@@ -102,6 +104,9 @@ namespace IngegneriaDelSoftware.Model
 
             // Script fattura
             this.FileScriptFattura = "";
+
+            // Persistenza
+            this.TipoPersistenza = EnumTipoPersistenza.MySQL;
         }
         #endregion
 
@@ -216,7 +221,8 @@ namespace IngegneriaDelSoftware.Model
         #endregion
 
         #region Database
-        public EnumTipoPersistenza TipoPersistenza { get; set; } = EnumTipoPersistenza.NONE;
+        [Persistente(Chiave = "Persistenza", Sezione = "Persistenza", Tipo = typeof(EnumTipoPersistenza))]
+        public EnumTipoPersistenza TipoPersistenza { get; set; }
         [Persistente(Chiave = "Indirizzo", Sezione = "MYSQL", Cifrato = false)]
         public string IndirizzoServerMySQL { get; set; }
         [Persistente(Chiave = "Utente", Sezione = "MYSQL", Cifrato = true)]
