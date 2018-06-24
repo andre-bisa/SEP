@@ -180,9 +180,9 @@ namespace IngegneriaDelSoftware.View
                 {
                     this._controller.RimuoviCliente(c);
                 }
+                MessageBox.Show("Eliminati con successo");
+                lblElimina.Enabled = false;
             }
-            MessageBox.Show("Eliminati con successo");
-            lblElimina.Enabled = false;
         }
 
         private void LblOrdina_Click(object sender, EventArgs e)
