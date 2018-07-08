@@ -36,6 +36,7 @@ namespace IngegneriaDelSoftware.Test {
         public void TestLoad() {
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+            impostazioni.FileScriptFattura = "Test";
 
             ScriptProvider.create("Test", (""
                 + "$ONORARI=( #SUM( @ONORARIO ) )\n"
@@ -67,6 +68,7 @@ namespace IngegneriaDelSoftware.Test {
         public void TestLoadNoVarName() {
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+            impostazioni.FileScriptFattura = "Test";
 
             ScriptProvider.Drop("Test");
 
@@ -96,6 +98,7 @@ namespace IngegneriaDelSoftware.Test {
         public void TestLoadReal1() {
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+            impostazioni.FileScriptFattura = "Test";
 
             ScriptProvider.Drop("Test");
 
@@ -145,6 +148,7 @@ namespace IngegneriaDelSoftware.Test {
         public void TestLoadReal2() {
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+            impostazioni.FileScriptFattura = "Test";
 
             ScriptProvider.Drop("Test");
 

@@ -49,7 +49,7 @@ namespace ScriptInCSharp {
 
     class ImportantInstruction: Preprocessor {
         private string target;
-        private string attribute;
+        //private string attribute;
 
         public const string IMPINSTRUCTION = "^.SET ([A-Z$@]+) AS IMPORTANT$";
 
@@ -245,6 +245,7 @@ namespace ScriptInCSharp {
 
         //Add a variable;
         public void registerVariable(string name, string value) {
+            
             if(Regex.IsMatch(name, Variable.VARIABLE)) {
                 if(this.variables.ContainsKey(name)) {
                     this.variables[name] = new Environment.VariableObj(name, value);
@@ -253,9 +254,9 @@ namespace ScriptInCSharp {
                 }
             } else if(Regex.IsMatch(name, ArrayValue.ARRAYNAME)) {
                 if(this.variables.ContainsKey(name)) {
-                    this.variables[name] = new Environment.ArrayObj(name, value.Split(','));
+                    this.variables[name] = new Environment.ArrayObj(name, value.ToString(new System.Globalization.CultureInfo("it-IT")).Split(','));
                 } else {
-                    this.variables.Add(name, new Environment.ArrayObj(name, value.Split(',')));
+                    this.variables.Add(name, new Environment.ArrayObj(name, value.ToString(new System.Globalization.CultureInfo("it-IT")).Split(',')));
                 }
             } else {
                 throw new ArgumentException("Variable name can only starts witn $, must not contains numbers and must be UPPERCASE. Error in " + name);
@@ -312,7 +313,7 @@ namespace ScriptInCSharp {
 
         public string[] getOperand(string name) {
             if(Regex.IsMatch(name, ArrayValue.ARRAYNAME)) {
-                return (this.variables[name] as ArrayObj).Values.Split(',');
+                return (this.variables[name] as ArrayObj).Values.ToString(new System.Globalization.CultureInfo("it-IT")).Split(',');
             } else {
                 return new string[] { this.getVariableValue(name) };
             }

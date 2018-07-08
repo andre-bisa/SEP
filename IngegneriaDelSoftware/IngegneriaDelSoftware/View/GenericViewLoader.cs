@@ -78,13 +78,13 @@ namespace IngegneriaDelSoftware.View {
             CollezionePreventivi.GetInstance().ToList().ForEach((e) => {
                 result.AggiungiBarraLaterale(e.ID);
             });
-            EventHandler<ArgsPreventivo> l =  (o, ev) => {
+            EventHandler<ArgsPreventivo> l = (o, ev) => {
                 result.SvuotaBarraLaterale();
                 CollezionePreventivi col = CollezionePreventivi.GetInstance();
-                    col.ToList().ForEach((e) => {
-                        result.AggiungiBarraLaterale(e.ID);
+                col.ToList().ForEach((e) => {
+                    result.AggiungiBarraLaterale(e.ID);
 
-                    });
+                });
             };
             CollezionePreventivi.GetInstance().OnAggiunta += l;
             CollezionePreventivi.GetInstance().OnRimozione += l;
@@ -132,7 +132,7 @@ namespace IngegneriaDelSoftware.View {
                         controller.RifiutaPreventivo(Convert.ToUInt64(o.Key));
                         result.StatoTxt = "Rifutato";
                         //TODO: generare la vendita da qui!
-                    }catch(Exception) {
+                    } catch(Exception) {
                         FormConfim.Show("Errore", "Identificativo del preventivo non valido", MessageBoxButtons.OK);
                     }
                 }
@@ -148,8 +148,8 @@ namespace IngegneriaDelSoftware.View {
                                 return new VocePreventivo(el.Descrizione, Convert.ToDecimal(el.Importo), el.Tipologia, el.Numero);
                             }).ToList()
                         );
-                        
-                    }catch(FormatException) {
+
+                    } catch(FormatException) {
                         FormConfim.Show("Errore di formato", String.Format("Un valore inserito non rispetta il formato corretto."), MessageBoxButtons.OK);
                     }
                 } else {
@@ -166,7 +166,7 @@ namespace IngegneriaDelSoftware.View {
                     }
                     DateTime? da = null;
                     ulong id = 0;
-                    try { 
+                    try {
                         da = DateTime.Parse(o.Data);
                         id = Convert.ToUInt64(o.Numero);
                     } catch(FormatException) {
@@ -222,8 +222,8 @@ namespace IngegneriaDelSoftware.View {
                 }
                 if(o.Key != null) {
                     Preventivo current = (from fa in CollezionePreventivi.GetInstance()
-                                       where fa.ID == Convert.ToUInt64(o.Key)
-                                       select fa).FirstOrDefault();
+                                          where fa.ID == Convert.ToUInt64(o.Key)
+                                          select fa).FirstOrDefault();
                     if(current != null) {
                         var t = Task.Run<string>(() => {
                             return current.Totale().ToString("C");
@@ -237,29 +237,24 @@ namespace IngegneriaDelSoftware.View {
                     }
                 }
             };
-            result.OnCercaClick += async (s, e) =>
-            {
+            result.OnCercaClick += async (s, e) => {
                 var t = Task.Run<CollezionePreventivi>(() => { return CollezionePreventivi.GetInstance(); });
                 result.CleanInserite();
                 CollezionePreventivi col = await t;
-                try
-                {
+                try {
                     ulong id = Convert.ToUInt64(s);
                     (from fat in col
                      where fat.ID == id
                      select fat
-                ).ToList().ForEach((ei) =>
-                {
+                ).ToList().ForEach((ei) => {
                     result.AggiungiBarraLaterale(ei.ID);
                 });
-                }
-                catch (Exception){
-                    col.ToList().ForEach((ei) =>
-                    {
+                } catch(Exception) {
+                    col.ToList().ForEach((ei) => {
                         result.AggiungiBarraLaterale(ei.ID);
                     });
                 }
-                
+
             };
             return result;
         }
@@ -278,13 +273,13 @@ namespace IngegneriaDelSoftware.View {
             };
             CollezioneVendite.GetInstance().OnAggiunta += l;
             CollezioneVendite.GetInstance().OnRimozione += l;
-            CollezioneVendite.GetInstance().OnModifica +=(o, ev) => {
+            CollezioneVendite.GetInstance().OnModifica += (o, ev) => {
                 result.SvuotaBarraLaterale();
                 CollezioneVendite col = CollezioneVendite.GetInstance();
-                    //CollezioneVendite col = CollezioneVendite.GetInstance();
-                    col.ToList().ForEach((e) => {
-                        result.AggiungiBarraLaterale(e.ID);
-                    });
+                //CollezioneVendite col = CollezioneVendite.GetInstance();
+                col.ToList().ForEach((e) => {
+                    result.AggiungiBarraLaterale(e.ID);
+                });
             }; ;
             result.OnPannelloLateraleClick += async (o, e) => {
                 if(o.SelectedItems.Count == 1) {
@@ -378,12 +373,12 @@ namespace IngegneriaDelSoftware.View {
                     o.CleanAll();
                 } else {
                     if((prop = GetForm<Preventivo>.Get((from p in colp.ToList()
-                                                      where p.Cliente.Equals(c) && p.Accettato
-                                                      select p).ToList())) != null) {
+                                                        where p.Cliente.Equals(c) && p.Accettato
+                                                        select p).ToList())) != null) {
                         Vendita vendita = null;
                         try {
                             vendita = Vendita.FromPreventivo(0, prop, null);
-                        }catch(Exception ex) {
+                        } catch(Exception ex) {
                             FormConfim.Show("Errore", "Sì è verificato un errore nella creazione della vendita: " + ex.Message, MessageBoxButtons.OK);
                             o.Enabled = true;
                             return;
@@ -421,26 +416,20 @@ namespace IngegneriaDelSoftware.View {
                     }
                 }
             };
-            result.OnCercaClick += async (s, e) =>
-            {
+            result.OnCercaClick += async (s, e) => {
                 var t = Task.Run<CollezioneVendite>(() => { return CollezioneVendite.GetInstance(); });
                 result.CleanInserite();
                 CollezioneVendite col = await t;
-                try
-                {
+                try {
                     ulong id = Convert.ToUInt64(s);
                     (from fat in col
                      where fat.ID == id
                      select fat
-                ).ToList().ForEach((ei) =>
-                {
+                ).ToList().ForEach((ei) => {
                     result.AggiungiBarraLaterale(ei.ID);
                 });
-                }
-                catch (Exception)
-                {
-                    col.ToList().ForEach((ei) =>
-                    {
+                } catch(Exception) {
+                    col.ToList().ForEach((ei) => {
                         result.AggiungiBarraLaterale(ei.ID);
                     });
                 }
@@ -539,7 +528,8 @@ namespace IngegneriaDelSoftware.View {
                             anno,
                             numero,
                             null,
-                            da, null
+                            da, 
+                            null
                         );
                     }
                     List<VoceFattura> voci = new List<VoceFattura>();
@@ -579,8 +569,8 @@ namespace IngegneriaDelSoftware.View {
             result.OnCalcolaClick += async (o, e) => {
                 if(o.Key != null) {
                     Fattura current = (from fa in CollezioneFatture.GetInstance()
-                     where fa.ID == o.Key
-                     select fa).FirstOrDefault();
+                                       where fa.ID == o.Key
+                                       select fa).FirstOrDefault();
                     if(current != null) {
                         var t = Task.Run<string>(() => {
                             return current.Calcola();
@@ -594,26 +584,20 @@ namespace IngegneriaDelSoftware.View {
                     }
                 }
             };
-            result.OnCercaClick += async (s, e) =>
-            {
+            result.OnCercaClick += async (s, e) => {
                 var t = Task.Run<CollezioneFatture>(() => { return CollezioneFatture.GetInstance(); });
                 result.CleanInserite();
-                if (String.IsNullOrEmpty(s))
-                {
+                if(String.IsNullOrEmpty(s)) {
                     CollezioneFatture col = await t;
-                    col.ToList().ForEach((ei) =>
-                    {
+                    col.ToList().ForEach((ei) => {
                         result.AggiungiBarraLaterale(ei.ID);
                     });
-                }
-                else
-                {
+                } else {
                     CollezioneFatture col = await t;
                     (from fat in col
                      where fat.ID.ToLower().Contains(s.ToLower())
                      select fat
-                    ).ToList().ForEach((ei) =>
-                    {
+                    ).ToList().ForEach((ei) => {
                         result.AggiungiBarraLaterale(ei.ID);
                     });
                 }

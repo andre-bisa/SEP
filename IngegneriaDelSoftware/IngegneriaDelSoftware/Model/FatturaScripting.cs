@@ -91,7 +91,8 @@ namespace IngegneriaDelSoftware.Model {
                 return e.Tipologia;
             });
             //Recupera il valutatore;
-            var scriptEngine = ScriptProvider.get("Test");
+            //XXX test this;
+            var scriptEngine = ScriptProvider.get(System.IO.Path.GetFileNameWithoutExtension(Impostazioni.GetInstance().FileScriptFattura));
             if(scriptEngine != null) {/*
                 //decimal[] tmp = null;
                 tipologie.AsParallel().ForAll((t) => {
@@ -110,6 +111,9 @@ namespace IngegneriaDelSoftware.Model {
                     //Aggiunge al valutatore i dati appena creati;
                     scriptEngine.AddArrayVariable(tipologia.Key.Replace(" ", ""), tmp);
                 }*/
+                // Stream parallelo per efficenze.
+                // per ogni valore rimuove gli spazii e rende la stringa ottenuta maiuscola.
+                // Poi l'associa al valore corretto nell'array a seconda del nome inserito;
                 tipologie.AsParallel().ForAll((t) => {
                     string name = t.Key.Replace(" ", "").ToUpper();
                     scriptEngine.AddArrayVariable(name, 
@@ -128,7 +132,7 @@ namespace IngegneriaDelSoftware.Model {
                 scriptEngine.Clear();
                 //restituisce il risultato;
                 return result.ToString();
-            }else {
+            } else {
                 return base.Calcola();
             }
         }

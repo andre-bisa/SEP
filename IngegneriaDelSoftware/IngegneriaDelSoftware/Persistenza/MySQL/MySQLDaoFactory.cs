@@ -54,7 +54,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 connessione = new MySqlConnection(stringaConnessione);
                 if (connessione != null)
                     connessione.Open();
-            } catch (MySqlException e)
+            } catch (MySqlException)
             {
                 connessione = null;
             }

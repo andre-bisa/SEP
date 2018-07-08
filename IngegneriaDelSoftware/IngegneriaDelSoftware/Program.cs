@@ -45,9 +45,13 @@ namespace IngegneriaDelSoftware
             MaterialSkinManager.Instance.ColorScheme = new ColorScheme(Primary.BlueGrey500, Primary.BlueGrey700, Primary.BlueGrey100, Accent.LightBlue200, TextShade.WHITE);
 
             Impostazioni impostazioni = Impostazioni.GetInstance();
+
+            // Set del formato per varii motivi: 1) il programma è strutturato per un utenza italiana 2) è il formato del linguaggio di scripting;
+            System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("it-IT");
+
             //impostazioni.TipoPersistenza = EnumTipoPersistenza.MySQL;
             //impostazioni.IDUtente = 1;
-
+            /*
             ScriptProvider.create("Test", (""
                + "$ON=( #SUM( @ONORARIO ) )\n"
                + "$CPA=( $ON * 0,04 )\n"
@@ -71,6 +75,9 @@ namespace IngegneriaDelSoftware
                + ".SET LABEL FOR $NON AS \"Anticipazioni \"\n"
                + ".SET LABEL FOR $TOTALE AS \"Totale generale \""
            + "").Split('\n'));
+           */
+            //XXX testare questo;
+            ScriptProvider.create(impostazioni.FileScriptFattura);
 
             if((new Login()).ShowDialog() == DialogResult.OK) {
                 try {
@@ -148,6 +155,8 @@ namespace IngegneriaDelSoftware
             Application.Run(new VisualizzaCalendario(new ControllerCalendario()));
             if (FormConfim.Show("Titolo", "Messaggio") == DialogResult.OK)
                 MessageBox.Show("Premuto OK");*/
+
+#pragma warning disable CS0162 // Unreachable code detected
             var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
             var cliente = new Cliente(persona, "1");
             var vendita = new Vendita(1, cliente);
@@ -181,6 +190,7 @@ namespace IngegneriaDelSoftware
             Calendario.GetInstance().Add(app4);
 
             Application.Run(new HomeForm(new ControllerHome()));
+#pragma warning restore CS0162 // Unreachable code detected
         }
     }
 }
