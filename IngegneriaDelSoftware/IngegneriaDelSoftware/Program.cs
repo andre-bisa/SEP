@@ -77,8 +77,11 @@ namespace IngegneriaDelSoftware
            + "").Split('\n'));
            */
             //XXX testare questo;
-            ScriptProvider.create(impostazioni.FileScriptFattura);
-
+            try {
+                ScriptProvider.create(impostazioni.FileScriptFattura);
+            } catch(Exception) {
+                // Do nothing;
+            }
             if((new Login()).ShowDialog() == DialogResult.OK) {
                 try {
                     {
@@ -157,6 +160,7 @@ namespace IngegneriaDelSoftware
                 MessageBox.Show("Premuto OK");*/
 
 #pragma warning disable CS0162 // Unreachable code detected
+            Impostazioni.GetInstance().TipoPersistenza = EnumTipoPersistenza.NONE;
             var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
             var cliente = new Cliente(persona, "1");
             var vendita = new Vendita(1, cliente);

@@ -97,5 +97,24 @@ namespace IngegneriaDelSoftware.Controller {
 
             this._calendario.Remove(appuntamento);
         }
+
+        //TODO fix this;
+        /// <summary>
+        /// Recupera il prossimo intero dalla collezione
+        /// </summary>
+        /// <returns>prossimo ID</returns>
+        public int GetNext() {
+            // ordina in modo decrescente la collezione, seleziona solo l'id, 
+            //prende solo il primo (o il default che è 0 per int) e ci aggiunge 1;
+            return (from app in this._calendario
+                    orderby app.IDAppuntamento descending
+                    select app.IDAppuntamento
+             ).FirstOrDefault() + 1;
+        }
+
+        // solo per comodità;
+        public void AggiungiAppuntamento(DatiAppuntamento nuovoAppuntamento) {
+            this.AggiungiAppuntamento(new Appuntamento(nuovoAppuntamento));
+        }
     }
 }

@@ -67,6 +67,7 @@ namespace IngegneriaDelSoftware.View
             this.btnAggiungi = new MaterialSkin.Controls.MaterialFloatingActionButton();
             this.materialDivider1 = new MaterialSkin.Controls.MaterialDivider();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.NuovoAppuntamentoBtn = new MaterialSkin.Controls.MaterialFlatButton();
             materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
@@ -144,6 +145,7 @@ namespace IngegneriaDelSoftware.View
             | System.Windows.Forms.AnchorStyles.Left)));
             panelSchedeClienteGenerico.Controls.Add(this.flowClienti);
             panelSchedeClienteGenerico.Controls.Add(this.panel1);
+            panelSchedeClienteGenerico.Controls.Add(this.NuovoAppuntamentoBtn);
             panelSchedeClienteGenerico.Location = new System.Drawing.Point(10, 3);
             panelSchedeClienteGenerico.Name = "panelSchedeClienteGenerico";
             panelSchedeClienteGenerico.Size = new System.Drawing.Size(230, 377);
@@ -155,7 +157,7 @@ namespace IngegneriaDelSoftware.View
             this.flowClienti.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowClienti.Location = new System.Drawing.Point(0, 36);
             this.flowClienti.Name = "flowClienti";
-            this.flowClienti.Size = new System.Drawing.Size(230, 341);
+            this.flowClienti.Size = new System.Drawing.Size(230, 305);
             this.flowClienti.TabIndex = 1;
             // 
             // panel1
@@ -235,7 +237,7 @@ namespace IngegneriaDelSoftware.View
             // 
             // dataAppuntamento
             // 
-            this.dataAppuntamento.CustomFormat = "dd/MM/yyyy";
+            this.dataAppuntamento.CustomFormat = "dd/MM/yyyy hh:mm";
             this.dataAppuntamento.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dataAppuntamento.Location = new System.Drawing.Point(428, 82);
             this.dataAppuntamento.Name = "dataAppuntamento";
@@ -308,6 +310,24 @@ namespace IngegneriaDelSoftware.View
             this.mainPanel.Size = new System.Drawing.Size(641, 377);
             this.mainPanel.TabIndex = 12;
             // 
+            // NuovoAppuntamentoBtn
+            // 
+            this.NuovoAppuntamentoBtn.AutoSize = true;
+            this.NuovoAppuntamentoBtn.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.NuovoAppuntamentoBtn.Depth = 0;
+            this.NuovoAppuntamentoBtn.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.NuovoAppuntamentoBtn.Icon = null;
+            this.NuovoAppuntamentoBtn.Location = new System.Drawing.Point(0, 341);
+            this.NuovoAppuntamentoBtn.Margin = new System.Windows.Forms.Padding(4, 6, 4, 6);
+            this.NuovoAppuntamentoBtn.MouseState = MaterialSkin.MouseState.HOVER;
+            this.NuovoAppuntamentoBtn.Name = "NuovoAppuntamentoBtn";
+            this.NuovoAppuntamentoBtn.Primary = false;
+            this.NuovoAppuntamentoBtn.Size = new System.Drawing.Size(230, 36);
+            this.NuovoAppuntamentoBtn.TabIndex = 12;
+            this.NuovoAppuntamentoBtn.Text = "Nuovo";
+            this.NuovoAppuntamentoBtn.UseVisualStyleBackColor = true;
+            this.NuovoAppuntamentoBtn.Click += new System.EventHandler(this.NuovoAppuntamentoBtn_Click);
+            // 
             // FormAppuntamenti
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -319,6 +339,7 @@ namespace IngegneriaDelSoftware.View
             this.Name = "FormAppuntamenti";
             this.Text = "Inserimento appuntamenti";
             panelSchedeClienteGenerico.ResumeLayout(false);
+            panelSchedeClienteGenerico.PerformLayout();
             this.panel1.ResumeLayout(false);
             panelSearchBar.ResumeLayout(false);
             panelSearchBarIcon.ResumeLayout(false);
@@ -340,5 +361,6 @@ namespace IngegneriaDelSoftware.View
         private System.Windows.Forms.PictureBox pictureBox1;
         private MaterialSkin.Controls.MaterialDivider materialDivider1;
         private System.Windows.Forms.Panel mainPanel;
+        private MaterialSkin.Controls.MaterialFlatButton NuovoAppuntamentoBtn;
     }
 }

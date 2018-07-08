@@ -111,6 +111,8 @@ namespace IngegneriaDelSoftware.Model
         #endregion
 
         #region Metodi Encrypt/Decrypt
+        //AES;
+
         private const int Keysize = 256;
         private const int DerivationIterations = 1000;
         private static byte[] Generate256BitsOfRandomEntropy()
