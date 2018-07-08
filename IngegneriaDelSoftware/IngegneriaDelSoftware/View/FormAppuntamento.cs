@@ -222,7 +222,7 @@ namespace IngegneriaDelSoftware.View {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void NuovoAppuntamentoBtn_Click(object sender, EventArgs e) {
+        private void Clean(object sender, EventArgs e) {
             this.dataAppuntamento.Value = DateTime.Now;
             this.txtLuogoAppuntamento.Text = "";
             this.txtNoteAppuntamento.Text = "";
