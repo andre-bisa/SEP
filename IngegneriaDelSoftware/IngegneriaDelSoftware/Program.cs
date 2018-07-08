@@ -77,7 +77,7 @@ namespace IngegneriaDelSoftware
            + "").Split('\n'));
            */
             //XXX testare questo;
-            /*try {
+            try {
                 ScriptProvider.create(impostazioni.FileScriptFattura);
             } catch(Exception) {
                 // Do nothing;
