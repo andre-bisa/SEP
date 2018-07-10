@@ -180,7 +180,7 @@ namespace IngegneriaDelSoftware.View
                 {
                     this._controller.RimuoviCliente(c);
                 }
-                MessageBox.Show("Eliminati con successo");
+                FormConfim.Show("Eliminato con successo", "Eliminati con successo");
                 lblElimina.Enabled = false;
             }
         }
