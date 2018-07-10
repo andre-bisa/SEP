@@ -206,6 +206,8 @@ namespace IngegneriaDelSoftware.Model
                 throw new ArgumentNullException();
             }
 
+            _persistenza.GetAppuntamentoDAO().Elimina(item.IDAppuntamento);
+
             risultato = ((ICollection<Appuntamento>)_appuntamenti).Remove(item);
 
             if (OnRimozione != null)

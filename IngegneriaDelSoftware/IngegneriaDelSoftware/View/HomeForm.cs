@@ -49,7 +49,7 @@ namespace IngegneriaDelSoftware.View {
         private void riempiAppuntamenti() {
             this.AppunamentiList.Items.Clear();
             this._controller.AppuntamentiDiOggi().ForEach((a) => {
-                this.AppunamentiList.Items.Add(new ListViewItem(new string[] { a.DataOra.ToString(), a.ConChi.getDenominazione(), a.Luogo.ToString() }));
+                this.AppunamentiList.Items.Add(new ListViewItem(new string[] { String.Format("{0} {1}", a.DataOra.ToShortDateString(), a.DataOra.ToShortTimeString()), a.ConChi.getDenominazione(), a.Luogo.ToString() }));
             });
         }
 

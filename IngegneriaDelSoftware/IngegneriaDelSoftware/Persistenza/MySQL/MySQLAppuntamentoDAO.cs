@@ -86,7 +86,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             //Riempimento dei parametri della query SQL
             cmd.Parameters.AddWithValue("@idappuntamento", nuovoAppuntamento.IDAppuntamento);
             cmd.Parameters.AddWithValue("@data", nuovoAppuntamento.DataOra.Date);
-            cmd.Parameters.AddWithValue("@ora", nuovoAppuntamento.DataOra.Hour);
+            cmd.Parameters.AddWithValue("@ora", nuovoAppuntamento.DataOra.TimeOfDay);
             cmd.Parameters.AddWithValue("@luogo", nuovoAppuntamento.Luogo);
             cmd.Parameters.AddWithValue("@note", nuovoAppuntamento.Note);
             cmd.Parameters.AddWithValue("@idcliente", id);

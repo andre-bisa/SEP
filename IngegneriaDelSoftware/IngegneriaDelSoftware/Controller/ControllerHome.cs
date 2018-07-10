@@ -105,6 +105,7 @@ namespace IngegneriaDelSoftware.Controller {
         public void MostraImpostazioni() {
             if(this._impostazioni == null || this._impostazioni.IsDisposed) {
                 this._impostazioni = new System.Windows.Forms.Form();
+                this._impostazioni.Text = "S00N";
                 this._impostazioni.Show();
             }
             this._impostazioni.BringToFront();

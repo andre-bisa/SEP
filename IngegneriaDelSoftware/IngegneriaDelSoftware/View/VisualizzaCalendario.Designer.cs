@@ -88,7 +88,7 @@ namespace IngegneriaDelSoftware.View
             this.listCalendario.TabIndex = 0;
             this.listCalendario.UseCompatibleStateImageBehavior = false;
             this.listCalendario.View = System.Windows.Forms.View.Details;
-            
+            this.listCalendario.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ListCalendario_KeyDown);
             // 
             // headerID
             // 
