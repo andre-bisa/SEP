@@ -35,9 +35,15 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         private static readonly string INSERISCI_APPUNTAMENTO = "INSERT INTO APPUNTAMENTO (IDUTENTE,IDAPPUNTAMENTO,DATA,ORA,LUOGO,NOTE)"
             + " VALUES (@idutente,@idappuntamento,@data,@ora,@luogo,@note);";
 
+
+        // Inserisci con
+        private static readonly string INSERISCI_APPUNTAMENTO_CON = "INSERT INTO APPUNTAMENTICON (IDUTENTE,IDAPPUNTAMENTO,IDCLIENTE)"
+            + " VALUES (@idutente,@idappuntamento,@idcliente);";
+
         // Seleziona
-        private static readonly string SELEZIONA_TUTTI_APPUNTAMENTI = "SELECT A.IDUTENTE AS IDUTENTE, A.IDAPPUNTAMENTO AS IDAPPUNTAMENTO, A.DATA AS DATA, A.ORA AS ORA, A.LUOGO AS LUOGO, A.NOTE AS NOTE"
-            + " FROM APPUNTAMENTO AS A INNER JOIN UTENTE AS U ON A.IDUTENTE=U.IDUTENTE"
+        private static readonly string SELEZIONA_TUTTI_APPUNTAMENTI = "SELECT A.IDUTENTE AS IDUTENTE, A.IDAPPUNTAMENTO AS IDAPPUNTAMENTO, A.DATA AS DATA, A.ORA AS ORA, A.LUOGO AS LUOGO, A.NOTE AS NOTE, AC.IDCLIENTE AS IDCLIENTE"
+            + " FROM APPUNTAMENTO AS A INNER JOIN UTENTE AS U ON A.IDUTENTE=U.IDUTENTE" 
+            + " INNER JOIN APPUNTAMENTICON AS AC ON AC.IDUTENTE=U.IDUTENTE AND AC.IDAPPUNTAMENTO=A.IDAPPUNTAMENTO"
             + " WHERE A.IDUTENTE=@idutente;";
         private static readonly string SELEZIONA_APPUNTAMENTO = "SELECT *"
             + " FROM APPUNTAMENTO"
@@ -46,6 +52,8 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         // Aggiorna
         private static readonly string AGGIORNA_APPUNTAMENTO = "UPDATE APPUNTAMENTO SET IDAPPUNTAMENTO=@idappuntamento,DATA=@data,ORA=@ora,LUOGO=@luogo,NOTE=@note"
             + " WHERE IDUTENTE=@idutente AND IDAPPUNTAMENTO=@old_idappuntamento;";
+        private static readonly string AGGIORNA_APPUNTAMENTICON = "DELETE FROM APPUNTAMENTICON WHERE IDUTENTE=@idutente AND IDAPPUNTAMENTO=@old_idappuntamento;"
+            + INSERISCI_APPUNTAMENTO_CON;
 
         // Elimina
         private static readonly string ELIMINA_APPUNTAMENTO = "DELETE APPUNTAMENTO.*"
@@ -58,7 +66,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         /// <param name="appuntamentoVecchio"></param>
         /// <param name="nuovoAppuntamento"></param>
         /// <returns>true se l'operazione è stata eseguita con successo</returns>
-        public bool Aggiorna(Appuntamento appuntamentoVecchio, Appuntamento nuovoAppuntamento)
+        public bool Aggiorna(Appuntamento appuntamentoVecchio, Appuntamento nuovoAppuntamento, string id)
         {
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
@@ -73,6 +81,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.CommandText = "START TRANSACTION;";
 
             cmd.CommandText += AGGIORNA_APPUNTAMENTO;
+            cmd.CommandText += AGGIORNA_APPUNTAMENTICON;
 
             //Riempimento dei parametri della query SQL
             cmd.Parameters.AddWithValue("@idappuntamento", nuovoAppuntamento.IDAppuntamento);
@@ -80,6 +89,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.Parameters.AddWithValue("@ora", nuovoAppuntamento.DataOra.Hour);
             cmd.Parameters.AddWithValue("@luogo", nuovoAppuntamento.Luogo);
             cmd.Parameters.AddWithValue("@note", nuovoAppuntamento.Note);
+            cmd.Parameters.AddWithValue("@idcliente", id);
 
             cmd.Parameters.AddWithValue("@idutente", Impostazioni.GetInstance().IDUtente);
 
@@ -100,7 +110,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
         /// </summary>
         /// <param name="appuntamento">Appuntamento da inserire</param>
         /// <returns></returns>
-        public bool Crea(Appuntamento appuntamento)
+        public bool Crea(Appuntamento appuntamento, string id)
         {
             MySqlConnection connessione = MySQLDaoFactory.ApriConnessione();
 
@@ -115,12 +125,14 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
             cmd.CommandText = "START TRANSACTION;";
 
             cmd.CommandText += INSERISCI_APPUNTAMENTO;
+            cmd.CommandText += INSERISCI_APPUNTAMENTO_CON;
 
             cmd.Parameters.AddWithValue("@idappuntamento", appuntamento.IDAppuntamento);
             cmd.Parameters.AddWithValue("@data", appuntamento.DataOra.Date);
             cmd.Parameters.AddWithValue("@ora", appuntamento.DataOra.Hour);
             cmd.Parameters.AddWithValue("@luogo", appuntamento.Luogo);
             cmd.Parameters.AddWithValue("@note", appuntamento.Note);
+            cmd.Parameters.AddWithValue("@idcliente", id);
 
             cmd.CommandText += "COMMIT;";
 
@@ -241,7 +253,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                IDESTERNO varchar(10) not null,
              * */
 
-            Persona p = new PersonaFisica("cf", "via cane", "mario", "rossi");
+            //Persona p = new PersonaFisica("cf", "via cane", "mario", "rossi");
 
             //Appuntamento appuntamento = new Appuntamento(reader.GetString("IDAPPUNTAMENTO"), reader.GetString);
             while (reader.Read())
@@ -260,8 +272,15 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 dataOra = dataOra + tempo;
 
                 int id = reader.GetInt32("IDAPPUNTAMENTO");
-                String note = reader.GetValue(5).ToString();
+                String note = reader.GetString("NOTE");
                 String luogo = reader.GetString("LUOGO");
+
+                Persona p = (from cliente in CollezioneClienti.GetInstance()
+                            where cliente.IDCliente == reader.GetString("IDCLIENTE")
+                            select cliente.Persona).FirstOrDefault();
+
+                if (p == null)
+                    return null;
 
                 DatiAppuntamento datiAppuntamento = new DatiAppuntamento(id, p, note, luogo, dataOra);
                 Appuntamento appuntamento = new Appuntamento(datiAppuntamento);

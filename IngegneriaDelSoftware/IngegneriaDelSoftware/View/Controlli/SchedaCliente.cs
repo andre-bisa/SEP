@@ -115,7 +115,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         /// <param name="cliente">Cliente da visualizzare</param>
         /// <param name="panelContainer">Pannello che conterrà l'overlay a seguito della pressione del pulsante di espansione</param>
         /// <exception cref="ArgumentNullException">Se vengono passati dei null</exception>
-        public SchedaCliente(Cliente cliente, Panel panelContainer = null) : this()
+        public SchedaCliente(Cliente cliente, Panel panelContainer = null, bool selected = false) : this()
         {
             #region Controlli
             if (cliente == null)
@@ -126,6 +126,9 @@ namespace IngegneriaDelSoftware.View.Controlli
             Cliente = cliente;
             Cliente.OnModifica += this.ClienteModificato;
             AperturaCliente += new EventHandler<ArgsSchedaCliente>(this.ApriOverlayCliente);
+
+            Selected = selected;
+            checkScheda.Checked = selected;
         }
         #endregion
 

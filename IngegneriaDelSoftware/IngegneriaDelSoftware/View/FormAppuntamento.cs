@@ -97,10 +97,15 @@ namespace IngegneriaDelSoftware.View {
             if(clienteDaMostrare == null)
                 return;
 
-            SchedaCliente schedaCliente = new SchedaCliente(clienteDaMostrare, this.mainPanel);
+            bool selezionato = (_appuntamento != null && _appuntamento.ConChi == clienteDaMostrare.Persona);
+
+            SchedaCliente schedaCliente = new SchedaCliente(clienteDaMostrare, this.mainPanel, selezionato);
             schedaCliente.ModificataSelezione += ModificataSelezione;
             this.flowClienti.Controls.Add(schedaCliente);
             this._clientiCaricati.Add(new ClienteMostrato<SchedaCliente>(clienteDaMostrare, schedaCliente, false));
+
+            if (selezionato)
+                this._clientiAppuntamento.Add(clienteDaMostrare);
 
         }
 
@@ -189,11 +194,18 @@ namespace IngegneriaDelSoftware.View {
 
                 if(modificato) {
                     //Creo nuovi dati dell'appuntamento;
-                    DatiAppuntamento nuoviDatiAppuntamento = new DatiAppuntamento(this._appuntamento.IDAppuntamento, this._appuntamento.ConChi, note, luogo, data);
+                    Cliente c = this._clientiAppuntamento.FirstOrDefault();
+                    if (c == null)
+                    {
+                        FormConfim.Show("Errore", "Selezionare almeno un cliente", MessageBoxButtons.OK);
+                        return;
+                    }
+                    DatiAppuntamento nuoviDatiAppuntamento = new DatiAppuntamento(this._appuntamento.IDAppuntamento, c.Persona, note, luogo, data);
 
                     this._appuntamento.cambiaDatiAppuntamento(nuoviDatiAppuntamento);
                 } else {
-                    _controllerCalendario.AggiungiAppuntamento(this._appuntamento);
+                    // nessuna modifica
+                    return;
                 }
             } else {
                 // prova a creare l'appuntamento;
@@ -210,6 +222,7 @@ namespace IngegneriaDelSoftware.View {
                 } catch(Exception ex) {
                     // in caso di errore;
                     FormConfim.Show("Error", "Dato errato nell'appuntamento. Più informazioni: " + ex.Message, MessageBoxButtons.OK);
+                    return;
                 }
             }
             // conferma il successo;

@@ -143,7 +143,14 @@ namespace IngegneriaDelSoftware.Model
                 Appuntamento vecchioAppuntamento = this.Clone();
                 this._datiAppuntamento = nuoviDati;
 
-                if (!_persistenza.GetAppuntamentoDAO().Aggiorna(vecchioAppuntamento, this))
+                string id = (from cliente in CollezioneClienti.GetInstance()
+                             where cliente.Persona == nuoviDati.ConChi
+                             select cliente.IDCliente).FirstOrDefault();
+
+                if (id == null)
+                    return;
+
+                if (!_persistenza.GetAppuntamentoDAO().Aggiorna(vecchioAppuntamento, this, id))
                 { // se ci sono errori con la persistenza
                     this._datiAppuntamento = vecchioAppuntamento._datiAppuntamento; // recupero i dati utente che avevo prima
                     throw new ExceptionPersistenza();

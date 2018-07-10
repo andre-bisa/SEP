@@ -28,11 +28,11 @@ namespace IngegneriaDelSoftware.Persistenza.Dao
 {
     public interface IAppuntamentoDAO
     {
-        bool Crea(Appuntamento appuntamento);
+        bool Crea(Appuntamento appuntamento, string id);
 
         Appuntamento Leggi(string ID);
 
-        bool Aggiorna(Appuntamento appuntamentoVecchio, Appuntamento nuovoAppuntamento);
+        bool Aggiorna(Appuntamento appuntamentoVecchio, Appuntamento nuovoAppuntamento, string id);
 
         bool Elimina(int ID);
 

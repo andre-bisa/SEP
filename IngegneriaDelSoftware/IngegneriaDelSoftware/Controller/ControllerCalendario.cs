@@ -80,8 +80,16 @@ namespace IngegneriaDelSoftware.Controller {
             {
                 throw new ArgumentNullException();
             }
+            string id = (from cliente in CollezioneClienti.GetInstance()
+             where cliente.Persona.Equals(appuntamento.ConChi)
+             select cliente.IDCliente).FirstOrDefault();
 
-            this._calendario.Add(appuntamento);
+            if (id == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            this._calendario.Add(appuntamento, id);
         }
 
         /// <summary>

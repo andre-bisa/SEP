@@ -25,7 +25,7 @@ namespace IngegneriaDelSoftware.Persistenza.None
 {
     public class NoneGenericoDao : IAppuntamentoDAO, IClienteDAO, IDatoreLavoroDAO, IEsternoDAO, IFatturaDAO, IMailInviataDAO, IIntermediarioDAO, IPreventivoDAO, IVenditaDAO, IPersonaDAO
     {
-        bool IAppuntamentoDAO.Aggiorna(Appuntamento appuntamentoVecchio, Appuntamento nuovoAppuntamento)
+        bool IAppuntamentoDAO.Aggiorna(Appuntamento appuntamentoVecchio, Appuntamento nuovoAppuntamento, string id)
         {
             return true;
         }
@@ -70,7 +70,7 @@ namespace IngegneriaDelSoftware.Persistenza.None
             return true;
         }
 
-        bool IAppuntamentoDAO.Crea(Appuntamento appuntamento)
+        bool IAppuntamentoDAO.Crea(Appuntamento appuntamento, string id)
         {
             return true;
         }

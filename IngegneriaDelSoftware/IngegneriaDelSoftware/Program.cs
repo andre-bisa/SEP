@@ -94,7 +94,7 @@ namespace IngegneriaDelSoftware
                         l.Value++;
 
                         l.Status = "Caricamento Appuntamenti";
-                        CollezioneAppuntamenti.GetInstance();
+                        Calendario.GetInstance();
                         l.Value++;
 
                         l.Status = "Caricamento Email";
