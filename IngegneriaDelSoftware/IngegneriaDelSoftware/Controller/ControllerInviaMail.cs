@@ -55,7 +55,7 @@ namespace IngegneriaDelSoftware.Controller
         public bool InviaMail(string oggetto, string corpo, IEnumerable<Cliente> destinatari)
         {
             List<Email> email = new List<Email>();
-            int MAIL_ALLA_VOLTA = 100;
+            float MAIL_ALLA_VOLTA = 2.0F;
 
             foreach (Cliente c in destinatari)
             {
@@ -65,9 +65,9 @@ namespace IngegneriaDelSoftware.Controller
             bool mandateTutte = true;
             
             // Invio gruppo di MAIL_ALLA_VOLTA
-            for (int i = 0; i < email.Count; i++)
+            for (int i = 0; i < email.Count / MAIL_ALLA_VOLTA; i++)
             {
-                List<Email> gruppoMail = email.Skip(i * MAIL_ALLA_VOLTA).Take(MAIL_ALLA_VOLTA).ToList();
+                List<Email> gruppoMail = email.Skip(i * (int)MAIL_ALLA_VOLTA).Take((int)MAIL_ALLA_VOLTA).ToList();
                 if (SpedisciMail(oggetto, corpo, gruppoMail))
                 { // se spedite
                     foreach (Email e in gruppoMail)

@@ -97,13 +97,13 @@ namespace IngegneriaDelSoftware.Model
             this.PasswordServerMySQL = "password";
 
             // Email
-            this.Email = "";
+            this.Email = "andreabisacchi@gmail.com";
             this.PasswordEmail = "";
             this.PortaEmail = 587;
             this.HostEmail = "smtp.gmail.com";
 
             // Script fattura
-            this.FileScriptFattura = "";
+            this.FileScriptFattura = "fattura.sep";
 
             // Persistenza
             this.TipoPersistenza = EnumTipoPersistenza.MySQL;
