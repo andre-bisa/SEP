@@ -129,7 +129,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
 
             cmd.Parameters.AddWithValue("@idappuntamento", appuntamento.IDAppuntamento);
             cmd.Parameters.AddWithValue("@data", appuntamento.DataOra.Date);
-            cmd.Parameters.AddWithValue("@ora", appuntamento.DataOra.Hour);
+            cmd.Parameters.AddWithValue("@ora", appuntamento.DataOra.TimeOfDay);
             cmd.Parameters.AddWithValue("@luogo", appuntamento.Luogo);
             cmd.Parameters.AddWithValue("@note", appuntamento.Note);
             cmd.Parameters.AddWithValue("@idcliente", id);

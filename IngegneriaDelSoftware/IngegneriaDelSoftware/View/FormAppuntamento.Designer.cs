@@ -235,7 +235,7 @@ namespace IngegneriaDelSoftware.View
             // 
             // dataAppuntamento
             // 
-            this.dataAppuntamento.CustomFormat = "dd/MM/yyyy hh:mm";
+            this.dataAppuntamento.CustomFormat = "dd/MM/yyyy H:mm";
             this.dataAppuntamento.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dataAppuntamento.Location = new System.Drawing.Point(428, 82);
             this.dataAppuntamento.Name = "dataAppuntamento";

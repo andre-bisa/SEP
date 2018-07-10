@@ -41,9 +41,13 @@ namespace IngegneriaDelSoftware.View {
             InitializeComponent();
             MaterialSkinManager.Instance.AddFormToManage(this);
             this.riempiAppuntamenti();
+            Calendario.GetInstance().OnModifica += (e, s) => this.riempiAppuntamenti();
+            Calendario.GetInstance().OnAggiunta += (e, s) => this.riempiAppuntamenti();
+            Calendario.GetInstance().OnRimozione += (e, s) => this.riempiAppuntamenti();
         }
 
         private void riempiAppuntamenti() {
+            this.AppunamentiList.Items.Clear();
             this._controller.AppuntamentiDiOggi().ForEach((a) => {
                 this.AppunamentiList.Items.Add(new ListViewItem(new string[] { a.DataOra.ToString(), a.ConChi.getDenominazione(), a.Luogo.ToString() }));
             });
