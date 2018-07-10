@@ -103,12 +103,17 @@ namespace IngegneriaDelSoftware.Controller {
         }
 
         public void MostraImpostazioni() {
-            if(this._impostazioni == null || this._impostazioni.IsDisposed) {
+            FormConfim.Show("S00N", "Funzione ancora non disponibile.", MessageBoxButtons.OK);
+            return;
+#pragma warning disable CS0162 // È stato rilevato codice non raggiungibile
+            if (this._impostazioni == null || this._impostazioni.IsDisposed)
+            {
                 this._impostazioni = new System.Windows.Forms.Form();
                 this._impostazioni.Text = "S00N";
                 this._impostazioni.Show();
             }
             this._impostazioni.BringToFront();
+#pragma warning restore CS0162 // È stato rilevato codice non raggiungibile
         }
 
         public List<Appuntamento> AppuntamentiDiOggi() {
