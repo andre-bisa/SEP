@@ -55,7 +55,7 @@ namespace IngegneriaDelSoftware.Controller
         public bool InviaMail(string oggetto, string corpo, IEnumerable<Cliente> destinatari)
         {
             List<Email> email = new List<Email>();
-            float MAIL_ALLA_VOLTA = 2.0F;
+            float MAIL_ALLA_VOLTA = 100.0F;
 
             foreach (Cliente c in destinatari)
             {
