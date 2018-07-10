@@ -66,7 +66,7 @@ namespace IngegneriaDelSoftware.Controller {
                 return i.Select((el) => decimal.Parse(el)).Min().ToString();
             });
         }
-        protected ScriptProvider(string filename) :this(Path.GetFileNameWithoutExtension(filename), File.ReadAllLines(filename)) {
+        protected ScriptProvider(string filename) :this(filename, File.ReadAllLines(filename)) {
                         
         }
 
@@ -123,8 +123,9 @@ namespace IngegneriaDelSoftware.Controller {
             _instance.Remove(input);
         }
         internal static void create(string filename) {
-            if(!_instance.ContainsKey(filename)) {
-                _instance.Add(filename, new ScriptProvider(filename));
+            string name = Path.GetFileNameWithoutExtension(filename);
+            if (!_instance.ContainsKey(name)) {
+                _instance.Add(name, new ScriptProvider(filename));
             }
         }
 
