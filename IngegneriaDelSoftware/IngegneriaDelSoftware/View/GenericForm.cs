@@ -422,7 +422,7 @@ namespace IngegneriaDelSoftware.View {
         #region Inserimento dati 
         //Prepara le label per la modalità persona fisica;
         private void SetPersonaFisica() {
-            this.CognomeField.Enabled = true && this.InfoPanelEditable;
+            this.CognomeField.Enabled = false;
             this.CognomeLbl.Enabled = true;
             this.NomeLbl.Text = "Nome";
             this.tipoPersona = TipoPersona.FISICA;
@@ -667,7 +667,7 @@ namespace IngegneriaDelSoftware.View {
                     this.NumeroField.Enabled =
                    /* this.PIVAField.Enabled =
                     this.TelefonoField.Enabled = value;
-                this.CognomeField.Enabled =*/ value && this.PersonaFisicaRadio.Checked;
+                */this.CognomeField.Enabled = value && this.PersonaFisicaRadio.Checked;
             }
             ///Questo metodo non è affidabile
             get {
