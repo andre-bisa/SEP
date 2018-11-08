@@ -24,8 +24,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IngegneriaDelSoftware.Controller {
-    public class ControllerCalendario {
+namespace IngegneriaDelSoftware.Controller
+{
+    public class ControllerCalendario
+    {
 
         private Calendario _calendario;
 
@@ -50,7 +52,8 @@ namespace IngegneriaDelSoftware.Controller {
         /// <returns>Array di Appuntamenti</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public List<Appuntamento> GetAppuntamentiDaA(DateTime da, DateTime a) {
+        public List<Appuntamento> GetAppuntamentiDaA(DateTime da, DateTime a)
+        {
 
             if (da == null || a == null)
             {
@@ -66,7 +69,8 @@ namespace IngegneriaDelSoftware.Controller {
         }
 
 
-        public Calendario GetAppuntamenti() {
+        public Calendario GetAppuntamenti()
+        {
             return this._calendario;
         }
 
@@ -76,20 +80,12 @@ namespace IngegneriaDelSoftware.Controller {
         /// <param name="appuntamento"></param>
         public void AggiungiAppuntamento(Appuntamento appuntamento)
         {
-            if(appuntamento == null)
-            {
-                throw new ArgumentNullException();
-            }
-            string id = (from cliente in CollezioneClienti.GetInstance()
-             where cliente.Persona.Equals(appuntamento.ConChi)
-             select cliente.IDCliente).FirstOrDefault();
-
-            if (id == null)
+            if (appuntamento == null)
             {
                 throw new ArgumentNullException();
             }
 
-            this._calendario.Add(appuntamento, id);
+            this._calendario.Add(appuntamento);
         }
 
         /// <summary>
@@ -104,25 +100,6 @@ namespace IngegneriaDelSoftware.Controller {
             }
 
             this._calendario.Remove(appuntamento);
-        }
-
-        //TODO fix this;
-        /// <summary>
-        /// Recupera il prossimo intero dalla collezione
-        /// </summary>
-        /// <returns>prossimo ID</returns>
-        public int GetNext() {
-            // ordina in modo decrescente la collezione, seleziona solo l'id, 
-            //prende solo il primo (o il default che è 0 per int) e ci aggiunge 1;
-            return (from app in this._calendario
-                    orderby app.IDAppuntamento descending
-                    select app.IDAppuntamento
-             ).FirstOrDefault() + 1;
-        }
-
-        // solo per comodità;
-        public void AggiungiAppuntamento(DatiAppuntamento nuovoAppuntamento) {
-            this.AggiungiAppuntamento(new Appuntamento(nuovoAppuntamento));
         }
     }
 }

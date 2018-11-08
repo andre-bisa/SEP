@@ -51,9 +51,9 @@ namespace IngegneriaDelSoftware.Model
                 foreach (Appuntamento a in _persistenza.GetAppuntamentoDAO().LeggiTuttiAppuntamenti())
                 {
                     _appuntamenti.Add(a);
-                    a.OnModifica += (o, e) => {
+                    /*a.OnModifica += (o, e) => {
                         this.OnModifica?.Invoke(o, e);
-                    };
+                    };*/
                 }
             }
             catch (Exception)
@@ -97,7 +97,8 @@ namespace IngegneriaDelSoftware.Model
 
             List<Appuntamento> risultato = new List<Appuntamento>();
 
-            foreach (Appuntamento appuntamento in this._appuntamenti) {
+            foreach (Appuntamento appuntamento in this._appuntamenti)
+            {
                 if (da <= appuntamento.DataOra && a >= appuntamento.DataOra) //Se l'appuntamento rientra nel range
                 {
                     risultato.Add(appuntamento);
@@ -145,13 +146,13 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="item"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public void Add(Appuntamento item, string id)
+        public void Add(Appuntamento item)
         {
             if (item == null)
             {
                 throw new ArgumentNullException();
             }
-            _persistenza.GetAppuntamentoDAO().Crea(item, id);
+
             ((ICollection<Appuntamento>)_appuntamenti).Add(item);
             item.OnModifica += (o, e) => {
                 this.OnModifica?.Invoke(o, e);
@@ -206,8 +207,6 @@ namespace IngegneriaDelSoftware.Model
                 throw new ArgumentNullException();
             }
 
-            _persistenza.GetAppuntamentoDAO().Elimina(item.IDAppuntamento);
-
             risultato = ((ICollection<Appuntamento>)_appuntamenti).Remove(item);
 
             if (OnRimozione != null)
@@ -248,11 +247,6 @@ namespace IngegneriaDelSoftware.Model
                 ArgsAppuntamento args = new ArgsAppuntamento(appuntamento);
                 evento(this, args);
             }
-        }
-
-        public void Add(Appuntamento item)
-        {
-            throw new NotSupportedException();
         }
     }
 }
