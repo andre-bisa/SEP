@@ -36,6 +36,7 @@ namespace IngegneriaDelSoftware.Test {
         public void TestLoad() {
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+            Impostazioni.GetInstance().ModalitaTest = true;
             impostazioni.FileScriptFattura = "Test";
 
             ScriptProvider.create("Test", (""

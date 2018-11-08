@@ -271,7 +271,7 @@ namespace IngegneriaDelSoftware.Persistenza.MySQL
                 //Aggiunta dell'orario
                 dataOra = dataOra + tempo;
 
-                int id = reader.GetInt32("IDAPPUNTAMENTO");
+                string id = reader.GetString("IDAPPUNTAMENTO");
                 String note = reader.GetString("NOTE");
                 String luogo = reader.GetString("LUOGO");
 

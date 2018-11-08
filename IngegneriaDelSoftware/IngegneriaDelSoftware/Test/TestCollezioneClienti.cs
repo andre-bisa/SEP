@@ -34,6 +34,8 @@ namespace IngegneriaDelSoftware.Test
 
         public TestCollezioneClienti()
         {
+            Impostazioni.GetInstance().ModalitaTest = true;
+
             List<Telefono> telefoni = new List<Telefono>();
             List<Email> email = new List<Email>();
             List<Referente> referenti = new List<Referente>();

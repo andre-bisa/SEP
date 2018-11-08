@@ -52,9 +52,9 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="luogo"></param>
         /// <param name="dataOra"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public Appuntamento(int idAppuntamento, Persona conChi, string note, string luogo, DateTime dataOra)
+        public Appuntamento(string idAppuntamento, Persona conChi, string note, string luogo, DateTime dataOra)
         {
-            if (idAppuntamento < 0 || conChi == null || note == null || dataOra == null || luogo == null)
+            if (idAppuntamento == null || note == null || dataOra == null || luogo == null)
             {
                 throw new ArgumentNullException();
             }
@@ -83,7 +83,7 @@ namespace IngegneriaDelSoftware.Model
         {
             get { return _datiAppuntamento.DataOra; }
         }
-        public int IDAppuntamento
+        public string IDAppuntamento
         {
             get { return _datiAppuntamento.IDAppuntamento; }
         }
@@ -92,7 +92,7 @@ namespace IngegneriaDelSoftware.Model
         #region ToString()
         public override string ToString()
         {
-            return String.Format("{0};{1};{2};{3};{4};{5}", IDAppuntamento, DataOra.ToShortDateString(), DataOra.ToShortTimeString(), Luogo, Note, ConChi.getDenominazione());
+            return String.Format("{0};{1};{2};{3};{4};{5}", IDAppuntamento, DataOra.ToShortDateString(), DataOra.ToShortTimeString(), Luogo, Note, "" + ConChi?.getDenominazione());
         }
         #endregion
 
@@ -107,7 +107,7 @@ namespace IngegneriaDelSoftware.Model
         public override int GetHashCode()
         {
             var hashCode = -1334492624;
-            hashCode = hashCode * -1521134295 + EqualityComparer<int>.Default.GetHashCode(IDAppuntamento);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(IDAppuntamento);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Note);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Luogo);
             hashCode = hashCode * -1521134295 + DataOra.GetHashCode();
@@ -175,7 +175,7 @@ namespace IngegneriaDelSoftware.Model
         public string Note { get; private set; }
         public string Luogo { get; private set; }
         public DateTime DataOra { get; private set; }
-        public int IDAppuntamento { get; private set; }
+        public string IDAppuntamento { get; private set; }
 
         #region Costruttore
         /// <summary>
@@ -186,9 +186,9 @@ namespace IngegneriaDelSoftware.Model
         /// <param name="note">Il motivo dell'appuntamento o una nota semplificativa</param>
         /// <param name="dataOra">Data e ora dell'appuntamento</param>
         /// <exception cref="ArgumentNullException"></exception>
-        public DatiAppuntamento(int idAppuntamento, Persona conChi, string note, string luogo, DateTime dataOra)
+        public DatiAppuntamento(string idAppuntamento, Persona conChi, string note, string luogo, DateTime dataOra)
         {
-            if (idAppuntamento < 0 || conChi == null || note == null || dataOra == null || luogo == null)
+            if (idAppuntamento == null || note == null || dataOra == null || luogo == null)
             {
                 throw new ArgumentNullException();
             }
@@ -205,16 +205,14 @@ namespace IngegneriaDelSoftware.Model
         public override bool Equals(object obj)
         {
             var datiAppuntamento = (DatiAppuntamento) obj;
-            return IDAppuntamento == datiAppuntamento.IDAppuntamento &&
-                   ConChi == datiAppuntamento.ConChi && Note == datiAppuntamento.Note
-                   && datiAppuntamento.Luogo == Luogo && datiAppuntamento.DataOra == DataOra;
+            return IDAppuntamento == datiAppuntamento.IDAppuntamento;
 
         }
 
         public override int GetHashCode()
         {
             var hashCode = -1334492624;
-            hashCode = hashCode * -1521134295 + EqualityComparer<int>.Default.GetHashCode(IDAppuntamento);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(IDAppuntamento);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Note);
             hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Luogo);
             hashCode = hashCode * -1521134295 + DataOra.GetHashCode();

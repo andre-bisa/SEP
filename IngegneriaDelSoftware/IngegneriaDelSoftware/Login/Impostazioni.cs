@@ -254,6 +254,10 @@ namespace IngegneriaDelSoftware.Model
         public string FileScriptFattura { get; set; }
         #endregion
 
+        #region
+        public bool ModalitaTest { get; set; } = false;
+        #endregion
+
         #region Funzioni salvataggio impostazioni
         public void SalvaImpostazioni()
         {

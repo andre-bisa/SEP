@@ -39,6 +39,8 @@ namespace IngegneriaDelSoftware.Test
 
         public TestUtente()
         {
+            Impostazioni.GetInstance().ModalitaTest = true;
+
             List<Telefono> t = new List<Telefono>();
             t.Add(new Telefono("051051051051", "Mio"));
             t.Add(new Telefono("333333333333"));

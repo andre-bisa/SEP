@@ -37,6 +37,7 @@ namespace IngegneriaDelSoftware.Test
         {
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+            Impostazioni.GetInstance().ModalitaTest = true;
 
             this._controllerClienti = ControllerClienti.GetInstance();
         }

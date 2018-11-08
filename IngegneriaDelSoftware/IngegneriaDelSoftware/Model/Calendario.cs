@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using IngegneriaDelSoftware.Model.AdapterCalendario;
 
 namespace IngegneriaDelSoftware.Model
 {
@@ -36,6 +37,8 @@ namespace IngegneriaDelSoftware.Model
         public event EventHandler<ArgsAppuntamento> OnAggiunta;
         public event EventHandler<ArgsAppuntamento> OnRimozione;
         public event EventHandler<ArgsModifica<Appuntamento>> OnModifica;
+
+        private AdapterCalendario.AdapterGoogleCalendar adapterCalendario = null;
 
         /// <summary>
         /// Costruttore di Calendario
@@ -60,6 +63,13 @@ namespace IngegneriaDelSoftware.Model
             {
                 throw new ExceptionPersistenza();
             }
+
+            // FIXME questa è una merdata, da fixare!!
+            if (!Impostazioni.GetInstance().ModalitaTest)
+            {
+                adapterCalendario = new AdapterCalendario.AdapterGoogleCalendar();
+            }
+
         }
 
         #region Singleton
@@ -97,7 +107,7 @@ namespace IngegneriaDelSoftware.Model
 
             List<Appuntamento> risultato = new List<Appuntamento>();
 
-            foreach (Appuntamento appuntamento in this._appuntamenti)
+            foreach (Appuntamento appuntamento in this.AppuntamentiCalendario)
             {
                 if (da <= appuntamento.DataOra && a >= appuntamento.DataOra) //Se l'appuntamento rientra nel range
                 {
@@ -113,7 +123,11 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         public HashSet<Appuntamento> AppuntamentiCalendario
         {
-            get { return this._appuntamenti; }
+            get {
+                HashSet<Appuntamento> result = new HashSet<Appuntamento>(this._appuntamenti);
+                this.adapterCalendario?.GetListaAppuntamenti().ToList().ForEach(app => result.Add(app));
+                return result;
+            }
         }
 
         public int Count
@@ -222,10 +236,12 @@ namespace IngegneriaDelSoftware.Model
         /// </summary>
         /// <param name="idAppuntamento">Identificativo dell'appuntamento</param>
         /// <returns></returns>
-        public Appuntamento this[int idAppuntamento]
+        public Appuntamento this[string idAppuntamento]
         {
             get
             {
+                if (idAppuntamento == null)
+                    return null;
                 foreach (Appuntamento f in this._appuntamenti)
                 {
                     if (f.IDAppuntamento == idAppuntamento)

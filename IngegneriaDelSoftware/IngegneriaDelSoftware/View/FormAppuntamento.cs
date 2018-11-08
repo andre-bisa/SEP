@@ -187,43 +187,40 @@ namespace IngegneriaDelSoftware.View
         /// <param name="e"></param>
         private void btnAggiungi_Click(object sender, EventArgs e)
         {
+            string note = this._appuntamento.Note;
+            string luogo = this._appuntamento.Luogo;
+            DateTime data = this._appuntamento.DataOra;
+            bool modificato = false;
+
+            if (note != this.txtNoteAppuntamento.Text)
+            {
+                modificato = true;
+
+                note = this.txtNoteAppuntamento.Text;
+            }
+            if (luogo != this.txtLuogoAppuntamento.Text)
+            {
+                modificato = true;
+
+                luogo = this.txtLuogoAppuntamento.Text;
+            }
+            if (data != this.dataAppuntamento.Value)
+            {
+                modificato = true;
+
+                data = this.dataAppuntamento.Value;
+            }
+
             if (this._appuntamento != null)
             {
-                string note = this._appuntamento.Note;
-                string luogo = this._appuntamento.Luogo;
-                DateTime data = this._appuntamento.DataOra;
-                bool modificato = false;
+                //Creo nuovi dati dell'appuntamento
+                DatiAppuntamento nuoviDatiAppuntamento = new DatiAppuntamento(this._appuntamento.IDAppuntamento, this._appuntamento.ConChi, note, luogo, data);
 
-                if (note != this.txtNoteAppuntamento.Text)
-                {
-                    modificato = true;
-
-                    note = this.txtNoteAppuntamento.Text;
-                }
-                if (luogo != this.txtLuogoAppuntamento.Text)
-                {
-                    modificato = true;
-
-                    luogo = this.txtLuogoAppuntamento.Text;
-                }
-                if (data != this.dataAppuntamento.Value)
-                {
-                    modificato = true;
-
-                    data = this.dataAppuntamento.Value;
-                }
-
-                if (modificato)
-                {
-                    //Creo nuovi dati dell'appuntamento
-                    DatiAppuntamento nuoviDatiAppuntamento = new DatiAppuntamento(this._appuntamento.IDAppuntamento, this._appuntamento.ConChi, note, luogo, data);
-
-                    this._appuntamento.cambiaDatiAppuntamento(nuoviDatiAppuntamento);
-                }
-                else
-                {
-                    _controllerCalendario.AggiungiAppuntamento(this._appuntamento);
-                }
+                this._appuntamento.cambiaDatiAppuntamento(nuoviDatiAppuntamento);
+            }
+            else
+            {
+                _controllerCalendario.AggiungiAppuntamento(this._appuntamento);
             }
             this.Close();
         }

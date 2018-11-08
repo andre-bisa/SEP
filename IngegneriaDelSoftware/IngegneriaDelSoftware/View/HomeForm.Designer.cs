@@ -57,6 +57,7 @@ namespace IngegneriaDelSoftware.View {
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.backGroundPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -258,7 +259,8 @@ namespace IngegneriaDelSoftware.View {
             this.AppunamentiList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
-            this.columnHeader3});
+            this.columnHeader3,
+            this.columnHeader4});
             this.AppunamentiList.Depth = 0;
             this.AppunamentiList.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AppunamentiList.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F);
@@ -281,13 +283,17 @@ namespace IngegneriaDelSoftware.View {
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Con chi";
+            this.columnHeader2.Text = "Note";
             this.columnHeader2.Width = 162;
             // 
             // columnHeader3
             // 
             this.columnHeader3.Text = "Luogo";
             this.columnHeader3.Width = 152;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Con chi";
             // 
             // HomeForm
             // 
@@ -324,5 +330,6 @@ namespace IngegneriaDelSoftware.View {
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }
