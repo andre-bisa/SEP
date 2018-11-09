@@ -75,16 +75,18 @@ namespace IngegneriaDelSoftware.View.Controlli
         public bool Selected
         {
             get { return _selected; }
-            private set
+            set
             {
                 _selected = value;
                 if (Selected)
                 {
                     this.BackColor = Color.LightBlue;
+                    this.checkScheda.CheckState = CheckState.Checked;
                 }
                 else
                 {
                     this.BackColor = _impostazioni.ColoreCliente(Cliente.TipoCliente);
+                    this.checkScheda.CheckState = CheckState.Unchecked;
                 }
                 LanciaEvento(ModificataSelezione);
             }
@@ -135,6 +137,13 @@ namespace IngegneriaDelSoftware.View.Controlli
         #region "Gestione eventi controlli"
         private void CambiaSelezione(object sender, EventArgs e)
         {
+            if (sender is MaterialSkin.Controls.MaterialCheckBox)
+            {
+                if (((MaterialSkin.Controls.MaterialCheckBox)sender).Checked == Selected)
+                    return;
+            }
+            Selected = !Selected;
+            return;
             if (sender is CheckBox)
                 Selected = checkScheda.Checked;
             else

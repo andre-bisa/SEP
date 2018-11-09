@@ -15,14 +15,21 @@ namespace IngegneriaDelSoftware.View.Controlli
 {
     public partial class VisualizzatoreColonnaClienti : UserControl
     {
-
         private List<Cliente> _clientiSelezionati = new List<Cliente>();
         private List<ClienteMostrato<SchedaCliente>> _clientiCaricati = new List<ClienteMostrato<SchedaCliente>>();
         private int quantiClientiMostrare;
         private VisualizzatoreCliente _visualizzatore;
         private ControllerClienti _controllerClienti = ControllerClienti.GetInstance();
 
+        #region Proprietà
+        /// <summary>
+        /// Pannello dove verrà mostrato l'overlay
+        /// </summary>
         public Panel PannelloForm { get; set; } = null;
+
+        /// <summary>
+        /// Ulteriore filtro da applicare alla visualizzazione dei clienti
+        /// </summary>
         public Predicate<Cliente> FiltroCliente { get; set; } = null;
 
         /// <summary>
@@ -35,6 +42,13 @@ namespace IngegneriaDelSoftware.View.Controlli
                 return new List<Cliente>(_clientiSelezionati);
             }
         }
+
+        /// <summary>
+        /// Imposta il numero massimo di clienti selezionabili
+        /// </summary>
+        public uint NumeroMassimoClientiSelezionati = uint.MaxValue;
+
+        #endregion
 
         public VisualizzatoreColonnaClienti() : this(null, null) { }
 
@@ -133,7 +147,10 @@ namespace IngegneriaDelSoftware.View.Controlli
         {
             if (e.SchedaCliente.Selected)
             {
-                this._clientiSelezionati.Add(e.Cliente);
+                if (this._clientiSelezionati.Count < this.NumeroMassimoClientiSelezionati)
+                    this._clientiSelezionati.Add(e.Cliente);
+                else
+                    e.SchedaCliente.Selected = false;
             }
             else
             {
