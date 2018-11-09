@@ -40,16 +40,14 @@ namespace IngegneriaDelSoftware.Model.AdapterCalendario
                 ApplicationName = ApplicationName,
             });
 
-            return;
-
-            string elencoCalendari = "";
+            /*string elencoCalendari = "";
 
             foreach (CalendarListEntry calendario in Servizio.CalendarList.List().Execute().Items)
             {
                 elencoCalendari += calendario.Summary + ", ";
             }
 
-            System.Windows.Forms.MessageBox.Show(elencoCalendari);
+            System.Windows.Forms.MessageBox.Show(elencoCalendari);*/
         }
 
         public ICollection<Appuntamento> GetListaAppuntamenti()

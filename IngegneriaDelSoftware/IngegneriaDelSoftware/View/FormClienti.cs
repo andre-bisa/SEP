@@ -37,7 +37,7 @@ namespace IngegneriaDelSoftware.View
         private const int NUMERO_PAGINE_CARICATE_INIZIALMENTE = 2;
 
         private ControllerClienti _controller = ControllerClienti.GetInstance();
-        private VisualizzatoreCliente _visualizzatoreCliente;
+        private VisualizzatoreClienti _visualizzatoreCliente;
 
         private List<ClienteMostrato<PannelloCliente>> _clientiCaricati = new List<ClienteMostrato<PannelloCliente>>();
 
@@ -62,7 +62,7 @@ namespace IngegneriaDelSoftware.View
             {
                 return cliente.IDCliente.ToLower().Contains(stringa.ToLower()) || cliente.Persona.Indirizzo.ToLower().Contains(stringa.ToLower()) || cliente.Denominazione.ToLower().Contains(stringa.ToLower()) || cliente.Referenti.Any(referente => referente.Nome.ToLower().Contains(stringa.ToLower()));
             });
-            this._visualizzatoreCliente = new VisualizzatoreCliente(ricercaTuttiParametri);
+            this._visualizzatoreCliente = new VisualizzatoreClienti(ricercaTuttiParametri);
 
             _controller.CollezioneClienti.OnRimozione += this.RimossoCliente;
         }

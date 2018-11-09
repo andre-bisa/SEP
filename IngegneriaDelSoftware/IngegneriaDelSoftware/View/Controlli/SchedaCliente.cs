@@ -143,11 +143,6 @@ namespace IngegneriaDelSoftware.View.Controlli
                     return;
             }
             Selected = !Selected;
-            return;
-            if (sender is CheckBox)
-                Selected = checkScheda.Checked;
-            else
-                checkScheda.Checked = !Selected;
         }
 
         private void LblEspandi_Click(object sender, EventArgs e)

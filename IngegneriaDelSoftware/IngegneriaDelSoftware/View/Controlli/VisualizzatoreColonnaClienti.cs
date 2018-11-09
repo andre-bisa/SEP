@@ -18,7 +18,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         private List<Cliente> _clientiSelezionati = new List<Cliente>();
         private List<ClienteMostrato<SchedaCliente>> _clientiCaricati = new List<ClienteMostrato<SchedaCliente>>();
         private int quantiClientiMostrare;
-        private VisualizzatoreCliente _visualizzatore;
+        private VisualizzatoreClienti _visualizzatore;
         private ControllerClienti _controllerClienti = ControllerClienti.GetInstance();
 
         #region Proprietà
@@ -69,7 +69,7 @@ namespace IngegneriaDelSoftware.View.Controlli
             {
                 return cliente.IDCliente.ToLower().Contains(stringa.ToLower()) || cliente.Persona.Indirizzo.ToLower().Contains(stringa.ToLower()) || cliente.Denominazione.ToLower().Contains(stringa.ToLower()) || cliente.Referenti.Any(referente => referente.Nome.ToLower().Contains(stringa.ToLower()));
             });
-            this._visualizzatore = new VisualizzatoreCliente(ricercaTuttiParametri);
+            this._visualizzatore = new VisualizzatoreClienti(ricercaTuttiParametri);
 
             this._controllerClienti.CollezioneClienti.OnRimozione += this.RimossoCliente;
             this._controllerClienti.CollezioneClienti.OnAggiunta += (o, e) => { CaricaClientiMancanti(); };

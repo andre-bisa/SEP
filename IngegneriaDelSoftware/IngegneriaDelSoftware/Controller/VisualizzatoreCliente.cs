@@ -28,7 +28,7 @@ using IngegneriaDelSoftware.Model.ArgsEvent;
 
 namespace IngegneriaDelSoftware.Controller
 {
-    public class VisualizzatoreCliente : Visualizzatore<Cliente>
+    public class VisualizzatoreClienti : Visualizzatore<Cliente>
     {
         private IComparer<Cliente> _comparatore;
 
@@ -38,7 +38,7 @@ namespace IngegneriaDelSoftware.Controller
         /// <param name="filtroSuTuttiCampi">Funzione che dato un <see cref="Cliente"/> e data una <see cref="string"/> restituisce <c>true</c> o <c>false</c>.
         /// La funzione verrà usata in <see cref="ImpostaFiltroTuttiParametri(string)"/></param>
         /// <param name="comparatore">Logica di ordinamento degli elementi</param>
-        public VisualizzatoreCliente(Func<Cliente, string, bool> filtroSuTuttiCampi = null, IComparer<Cliente> comparatore = null) : base(filtroSuTuttiCampi)
+        public VisualizzatoreClienti(Func<Cliente, string, bool> filtroSuTuttiCampi = null, IComparer<Cliente> comparatore = null) : base(filtroSuTuttiCampi)
         {
             this._comparatore = comparatore;
 
