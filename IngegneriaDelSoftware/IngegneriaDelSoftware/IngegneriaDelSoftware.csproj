@@ -194,6 +194,12 @@
     <Compile Include="View\ClienteMostrato.cs" />
     <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />
     <Compile Include="View\Controlli\ArgsSchedaCliente.cs" />
+    <Compile Include="View\Controlli\VisualizzatoreColonnaClienti.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Controlli\VisualizzatoreColonnaClienti.Designer.cs">
+      <DependentUpon>VisualizzatoreColonnaClienti.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\FormConfim.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -305,6 +311,9 @@
     <Compile Include="View\VisualizzaCalendario.Designer.cs">
       <DependentUpon>VisualizzaCalendario.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\Controlli\VisualizzatoreColonnaClienti.resx">
+      <DependentUpon>VisualizzatoreColonnaClienti.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\FormConfim.resx">
       <DependentUpon>FormConfim.cs</DependentUpon>
     </EmbeddedResource>

@@ -17,6 +17,9 @@
     along with SEP.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using IngegneriaDelSoftware.Model;
+using System;
+
 namespace IngegneriaDelSoftware.View
 {
     partial class FormEmail
@@ -53,9 +56,6 @@ namespace IngegneriaDelSoftware.View
             System.Windows.Forms.Panel panelInvioMailPrincipale;
             MaterialSkin.Controls.MaterialLabel materialLabel2;
             MaterialSkin.Controls.MaterialLabel materialLabel1;
-            System.Windows.Forms.Panel panelSchedeClienteGenerico;
-            System.Windows.Forms.Panel panelSearchBar;
-            System.Windows.Forms.Panel panelSearchBarIcon;
             System.Windows.Forms.TabPage tabMailInviate;
             System.Windows.Forms.Panel panelMailInviate;
             MaterialSkin.Controls.MaterialTabSelector materialTabSelector1;
@@ -63,10 +63,6 @@ namespace IngegneriaDelSoftware.View
             this.btnInvia = new MaterialSkin.Controls.MaterialRaisedButton();
             this.txtCorpo = new System.Windows.Forms.TextBox();
             this.txtOggetto = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.flowClienti = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.txtSearchBar = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.materialDivider1 = new MaterialSkin.Controls.MaterialDivider();
             this.listMailInviate = new MaterialSkin.Controls.MaterialListView();
             this.ListaData = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -74,15 +70,13 @@ namespace IngegneriaDelSoftware.View
             this.ListaDestinatario = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ListaCorpo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panelForm = new System.Windows.Forms.Panel();
+            this.visualizzatoreClienti = new IngegneriaDelSoftware.View.Controlli.VisualizzatoreColonnaClienti();
             materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             tabInviaMail = new System.Windows.Forms.TabPage();
             panelInviaMail = new System.Windows.Forms.Panel();
             panelInvioMailPrincipale = new System.Windows.Forms.Panel();
             materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            panelSchedeClienteGenerico = new System.Windows.Forms.Panel();
-            panelSearchBar = new System.Windows.Forms.Panel();
-            panelSearchBarIcon = new System.Windows.Forms.Panel();
             tabMailInviate = new System.Windows.Forms.TabPage();
             panelMailInviate = new System.Windows.Forms.Panel();
             materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
@@ -90,11 +84,6 @@ namespace IngegneriaDelSoftware.View
             tabInviaMail.SuspendLayout();
             panelInviaMail.SuspendLayout();
             panelInvioMailPrincipale.SuspendLayout();
-            panelSchedeClienteGenerico.SuspendLayout();
-            this.panel1.SuspendLayout();
-            panelSearchBar.SuspendLayout();
-            panelSearchBarIcon.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             tabMailInviate.SuspendLayout();
             panelMailInviate.SuspendLayout();
             this.panelForm.SuspendLayout();
@@ -128,8 +117,8 @@ namespace IngegneriaDelSoftware.View
             // 
             // panelInviaMail
             // 
+            panelInviaMail.Controls.Add(this.visualizzatoreClienti);
             panelInviaMail.Controls.Add(panelInvioMailPrincipale);
-            panelInviaMail.Controls.Add(panelSchedeClienteGenerico);
             panelInviaMail.Controls.Add(this.materialDivider1);
             panelInviaMail.Dock = System.Windows.Forms.DockStyle.Fill;
             panelInviaMail.Location = new System.Drawing.Point(3, 3);
@@ -204,12 +193,12 @@ namespace IngegneriaDelSoftware.View
             // 
             materialLabel2.AutoSize = true;
             materialLabel2.Depth = 0;
-            materialLabel2.Font = new System.Drawing.Font("Roboto", 11F);
+            materialLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             materialLabel2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             materialLabel2.Location = new System.Drawing.Point(18, 82);
             materialLabel2.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabel2.Name = "materialLabel2";
-            materialLabel2.Size = new System.Drawing.Size(50, 19);
+            materialLabel2.Size = new System.Drawing.Size(50, 18);
             materialLabel2.TabIndex = 2;
             materialLabel2.Text = "Corpo";
             // 
@@ -237,92 +226,14 @@ namespace IngegneriaDelSoftware.View
             // 
             materialLabel1.AutoSize = true;
             materialLabel1.Depth = 0;
-            materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
+            materialLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             materialLabel1.Location = new System.Drawing.Point(18, 17);
             materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
             materialLabel1.Name = "materialLabel1";
-            materialLabel1.Size = new System.Drawing.Size(62, 19);
+            materialLabel1.Size = new System.Drawing.Size(61, 18);
             materialLabel1.TabIndex = 0;
             materialLabel1.Text = "Oggetto";
-            // 
-            // panelSchedeClienteGenerico
-            // 
-            panelSchedeClienteGenerico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            panelSchedeClienteGenerico.Controls.Add(this.flowClienti);
-            panelSchedeClienteGenerico.Controls.Add(this.panel1);
-            panelSchedeClienteGenerico.Location = new System.Drawing.Point(4, 3);
-            panelSchedeClienteGenerico.Name = "panelSchedeClienteGenerico";
-            panelSchedeClienteGenerico.Size = new System.Drawing.Size(230, 289);
-            panelSchedeClienteGenerico.TabIndex = 1;
-            // 
-            // flowClienti
-            // 
-            this.flowClienti.AutoScroll = true;
-            this.flowClienti.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowClienti.Location = new System.Drawing.Point(0, 36);
-            this.flowClienti.Name = "flowClienti";
-            this.flowClienti.Size = new System.Drawing.Size(230, 253);
-            this.flowClienti.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(panelSearchBar);
-            this.panel1.Controls.Add(panelSearchBarIcon);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(230, 36);
-            this.panel1.TabIndex = 0;
-            // 
-            // panelSearchBar
-            // 
-            panelSearchBar.Controls.Add(this.txtSearchBar);
-            panelSearchBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelSearchBar.Location = new System.Drawing.Point(0, 0);
-            panelSearchBar.Name = "panelSearchBar";
-            panelSearchBar.Size = new System.Drawing.Size(194, 36);
-            panelSearchBar.TabIndex = 1;
-            // 
-            // txtSearchBar
-            // 
-            this.txtSearchBar.Depth = 0;
-            this.txtSearchBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSearchBar.Hint = "Search";
-            this.txtSearchBar.Location = new System.Drawing.Point(0, 0);
-            this.txtSearchBar.MaxLength = 32767;
-            this.txtSearchBar.MouseState = MaterialSkin.MouseState.HOVER;
-            this.txtSearchBar.Name = "txtSearchBar";
-            this.txtSearchBar.PasswordChar = '\0';
-            this.txtSearchBar.SelectedText = "";
-            this.txtSearchBar.SelectionLength = 0;
-            this.txtSearchBar.SelectionStart = 0;
-            this.txtSearchBar.Size = new System.Drawing.Size(194, 23);
-            this.txtSearchBar.TabIndex = 0;
-            this.txtSearchBar.TabStop = false;
-            this.txtSearchBar.UseSystemPasswordChar = false;
-            // 
-            // panelSearchBarIcon
-            // 
-            panelSearchBarIcon.Controls.Add(this.pictureBox1);
-            panelSearchBarIcon.Dock = System.Windows.Forms.DockStyle.Right;
-            panelSearchBarIcon.Location = new System.Drawing.Point(194, 0);
-            panelSearchBarIcon.Name = "panelSearchBarIcon";
-            panelSearchBarIcon.Size = new System.Drawing.Size(36, 36);
-            panelSearchBarIcon.TabIndex = 0;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::IngegneriaDelSoftware.Properties.Resources.ic_search_black_24dp;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(36, 36);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.PictureBox1_Click);
             // 
             // materialDivider1
             // 
@@ -427,6 +338,15 @@ namespace IngegneriaDelSoftware.View
             this.panelForm.Size = new System.Drawing.Size(798, 382);
             this.panelForm.TabIndex = 1;
             // 
+            // visualizzatoreClienti
+            // 
+            this.visualizzatoreClienti.FiltroCliente = null;
+            this.visualizzatoreClienti.Location = new System.Drawing.Point(3, 2);
+            this.visualizzatoreClienti.Name = "visualizzatoreClienti";
+            this.visualizzatoreClienti.PannelloForm = this.panelForm;
+            this.visualizzatoreClienti.Size = new System.Drawing.Size(231, 290);
+            this.visualizzatoreClienti.TabIndex = 2;
+            // 
             // FormEmail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -441,11 +361,6 @@ namespace IngegneriaDelSoftware.View
             panelInviaMail.ResumeLayout(false);
             panelInvioMailPrincipale.ResumeLayout(false);
             panelInvioMailPrincipale.PerformLayout();
-            panelSchedeClienteGenerico.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            panelSearchBar.ResumeLayout(false);
-            panelSearchBarIcon.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             tabMailInviate.ResumeLayout(false);
             panelMailInviate.ResumeLayout(false);
             this.panelForm.ResumeLayout(false);
@@ -461,13 +376,10 @@ namespace IngegneriaDelSoftware.View
         private System.Windows.Forms.ColumnHeader ListaDestinatario;
         private System.Windows.Forms.ColumnHeader ListaCorpo;
         private MaterialSkin.Controls.MaterialDivider materialDivider1;
-        private System.Windows.Forms.Panel panel1;
-        private MaterialSkin.Controls.MaterialSingleLineTextField txtSearchBar;
-        private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.FlowLayoutPanel flowClienti;
         private MaterialSkin.Controls.MaterialFlatButton btnAnnulla;
         private MaterialSkin.Controls.MaterialRaisedButton btnInvia;
         private System.Windows.Forms.TextBox txtCorpo;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtOggetto;
+        private Controlli.VisualizzatoreColonnaClienti visualizzatoreClienti;
     }
 }

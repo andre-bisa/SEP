@@ -41,44 +41,15 @@ namespace IngegneriaDelSoftware.View
     {
         private ControllerInviaMail _controllerInviaMail = ControllerInviaMail.GetInstance();
 
-        private ControllerClienti _controllerClienti = ControllerClienti.GetInstance();
-        private VisualizzatoreCliente _visualizzatore;
-
-        private List<ClienteMostrato<SchedaCliente>> _clientiCaricati = new List<ClienteMostrato<SchedaCliente>>();
-        private int quantiClientiMostrare;
-
-        private List<Cliente> _clientiACuiMandare = new List<Cliente>();
-
         private CollezioneEmailInviate _emailInviate = CollezioneEmailInviate.GetInstance();
 
         #region "Costruttore"
         public FormEmail()
         {
             InitializeComponent();
+            this.visualizzatoreClienti.FiltroCliente = new Predicate<Cliente>(c => c.Persona.Email.Count > 0);
 
             this.btnInvia.Click += (o, e) => { InviaMail(); };
-
-            flowClienti.Scroll += (s, e) => HandleScroll();
-            flowClienti.MouseWheel += (s, e) => HandleScroll();
-            txtSearchBar.KeyDown += (sender, e) =>
-            {
-                if (e.KeyCode == System.Windows.Forms.Keys.Enter)
-                {
-                    RicercaTraClienti();
-                    e.Handled = true;
-                    e.SuppressKeyPress = true;
-                }
-            };
-
-            // Funzione che permette di effettuare la ricerca per tutti i campi
-            var ricercaTuttiParametri = new Func<Cliente, string, bool>((cliente, stringa) =>
-            {
-                return cliente.IDCliente.ToLower().Contains(stringa.ToLower()) || cliente.Persona.Indirizzo.ToLower().Contains(stringa.ToLower()) || cliente.Denominazione.ToLower().Contains(stringa.ToLower()) || cliente.Referenti.Any(referente => referente.Nome.ToLower().Contains(stringa.ToLower()));
-            });
-            this._visualizzatore = new VisualizzatoreCliente(ricercaTuttiParametri);
-
-            this._controllerClienti.CollezioneClienti.OnRimozione += this.RimossoCliente;
-            this._controllerClienti.CollezioneClienti.OnAggiunta += (o, e) => { CaricaClientiMancanti(); };
 
             this._controllerInviaMail.CollezioneEmailInviate.OnAggiunta += (o, email) => 
             {
@@ -86,61 +57,6 @@ namespace IngegneriaDelSoftware.View
                 ListViewItem item = new ListViewItem(row);
                 this.listMailInviate.Items.Add(item);
             };
-        }
-        #endregion
-
-        #region "Carica schede cliente"
-        /// <summary>
-        /// Funzione che mostra le schede dei clienti nella form
-        /// </summary>
-        private void CaricaSchedaCliente()
-        {
-            Cliente clienteDaMostrare;
-
-            do // Non mostro i clienti che non hanno indirizzi Email
-            {
-                clienteDaMostrare = _visualizzatore.ProssimoCliente();
-            } while (clienteDaMostrare != null && clienteDaMostrare.Persona.Email.Count == 0);
-
-            if (clienteDaMostrare == null)
-                return;
-
-            SchedaCliente schedaCliente = new SchedaCliente(clienteDaMostrare, this.panelForm);
-            schedaCliente.ModificataSelezione += ModificataSelezione;
-            this.flowClienti.Controls.Add(schedaCliente);
-            this._clientiCaricati.Add(new ClienteMostrato<SchedaCliente>(clienteDaMostrare, schedaCliente, false));
-
-        }
-
-        private void ModificataSelezione(object sender, ArgsSchedaCliente e)
-        {
-            if (e.SchedaCliente.Selected)
-            {
-                this._clientiACuiMandare.Add(e.Cliente);
-            }
-            else
-            {
-                if (this._clientiACuiMandare.Contains(e.Cliente))
-                    this._clientiACuiMandare.Remove(e.Cliente);
-            }
-        }
-
-        /// <summary>
-        /// Funzione che permette di visualizzare un certo numero di clienti nella form
-        /// </summary>
-        /// <param name="quanti">Quanti clienti mostrare</param>
-        private void RiempiSchedeClienti(int quanti)
-        {
-            this.quantiClientiMostrare += quanti;
-            CaricaClientiMancanti();
-        }
-
-        private void CaricaClientiMancanti()
-        {
-            for (int i = this._clientiCaricati.Count; i < this.quantiClientiMostrare; i++)
-            {
-                CaricaSchedaCliente();
-            }
         }
         #endregion
 
@@ -158,62 +74,7 @@ namespace IngegneriaDelSoftware.View
 
         private void FormEmail_Load(object sender, EventArgs e)
         {
-            // Carico il numero di clienti che possono essere visti in base alle dimensioni dello schermo
-            RiempiSchedeClienti(Screen.FromControl(this).Bounds.Height / SchedaCliente.AltezzaSchedaClienti() + 1);
             CaricaEmailNellaLista();
-        }
-
-        /// <summary>
-        /// Funzione che permette di caricare i clienti solo quando si sta visualizzando l'ultimo cliente
-        /// </summary>
-        private void HandleScroll()
-        {
-            // if (sto visualizzando l'ultimo cliente) => ne carico un altro
-            if (flowClienti.VerticalScroll.Value >= flowClienti.VerticalScroll.Maximum - flowClienti.VerticalScroll.LargeChange - SchedaCliente.AltezzaSchedaClienti())
-                RiempiSchedeClienti(1);
-        }
-
-        private void RimossoCliente(object sender, ArgsCliente e)
-        {
-            if (e.Cliente == null)
-                return;
-
-            ClienteMostrato<SchedaCliente> cliente = this._clientiCaricati.Find(c => e.Cliente == c.Cliente);
-
-            if (cliente == null) // Se non è stato mostrato
-                return;
-
-            SchedaCliente schedaDaRimuovere = this._clientiCaricati.Find(c => e.Cliente.Equals(c.Cliente)).DoveMostrato;
-            if (schedaDaRimuovere != null)
-            {
-                this.flowClienti.Controls.Remove(schedaDaRimuovere);
-                this._clientiCaricati.Remove(cliente);
-                CaricaSchedaCliente();
-            }
-        }
-
-        private void RicercaTraClienti()
-        {
-            this._visualizzatore.ImpostaFiltroTuttiParametri(txtSearchBar.Text.Trim());
-
-            var queryClientiDaRimuovere =
-                (from tripla in this._clientiCaricati
-                 where !this._visualizzatore.Visualizzabile(tripla.Cliente)    // dove i clienti non devono essere visualizzati
-                 select tripla
-                 );
-
-            foreach (ClienteMostrato<SchedaCliente> cliente in new List<ClienteMostrato<SchedaCliente>>(queryClientiDaRimuovere))
-            {
-                this.flowClienti.Controls.Remove(cliente.DoveMostrato);
-                this._clientiCaricati.Remove(cliente);
-            }
-
-            CaricaClientiMancanti();
-        }
-
-        private void PictureBox1_Click(object sender, EventArgs e)
-        {
-            RicercaTraClienti();
         }
 
         private void btnAnnulla_Click(object sender, EventArgs e)
@@ -223,7 +84,8 @@ namespace IngegneriaDelSoftware.View
 
         private void InviaMail()
         {
-            if (_clientiACuiMandare.Count == 0)
+            List<Cliente> clientiSelezionati = this.visualizzatoreClienti.ClientiSelezionati;
+            if (clientiSelezionati.Count == 0)
             {
                 FormConfim.Show("Errore", "Seleziona almeno un destinatario!", MessageBoxButtons.OK);
                 return;
@@ -231,7 +93,7 @@ namespace IngegneriaDelSoftware.View
 
             btnInvia.Enabled = false;
 
-            bool mandate = this._controllerInviaMail.InviaMail(txtOggetto.Text.Trim(), txtCorpo.Text, this._clientiACuiMandare);
+            bool mandate = this._controllerInviaMail.InviaMail(txtOggetto.Text.Trim(), txtCorpo.Text, clientiSelezionati);
             if (mandate)
                 FormConfim.Show("Mail inviate", "Mail inviate con successo.", MessageBoxButtons.OK);
             else
