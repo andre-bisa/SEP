@@ -184,10 +184,10 @@ namespace IngegneriaDelSoftware
             //Application.Run(GenericViewLoader.getVenditaForm(new ControllerVendite()));
             //Application.Run(GenericViewLoader.getFatturaForm(new ControllerFatture()));
             
-            var app1 = new Appuntamento(1, persona, "I like this one", "Cucina", DateTime.Now);
-            var app2 = new Appuntamento(2, persona, "I like this one", "Cucina", DateTime.Now.AddDays(1));
-            var app3 = new Appuntamento(3, persona, "I like this one", "Cucina", DateTime.Now.AddHours(2));
-            var app4 = new Appuntamento(4, persona, "I like this one", "Cucina", DateTime.Now.AddDays(3));
+            var app1 = new Appuntamento("1", persona, "I like this one", "Cucina", DateTime.Now);
+            var app2 = new Appuntamento("2", persona, "I like this one", "Cucina", DateTime.Now.AddDays(1));
+            var app3 = new Appuntamento("3", persona, "I like this one", "Cucina", DateTime.Now.AddHours(2));
+            var app4 = new Appuntamento("4", persona, "I like this one", "Cucina", DateTime.Now.AddDays(3));
             Calendario.GetInstance().Add(app1);
             Calendario.GetInstance().Add(app2);
             Calendario.GetInstance().Add(app3);

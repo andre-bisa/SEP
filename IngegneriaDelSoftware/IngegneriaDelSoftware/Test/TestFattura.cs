@@ -33,6 +33,9 @@ namespace IngegneriaDelSoftware.Test {
     public class TestFatturazione {
         [Test]
         public void TestFattura() {
+            Impostazioni.GetInstance().CalenadrioEsterno = Model.AdapterCalendario.EnumAdapterCalendario.NONE;
+            Impostazioni.GetInstance().TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+
             var persona = new PersonaFisica("AAAAAAAAAA", "Via del Cane 11", "Anna", "Bartolini");
             var cliente = new Cliente(persona, "1");
             var vendita = new Vendita(1, cliente);

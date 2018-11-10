@@ -36,9 +36,9 @@ namespace IngegneriaDelSoftware.Controller
         /// <summary>
         /// Filtro che si applicherà quando verrà richiesto un <see cref="T"/>
         /// </summary>
-        protected Predicate<OggettoVisualizzato<T>> Filtro { get; private set; }
+        private List<Predicate<OggettoVisualizzato<T>>> _filtri = null;
 
-        private Func<T, string, bool> _filtroTuttiCampi;
+        private Func<T, string, bool> _filtroTuttiCampi = null;
 
         /// <summary>
         /// Costruttore di default
@@ -47,7 +47,6 @@ namespace IngegneriaDelSoftware.Controller
         /// La funzione verrà usata in <see cref="ImpostaFiltroTuttiParametri(string)"/></param>
         protected Visualizzatore(Func<T, string, bool> filtroTuttiCampi = null)
         {
-            Filtro = new Predicate<OggettoVisualizzato<T>>(o => true); // di base accetta tutto
             this._filtroTuttiCampi = filtroTuttiCampi; // può essere null
         }
 
@@ -58,7 +57,16 @@ namespace IngegneriaDelSoftware.Controller
         {
             get
             {
-                return this.Lista.FindAll(this.Filtro).Count;
+                int conteggio = 0;
+                foreach(OggettoVisualizzato<T> t in this.Lista)
+                {
+                    foreach(Predicate<OggettoVisualizzato<T>> filtro in this._filtri)
+                    {
+                        if (filtro.Invoke(t))
+                            conteggio++;
+                    }
+                }
+                return conteggio;
             }
         }
 
@@ -71,7 +79,7 @@ namespace IngegneriaDelSoftware.Controller
         public bool Visualizzabile(T oggetto)
         {
             OggettoVisualizzato<T> mockOggettoVisualizzato = new OggettoVisualizzato<T>(oggetto, false);
-            return this.Filtro.Invoke(mockOggettoVisualizzato);
+            return this._filtri.TrueForAll(filtro => filtro.Invoke(mockOggettoVisualizzato));
         }
 
         /// <summary>
@@ -89,7 +97,7 @@ namespace IngegneriaDelSoftware.Controller
         }
 
         /// <summary>
-        /// Imposta il nuovo filtro.
+        /// Imposta il nuovo filtro ed elimina tutti i precedenti. Equivalente a <see cref="RimuoviTuttiFiltri"/> seguito da <see cref="ImpostaFiltro(Predicate{T})"/>.
         /// N.B. NON verranno riproposti i clienti già dati con <see cref="Prossimo"/>, per vedere tutti gli oggetti utilizzare <see cref="Reset"/>
         /// </summary>
         /// <param name="filtro">Nuovo filtro che verrà applicato agli oggetti</param>
@@ -99,7 +107,23 @@ namespace IngegneriaDelSoftware.Controller
             if (filtro == null)
                 throw new ArgumentNullException("Errore. Il filtro è nullo.");
 
-            this.Filtro = new Predicate<OggettoVisualizzato<T>>(c => filtro.Invoke(c.Oggetto));
+            this._filtri?.Clear();
+            AggiungiFiltro(filtro);
+        }
+
+        /// <summary>
+        /// Aggiunge il filtro all'elenco dei filtri utilizzati
+        /// </summary>
+        /// <param name="filtro">Filtro da applicare</param>
+        public void AggiungiFiltro(Predicate<T> filtro)
+        {
+            if (filtro == null)
+                throw new ArgumentNullException("Errore. Il filtro è nullo.");
+
+            if (this._filtri == null)
+                this._filtri = new List<Predicate<OggettoVisualizzato<T>>>();
+
+            this._filtri.Add(new Predicate<OggettoVisualizzato<T>>(t => filtro.Invoke(t.Oggetto)));
 
             var queryNonDevonoPiuEssereVisualizzati =
                 (from coppia in this.Lista
@@ -111,6 +135,16 @@ namespace IngegneriaDelSoftware.Controller
             {
                 coppia.Visualizzato = false;
             }
+
+        }
+
+        /// <summary>
+        /// Elimina tutti i filtri applicati
+        /// </summary>
+        public void RimuoviTuttiFiltri()
+        {
+            this._filtri?.Clear();
+            Reset();
         }
 
         /// <summary>
@@ -119,7 +153,17 @@ namespace IngegneriaDelSoftware.Controller
         /// <returns>Il <see cref="T"/>, <c>default(T)</c> se sono terminati</returns>
         public T Prossimo()
         {
-            foreach (OggettoVisualizzato<T> oggetto in this.Lista.FindAll(this.Filtro))
+            List<OggettoVisualizzato<T>> lista = this.Lista;
+
+            if (this._filtri != null)
+            {
+                foreach (Predicate<OggettoVisualizzato<T>> a in this._filtri)
+                {
+                    lista = lista.FindAll(a);
+                }
+            }
+
+            foreach (OggettoVisualizzato<T> oggetto in lista)
             {
                 if (!oggetto.Visualizzato)
                 {
@@ -141,5 +185,6 @@ namespace IngegneriaDelSoftware.Controller
             }
         }
         #endregion
+
     }
 }

@@ -34,6 +34,9 @@ namespace IngegneriaDelSoftware.Test
 
         public TestCollezioneClienti()
         {
+            Impostazioni.GetInstance().CalenadrioEsterno = Model.AdapterCalendario.EnumAdapterCalendario.NONE;
+            Impostazioni.GetInstance().TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+
             List<Telefono> telefoni = new List<Telefono>();
             List<Email> email = new List<Email>();
             List<Referente> referenti = new List<Referente>();

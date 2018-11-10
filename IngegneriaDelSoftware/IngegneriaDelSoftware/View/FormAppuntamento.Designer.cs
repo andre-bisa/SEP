@@ -54,31 +54,17 @@ namespace IngegneriaDelSoftware.View
             MaterialSkin.Controls.MaterialLabel materialLabel2;
             MaterialSkin.Controls.MaterialLabel materialLabel3;
             MaterialSkin.Controls.MaterialLabel materialLabel4;
-            System.Windows.Forms.Panel panelSchedeClienteGenerico;
-            System.Windows.Forms.Panel panelSearchBar;
-            System.Windows.Forms.Panel panelSearchBarIcon;
-            this.flowClienti = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.txtSearchBar = new MaterialSkin.Controls.MaterialSingleLineTextField();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.txtLuogoAppuntamento = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.dataAppuntamento = new System.Windows.Forms.DateTimePicker();
             this.txtNoteAppuntamento = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.btnAggiungi = new MaterialSkin.Controls.MaterialFloatingActionButton();
             this.materialDivider1 = new MaterialSkin.Controls.MaterialDivider();
             this.mainPanel = new System.Windows.Forms.Panel();
+            this.visualizzatoreClienti = new IngegneriaDelSoftware.View.Controlli.VisualizzatoreColonnaClienti();
             materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel3 = new MaterialSkin.Controls.MaterialLabel();
             materialLabel4 = new MaterialSkin.Controls.MaterialLabel();
-            panelSchedeClienteGenerico = new System.Windows.Forms.Panel();
-            panelSearchBar = new System.Windows.Forms.Panel();
-            panelSearchBarIcon = new System.Windows.Forms.Panel();
-            panelSchedeClienteGenerico.SuspendLayout();
-            this.panel1.SuspendLayout();
-            panelSearchBar.SuspendLayout();
-            panelSearchBarIcon.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.mainPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -137,83 +123,6 @@ namespace IngegneriaDelSoftware.View
             materialLabel4.Size = new System.Drawing.Size(42, 19);
             materialLabel4.TabIndex = 6;
             materialLabel4.Text = "Note";
-            // 
-            // panelSchedeClienteGenerico
-            // 
-            panelSchedeClienteGenerico.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            panelSchedeClienteGenerico.Controls.Add(this.flowClienti);
-            panelSchedeClienteGenerico.Controls.Add(this.panel1);
-            panelSchedeClienteGenerico.Location = new System.Drawing.Point(10, 3);
-            panelSchedeClienteGenerico.Name = "panelSchedeClienteGenerico";
-            panelSchedeClienteGenerico.Size = new System.Drawing.Size(230, 377);
-            panelSchedeClienteGenerico.TabIndex = 11;
-            // 
-            // flowClienti
-            // 
-            this.flowClienti.AutoScroll = true;
-            this.flowClienti.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowClienti.Location = new System.Drawing.Point(0, 36);
-            this.flowClienti.Name = "flowClienti";
-            this.flowClienti.Size = new System.Drawing.Size(230, 341);
-            this.flowClienti.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(panelSearchBar);
-            this.panel1.Controls.Add(panelSearchBarIcon);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(230, 36);
-            this.panel1.TabIndex = 0;
-            // 
-            // panelSearchBar
-            // 
-            panelSearchBar.Controls.Add(this.txtSearchBar);
-            panelSearchBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            panelSearchBar.Location = new System.Drawing.Point(0, 0);
-            panelSearchBar.Name = "panelSearchBar";
-            panelSearchBar.Size = new System.Drawing.Size(194, 36);
-            panelSearchBar.TabIndex = 1;
-            // 
-            // txtSearchBar
-            // 
-            this.txtSearchBar.Depth = 0;
-            this.txtSearchBar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtSearchBar.Hint = "Search";
-            this.txtSearchBar.Location = new System.Drawing.Point(0, 0);
-            this.txtSearchBar.MaxLength = 32767;
-            this.txtSearchBar.MouseState = MaterialSkin.MouseState.HOVER;
-            this.txtSearchBar.Name = "txtSearchBar";
-            this.txtSearchBar.PasswordChar = '\0';
-            this.txtSearchBar.SelectedText = "";
-            this.txtSearchBar.SelectionLength = 0;
-            this.txtSearchBar.SelectionStart = 0;
-            this.txtSearchBar.Size = new System.Drawing.Size(194, 23);
-            this.txtSearchBar.TabIndex = 0;
-            this.txtSearchBar.TabStop = false;
-            this.txtSearchBar.UseSystemPasswordChar = false;
-            // 
-            // panelSearchBarIcon
-            // 
-            panelSearchBarIcon.Controls.Add(this.pictureBox1);
-            panelSearchBarIcon.Dock = System.Windows.Forms.DockStyle.Right;
-            panelSearchBarIcon.Location = new System.Drawing.Point(194, 0);
-            panelSearchBarIcon.Name = "panelSearchBarIcon";
-            panelSearchBarIcon.Size = new System.Drawing.Size(36, 36);
-            panelSearchBarIcon.TabIndex = 0;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::IngegneriaDelSoftware.Properties.Resources.ic_search_black_24dp;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(36, 36);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // txtLuogoAppuntamento
             // 
@@ -293,7 +202,7 @@ namespace IngegneriaDelSoftware.View
             this.mainPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.mainPanel.Controls.Add(panelSchedeClienteGenerico);
+            this.mainPanel.Controls.Add(this.visualizzatoreClienti);
             this.mainPanel.Controls.Add(this.btnAggiungi);
             this.mainPanel.Controls.Add(this.materialDivider1);
             this.mainPanel.Controls.Add(this.txtNoteAppuntamento);
@@ -308,6 +217,15 @@ namespace IngegneriaDelSoftware.View
             this.mainPanel.Size = new System.Drawing.Size(641, 377);
             this.mainPanel.TabIndex = 12;
             // 
+            // visualizzatoreClienti
+            // 
+            this.visualizzatoreClienti.FiltroCliente = null;
+            this.visualizzatoreClienti.Location = new System.Drawing.Point(0, 0);
+            this.visualizzatoreClienti.Name = "visualizzatoreClienti";
+            this.visualizzatoreClienti.PannelloForm = this.mainPanel;
+            this.visualizzatoreClienti.Size = new System.Drawing.Size(240, 374);
+            this.visualizzatoreClienti.TabIndex = 11;
+            // 
             // FormAppuntamenti
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -318,11 +236,6 @@ namespace IngegneriaDelSoftware.View
             this.MinimumSize = new System.Drawing.Size(650, 450);
             this.Name = "FormAppuntamenti";
             this.Text = "Inserimento appuntamenti";
-            panelSchedeClienteGenerico.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            panelSearchBar.ResumeLayout(false);
-            panelSearchBarIcon.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.mainPanel.ResumeLayout(false);
             this.mainPanel.PerformLayout();
             this.ResumeLayout(false);
@@ -334,11 +247,8 @@ namespace IngegneriaDelSoftware.View
         private System.Windows.Forms.DateTimePicker dataAppuntamento;
         private MaterialSkin.Controls.MaterialSingleLineTextField txtNoteAppuntamento;
         private MaterialSkin.Controls.MaterialFloatingActionButton btnAggiungi;
-        private System.Windows.Forms.FlowLayoutPanel flowClienti;
-        private System.Windows.Forms.Panel panel1;
-        private MaterialSkin.Controls.MaterialSingleLineTextField txtSearchBar;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private MaterialSkin.Controls.MaterialDivider materialDivider1;
         private System.Windows.Forms.Panel mainPanel;
+        private Controlli.VisualizzatoreColonnaClienti visualizzatoreClienti;
     }
 }

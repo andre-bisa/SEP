@@ -22,7 +22,7 @@
 
 create table APPUNTAMENTICON (
      IDUTENTE int not null,
-     IDAPPUNTAMENTO int not null,
+     IDAPPUNTAMENTO varchar(50) not null,
      IDINTERMEDIARIO varchar(10) not null,
      IDCLIENTE varchar(10) not null,
      IDESTERNO varchar(10) not null,
@@ -30,7 +30,7 @@ create table APPUNTAMENTICON (
 
 create table APPUNTAMENTO (
      IDUTENTE int not null,
-     IDAPPUNTAMENTO int not null,
+     IDAPPUNTAMENTO varchar(50) not null,
      DATA date not null,
      ORA time not null,
      LUOGO varchar(100) not null,

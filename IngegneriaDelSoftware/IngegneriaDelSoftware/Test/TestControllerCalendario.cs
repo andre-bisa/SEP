@@ -36,6 +36,7 @@ namespace IngegneriaDelSoftware.Test
         public TestControllerCalendario()
         {
             Impostazioni impostazioni = Impostazioni.GetInstance();
+            impostazioni.CalenadrioEsterno = Model.AdapterCalendario.EnumAdapterCalendario.NONE;
             impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
 
             this._controllerCalendario = new ControllerCalendario();
@@ -45,7 +46,7 @@ namespace IngegneriaDelSoftware.Test
         public void TestControllerAggiungiAppuntamento()
         {
             Persona p = new PersonaGiuridica("cf", "indirizzo", "ragione sociale", "sede legale", "000011111");
-            DatiAppuntamento d = new DatiAppuntamento(1, p, "note a caso", "Ovunque", DateTime.Now);
+            DatiAppuntamento d = new DatiAppuntamento("1", p, "note a caso", "Ovunque", DateTime.Now);
 
             Appuntamento a = new Appuntamento(d);
 
@@ -58,7 +59,7 @@ namespace IngegneriaDelSoftware.Test
         public void TestControllerRimuoviAppuntamento()
         {
             Persona p = new PersonaGiuridica("cf", "indirizzo", "ragione sociale", "sede legale", "000011111");
-            DatiAppuntamento d = new DatiAppuntamento(1, p, "note a caso", "Ovunque", DateTime.Now);
+            DatiAppuntamento d = new DatiAppuntamento("1", p, "note a caso", "Ovunque", DateTime.Now);
 
             Appuntamento a = new Appuntamento(d);
 
@@ -72,9 +73,9 @@ namespace IngegneriaDelSoftware.Test
         public void TestControllerGetAppuntamentiDaA()
         {
             Persona p = new PersonaGiuridica("cf", "indirizzo", "ragione sociale", "sede legale", "000011111");
-            DatiAppuntamento d1 = new DatiAppuntamento(1, p, "note a caso", "Ovunque", DateTime.Now);
-            DatiAppuntamento d2 = new DatiAppuntamento(2, p, "note a caso", "Ovunque", new DateTime(1999, 12, 31, 23, 59, 59));
-            DatiAppuntamento d3 = new DatiAppuntamento(3, p, "note a caso", "Ovunque", new DateTime(9999, 12, 31, 23, 59, 59));
+            DatiAppuntamento d1 = new DatiAppuntamento("1", p, "note a caso", "Ovunque", DateTime.Now);
+            DatiAppuntamento d2 = new DatiAppuntamento("2", p, "note a caso", "Ovunque", new DateTime(1999, 12, 31, 23, 59, 59));
+            DatiAppuntamento d3 = new DatiAppuntamento("3", p, "note a caso", "Ovunque", new DateTime(9999, 12, 31, 23, 59, 59));
 
             Appuntamento a1 = new Appuntamento(d1);
             Appuntamento a2 = new Appuntamento(d2);

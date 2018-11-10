@@ -28,6 +28,7 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Runtime.InteropServices;
 using IngegneriaDelSoftware.View;
+using IngegneriaDelSoftware.Model.AdapterCalendario;
 using System.Reflection;
 
 namespace IngegneriaDelSoftware.Model
@@ -51,63 +52,6 @@ namespace IngegneriaDelSoftware.Model
             }
         }
 
-        private void CaricaImpostazioniDaIni()
-        {
-            IniFile ini = new IniFile(NOME_FILE_INI);
-            
-            try
-            { 
-                foreach (PropertyInfo prop in this.GetType().GetProperties())
-                {
-                    var attributo = (Persistente)prop.GetCustomAttribute(typeof(Persistente), true);
-                    if (attributo != null)
-                    {
-                        string chiave = attributo.Chiave ?? prop.Name;
-                        string sezione = attributo.Sezione; // null è accettato
-
-                        string valoreStringa = ini.Leggi(chiave, sezione);
-
-                        if (attributo.Cifrato)
-                            valoreStringa = Decrypt(valoreStringa, PASSWORD_INI);
-
-                        object valore = valoreStringa;
-
-                        if(attributo.Tipo == typeof(int))
-                            valore = Int32.Parse(valoreStringa);
-                        else if(attributo.Tipo == typeof(EnumTipoPersistenza))
-                            valore = Enum.Parse(typeof(EnumTipoPersistenza), valoreStringa);
-
-                        prop.SetValue(this, valore);
-                    }
-                }
-            } catch (Exception)
-            {
-                FormConfim.Show("Errore lettura file impostazioni", "Il file di impostazioni non è valido, verrà sovrascritto con il file di default.", System.Windows.Forms.MessageBoxButtons.OK);
-                File.Delete(NOME_FILE_INI);
-                CaricaImpostazioniDefault();
-                SalvaImpostazioni();
-            }
-        }
-
-        private void CaricaImpostazioniDefault()
-        {
-            // MySQL
-            this.IndirizzoServerMySQL = "andre-bisa.ddns.net";
-            this.UtenteServerMySQL = "SEP";
-            this.PasswordServerMySQL = "password";
-
-            // Email
-            this.Email = "andreabisacchi@gmail.com";
-            this.PasswordEmail = "";
-            this.PortaEmail = 587;
-            this.HostEmail = "smtp.gmail.com";
-
-            // Script fattura
-            this.FileScriptFattura = "fattura.sep";
-
-            // Persistenza
-            this.TipoPersistenza = EnumTipoPersistenza.MySQL;
-        }
         #endregion
 
         #region Metodi Encrypt/Decrypt
@@ -233,11 +177,6 @@ namespace IngegneriaDelSoftware.Model
         public string PasswordServerMySQL { get; set; }
         #endregion
 
-        #region Dati pubblici
-        public int IDUtente { get; internal set; }
-        public Utente UtenteLoggato { get; internal set; } = null;
-        #endregion
-
         #region Email
         [Persistente (Chiave = "Email", Sezione = "Email", Cifrato = false)]
         public string Email { get; private set; }
@@ -252,6 +191,14 @@ namespace IngegneriaDelSoftware.Model
         #region Script fattura
         [Persistente(Chiave = "File", Sezione = "Script", Cifrato = false)]
         public string FileScriptFattura { get; set; }
+        #endregion
+
+        #region EstensioniCalendario
+        [Persistente(Chiave = "CalendarioEsterno", Sezione = "AdapterEsterni", Cifrato = false, Tipo = typeof(EnumAdapterCalendario))]
+        public EnumAdapterCalendario CalenadrioEsterno { get; set; }
+
+        [Persistente(Chiave = "FileSalvataggioGoogleCalendar", Sezione = "AdapterEsterni", Cifrato = false)]
+        public string FileSalvataggioTokenGoogleCalendar { get; set; }
         #endregion
 
         #region Funzioni salvataggio impostazioni
@@ -277,7 +224,80 @@ namespace IngegneriaDelSoftware.Model
                 }
             }
         }
+
+        private void CaricaImpostazioniDaIni()
+        {
+            IniFile ini = new IniFile(NOME_FILE_INI);
+
+            try
+            {
+                foreach (PropertyInfo prop in this.GetType().GetProperties())
+                {
+                    var attributo = (Persistente)prop.GetCustomAttribute(typeof(Persistente), true);
+                    if (attributo != null)
+                    {
+                        string chiave = attributo.Chiave ?? prop.Name;
+                        string sezione = attributo.Sezione; // null è accettato
+
+                        string valoreStringa = ini.Leggi(chiave, sezione);
+
+                        if (attributo.Cifrato)
+                            valoreStringa = Decrypt(valoreStringa, PASSWORD_INI);
+
+                        object valore = valoreStringa;
+
+                        if (attributo.Tipo == typeof(int))
+                            valore = Int32.Parse(valoreStringa);
+                        else if (attributo.Tipo == typeof(EnumTipoPersistenza))
+                            valore = Enum.Parse(typeof(EnumTipoPersistenza), valoreStringa);
+                        else if (attributo.Tipo == typeof(EnumAdapterCalendario))
+                            valore = Enum.Parse(typeof(EnumAdapterCalendario), valoreStringa);
+
+                        prop.SetValue(this, valore);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                FormConfim.Show("Errore lettura file impostazioni", "Il file di impostazioni non è valido, verrà sovrascritto con il file di default.", System.Windows.Forms.MessageBoxButtons.OK);
+                File.Delete(NOME_FILE_INI);
+                CaricaImpostazioniDefault();
+                SalvaImpostazioni();
+            }
+        }
         #endregion
+
+        #region Default
+        private void CaricaImpostazioniDefault()
+        {
+            // MySQL
+            this.IndirizzoServerMySQL = "andre-bisa.ddns.net";
+            this.UtenteServerMySQL = "SEP";
+            this.PasswordServerMySQL = "password";
+
+            // Email
+            this.Email = "";
+            this.PasswordEmail = "";
+            this.PortaEmail = 587;
+            this.HostEmail = "smtp.gmail.com";
+
+            // Script fattura
+            this.FileScriptFattura = "fattura.sep";
+
+            // Persistenza
+            this.TipoPersistenza = EnumTipoPersistenza.MySQL;
+
+            // AdapterEsterni
+            this.CalenadrioEsterno = EnumAdapterCalendario.NONE;
+            this.FileSalvataggioTokenGoogleCalendar = "token";
+        }
+        #endregion
+
+        #region Dati pubblici
+        public int IDUtente { get; internal set; }
+        public Utente UtenteLoggato { get; internal set; } = null;
+        #endregion
+
     }
 
     [AttributeUsage(AttributeTargets.Property, Inherited = false)]

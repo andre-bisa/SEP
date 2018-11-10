@@ -36,6 +36,7 @@ namespace IngegneriaDelSoftware.Test {
         public void TestLoad() {
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
+            impostazioni.CalenadrioEsterno = Model.AdapterCalendario.EnumAdapterCalendario.NONE;
             impostazioni.FileScriptFattura = "Test";
 
             ScriptProvider.create("Test", (""

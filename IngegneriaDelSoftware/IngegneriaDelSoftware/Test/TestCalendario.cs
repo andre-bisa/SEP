@@ -35,16 +35,17 @@ namespace IngegneriaDelSoftware.Test
 
         public TestCalendario()
         {
+            Impostazioni.GetInstance().CalenadrioEsterno = Model.AdapterCalendario.EnumAdapterCalendario.NONE;
             Impostazioni.GetInstance().TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
 
             Persona p1 = new PersonaFisica("s", "Via x", "Mario", "Rossi");
             Persona p2 = new PersonaFisica("s", "Via x", "Mario", "Verdi");
             Persona p3 = new PersonaGiuridica("s", "Via x", "REgione Sociale", "Sede Illegale", "2");
             Persona p4 = new PersonaFisica("s", "Via x", "Filippo", "Bianchi");
-            DatiAppuntamento datiAppuntamento1 = new DatiAppuntamento(1, p1, "Riunione", "Bologna", DateTime.Now);
-            DatiAppuntamento datiAppuntamento2 = new DatiAppuntamento(2, p2, "Riunione", "Milano", new DateTime(2018, 4, 30, 12, 0, 0));
-            DatiAppuntamento datiAppuntamento3 = new DatiAppuntamento(3, p3, "Riunione", "Roma", new DateTime(2100, 5, 30, 12, 0, 0));
-            DatiAppuntamento datiAppuntamento4 = new DatiAppuntamento(4, p4, "Riunione", "Napoli", new DateTime(2018, 3, 21, 12, 0, 0));
+            DatiAppuntamento datiAppuntamento1 = new DatiAppuntamento("1", p1, "Riunione", "Bologna", DateTime.Now);
+            DatiAppuntamento datiAppuntamento2 = new DatiAppuntamento("2", p2, "Riunione", "Milano", new DateTime(2018, 4, 30, 12, 0, 0));
+            DatiAppuntamento datiAppuntamento3 = new DatiAppuntamento("3", p3, "Riunione", "Roma", new DateTime(2100, 5, 30, 12, 0, 0));
+            DatiAppuntamento datiAppuntamento4 = new DatiAppuntamento("4", p4, "Riunione", "Napoli", new DateTime(2018, 3, 21, 12, 0, 0));
             a1 = new Appuntamento(datiAppuntamento1);
             a2 = new Appuntamento(datiAppuntamento2);
             a3 = new Appuntamento(datiAppuntamento3);
@@ -64,7 +65,7 @@ namespace IngegneriaDelSoftware.Test
         public void TestRimuoviCalendario()
         {
             Persona p2 = new PersonaFisica("s", "Via x", "Mario", "Verdi");
-            DatiAppuntamento datiAppuntamento2 = new DatiAppuntamento(2, p2, "Riunione", "Milano", new DateTime(2018, 4, 30, 12, 0, 0));
+            DatiAppuntamento datiAppuntamento2 = new DatiAppuntamento("2", p2, "Riunione", "Milano", new DateTime(2018, 4, 30, 12, 0, 0));
             Appuntamento a2 = new Appuntamento(datiAppuntamento2);
 
             Assert.AreEqual(true, _calendario.Remove(a2));
@@ -74,7 +75,7 @@ namespace IngegneriaDelSoftware.Test
         public void TestAggiungiCalendario()
         {
             Persona p = new PersonaFisica("s", "Via x", "Mario", "Rossi");
-            DatiAppuntamento datiAppuntamento2 = new DatiAppuntamento(1, p, "Chiacchierare", "Bologna", new DateTime(2018, 4, 30, 12, 0, 0));
+            DatiAppuntamento datiAppuntamento2 = new DatiAppuntamento("1", p, "Chiacchierare", "Bologna", new DateTime(2018, 4, 30, 12, 0, 0));
             Appuntamento a2 = new Appuntamento(datiAppuntamento2);
 
             this._calendario.Add(a2);
