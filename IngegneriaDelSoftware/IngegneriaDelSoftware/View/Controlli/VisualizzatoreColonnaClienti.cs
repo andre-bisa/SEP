@@ -27,10 +27,27 @@ namespace IngegneriaDelSoftware.View.Controlli
         /// </summary>
         public Panel PannelloForm { get; set; } = null;
 
+        private Predicate<Cliente> _filtroCliente = null;
         /// <summary>
         /// Ulteriore filtro da applicare alla visualizzazione dei clienti
         /// </summary>
-        public Predicate<Cliente> FiltroCliente { get; set; } = null;
+        public Predicate<Cliente> FiltroCliente
+        {
+            get
+            {
+                return this._filtroCliente;
+            }
+            set
+            {
+                if (value == null)
+                    return;
+                if (this._filtroCliente == null)
+                {
+                    this._filtroCliente = value;
+                    this._visualizzatore.AggiungiFiltro(value);
+                }
+            }
+        }
 
         /// <summary>
         /// Restituisce l'elenco dei clienti selezionati
@@ -104,12 +121,7 @@ namespace IngegneriaDelSoftware.View.Controlli
         /// </summary>
         private void CaricaSchedaCliente()
         {
-            Cliente clienteDaMostrare;
-
-            do // Non mostro i clienti che non hanno indirizzi Email
-            {
-                clienteDaMostrare = _visualizzatore.ProssimoCliente();
-            } while (clienteDaMostrare != null && !((this.FiltroCliente?.Invoke(clienteDaMostrare)) ?? true));
+            Cliente clienteDaMostrare = _visualizzatore.ProssimoCliente();
 
             if (clienteDaMostrare == null)
                 return;
