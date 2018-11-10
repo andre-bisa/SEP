@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IngegneriaDelSoftware.Model.AdapterGoogleCalendar
+namespace IngegneriaDelSoftware.Model.AdapterCalendario
 {
     public interface IAdapterCalendarioEsterno
     {

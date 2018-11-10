@@ -89,6 +89,7 @@
     <Compile Include="Controller\ControllerHome.cs" />
     <Compile Include="Login\ControllerLogin.cs" />
     <Compile Include="Model\AdapterCalendario\AdapterGoogleCalendar.cs" />
+    <Compile Include="Model\AdapterCalendario\EnumAdapterCalendario.cs" />
     <Compile Include="Model\AdapterCalendario\IAdapterCalendarioEsterno.cs" />
     <Compile Include="Model\ArgsEvent\ArgsAppuntamento.cs" />
     <Compile Include="Model\ArgsEvent\ArgsEmail.cs" />

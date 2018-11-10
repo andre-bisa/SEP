@@ -37,7 +37,7 @@ namespace IngegneriaDelSoftware.Test
         {
             Impostazioni impostazioni = Impostazioni.GetInstance();
             impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
-            Impostazioni.GetInstance().ModalitaTest = true;
+            impostazioni.CalenadrioEsterno = Model.AdapterCalendario.EnumAdapterCalendario.NONE;
 
             this._controllerClienti = ControllerClienti.GetInstance();
         }

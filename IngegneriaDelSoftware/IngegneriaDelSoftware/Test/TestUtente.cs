@@ -39,7 +39,8 @@ namespace IngegneriaDelSoftware.Test
 
         public TestUtente()
         {
-            Impostazioni.GetInstance().ModalitaTest = true;
+            Impostazioni.GetInstance().CalenadrioEsterno = Model.AdapterCalendario.EnumAdapterCalendario.NONE;
+            Impostazioni.GetInstance().TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
 
             List<Telefono> t = new List<Telefono>();
             t.Add(new Telefono("051051051051", "Mio"));

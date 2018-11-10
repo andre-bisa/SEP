@@ -35,8 +35,8 @@ namespace IngegneriaDelSoftware.Test
 
         public TestCalendario()
         {
+            Impostazioni.GetInstance().CalenadrioEsterno = Model.AdapterCalendario.EnumAdapterCalendario.NONE;
             Impostazioni.GetInstance().TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
-            Impostazioni.GetInstance().ModalitaTest = true;
 
             Persona p1 = new PersonaFisica("s", "Via x", "Mario", "Rossi");
             Persona p2 = new PersonaFisica("s", "Via x", "Mario", "Verdi");

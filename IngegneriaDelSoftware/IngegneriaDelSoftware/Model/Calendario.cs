@@ -38,7 +38,7 @@ namespace IngegneriaDelSoftware.Model
         public event EventHandler<ArgsAppuntamento> OnRimozione;
         public event EventHandler<ArgsModifica<Appuntamento>> OnModifica;
 
-        private AdapterCalendario.AdapterGoogleCalendar adapterCalendario = null;
+        private readonly IAdapterCalendarioEsterno adapterCalendario = null;
 
         /// <summary>
         /// Costruttore di Calendario
@@ -64,11 +64,7 @@ namespace IngegneriaDelSoftware.Model
                 throw new ExceptionPersistenza();
             }
 
-            // FIXME questa è una merdata, da fixare!!
-            if (!Impostazioni.GetInstance().ModalitaTest)
-            {
-                adapterCalendario = new AdapterCalendario.AdapterGoogleCalendar();
-            }
+            adapterCalendario = AdapterCalendarioStaticMethods.GetInstanceDaImpostazioni();
 
         }
 

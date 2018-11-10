@@ -1,4 +1,4 @@
-﻿using IngegneriaDelSoftware.Model.AdapterGoogleCalendar;
+﻿using IngegneriaDelSoftware.Model.AdapterCalendario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,17 +20,14 @@ namespace IngegneriaDelSoftware.Model.AdapterCalendario
         private static readonly string[] Scopes = { CalendarService.Scope.CalendarReadonly };
         private static readonly string ApplicationName = "Google Calendar API .NET SEP";
 
-        private CalendarService Servizio
-        {
-            get;
-        }
+        private CalendarService Servizio { get; }
 
-        public AdapterGoogleCalendar()
+        public AdapterGoogleCalendar(string nomeFileSalvataggioToken)
         {
             UserCredential credential;
             using (FileStream stream = new FileStream("credentials.json", FileMode.Open, FileAccess.Read))
             {
-                string credPath = "token.json";
+                string credPath = nomeFileSalvataggioToken + ".json";
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(GoogleClientSecrets.Load(stream).Secrets, Scopes, "user", CancellationToken.None, new FileDataStore(credPath, true)).Result;
             }
 

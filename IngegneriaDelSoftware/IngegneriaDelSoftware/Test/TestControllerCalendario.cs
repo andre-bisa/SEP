@@ -36,7 +36,7 @@ namespace IngegneriaDelSoftware.Test
         public TestControllerCalendario()
         {
             Impostazioni impostazioni = Impostazioni.GetInstance();
-            impostazioni.ModalitaTest = true;
+            impostazioni.CalenadrioEsterno = Model.AdapterCalendario.EnumAdapterCalendario.NONE;
             impostazioni.TipoPersistenza = Persistenza.EnumTipoPersistenza.NONE;
 
             this._controllerCalendario = new ControllerCalendario();
