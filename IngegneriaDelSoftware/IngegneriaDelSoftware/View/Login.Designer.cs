@@ -57,6 +57,32 @@ namespace IngegneriaDelSoftware
             materialLabelUsername = new MaterialSkin.Controls.MaterialLabel();
             this.SuspendLayout();
             // 
+            // materialLabelPassword
+            // 
+            materialLabelPassword.Depth = 0;
+            materialLabelPassword.EnableAnimations = false;
+            materialLabelPassword.Font = new System.Drawing.Font("Roboto", 11F);
+            materialLabelPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            materialLabelPassword.Image = global::IngegneriaDelSoftware.Properties.Resources.ic_fingerprint_black_24dp;
+            materialLabelPassword.Location = new System.Drawing.Point(27, 133);
+            materialLabelPassword.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabelPassword.Name = "materialLabelPassword";
+            materialLabelPassword.Size = new System.Drawing.Size(36, 36);
+            materialLabelPassword.TabIndex = 100;
+            // 
+            // materialLabelUsername
+            // 
+            materialLabelUsername.Depth = 0;
+            materialLabelUsername.EnableAnimations = false;
+            materialLabelUsername.Font = new System.Drawing.Font("Roboto", 11F);
+            materialLabelUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            materialLabelUsername.Image = global::IngegneriaDelSoftware.Properties.Resources.ic_account_box_black_24dp;
+            materialLabelUsername.Location = new System.Drawing.Point(27, 81);
+            materialLabelUsername.MouseState = MaterialSkin.MouseState.HOVER;
+            materialLabelUsername.Name = "materialLabelUsername";
+            materialLabelUsername.Size = new System.Drawing.Size(36, 36);
+            materialLabelUsername.TabIndex = 100;
+            // 
             // BtnLogin
             // 
             this.BtnLogin.AutoSize = true;
@@ -93,7 +119,8 @@ namespace IngegneriaDelSoftware
             // materialLabelSettings
             // 
             this.materialLabelSettings.Depth = 0;
-            this.materialLabelSettings.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.materialLabelSettings.EnableAnimations = true;
+            this.materialLabelSettings.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabelSettings.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialLabelSettings.Image = global::IngegneriaDelSoftware.Properties.Resources.ic_settings_black_24dp;
             this.materialLabelSettings.Location = new System.Drawing.Point(278, 193);
@@ -103,32 +130,9 @@ namespace IngegneriaDelSoftware
             this.materialLabelSettings.TabIndex = 100;
             this.materialLabelSettings.Click += new System.EventHandler(this.materialLabelSettings_Click);
             // 
-            // materialLabelPassword
-            // 
-            materialLabelPassword.Depth = 0;
-            materialLabelPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            materialLabelPassword.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            materialLabelPassword.Image = global::IngegneriaDelSoftware.Properties.Resources.ic_fingerprint_black_24dp;
-            materialLabelPassword.Location = new System.Drawing.Point(27, 133);
-            materialLabelPassword.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabelPassword.Name = "materialLabelPassword";
-            materialLabelPassword.Size = new System.Drawing.Size(36, 36);
-            materialLabelPassword.TabIndex = 100;
-            // 
-            // materialLabelUsername
-            // 
-            materialLabelUsername.Depth = 0;
-            materialLabelUsername.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            materialLabelUsername.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            materialLabelUsername.Image = global::IngegneriaDelSoftware.Properties.Resources.ic_account_box_black_24dp;
-            materialLabelUsername.Location = new System.Drawing.Point(27, 81);
-            materialLabelUsername.MouseState = MaterialSkin.MouseState.HOVER;
-            materialLabelUsername.Name = "materialLabelUsername";
-            materialLabelUsername.Size = new System.Drawing.Size(36, 36);
-            materialLabelUsername.TabIndex = 100;
-            // 
             // txtPassword
             // 
+            this.txtPassword.AbilitaVisionePassword = true;
             this.txtPassword.Location = new System.Drawing.Point(82, 145);
             this.txtPassword.Margin = new System.Windows.Forms.Padding(0);
             this.txtPassword.MaximumSize = new System.Drawing.Size(1000, 23);
@@ -152,6 +156,7 @@ namespace IngegneriaDelSoftware
             this.MaximizeBox = false;
             this.Name = "Login";
             this.Sizable = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.TopMost = true;
             this.ResumeLayout(false);

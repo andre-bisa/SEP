@@ -159,6 +159,7 @@ FormClienti
             // 
             lblIconSearchBar.Depth = 0;
             lblIconSearchBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            lblIconSearchBar.EnableAnimations = true;
             lblIconSearchBar.Font = new System.Drawing.Font("Roboto", 11F);
             lblIconSearchBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             lblIconSearchBar.Image = global::IngegneriaDelSoftware.Properties.Resources.baseline_search_black_18dp;
@@ -211,6 +212,7 @@ FormClienti
             // 
             this.lblElimina.Depth = 0;
             this.lblElimina.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblElimina.EnableAnimations = true;
             this.lblElimina.Enabled = false;
             this.lblElimina.Font = new System.Drawing.Font("Roboto", 11F);
             this.lblElimina.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
@@ -227,6 +229,7 @@ FormClienti
             // 
             this.lblOrdina.Depth = 0;
             this.lblOrdina.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblOrdina.EnableAnimations = true;
             this.lblOrdina.Font = new System.Drawing.Font("Roboto", 11F);
             this.lblOrdina.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblOrdina.Image = global::IngegneriaDelSoftware.Properties.Resources.baseline_filter_list_black_18dp;

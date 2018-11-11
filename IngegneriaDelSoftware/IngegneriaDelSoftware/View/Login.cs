@@ -39,6 +39,11 @@ namespace IngegneriaDelSoftware
         public Login()
         {
             InitializeComponent();
+            materialLabelSettings.MouseEnter += (sender, args) =>
+            {
+                
+            };
+
             this.DialogResult = DialogResult.Cancel;
             MaterialSkinManager.Instance.AddFormToManage(this);
 

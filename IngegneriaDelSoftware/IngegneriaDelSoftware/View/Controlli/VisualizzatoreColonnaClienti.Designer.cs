@@ -62,6 +62,7 @@
             this.flowClienti.AutoScroll = true;
             this.flowClienti.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowClienti.Location = new System.Drawing.Point(0, 36);
+            this.flowClienti.Margin = new System.Windows.Forms.Padding(0);
             this.flowClienti.Name = "flowClienti";
             this.flowClienti.Size = new System.Drawing.Size(230, 264);
             this.flowClienti.TabIndex = 1;
