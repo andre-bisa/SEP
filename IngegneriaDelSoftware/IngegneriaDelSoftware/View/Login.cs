@@ -76,15 +76,6 @@ namespace IngegneriaDelSoftware
             }
         }
 
-        private void pictureBoxVisibilityPassword_Click(object sender, EventArgs e)
-        {
-            this.txtPassword.UseSystemPasswordChar = !this.txtPassword.UseSystemPasswordChar;
-            if (this.txtPassword.UseSystemPasswordChar)
-                this.pictureBoxVisibilityPassword.BackgroundImage = Properties.Resources.ic_visibility_black_18dp;
-            else
-                this.pictureBoxVisibilityPassword.BackgroundImage = Properties.Resources.ic_visibility_off_black_18dp;
-        }
-
         private void materialLabelSettings_Click(object sender, EventArgs e)
         {
             // Apertura delle impostazioni
