@@ -248,10 +248,8 @@ namespace IngegneriaDelSoftware.Model
 
                         if (attributo.Tipo == typeof(int))
                             valore = Int32.Parse(valoreStringa);
-                        else if (attributo.Tipo == typeof(EnumTipoPersistenza))
-                            valore = Enum.Parse(typeof(EnumTipoPersistenza), valoreStringa);
-                        else if (attributo.Tipo == typeof(EnumAdapterCalendario))
-                            valore = Enum.Parse(typeof(EnumAdapterCalendario), valoreStringa);
+                        else if (attributo.Tipo.IsEnum)
+                            valore = Enum.Parse(attributo.Tipo, valoreStringa);
 
                         prop.SetValue(this, valore);
                     }
