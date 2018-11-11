@@ -46,7 +46,9 @@ namespace IngegneriaDelSoftware
 
             Impostazioni impostazioni = Impostazioni.GetInstance();
 
-            // Set del formato per varii motivi: 1) il programma è strutturato per un utenza italiana 2) è il formato del linguaggio di scripting;
+            // Set del formato per vari motivi:
+            //  1) il programma è strutturato per un utenza italiana
+            //  2) è il formato del linguaggio di scripting;
             System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("it-IT");
 
             //impostazioni.TipoPersistenza = EnumTipoPersistenza.MySQL;
