@@ -33,14 +33,42 @@ namespace IngegneriaDelSoftware.View.Controlli
 
         public new String Text => txtPassword.Text;
 
+        private bool _abilitaVisionePassword = true;
+        /// <summary>
+        /// Consente di abilitare la visualizzazione in chiaro della password tramite apposito bottone (immagine)
+        /// </summary>
+        public bool AbilitaVisionePassword
+        {
+            get
+            {
+                return this._abilitaVisionePassword;
+            }
+            set
+            {
+                this._abilitaVisionePassword = value;
+                this.pictureBoxVisibilityPassword.Visible = AbilitaVisionePassword;
+                if (!this._abilitaVisionePassword)
+                { // se disabilito la visione
+                    this.txtPassword.UseSystemPasswordChar = true; // Rimetto gli asterischi
+                    this.pictureBoxVisibilityPassword.BackgroundImage = Properties.Resources.ic_visibility_black_18dp; // Rimetto l'immagine giusta
+                }
+
+            }
+        }
+
         public InputPassword()
         {
             InitializeComponent();
             txtPassword.KeyDown += (s, e) => this.OnKeyDown(e);
+
+            AbilitaVisionePassword = true;
         }
 
         private void pictureBoxVisibilityPassword_Click(object sender, EventArgs e)
         {
+            if (!AbilitaVisionePassword)
+                return;
+
             this.txtPassword.UseSystemPasswordChar = !this.txtPassword.UseSystemPasswordChar;
             if (this.txtPassword.UseSystemPasswordChar)
                 this.pictureBoxVisibilityPassword.BackgroundImage = Properties.Resources.ic_visibility_black_18dp;
