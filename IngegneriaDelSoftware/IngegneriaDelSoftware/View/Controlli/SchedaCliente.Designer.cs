@@ -74,6 +74,7 @@ namespace IngegneriaDelSoftware.View.Controlli
             // 
             this.lblDenominazione.AutoEllipsis = true;
             this.lblDenominazione.Depth = 0;
+            this.lblDenominazione.EnableAnimations = false;
             this.lblDenominazione.Font = new System.Drawing.Font("Roboto", 11F);
             this.lblDenominazione.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblDenominazione.Location = new System.Drawing.Point(3, 6);
@@ -88,6 +89,7 @@ namespace IngegneriaDelSoftware.View.Controlli
             // 
             this.lblIndirizzo.AutoEllipsis = true;
             this.lblIndirizzo.Depth = 0;
+            this.lblIndirizzo.EnableAnimations = false;
             this.lblIndirizzo.Font = new System.Drawing.Font("Roboto", 11F);
             this.lblIndirizzo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblIndirizzo.Location = new System.Drawing.Point(-4, 31);
@@ -102,6 +104,7 @@ namespace IngegneriaDelSoftware.View.Controlli
             // 
             this.lblEmail.AutoEllipsis = true;
             this.lblEmail.Depth = 0;
+            this.lblEmail.EnableAnimations = false;
             this.lblEmail.Font = new System.Drawing.Font("Roboto", 11F);
             this.lblEmail.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.lblEmail.Location = new System.Drawing.Point(3, 90);

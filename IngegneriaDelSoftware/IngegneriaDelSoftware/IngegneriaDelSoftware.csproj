@@ -195,6 +195,12 @@
     <Compile Include="View\ClienteMostrato.cs" />
     <Compile Include="View\Controlli\ArgsPannelloCliente.cs" />
     <Compile Include="View\Controlli\ArgsSchedaCliente.cs" />
+    <Compile Include="View\Controlli\InputPassword.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="View\Controlli\InputPassword.Designer.cs">
+      <DependentUpon>InputPassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\Controlli\VisualizzatoreColonnaClienti.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -312,6 +318,9 @@
     <Compile Include="View\VisualizzaCalendario.Designer.cs">
       <DependentUpon>VisualizzaCalendario.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\Controlli\InputPassword.resx">
+      <DependentUpon>InputPassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\Controlli\VisualizzatoreColonnaClienti.resx">
       <DependentUpon>VisualizzatoreColonnaClienti.cs</DependentUpon>
     </EmbeddedResource>

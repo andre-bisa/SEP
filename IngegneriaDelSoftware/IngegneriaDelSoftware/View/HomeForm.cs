@@ -81,7 +81,8 @@ namespace IngegneriaDelSoftware.View {
             this._controller.MostraVendite();
         }
 
-        private void syncBtn_Click(object sender, EventArgs e) {
+        private void materialLabel1_Click(object sender, EventArgs e)
+        {
             this._controller.MostraImpostazioni();
         }
     }

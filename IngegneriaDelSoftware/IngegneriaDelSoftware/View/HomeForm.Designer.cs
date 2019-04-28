@@ -52,12 +52,12 @@ namespace IngegneriaDelSoftware.View {
             this.emailBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.clientiBtn = new MaterialSkin.Controls.MaterialFlatButton();
             this.appuntamentoBtn = new MaterialSkin.Controls.MaterialFlatButton();
-            this.syncBtn = new MaterialSkin.Controls.MaterialFloatingActionButton();
             this.AppunamentiList = new MaterialSkin.Controls.MaterialListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.labelImpostazioni = new MaterialSkin.Controls.MaterialLabel();
             this.backGroundPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -98,7 +98,6 @@ namespace IngegneriaDelSoftware.View {
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.syncBtn);
             this.splitContainer1.Panel2.Controls.Add(this.AppunamentiList);
             this.splitContainer1.Panel2MinSize = 50;
             this.splitContainer1.Size = new System.Drawing.Size(688, 369);
@@ -236,23 +235,6 @@ namespace IngegneriaDelSoftware.View {
             this.appuntamentoBtn.UseVisualStyleBackColor = true;
             this.appuntamentoBtn.Click += new System.EventHandler(this.appuntamentoBtn_Click);
             // 
-            // syncBtn
-            // 
-            this.syncBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.syncBtn.AnimateIcon = false;
-            this.syncBtn.AnimateShowHideButton = false;
-            this.syncBtn.Depth = 0;
-            this.syncBtn.Icon = global::IngegneriaDelSoftware.Properties.Resources.ic_settings_black_48dp;
-            this.syncBtn.Location = new System.Drawing.Point(414, 297);
-            this.syncBtn.Mini = false;
-            this.syncBtn.MouseState = MaterialSkin.MouseState.HOVER;
-            this.syncBtn.Name = "syncBtn";
-            this.syncBtn.Size = new System.Drawing.Size(56, 56);
-            this.syncBtn.TabIndex = 5;
-            this.syncBtn.Text = "materialFloatingActionButton1";
-            this.syncBtn.UseVisualStyleBackColor = true;
-            this.syncBtn.Click += new System.EventHandler(this.syncBtn_Click);
-            // 
             // AppunamentiList
             // 
             this.AppunamentiList.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -295,13 +277,31 @@ namespace IngegneriaDelSoftware.View {
             // 
             this.columnHeader4.Text = "Con chi";
             // 
+            // labelImpostazioni
+            // 
+            this.labelImpostazioni.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.labelImpostazioni.BackColor = System.Drawing.Color.Transparent;
+            this.labelImpostazioni.Depth = 0;
+            this.labelImpostazioni.EnableAnimations = true;
+            this.labelImpostazioni.Font = new System.Drawing.Font("Roboto", 11F);
+            this.labelImpostazioni.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.labelImpostazioni.Image = global::IngegneriaDelSoftware.Properties.Resources.ic_settings_white_24dp;
+            this.labelImpostazioni.Location = new System.Drawing.Point(664, 27);
+            this.labelImpostazioni.MouseState = MaterialSkin.MouseState.HOVER;
+            this.labelImpostazioni.Name = "labelImpostazioni";
+            this.labelImpostazioni.Size = new System.Drawing.Size(36, 36);
+            this.labelImpostazioni.TabIndex = 1;
+            this.labelImpostazioni.Click += new System.EventHandler(this.materialLabel1_Click);
+            // 
             // HomeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(712, 447);
+            this.Controls.Add(this.labelImpostazioni);
             this.Controls.Add(this.backGroundPanel);
             this.Name = "HomeForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Home";
             this.backGroundPanel.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -325,11 +325,11 @@ namespace IngegneriaDelSoftware.View {
         private MaterialSkin.Controls.MaterialFlatButton preventiviBtn;
         private MaterialSkin.Controls.MaterialFlatButton calendarioBtn;
         private MaterialSkin.Controls.MaterialFlatButton fattureBtn;
-        private MaterialSkin.Controls.MaterialFloatingActionButton syncBtn;
         private MaterialSkin.Controls.MaterialListView AppunamentiList;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private MaterialSkin.Controls.MaterialLabel labelImpostazioni;
     }
 }

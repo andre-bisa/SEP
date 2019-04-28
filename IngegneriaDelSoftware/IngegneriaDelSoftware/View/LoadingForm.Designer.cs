@@ -51,6 +51,7 @@ namespace IngegneriaDelSoftware.View {
             // 
             this.materialLabel1.AutoSize = true;
             this.materialLabel1.Depth = 0;
+            this.materialLabel1.EnableAnimations = false;
             this.materialLabel1.Font = new System.Drawing.Font("Roboto", 11F);
             this.materialLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.materialLabel1.Location = new System.Drawing.Point(12, 9);
@@ -64,6 +65,7 @@ namespace IngegneriaDelSoftware.View {
             // 
             this.StatusLabel.AutoSize = true;
             this.StatusLabel.Depth = 0;
+            this.StatusLabel.EnableAnimations = false;
             this.StatusLabel.Font = new System.Drawing.Font("Roboto", 11F);
             this.StatusLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(222)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.StatusLabel.Location = new System.Drawing.Point(22, 28);
@@ -95,6 +97,7 @@ namespace IngegneriaDelSoftware.View {
             this.Name = "LoadingForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LoadingForm";
             this.ResumeLayout(false);
             this.PerformLayout();

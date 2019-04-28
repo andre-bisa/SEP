@@ -221,6 +221,7 @@ namespace IngegneriaDelSoftware.View
             // 
             this.visualizzatoreClienti.FiltroCliente = null;
             this.visualizzatoreClienti.Location = new System.Drawing.Point(0, 0);
+            this.visualizzatoreClienti.Margin = new System.Windows.Forms.Padding(0);
             this.visualizzatoreClienti.Name = "visualizzatoreClienti";
             this.visualizzatoreClienti.PannelloForm = this.mainPanel;
             this.visualizzatoreClienti.Size = new System.Drawing.Size(240, 374);

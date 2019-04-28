@@ -36,11 +36,15 @@ namespace IngegneriaDelSoftware
     public partial class Login : MaterialForm
     {
 
-        private DialogResult _risultato = DialogResult.Cancel;
-
         public Login()
         {
             InitializeComponent();
+            materialLabelSettings.MouseEnter += (sender, args) =>
+            {
+                
+            };
+
+            this.DialogResult = DialogResult.Cancel;
             MaterialSkinManager.Instance.AddFormToManage(this);
 
             this.txtPassword.KeyDown += this.SubmitLogin;
@@ -67,7 +71,7 @@ namespace IngegneriaDelSoftware
                     FormConfim.Show("Errore accesso", "Errore, username e/o password errati.", MessageBoxButtons.OK);
                 else
                 {
-                    _risultato = DialogResult.OK;
+                    this.DialogResult = DialogResult.OK;
                     this.Close();
                 }
             } catch (Persistenza.ExceptionPersistenza)
@@ -77,9 +81,9 @@ namespace IngegneriaDelSoftware
             }
         }
 
-        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        private void materialLabelSettings_Click(object sender, EventArgs e)
         {
-            this.DialogResult = _risultato;
+            // Apertura delle impostazioni
         }
     }
 }

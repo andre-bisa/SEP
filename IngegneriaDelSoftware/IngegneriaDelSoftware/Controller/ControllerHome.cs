@@ -117,6 +117,7 @@ namespace IngegneriaDelSoftware.Controller {
         }
 
         public List<Appuntamento> AppuntamentiDiOggi() {
+            // XXX inserire gestione eventi per eliminazione, modifica ed inserimento di appuntamenti (per quanto riguarda l'agenda giornaliera)
             return Calendario.GetInstance().AppuntamentiDaA(DateTime.Now, DateTime.Now.AddDays(1));
         }
     }
