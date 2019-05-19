@@ -11,4 +11,4 @@ Il tutto realizzato con una grafica accattivante tramite l'utilizzo del Material
 # Autori
  - [chkrr00k](https://github.com/chkrr00k)
  - [Davide Giordano](https://github.com/davidegiordano)
- - Andrea Bisacchi [Github](https://github.com/andre-bisa) [Gitlab](https://gitlab.com/andreabisacchi)
+ - Andrea Bisacchi ()[Github](https://github.com/andre-bisa)-[Gitlab](https://gitlab.com/andreabisacchi))
