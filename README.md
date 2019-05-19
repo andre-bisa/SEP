@@ -8,6 +8,7 @@ Un programma che consente di:
 
 Il tutto realizzato con una grafica accattivante tramite l'utilizzo del Material Design.
 
-# Coautori
- - [Chkrr00k](https://github.com/chkrr00k)
+# Autori
+ - [chkrr00k](https://github.com/chkrr00k)
  - [Davide Giordano](https://github.com/davidegiordano)
+ - Andrea Bisacchi [Github](https://github.com/andre-bisa) [Gitlab](https://gitlab.com/andreabisacchi)
